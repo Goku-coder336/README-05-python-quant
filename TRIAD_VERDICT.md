@@ -14,8 +14,9 @@ It started from the "Bull Claude vs Bear Claude" idea: make the system argue wit
 pip install -r requirements.txt
 python -m triad_verdict              # download 10y of data, run the full ablation, write reports/
 python -m triad_verdict --offline    # reuse the CSVs already in data/
-python -m pytest -q tests            # 16 validation tests
+python -m pytest -q tests            # 17 validation tests
 python -m triad_verdict.validation  # out-of-sample test on unseen 2000-2016 data (~3 min)
+python -m triad_verdict.improvements  # trend filter + 50/50 core-shield test on both periods
 ```
 
 Options: `--period 5y`, `--capital 500000`, `--cooldown 0` (strict permanent freeze), `--log-level DEBUG` (every fill and close).
@@ -130,6 +131,26 @@ What did not hold up:
 - **The 10% breaker with cooldown does not cap total drawdown.** Each restart re-baselines, so drawdown reached −21%. Only the strict permanent freeze held it to −10.4%.
 
 **Honest conclusion:** treat this as a well-engineered research framework with a credible crisis-defence profile, not as a validated money-maker. The next steps would be a walk-forward design (re-choosing settings only on past data), adding a long-only trend bias for bull markets, and roll-adjusted futures data.
+
+## Two pre-registered improvements
+
+`python -m triad_verdict.improvements` tests two rules that were fixed before any result was seen and not tuned afterwards. Full output: [`reports/improvements_report.md`](reports/improvements_report.md).
+
+1. **Trend filter** (`TriadConfig(trend_filter=True)`): only trade in the direction of the 200-day trend.
+2. **Core + shield**: 50% equal-weight buy & hold, 50% Triad, rebalanced daily.
+
+| Return / Sharpe / max drawdown | Unseen 2000–2016 | Design 2017–2026 |
+|---|---|---|
+| 100% buy & hold | +270% / 0.64 / −39% | +326% / 1.04 / −23% |
+| 50% buy & hold + 50% cash (fair baseline) | +96% / 0.62 / −21% | +115% / 1.06 / −12% |
+| Triad | +53% / 0.40 / −21% | +58% / 0.64 / −14% |
+| Triad + trend filter | +55% / 0.41 / −22% | +78% / 0.75 / −13% |
+| **50% buy & hold + 50% filtered Triad** | **+152% / 0.72 / −17%** | **+183% / 1.13 / −15%** |
+
+- **The trend filter helps a little, in the same direction in both periods**, mostly in bull markets (2010–16 Sharpe 0.14 → 0.21; 2023–26 0.70 → 0.93). It does not fix the Triad's weakness in rising markets.
+- **The core + shield mix is the most robust finding.** Its Sharpe beat 100% buy & hold in *both* periods (0.72 vs 0.64, 1.13 vs 1.04), and its worst drop was much shallower than holding (−17% vs −39%, −15% vs −23%). It works because the Triad's daily returns are only weakly correlated with holding (+0.15 and +0.31), and it tends to make money in crashes (2008: +25%).
+- **Against the fair baseline it is a modest edge.** Compared with 50% holding and 50% cash, the mix earned more and had a better Sharpe in both periods. Its worst drop was smaller on unseen data (−17% vs −21%) but larger on design data (−15% vs −12%).
+- **The Triad alone is path-dependent.** Starting the design-period run one year earlier (Dec 2016 instead of Nov 2017) changed its return from +81% to +58%, mostly because circuit-breaker timing changes. That is another reason to use it as a shield, not on its own.
 
 ### Known limitations
 

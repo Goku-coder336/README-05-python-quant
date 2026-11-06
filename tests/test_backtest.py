@@ -1,4 +1,5 @@
 import math
+import pandas as pd
 
 from triad_verdict.backtest import TriadBacktester
 from triad_verdict.config import RiskConfig, TriadConfig
@@ -47,3 +48,16 @@ def test_no_trade_risks_more_than_two_percent(synth):
         prior = eq[eq.index.date < t.entry_date]
         equity_at_entry = prior.iloc[-1] if len(prior) else res.config.initial_capital
         assert t.risk_amount <= 0.02 * equity_at_entry * 1.0001
+
+
+def test_trend_filter_never_trades_against_200_day_trend(synth):
+    data = _data(synth)
+    bt = TriadBacktester(TriadConfig(trend_filter=True), data)
+    res = bt.run()
+    assert res.trades
+    for t in res.trades:
+        f = bt.features[t.asset]
+        signal_day = f.index[f.index.get_loc(pd.Timestamp(t.entry_date)) - 1]
+        row = f.loc[signal_day]
+        trend = 1 if row["close"] > row["ma200"] else -1
+        assert t.direction.value == trend

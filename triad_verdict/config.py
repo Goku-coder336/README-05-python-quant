@@ -89,6 +89,8 @@ class TriadConfig(BaseModel):
     use_skeptic: bool = True
     use_adaptive_trust: bool = True
     skeptic_self_calibration: bool = True
+    trend_filter: bool = Field(default=False,
+                               description="Never trade against the 200-day trend (close vs MA200)")
     initial_capital: float = Field(default=1_000_000.0, gt=0)
     data_period: str = "10y"
     warmup_bars: int = Field(default=260, ge=210,

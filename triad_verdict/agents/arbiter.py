@@ -132,6 +132,11 @@ class ArbiterAgent:
             return verdict(Action.SKIP, extra=f"|composite| below entry threshold {threshold}"), None
 
         direction = Direction.from_score(score)
+        if self.cfg.trend_filter:
+            trend = Direction.LONG if s.close > s.ma200 else Direction.SHORT
+            if direction != trend:
+                return verdict(Action.SKIP, extra=f"trend filter: no {direction.name} trades while price is "
+                                                  f"{'above' if trend == Direction.LONG else 'below'} the 200-day average"), None
         brief: Optional[SkepticBrief] = None
         doubt = 0.0
         if skeptic_fn is not None:
