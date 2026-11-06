@@ -15,6 +15,7 @@ pip install -r requirements.txt
 python -m triad_verdict              # download 10y of data, run the full ablation, write reports/
 python -m triad_verdict --offline    # reuse the CSVs already in data/
 python -m pytest -q tests            # 16 validation tests
+python -m triad_verdict.validation  # out-of-sample test on unseen 2000-2016 data (~3 min)
 ```
 
 Options: `--period 5y`, `--capital 500000`, `--cooldown 0` (strict permanent freeze), `--log-level DEBUG` (every fill and close).
@@ -100,11 +101,35 @@ Full table, benchmarks and today's debate: [`reports/backtest_report.md`](report
 
 ### What the numbers do and don't say
 
-- **Each layer helps on this sample.** Going from the prototype rules to the full Triad roughly doubles Sharpe (0.44 → 0.85) and cuts max drawdown from −21.7% to −12.3%.
+- **Each layer helps on this sample** (but see the out-of-sample section below: the gain over the prototype did not hold on unseen data). Going from the prototype rules to the full Triad roughly doubles Sharpe (0.44 → 0.85) and cuts max drawdown from −21.7% to −12.3%.
 - **The Skeptic's value is mostly in sizing, not vetoes.** The veto audit replays every vetoed idea. Vetoed ideas would have won about as often as cleared ones (~40% vs ~39%), so vetoes are roughly neutral at picking losers. The doubt-based size haircut alone lifts Sharpe from 0.64 to 0.78. The first (static) Skeptic actively vetoed winners (45.6% vs 38.4% when it was the headline variant). Self-calibration narrowed that gap, but the static version still ended with a slightly higher Sharpe (0.88 vs 0.85). That is a reminder of how noisy differences of this size are on about 300 trades.
 - **It does not beat passive on a risk-adjusted basis.** Equal-weight buy & hold of the three contracts had Sharpe ≈ 1.00 (with a −23% drawdown) over a decade of strong equity and gold markets. The Triad's case is drawdown control and a defined risk per idea, not out-earning a bull market.
 - **The strict 10% freeze ends the test in April 2018.** All variants hit 10% in the Feb–Apr 2018 volatility shock. With a literal permanent freeze, the system then sits in cash for 8.5 years. That is why the default is a 20-bar cooldown with half-risk recovery. Because the breaker re-baselines after a cooldown, total max drawdown can exceed 10% (−12.3% here).
 - **This is in-sample.** Indicator settings and thresholds were chosen up front and not optimised. Still, the ablation was run on the same decade it is reported on, so treat it as evidence, not proof. The natural next step is a walk-forward or out-of-sample split.
+
+## Out-of-sample validation (unseen 2000–2016 data)
+
+`python -m triad_verdict.validation` runs the same ladder on 2000-09 → 2016-11. That data was never used while building the system, and no setting was changed after seeing it. Full output: [`reports/out_of_sample_report.md`](reports/out_of_sample_report.md).
+
+| Unseen 2000–2016 | Prototype (base rules) | Triad, no Skeptic | **Triad Verdict (full)** | Equal-weight buy & hold |
+|---|---|---|---|---|
+| Total return | +90.6% | +20.2% | **+53.2%** | +276.4% |
+| Sharpe | 0.43 | 0.19 | **0.40** | 0.65 |
+| Max drawdown | −25.4% | −28.8% | **−21.3%** | −38.7% |
+
+**Verdict: the improvement over the prototype did not survive.** On unseen data the full Triad's Sharpe (0.40) is no better than the original prototype's (0.43), and buy & hold beat both. What did hold up:
+
+- **Crisis protection.** In 2008–09 the Triad made +24.9% (Sharpe 1.45, worst drop −5.7%) while buy & hold went nowhere with a −37.8% drawdown.
+- **The Skeptic still helps within the Triad.** Adding it lifts Sharpe from 0.19 to 0.40.
+- **Shallower drawdowns** than holding: −21% vs −39%.
+
+What did not hold up:
+
+- **Bull markets.** In 2010–16 the Triad made only +4% while buy & hold made +83%.
+- **Robustness.** Moving one setting at a time gives Sharpe anywhere from 0.17 to 0.62, so results depend on settings more than a robust system should. A tighter 2.0× ATR stop scored best (0.62). Adopting it now would be fitting to this test, though, so the headline settings are unchanged.
+- **The 10% breaker with cooldown does not cap total drawdown.** Each restart re-baselines, so drawdown reached −21%. Only the strict permanent freeze held it to −10.4%.
+
+**Honest conclusion:** treat this as a well-engineered research framework with a credible crisis-defence profile, not as a validated money-maker. The next steps would be a walk-forward design (re-choosing settings only on past data), adding a long-only trend bias for bull markets, and roll-adjusted futures data.
 
 ### Known limitations
 
