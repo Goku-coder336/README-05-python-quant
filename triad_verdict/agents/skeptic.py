@@ -72,7 +72,7 @@ class FlagLedger:
             lost = (low <= sh.stop) if d > 0 else (high >= sh.stop)
             won = (high >= sh.target) if d > 0 else (low <= sh.target)
             if lost or won:
-                self._grade(sh.codes, lost)
+                self._grade(sh.codes, bool(lost))
             elif bar - start < self.max_bars:
                 keep.append((start, sh))
         self.open[asset] = keep

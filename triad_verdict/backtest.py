@@ -425,7 +425,7 @@ class TriadBacktester:
         self.cash += gross - fee
         pnl = gross - fee - pos.commission_paid
         r_mult = pnl / pos.risk_amount if pos.risk_amount > 0 else 0.0
-        self.outcomes[asset].append(pnl > 0)
+        self.outcomes[asset].append(bool(pnl > 0))
         self.trades.append(Trade(
             asset=asset, direction=pos.direction, entry_date=pos.entry_date, exit_date=when,
             entry_price=round(pos.entry_price, 4), exit_price=round(float(price), 4), units=pos.units,

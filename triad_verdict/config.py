@@ -5,7 +5,7 @@ one serialisable object (it is printed at the top of every report).
 """
 from __future__ import annotations
 
-from typing import Literal
+from typing import Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -63,7 +63,7 @@ class RiskConfig(BaseModel):
                                                 "same-direction positions (e.g. long NQ + long ES)")
     cluster_corr_threshold: float = Field(default=0.7, ge=0, le=1)
     corr_window: int = Field(default=60, ge=20)
-    breaker_cooldown_bars: int | None = Field(
+    breaker_cooldown_bars: Optional[int] = Field(
         default=None, ge=1,
         description="None = strict: freeze for the rest of the run. N = after N bars, reset the "
                     "high-water mark and resume at reduced risk until the old peak is recovered")
