@@ -130,3 +130,13 @@ python-portfolio-optimisation/
 **Degree:** MSc Finance & Economics
 **Year:** 2024–2025
 **Data:** Real equity data (AAPL, MSFT, NVDA, AMZN, META, JPM) — Feb 2019 to Feb 2024
+
+---
+
+## ⚖️ New: The Triad Verdict (multi-agent futures backtester)
+
+A multi-agent debate system (Historian, Realist, Skeptic, Arbiter) for NQ, ES and Gold futures, with ATR trailing stops, 2% risk caps, Kelly sizing, a 10% drawdown circuit breaker and an event-driven backtester. See **[TRIAD_VERDICT.md](TRIAD_VERDICT.md)** and the latest **[backtest report](reports/backtest_report.md)**.
+
+```bash
+pip install -r requirements.txt && python -m triad_verdict
+```
