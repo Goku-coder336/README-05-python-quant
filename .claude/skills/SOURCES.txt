@@ -1,0 +1,4 @@
+https://github.com/remotion-dev/skills @ a2824c6
+https://github.com/feitangyuan/onetake @ abb6d17
+https://github.com/lemomo-ai/lemo-opuscar @ 143f387
+https://github.com/Leonxlnx/earshot @ 4ac3d2a
