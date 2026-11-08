@@ -53,7 +53,7 @@ A YouTube series. Each episode covers one Champions League winner's full run, fr
 ## Episode status
 
 ### Episode 1: Barcelona 2014/15
-Steps 1 and 2 done (by the user). Step 3 done: `episodes/01-barcelona-2014-15/script.md` (hook B, the Messi paradox). Step 4 done: `episodes/01-barcelona-2014-15/shotlist.md` (clip codes C1 to C5, three YOUR CHART slots). Step 5 done: all 12 clips in `episodes/01-barcelona-2014-15/clips/` (MP4, 1920x1080, 30 fps, each at its minimum length), remade in Remotion at the user's request: project `episodes/01-barcelona-2014-15/remotion/`, render with `sh render-clips.sh`. The first matplotlib versions are in git history; `code/` still holds the StatsBomb check and `export_remotion_data.py`. Contact sheet `clips/contact_sheet.png`. StatsBomb figures for the final re-checked before rendering and all match this file. Waiting for the user's change notes on the clips. Step 6 title choice: option (c), a plain series title ("Run of the Champions: Barcelona 2014/15") with the hook in the thumbnail text. Next: Step 6. Charts and run_goals.csv are not in the repo yet.
+Steps 1 and 2 done (by the user). Step 3 done: `episodes/01-barcelona-2014-15/script.md` (hook B, the Messi paradox). Step 4 done: `episodes/01-barcelona-2014-15/shotlist.md` (clip codes C1 to C5, three YOUR CHART slots). Step 5 done: all 12 clips in `episodes/01-barcelona-2014-15/clips/` (MP4, 1920x1080, 30 fps, each at its minimum length), remade in Remotion at the user's request: project `episodes/01-barcelona-2014-15/remotion/`, render with `sh render-clips.sh`. The first matplotlib versions are in git history; `code/` still holds the StatsBomb check and `export_remotion_data.py`. Contact sheet `clips/contact_sheet.png`. StatsBomb figures for the final re-checked before rendering and all match this file. Waiting for the user's change notes on the clips. Step 6 done: `episodes/01-barcelona-2014-15/capcut_guide.md` (assembly guide with sync words) and `youtube.md` (title option c, "Run of the Champions: Barcelona 2014/15"; thumbnail text "8 GOALS. THEN 2."; description with chapters and checked source links). Chapter times there are script estimates until the user's final edit. Next: Step 7. Charts and run_goals.csv are not in the repo yet.
 
 Verified run (Barcelona score first):
 - MD1 APOEL home W 1-0 (Piqué)
@@ -73,6 +73,8 @@ Key findings (verified):
 - Messi scored 8 of 15 group goals but 2 of 16 knockout goals. Neymar (7) and Suárez (5) scored
   12 of the 16 knockout goals.
 - Messi was the competition's top assister with 6. Messi, Neymar and Ronaldo shared top scorer on 10.
+  Sources disagree on assists: UEFA (official) has Messi top on 6; ESPN's stats page has Iniesta 5,
+  Messi 4. The episode uses UEFA's figure and cites it.
 - StatsBomb final data: Barcelona 2.27 xG from 17 shots, Juventus 1.38 xG from 15 shots (UEFA
   official shots: 18 v 14, so say "according to StatsBomb"). Passes 600 v 377. Pressures: Juventus
   144, Barcelona 122. Messi had the most on-ball actions for Barcelona (290, 71 passes).
