@@ -51,7 +51,7 @@ A YouTube series. Each episode covers one Champions League winner's full run, fr
 ## Episode status
 
 ### Episode 1: Barcelona 2014/15
-Steps 1 and 2 done (by the user). Next: Step 3.
+Steps 1 and 2 done (by the user). Step 3 done: `episodes/01-barcelona-2014-15/script.md` (hook B, the Messi paradox). Next: Step 4. Charts and run_goals.csv are not in the repo yet.
 
 Verified run (Barcelona score first):
 - MD1 APOEL home W 1-0 (Piqué)
