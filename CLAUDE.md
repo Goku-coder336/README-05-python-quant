@@ -1,0 +1,86 @@
+# Run of the Champions: project rules
+
+A YouTube series. Each episode covers one Champions League winner's full run, from the group stage
+(or the league phase from 2024/25) to the final, for every final from 2014/15 to 2025/26.
+
+## Roles
+- The user makes the analysis choices, picks the patterns, edits the video and publishes it.
+- The user does NOT write code. Claude writes and runs all code and hands over finished files.
+
+## Format
+- Long-form YouTube, horizontal 16:9 (1920x1080), 5 to 8 minutes.
+- AI voiceover (CapCut text-to-speech). Write scripts for the ear: short sentences, about 150 words
+  per minute, 800 to 1,200 words.
+- Chapters: hook, context, group stage (or league phase), each knockout round, the final, verdict.
+- The user edits in CapCut. Deliver ready-made MP4 clips and PNG charts, plus a shot list that says
+  which clip goes with which part of the script.
+
+## Visuals
+- Animated clips: 2D pitch with player dots, passing lanes, pressing patterns, route charts.
+- Render as MP4, 1920x1080, 30 fps, dark background `#1a1a19`.
+- Tools: Python, matplotlib animation + ffmpeg, mplsoccer for pitches.
+- Any animated recreation of a real goal must say "reconstruction" on screen.
+- Every chart that uses StatsBomb data carries the credit "Data: StatsBomb open data".
+- No broadcast footage, club badges or UEFA logos. Player names are fine.
+
+## Data and facts
+- StatsBomb open data (free, via `statsbombpy`) covers Champions League finals only up to 2018/19.
+- For later finals, and for every non-final match, use verified results only. Never invent stats.
+- Only use facts the user has verified, or facts Claude verifies from a reliable source and cites.
+- If two sources disagree, tell the user and do not pick one silently.
+- When StatsBomb and UEFA figures differ (for example shot counts), say "according to StatsBomb".
+
+## Writing style
+- British spelling.
+- No em dashes anywhere (scripts, captions, descriptions, charts, posts, this file).
+- No AI buzzwords: leverage, robust, seamless, transformative, impactful, game-changer.
+
+## Way of working
+- Work step by step. Before each new step, stop and ask the user a question.
+  Do not move on until they answer.
+
+## Episode pipeline
+1. Verified run
+2. Data and charts
+3. Voiceover script with timestamps and chapter titles
+4. Shot list matching each script line to a chart or clip
+5. Render the animated clips (MP4)
+6. CapCut assembly guide, YouTube title, description with sources and chapters, thumbnail text
+7. LinkedIn post version of the analysis, in the user's voice
+
+## Episode status
+
+### Episode 1: Barcelona 2014/15
+Steps 1 and 2 done (by the user). Next: Step 3.
+
+Verified run (Barcelona score first):
+- MD1 APOEL home W 1-0 (Piqué)
+- MD2 PSG away L 2-3 (Messi, Neymar)
+- MD3 Ajax home W 3-1 (Neymar, Messi, Sandro)
+- MD4 Ajax away W 2-0 (Messi 2)
+- MD5 APOEL away W 4-0 (Messi 3, Suárez)
+- MD6 PSG home W 3-1 (Messi, Neymar, Suárez). Won Group F, 15 pts, PSG 13.
+- R16 Man City away W 2-1 (Suárez 2), home W 1-0 (Rakitić). Agg 3-1
+- QF PSG away W 3-1 (Neymar, Suárez 2), home W 2-0 (Neymar 2). Agg 5-1
+- SF Bayern home W 3-0 (Messi 2, Neymar), away L 2-3 (Neymar 2). Agg 5-3
+- Final, 6 June 2015, Olympiastadion Berlin: Juventus 1-3 Barcelona.
+  Rakitić 4', Morata 55', Suárez 68', Neymar 90+7'. Man of the Match: Iniesta.
+- Totals: 13 played, 11 won, 2 lost (both away), 31 scored, 11 conceded.
+
+Key findings (verified):
+- Messi scored 8 of 15 group goals but 2 of 16 knockout goals. Neymar (7) and Suárez (5) scored
+  12 of the 16 knockout goals.
+- Messi was the competition's top assister with 6. Messi, Neymar and Ronaldo shared top scorer on 10.
+- StatsBomb final data: Barcelona 2.27 xG from 17 shots, Juventus 1.38 xG from 15 shots (UEFA
+  official shots: 18 v 14, so say "according to StatsBomb"). Passes 600 v 377. Pressures: Juventus
+  144, Barcelona 122. Messi had the most on-ball actions for Barcelona (290, 71 passes).
+- Second treble for Barcelona; first European club to win the treble twice.
+- Xavi's 767th and final Barcelona appearance.
+- Luis Enrique's first season; he called it "a transitional year". The same coach later won the
+  Champions League with PSG in 2025 and 2026.
+
+Chosen angle: the Luis Enrique bookend as the series frame, with "Messi went from scorer to creator
+while Neymar and Suárez took over the goals" as the analysis inside it.
+
+Planned Step 5 clips: route chart build-up, scorer split animation, final xG timeline, shot map, and a
+labelled reconstruction of Rakitić's 4th-minute goal from StatsBomb event data.
