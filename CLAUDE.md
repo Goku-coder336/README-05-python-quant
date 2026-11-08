@@ -18,7 +18,9 @@ A YouTube series. Each episode covers one Champions League winner's full run, fr
 ## Visuals
 - Animated clips: 2D pitch with player dots, passing lanes, pressing patterns, route charts.
 - Render as MP4, 1920x1080, 30 fps, dark background `#1a1a19`.
-- Tools: Python, matplotlib animation + ffmpeg, mplsoccer for pitches.
+- Tools: Remotion (React, in each episode's `remotion/` folder) for the animated clips, Python
+  (`statsbombpy`) to check and export the data the clips use. The user switched from matplotlib to
+  Remotion in Episode 1 Step 5. Rendering needs `remotion.media` on the environment's allowed hosts.
 - Any animated recreation of a real goal must say "reconstruction" on screen.
 - Every chart that uses StatsBomb data carries the credit "Data: StatsBomb open data".
 - No broadcast footage, club badges or UEFA logos. Player names are fine.
@@ -51,7 +53,7 @@ A YouTube series. Each episode covers one Champions League winner's full run, fr
 ## Episode status
 
 ### Episode 1: Barcelona 2014/15
-Steps 1 and 2 done (by the user). Step 3 done: `episodes/01-barcelona-2014-15/script.md` (hook B, the Messi paradox). Step 4 done: `episodes/01-barcelona-2014-15/shotlist.md` (clip codes C1 to C5, three YOUR CHART slots). Step 5 done (first pass): all 12 clips rendered to `episodes/01-barcelona-2014-15/clips/` (MP4, 1920x1080, 30 fps, each at its minimum length), code in `episodes/01-barcelona-2014-15/code/` (`python render_all.py`), contact sheet `clips/contact_sheet.png`. StatsBomb figures for the final re-checked before rendering and all match this file. Waiting for the user's change notes on the clips. Next: Step 6. Charts and run_goals.csv are not in the repo yet.
+Steps 1 and 2 done (by the user). Step 3 done: `episodes/01-barcelona-2014-15/script.md` (hook B, the Messi paradox). Step 4 done: `episodes/01-barcelona-2014-15/shotlist.md` (clip codes C1 to C5, three YOUR CHART slots). Step 5 done: all 12 clips in `episodes/01-barcelona-2014-15/clips/` (MP4, 1920x1080, 30 fps, each at its minimum length), remade in Remotion at the user's request: project `episodes/01-barcelona-2014-15/remotion/`, render with `sh render-clips.sh`. The first matplotlib versions are in git history; `code/` still holds the StatsBomb check and `export_remotion_data.py`. Contact sheet `clips/contact_sheet.png`. StatsBomb figures for the final re-checked before rendering and all match this file. Waiting for the user's change notes on the clips. Step 6 title choice: option (c), a plain series title ("Run of the Champions: Barcelona 2014/15") with the hook in the thumbnail text. Next: Step 6. Charts and run_goals.csv are not in the repo yet.
 
 Verified run (Barcelona score first):
 - MD1 APOEL home W 1-0 (Piqué)
