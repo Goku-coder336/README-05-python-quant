@@ -51,7 +51,7 @@ A YouTube series. Each episode covers one Champions League winner's full run, fr
 ## Episode status
 
 ### Episode 1: Barcelona 2014/15
-Steps 1 and 2 done (by the user). Step 3 done: `episodes/01-barcelona-2014-15/script.md` (hook B, the Messi paradox). Step 4 done: `episodes/01-barcelona-2014-15/shotlist.md` (clip codes C1 to C5, three YOUR CHART slots). Step 5 clip list (12 clips in shotlist.md) approved by the user as is; they will send changes after the final output, so render everything first. Next: Step 5. Charts and run_goals.csv are not in the repo yet.
+Steps 1 and 2 done (by the user). Step 3 done: `episodes/01-barcelona-2014-15/script.md` (hook B, the Messi paradox). Step 4 done: `episodes/01-barcelona-2014-15/shotlist.md` (clip codes C1 to C5, three YOUR CHART slots). Step 5 done (first pass): all 12 clips rendered to `episodes/01-barcelona-2014-15/clips/` (MP4, 1920x1080, 30 fps, each at its minimum length), code in `episodes/01-barcelona-2014-15/code/` (`python render_all.py`), contact sheet `clips/contact_sheet.png`. StatsBomb figures for the final re-checked before rendering and all match this file. Waiting for the user's change notes on the clips. Next: Step 6. Charts and run_goals.csv are not in the repo yet.
 
 Verified run (Barcelona score first):
 - MD1 APOEL home W 1-0 (Piqué)
