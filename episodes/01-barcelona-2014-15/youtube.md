@@ -22,8 +22,8 @@ Alternatives if you want something else:
 
 ## Description
 
-Paste everything between the lines. Update the chapter times to your final edit first (see the note under
-the chapters).
+Paste everything between the lines. The chapter times match the finished video in
+`publish/episode1_barcelona_2014-15.mp4`.
 
 ---
 
@@ -37,13 +37,13 @@ from 2014/15 to 2025/26. This is Episode 1.
 
 Chapters
 0:00 Hook: The Messi paradox
-0:30 Context: A transitional year
-1:02 Group stage: The Messi show
-1:58 Round of 16: Manchester City
-2:25 Quarter-final: PSG, third time
-2:50 Semi-final: Bayern Munich
-3:36 The final: Berlin
-4:48 Verdict: A transitional year?
+0:29 Context: A transitional year
+0:57 Group stage: The Messi show
+1:51 Round of 16: Manchester City
+2:17 Quarter-final: PSG, third time
+2:45 Semi-final: Bayern Munich
+3:27 The final: Berlin
+4:42 Verdict: A transitional year?
 
 Sources
 Final result, scorers and match stats: UEFA
@@ -66,12 +66,12 @@ https://github.com/statsbomb/open-data
 
 Data: StatsBomb open data. Shot counts for the final are StatsBomb's (17 v 15); UEFA's official count is
 18 v 14. The Rakitić goal animation is a reconstruction from event data, not match footage. Voiceover
-made with text-to-speech.
+made with text-to-speech (Kokoro).
 
 #ChampionsLeague #Barcelona #Messi
 
 ---
 
-**Chapter note:** the times above come from the script estimates. After your final export, replace each
-one with the real start time of that chapter's first line. YouTube needs the first chapter at 0:00, at
-least three chapters, and each chapter at least 10 seconds long. All eight here meet that.
+**Chapter note:** these times are measured from the finished video I rendered. If you re-edit it in CapCut,
+replace each one with the new start time of that chapter. YouTube needs the first chapter at 0:00, at least
+three chapters, and each chapter at least 10 seconds long.

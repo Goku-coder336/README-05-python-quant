@@ -5,7 +5,8 @@ order: video first, then the blog post that embeds it, then share the links.
 
 | what | file |
 |---|---|
-| Edit guide | `../capcut_guide.md` |
+| **Finished video (voiceover, clips, cards, charts)** | `episode1_barcelona_2014-15.mp4` |
+| Edit guide (only if you re-edit in CapCut) | `../capcut_guide.md` |
 | Title, description, chapters | `../youtube.md` |
 | Thumbnail (1280x720, ready to upload) | `thumbnail.png` |
 | Blog post | `blog_post.md` |
@@ -23,11 +24,12 @@ order: video first, then the blog post that embeds it, then share the links.
 
 ### Upload the episode
 
-1. Studio > **Create > Upload videos**, and pick your CapCut export.
+1. Studio > **Create > Upload videos**, and pick `episode1_barcelona_2014-15.mp4` (or your own CapCut
+   export if you re-edit it).
 2. **Details**
    - Title: copy from `youtube.md`.
-   - Description: copy the block between the lines in `youtube.md`. Update the chapter times to your
-     final edit first.
+   - Description: copy the block between the lines in `youtube.md`. The chapter times already match the
+     finished video.
    - Thumbnail: upload `thumbnail.png`.
    - Playlist: Run of the Champions.
    - Audience: **No, it's not made for kids**.

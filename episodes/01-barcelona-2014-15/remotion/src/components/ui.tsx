@@ -1,12 +1,20 @@
-import React from "react";
+import React, { createContext, useContext } from "react";
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from "remotion";
 import { BG, CREDIT, FONT, H, MUTED, TEXT, W } from "../theme";
 
-/** Current time in seconds. */
+/**
+ * Optional clock for a clip placed in the full episode: maps seconds since the clip's sequence
+ * started to the clip's own timeline, so its reveals follow the real voiceover.
+ */
+export const ClipClock = createContext<((s: number) => number) | null>(null);
+
+/** Current time in seconds (on the clip's own timeline). */
 export const useT = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  return frame / fps;
+  const clock = useContext(ClipClock);
+  const s = frame / fps;
+  return clock ? clock(s) : s;
 };
 
 /** Full-frame SVG stage in pixel coordinates (origin top left). */

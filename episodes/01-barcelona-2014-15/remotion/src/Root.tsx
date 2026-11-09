@@ -5,6 +5,7 @@ import { C3, C4, C5 } from "./clips/Final";
 import { CFG_C2, CFG_C2A, CFG_C2B, CFG_C2C, CFG_C2D, CFG_C2E, CFG_C2F, Route } from "./clips/Route";
 import "./fonts";
 import { Thumbnail } from "./Thumbnail";
+import { EPISODE_SECONDS, Episode } from "./episode/Episode";
 
 // Episode 1 (Barcelona 2014/15), Step 5 clips. 1920x1080, 30 fps.
 // Each duration is the clip's minimum length from shotlist.md.
@@ -23,6 +24,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="C3-final-xg-timeline" component={C3} durationInFrames={32 * 30} fps={30} width={1920} height={1080} />
       <Composition id="C4-final-shot-map" component={C4} durationInFrames={12 * 30} fps={30} width={1920} height={1080} />
       <Composition id="C5-rakitic-goal-reconstruction" component={C5} durationInFrames={10 * 30} fps={30} width={1920} height={1080} />
+      <Composition id="Episode1-full" component={Episode} durationInFrames={Math.ceil(EPISODE_SECONDS * 30)} fps={30} width={1920} height={1080} />
       <Still id="Thumbnail" component={Thumbnail} width={1280} height={720} />
     </Folder>
   );

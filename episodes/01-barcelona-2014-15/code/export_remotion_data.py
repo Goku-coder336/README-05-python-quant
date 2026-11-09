@@ -43,8 +43,21 @@ def main():
     freeze = [{"name": SHORT.get(p["player"]["name"], p["player"]["name"]), "loc": p["location"],
                "teammate": p["teammate"]} for p in shot.shot_freeze_frame]
 
+    # Messi in the final (L60): every pass, and his event count (CLAUDE.md: 290 and 71)
+    m = ev[ev.player == "Lionel Andrés Messi Cuccittini"]
+    mp = m[m.type == "Pass"]
+    per_player = ev[ev.team == "Barcelona"].groupby("player").size()
+    assert len(m) == 290 and len(mp) == 71 and per_player.idxmax() == "Lionel Andrés Messi Cuccittini", \
+        "Messi figures differ from CLAUDE.md"
+    messi = {
+        "events": int(len(m)),
+        "passes": [{"from": r.location, "to": r.pass_end_location, "complete": not isinstance(r.pass_outcome, str)}
+                   for _, r in mp.iterrows()],
+    }
+
     data = {
         "source": "StatsBomb open data, match 18242 (Juventus 1-3 Barcelona, 6 June 2015)",
+        "messi": messi,
         "totals": {f"{k[0]}_{k[1]}": v for k, v in totals.items()},
         "shots": shots,
         "rakitic": {"segments": segs, "freeze": freeze},
