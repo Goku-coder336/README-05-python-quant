@@ -9,9 +9,10 @@ import { C3, C4, C5 } from "../clips/Final";
 import { CFG_C2, CFG_C2A, CFG_C2B, CFG_C2C, CFG_C2D, CFG_C2E, CFG_C2F, Route } from "../clips/Route";
 import { ClipClock } from "../components/ui";
 import voice from "../data/voice.json";
-import { BG } from "../theme";
+import { BG, MESSI, NEYMAR, SUAREZ } from "../theme";
+import { AwardsPhotoCard, ForwardsScene, MessiPhotoScene, PipPhoto } from "./PhotoScenes";
 import {
-  AwardsCard, BookendCard, EndCard, EnriqueCard, LowerThird, MessiFinalChart, ScorersChart, SeriesCard,
+  BookendCard, EndCard, EnriqueCard, LowerThird, MessiFinalChart, ScorersChart, SeriesCard,
 } from "./Cards";
 
 type Line = { line: number; start: number; end: number; est: number; text: string };
@@ -67,9 +68,21 @@ const clip = (el: React.ReactNode, clock: (s: number) => number) => (
 // Visual timeline, in script order (shotlist.md). `from` is the first line the visual covers.
 const SEGS: Seg[] = [
   { from: 1, node: (s) => clip(<C1a />, clipClock(1, 5, s)) },
+  // L03 to L05: Messi photo; 'Finisher.' and 'Supplier.' land on the words in L04
+  {
+    from: 3,
+    node: (s) =>
+      clip(<MessiPhotoScene finisherAt={wordAt(4, "finisher") - s} supplierAt={wordAt(4, "supplier") - s} dur={L(6).start - s} />, (x) => x),
+  },
   { from: 6, node: () => <SeriesCard /> },
   { from: 7, node: (s) => clip(<EnriqueCard quoteAt={wordAt(8, "transitional") - s} />, (x) => x) },
-  { from: 10, node: (s) => clip(<Route cfg={CFG_C2} />, clipClock(10, 13, s)) },
+  // L10 to L11: the three forwards, each photo on its name; the route intro follows on L12
+  {
+    from: 10,
+    node: (s) =>
+      clip(<ForwardsScene at={[wordAt(10, "Messi.") - s, wordAt(10, "Neymar.") - s, wordAt(10, "Luis") - s]} />, (x) => x),
+  },
+  { from: 12, node: (s) => clip(<Route cfg={CFG_C2} />, clipClock(10, 13, s)) },
   { from: 14, node: (s) => clip(<Route cfg={CFG_C2A} />, clipClock(14, 22, s)) },
   // L23 to L24: chart slot for group goals by scorer. Stand-in: C1b held on the group-stage half.
   { from: 23, node: () => clip(<C1b />, () => 9.0) },
@@ -97,7 +110,7 @@ const SEGS: Seg[] = [
   },
   // L60: chart slot for Messi in the final (StatsBomb)
   { from: 60, node: (s) => clip(<MessiFinalChart passesAt={wordAt(60, "Seventy") - s - 1.5} />, (x) => x) },
-  { from: 61, node: (s) => clip(<AwardsCard xaviAt={L(62).start - s} />, (x) => x) },
+  { from: 61, node: (s) => clip(<AwardsPhotoCard xaviAt={L(62).start - s} />, (x) => x) },
   { from: 63, node: (s) => clip(<Route cfg={CFG_C2F} />, clipClock(63, 66, s)) },
   // L67 to L74: C1b part two (its own timeline puts L67 at 5 s)
   { from: 67, node: (s) => clip(<C1b />, clipClock(67, 74, s, 5.0)) },
@@ -117,6 +130,19 @@ const SEGS: Seg[] = [
   { from: 78, node: () => <EndCard /> },
 ];
 
+// Photos laid over the route charts, in the space each chart leaves empty: [start s, end s, node]
+const OVERLAYS: [number, number, (dur: number) => React.ReactNode][] = [
+  // L28 to L29: 'Both goals came from Suárez'
+  [wordAt(28, "Both"), L(30).start, (d) => clip(
+    <PipPhoto photo="suarez_super" crop={[0.45, 0.24, 0.42, 0]} name="Suárez" color={SUAREZ} x={1300} y={250} w={330} h={400} outAt={d - 0.4} />, (x) => x)],
+  // L34 to L36: Neymar's goals against PSG
+  [L(34).start, L(37).start, (d) => clip(
+    <PipPhoto photo="neymar_b" crop={[0.23, 0.05, 0.778, 0]} name="Neymar" color={NEYMAR} x={1240} y={250} w={560} h={360} outAt={d - 0.4} />, (x) => x)],
+  // L40: 'This is where Messi did score. Twice'
+  [L(40).start, L(41).start, (d) => clip(
+    <PipPhoto photo="messi_a" crop={[0.252, 0.24, 0.306, 0]} name="Messi" color={MESSI} x={1500} y={250} w={330} h={360} outAt={d - 0.4} />, (x) => x)],
+];
+
 export const Episode: React.FC = () => {
   const { fps, durationInFrames } = useVideoConfig();
   return (
@@ -129,6 +155,15 @@ export const Episode: React.FC = () => {
         return (
           <Sequence key={seg.from} from={from} durationInFrames={dur} name={`L${String(seg.from).padStart(2, "0")}`}>
             {seg.node(from / fps)}
+          </Sequence>
+        );
+      })}
+      {OVERLAYS.map(([a, b, node], i) => {
+        const from = Math.round(a * fps);
+        const dur = Math.round(b * fps) - from;
+        return (
+          <Sequence key={`o${i}`} from={from} durationInFrames={dur} name={`photo ${i + 1}`}>
+            {node(dur / fps)}
           </Sequence>
         );
       })}

@@ -68,6 +68,16 @@ Data: StatsBomb open data. Shot counts for the final are StatsBomb's (17 v 15); 
 18 v 14. The Rakitić goal animation is a reconstruction from event data, not match footage. Voiceover
 made with text-to-speech (Kokoro).
 
+Photos (Wikimedia Commons, free licences):
+Lionel Messi, Camp Nou, September 2014: Ank Kumar, CC BY-SA 4.0
+https://commons.wikimedia.org/wiki/File:Lionel_Messi_in_a_La_Liga_match_at_Camp_Nou,_Barcelona_(_Ank_Kumar,_Infosys_Limited)_01.jpg
+Neymar, February 2015: Alex Fau, CC BY 2.0
+https://commons.wikimedia.org/wiki/File:Neymar_(16245492137).jpg
+Luis Suárez, August 2015: Oleg Dubyna, CC BY-SA 3.0
+https://commons.wikimedia.org/wiki/File:2015_UEFA_Super_Cup_22.jpg
+Andrés Iniesta, August 2015: Oleg Dubyna, CC BY-SA 3.0
+https://commons.wikimedia.org/wiki/File:2015_UEFA_Super_Cup_104.jpg
+
 #ChampionsLeague #Barcelona #Messi
 
 ---
