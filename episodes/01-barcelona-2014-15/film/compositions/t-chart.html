@@ -1,0 +1,51 @@
+<template>
+  <style>
+
+  #root { position: absolute; inset: 0; background: #07080a; overflow: hidden; font-family: Inter, sans-serif; color: #f4f5f7; }
+  .oswald { font-family: Oswald, sans-serif; font-weight: 700; }
+  .lbl { font-family: Inter, sans-serif; }
+  .src { position: absolute; font: 400 28px Inter, sans-serif; color: #8b93a1; letter-spacing: .02em; }
+  .recon { position: absolute; left: 96px; top: 64px; font: 700 28px Inter, sans-serif; color: #f4f5f7;
+            background: rgba(7,8,10,.72); border: 2px solid #ff3b47; border-radius: 6px; padding: 8px 16px; letter-spacing: .04em; }
+  .cap { position: absolute; left: 0; right: 0; bottom: 70px; text-align: center; }
+  .cap span { display: inline-block; font: 600 40px Inter, sans-serif; color: #f4f5f7; background: rgba(7,8,10,.62);
+               padding: 10px 26px; border-radius: 8px; max-width: 1560px; line-height: 1.25; }
+
+
+  </style>
+  <div id="root" data-composition-id="t-chart" data-width="1920" data-height="1080">
+
+    <div class="oswald" id="t-chart-title" style="position:absolute;left:96px;top:70px;font-size:64px;letter-spacing:.02em">EXPECTED GOALS IN THE FINAL</div>
+    <div class="lbl" style="position:absolute;left:98px;top:152px;font-size:28px;color:#8b93a1">Cumulative xG (expected goals) by minute · Juventus 1-3 Barcelona, Berlin, 6 June 2015</div>
+    <svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0">
+  <defs>
+    <filter id="t-chart-glowA" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="7" result="b"/>
+      <feFlood flood-color="#e11d2e" flood-opacity=".85"/><feComposite in2="b" operator="in" result="g"/>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="t-chart-glowW" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feFlood flood-color="#ffffff" flood-opacity=".8"/><feComposite in2="b" operator="in" result="g"/>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+<line x1="230" x2="1560" y1="682.0" y2="682.0" stroke="rgba(255,255,255,.08)" stroke-width="2"/><text x="212" y="690.0" text-anchor="end" font-family="Inter" font-size="28" fill="#8b93a1">0.5</text><line x1="230" x2="1560" y1="574.0" y2="574.0" stroke="rgba(255,255,255,.08)" stroke-width="2"/><text x="212" y="582.0" text-anchor="end" font-family="Inter" font-size="28" fill="#8b93a1">1.0</text><line x1="230" x2="1560" y1="466.0" y2="466.0" stroke="rgba(255,255,255,.08)" stroke-width="2"/><text x="212" y="474.0" text-anchor="end" font-family="Inter" font-size="28" fill="#8b93a1">1.5</text><line x1="230" x2="1560" y1="358.0" y2="358.0" stroke="rgba(255,255,255,.08)" stroke-width="2"/><text x="212" y="366.0" text-anchor="end" font-family="Inter" font-size="28" fill="#8b93a1">2.0</text><line x1="230" x2="1560" y1="250.0" y2="250.0" stroke="rgba(255,255,255,.08)" stroke-width="2"/><text x="212" y="258.0" text-anchor="end" font-family="Inter" font-size="28" fill="#8b93a1">2.5</text><text x="230.0" y="834" text-anchor="middle" font-family="Inter" font-size="28" fill="#8b93a1">0'</text><text x="433.6" y="834" text-anchor="middle" font-family="Inter" font-size="28" fill="#8b93a1">15'</text><text x="637.1" y="834" text-anchor="middle" font-family="Inter" font-size="28" fill="#8b93a1">30'</text><text x="840.7" y="834" text-anchor="middle" font-family="Inter" font-size="28" fill="#8b93a1">45'</text><text x="1044.3" y="834" text-anchor="middle" font-family="Inter" font-size="28" fill="#8b93a1">60'</text><text x="1247.9" y="834" text-anchor="middle" font-family="Inter" font-size="28" fill="#8b93a1">75'</text><text x="1451.4" y="834" text-anchor="middle" font-family="Inter" font-size="28" fill="#8b93a1">90'</text><line x1="230" x2="1560" y1="790" y2="790" stroke="rgba(255,255,255,.25)" stroke-width="3"/><text x="212" y="216" text-anchor="end" font-family="Inter" font-weight="700" font-size="28" fill="#8b93a1">xG</text><text x="1630" y="834" text-anchor="start" font-family="Inter" font-size="28" fill="#8b93a1">minute</text><path id="t-chart-Juv" d="M 230.0 790.0 L 241.3 790.0 L 241.3 780.0 L 251.7 780.0 L 251.7 766.8 L 334.1 766.8 L 334.1 755.7 L 548.7 755.7 L 548.7 728.4 L 826.5 728.4 L 826.5 723.7 L 826.9 723.7 L 826.9 718.6 L 966.2 718.6 L 966.2 697.5 L 966.7 697.5 L 966.7 567.8 L 1013.5 567.8 L 1013.5 553.5 L 1072.3 553.5 L 1072.3 540.5 L 1099.5 540.5 L 1099.5 531.6 L 1291.5 531.6 L 1291.5 514.0 L 1435.8 514.0 L 1435.8 508.9 L 1442.4 508.9 L 1442.4 504.6 L 1477.2 504.6 L 1477.2 491.0 L 1546.4 491.0" fill="none" stroke="#8b93a1" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="100"/><g id="t-chart-Juv-end" opacity="0"><text x="1570.4" y="495.0" font-family="Oswald" font-weight="700" font-size="58" fill="#f4f5f7">1.38</text><text x="1570.4" y="531.0" font-family="Inter" font-weight="700" font-size="28" fill="#8b93a1">JUVENTUS · xG</text></g><path id="t-chart-Bar" d="M 230.0 790.0 L 276.1 790.0 L 276.1 708.3 L 345.1 708.3 L 345.1 696.2 L 404.4 696.2 L 404.4 673.1 L 438.8 673.1 L 438.8 658.9 L 592.4 658.9 L 592.4 646.4 L 758.4 646.4 L 758.4 635.2 L 766.1 635.2 L 766.1 622.9 L 881.4 622.9 L 881.4 603.0 L 893.6 603.0 L 893.6 600.0 L 916.3 600.0 L 916.3 590.0 L 1150.8 590.0 L 1150.8 572.7 L 1151.3 572.7 L 1151.3 456.4 L 1268.2 456.4 L 1268.2 453.6 L 1329.3 453.6 L 1329.3 412.6 L 1333.1 412.6 L 1333.1 369.6 L 1369.6 369.6 L 1369.6 355.8 L 1541.9 355.8 L 1541.9 299.5 L 1546.4 299.5" fill="none" stroke="#e11d2e" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="100" filter="url(#t-chart-glowA)"/><g id="t-chart-Bar-end" opacity="0"><text x="1570.4" y="303.5" font-family="Oswald" font-weight="700" font-size="58" fill="#e11d2e">2.27</text><text x="1570.4" y="339.5" font-family="Inter" font-weight="700" font-size="28" fill="#8b93a1">BARCELONA · xG</text></g><g id="t-chart-g0" opacity="0"><circle cx="276.1" cy="708.3" r="13" fill="#e11d2e" stroke="#fff" stroke-width="3"/><text x="294.1" y="686.3" text-anchor="start" font-family="Inter" font-weight="700" font-size="28" fill="#f4f5f7">Rakitić 4'</text></g><g id="t-chart-g1" opacity="0"><circle cx="966.7" cy="567.8" r="13" fill="#8b93a1" stroke="#fff" stroke-width="3"/><text x="948.7" y="545.8" text-anchor="end" font-family="Inter" font-weight="700" font-size="28" fill="#f4f5f7">Morata 55'</text></g><g id="t-chart-g2" opacity="0"><circle cx="1151.3" cy="456.4" r="13" fill="#e11d2e" stroke="#fff" stroke-width="3"/><text x="1133.3" y="434.4" text-anchor="end" font-family="Inter" font-weight="700" font-size="28" fill="#f4f5f7">Suárez 68'</text></g><g id="t-chart-g3" opacity="0"><circle cx="1541.9" cy="299.5" r="13" fill="#e11d2e" stroke="#fff" stroke-width="3"/><text x="1523.9" y="277.5" text-anchor="end" font-family="Inter" font-weight="700" font-size="28" fill="#f4f5f7">Neymar 90+7'</text></g></svg>
+    <div class="src" style="left:98px;top:858px">Source: StatsBomb open data</div>
+    <div id="t-chart-cap" class="cap clip" data-start="4.4" data-duration="5.3"><span>Barcelona finished on 2.27. Juventus on 1.38.</span></div>
+
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+tl.fromTo("#t-chart-title", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 0.2);
+    tl.fromTo("#t-chart-Juv", { attr: { "stroke-dashoffset": 100 } }, { attr: { "stroke-dashoffset": 0 }, duration: 3.2, ease: "power1.inOut" }, 1.2);
+    tl.fromTo("#t-chart-Juv-end", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 4.5);
+    tl.fromTo("#t-chart-Bar", { attr: { "stroke-dashoffset": 100 } }, { attr: { "stroke-dashoffset": 0 }, duration: 3.2, ease: "power1.inOut" }, 1.2);
+    tl.fromTo("#t-chart-Bar-end", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 4.5);
+    tl.fromTo("#t-chart-g0", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 1.31);
+    tl.fromTo("#t-chart-g1", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 2.97);
+    tl.fromTo("#t-chart-g2", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 3.42);
+    tl.fromTo("#t-chart-g3", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 4.36);
+    window.__timelines["t-chart"] = tl;
+  </script>
+</template>
