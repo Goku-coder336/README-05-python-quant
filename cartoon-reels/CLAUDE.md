@@ -33,7 +33,7 @@ Structure (30 to 40 seconds; see section 0):
 4. **The sentence in English, about 6 s**: the teacher reads the whole stitched sentence in English, deadpan, one phrase on screen at a time (as in the reference: "Tomorrow morning, / the strange / spider from Spain…").
 5. **Count-in, about 2 s**: "NOW IN FRENCH", the teacher lifts the pointer like a conductor while the song's lead-in bar plays.
 6. **The payoff, about 10 to 13 s**: a new scene. The stitched sentence in the real language is **sung** as a song (ElevenLabs music, male and female duet), the two characters lip-syncing, lyrics on screen line by line as they are sung with the translation under each. Bigger, faster, louder.
-7. **Button, about 2 s**: cut back to the first character for one deadpan word ("Easy.") and a "Follow for Lesson 2" tag.
+7. **Button, about 2 s**: cut back to the first character for one deadpan word ("Easy.") and a "Sing it in the comments" tag. Do not frame it as a lesson or a series ("Follow for Lesson 2" is out).
 
 ## 2. Coming up with the idea (do this first, every time)
 

@@ -16,11 +16,16 @@ import uuid
 from pathlib import Path
 
 HERE = Path(__file__).parent
-OUT = HERE / "assets" / "audio"
+from variant import AUDIO as OUT, TIMELINE, V
 API = "https://api.elevenlabs.io/v1/music/detailed?output_format=mp3_44100_192"
 
-STYLE = ["105 BPM", "F major", "playful comedic French café pop", "accordion", "pizzicato strings",
+STYLES = {}
+STYLES["v2"] = ["105 BPM", "F major", "playful comedic French café pop", "accordion", "pizzicato strings",
          "upright bass", "brush drums", "glockenspiel accents", "warm, bright and bouncy"]
+# v3: more engaging, like the reference: a catchy earworm with a bouncy groove and a big singalong chorus
+STYLES["v3"] = ["118 BPM", "G major", "catchy upbeat bubblegum pop", "bouncy bassline", "punchy kick and handclaps",
+                "plucky synth and ukulele", "whistled hook", "playful, viral, earworm energy"]
+STYLE = STYLES[V]
 
 LYRICS = ("Le bel oiseau au chapeau,\n"
           "sur le bateau,\n"
@@ -91,8 +96,28 @@ def heard_words(path, offset):
                                for w in d.get("words", []) if w.get("type") == "word"]
 
 
+def split_stems(song, folder):
+    """Vocals and instrumental stems (ElevenLabs stem separation), for the no-music mix."""
+    import io
+    import zipfile
+    boundary = uuid.uuid4().hex
+    body = (f'--{boundary}\r\nContent-Disposition: form-data; name="stem_variation_id"\r\n\r\ntwo_stems_v1\r\n'.encode()
+            + f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="song.mp3"\r\n'
+              f'Content-Type: audio/mpeg\r\n\r\n'.encode() + song.read_bytes() + f"\r\n--{boundary}--\r\n".encode())
+    req = urllib.request.Request("https://api.elevenlabs.io/v1/music/stem-separation", data=body, method="POST")
+    req.add_header("xi-api-key", "proxy-injected")
+    req.add_header("Content-Type", f"multipart/form-data; boundary={boundary}")
+    with urllib.request.urlopen(req, timeout=900) as r:
+        z = zipfile.ZipFile(io.BytesIO(r.read()))
+    folder.mkdir(parents=True, exist_ok=True)
+    for name in z.namelist():
+        if name in ("vocals.mp3", "instrumental.mp3"):
+            (folder / name).write_bytes(z.read(name))
+    print("stems:", sorted(p.name for p in folder.iterdir()))
+
+
 def main(seeds):
-    T = json.loads((HERE / "timeline.json").read_text())["song_plan"]
+    T = json.loads(TIMELINE.read_text())["song_plan"]
     want = [norm(w) for w in LYRICS.split()]
     want = [w for w in want if w]
     OUT.mkdir(parents=True, exist_ok=True)
@@ -114,6 +139,7 @@ def main(seeds):
             (OUT / "song-response.json").write_text(json.dumps(meta, indent=1, ensure_ascii=False))
             (OUT / "song.json").write_text(json.dumps({"seed": seed, "heard": text, "words": words}, indent=1, ensure_ascii=False))
             print("kept seed", seed)
+            split_stems(OUT / "song.mp3", OUT / "stems")
             return True
     print("!! no take sang the whole lyric")
     return False

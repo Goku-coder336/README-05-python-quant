@@ -15,10 +15,10 @@ from scipy.signal import butter, sosfilt
 
 HERE = Path(__file__).parent
 SR = 44100
-OUT = HERE / "assets" / "audio"
+from variant import AUDIO as OUT, TIMELINE
 rng = np.random.default_rng(7)  # seeded: the same effects every run
 
-T = json.loads((HERE / "timeline.json").read_text())
+T = json.loads(TIMELINE.read_text())
 N = int(T["total"] * SR)
 
 
@@ -97,7 +97,7 @@ def fit(x):
     """Song audio cut or padded to the reel length, with a short fade at the end."""
     y = np.zeros(N)
     y[: min(N, len(x))] = x[:N]
-    f = int(0.25 * SR)
+    f = int(0.6 * SR)
     y[N - f:] *= np.linspace(1, 0, f)
     return y
 

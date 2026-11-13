@@ -1,6 +1,13 @@
 # Reel 01: French is easy ("-eau")
 
-Status: **rendered (v2)**. Files: `renders/01-french-eau-v2-music.mp4`, `renders/01-french-eau-v2-nomusic.mp4`.
+Status: **two music versions rendered; owner to pick.**
+
+| Version | Song | Length | Files |
+|---|---|---|---|
+| v2 | French café pop, accordion, 105 BPM (seed 11) | 39.0 s | `renders/01-french-eau-v2-music.mp4`, `renders/01-french-eau-v2-nomusic.mp4` |
+| v3 | catchy upbeat bubblegum pop, whistled hook, 118 BPM (seed 11) | 36.2 s | `renders/01-french-eau-v3-music.mp4`, `renders/01-french-eau-v3-nomusic.mp4` |
+
+Build a version with `VARIANT=v2` or `VARIANT=v3` before every script (see `variant.py`). The ending is now "EASY." + "Sing it in the comments" (no lesson framing). v3 needs no count-in: its singing starts straight away.
 
 - Series tag: `WORD SONG #01` · 1080x1920 · 30 fps · 39.2 s
 - Teacher: Barnaby (Option A), voice ElevenLabs **George**. Duet: Barnaby and Odette, sung by the ElevenLabs music model.
@@ -23,7 +30,7 @@ Status: **rendered (v2)**. Files: `renders/01-french-eau-v2-music.mp4`, `renders
 | 18.0 – 24.2 | English sentence | IN ENGLISH: The fine bird in a hat, / on the boat, / cuts the castle's cake with a knife… / and falls in the water. | George reads it, deadpan |
 | 24.2 – 26.3 | Count-in | NOW IN FRENCH · 1, 2, 3… (pointer raised like a conductor) | song lead-in bar |
 | 26.3 – 37.2 | Sung payoff | Le bel oiseau au chapeau, / sur le bateau, / coupe le gâteau du château au couteau… / et tombe à l'eau ! (translation under each) | the duet sings; splash on "l'eau" |
-| 37.2 – 39.2 | Button | EASY. · Follow for Lesson 2 | George: "Easy." |
+| 37.0 – 39.0 | Button | EASY. · Sing it in the comments | George: "Easy." |
 
 ## Accuracy check
 

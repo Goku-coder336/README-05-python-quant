@@ -1,0 +1,197 @@
+{
+ "composition_plan": {
+  "chunks": [
+   {
+    "text": "[Instrumental intro]",
+    "duration_ms": 24159,
+    "positive_styles": [
+     "118 BPM",
+     "G major",
+     "catchy upbeat bubblegum pop",
+     "bouncy bassline",
+     "punchy kick and handclaps",
+     "plucky synth and ukulele",
+     "whistled hook",
+     "playful, viral, earworm energy",
+     "light and sparse, leaves room for a speaking voice",
+     "instrumental only",
+     "gentle build in the last bars"
+    ],
+    "negative_styles": [
+     "vocals",
+     "singing",
+     "humming",
+     "choir",
+     "spoken words"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   },
+   {
+    "text": "[Chorus]\nLe bel oiseau au chapeau,\nsur le bateau,\ncoupe le gâteau du château au couteau,\net tombe à l'eau !",
+    "duration_ms": 13000,
+    "positive_styles": [
+     "118 BPM",
+     "G major",
+     "catchy upbeat bubblegum pop",
+     "bouncy bassline",
+     "punchy kick and handclaps",
+     "plucky synth and ukulele",
+     "whistled hook",
+     "playful, viral, earworm energy",
+     "vocals start on the very first beat, no instrumental lead-in",
+     "every lyric word sung clearly, none skipped",
+     "full band drop",
+     "handclaps",
+     "catchy sing-along chorus",
+     "male and female duet singing together in French",
+     "clear French diction",
+     "big, joyful energy"
+    ],
+    "negative_styles": [
+     "English lyrics",
+     "rap",
+     "spoken word"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   },
+   {
+    "text": "[Outro]",
+    "duration_ms": 3000,
+    "positive_styles": [
+     "118 BPM",
+     "G major",
+     "catchy upbeat bubblegum pop",
+     "bouncy bassline",
+     "punchy kick and handclaps",
+     "plucky synth and ukulele",
+     "whistled hook",
+     "playful, viral, earworm energy",
+     "short final accordion flourish",
+     "one last cymbal hit",
+     "instrumental only"
+    ],
+    "negative_styles": [
+     "vocals",
+     "singing"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   }
+  ]
+ },
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "words_timestamps": [
+  {
+   "word": "Le",
+   "start_ms": 24640,
+   "end_ms": 24800
+  },
+  {
+   "word": "bel",
+   "start_ms": 24900,
+   "end_ms": 25120
+  },
+  {
+   "word": "oiseau",
+   "start_ms": 25200,
+   "end_ms": 25640
+  },
+  {
+   "word": "au",
+   "start_ms": 25840,
+   "end_ms": 25840
+  },
+  {
+   "word": "chapeau,",
+   "start_ms": 25860,
+   "end_ms": 26620
+  },
+  {
+   "word": "sur",
+   "start_ms": 27400,
+   "end_ms": 27700
+  },
+  {
+   "word": "le",
+   "start_ms": 27740,
+   "end_ms": 27840
+  },
+  {
+   "word": "bateau,",
+   "start_ms": 27940,
+   "end_ms": 28540
+  },
+  {
+   "word": "coupe",
+   "start_ms": 28720,
+   "end_ms": 28940
+  },
+  {
+   "word": "le",
+   "start_ms": 29000,
+   "end_ms": 29140
+  },
+  {
+   "word": "gâteau",
+   "start_ms": 29220,
+   "end_ms": 29700
+  },
+  {
+   "word": "du",
+   "start_ms": 29760,
+   "end_ms": 29860
+  },
+  {
+   "word": "château",
+   "start_ms": 29920,
+   "end_ms": 30580
+  },
+  {
+   "word": "au",
+   "start_ms": 30780,
+   "end_ms": 30880
+  },
+  {
+   "word": "couteau,",
+   "start_ms": 31000,
+   "end_ms": 31480
+  },
+  {
+   "word": "et",
+   "start_ms": 31800,
+   "end_ms": 31940
+  },
+  {
+   "word": "tombe",
+   "start_ms": 32000,
+   "end_ms": 32280
+  },
+  {
+   "word": "à",
+   "start_ms": 32400,
+   "end_ms": 32460
+  },
+  {
+   "word": "l'eau",
+   "start_ms": 32520,
+   "end_ms": 32880
+  },
+  {
+   "word": "!",
+   "start_ms": 33020,
+   "end_ms": 33020
+  }
+ ],
+ "waveform_visual": null
+}

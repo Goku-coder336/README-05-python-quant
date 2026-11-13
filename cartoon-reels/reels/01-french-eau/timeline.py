@@ -13,7 +13,9 @@ import numpy as np
 HERE = Path(__file__).parent
 VO = HERE / "assets" / "vo"
 TRIM = VO / "trim"
-SONG = HERE / "assets" / "audio" / "song.json"
+from variant import AUDIO, TIMELINE
+
+SONG = AUDIO / "song.json"
 SR = 44100
 
 SUNG_MS = 13000   # length of the sung chorus
@@ -169,6 +171,9 @@ def main():
         eau = [w for w in words if "eau" in w["text"].lower() and w["start"] > ev["payoff"]["lines"][-1]["start"]]
         ev["payoff"]["splash"] = round(eau[-1]["start"], 3) if eau else round(p1 - 1.2, 3)
         ev["payoff"]["flaps"] = sung_flaps(words, p0)
+        # don't let the chorus drag: cut to the button 1.6 s after the splash
+        p1 = round(min(p1, ev["payoff"]["splash"] + 1.6), 3)
+        ev["payoff"]["end"] = p1
     else:
         for i, (_, fr, en) in enumerate(LYRICS):
             ev["payoff"]["lines"].append({"start": round(p0 + i * (p1 - p0) / 4, 3), "fr": fr, "en": en})
@@ -181,7 +186,7 @@ def main():
     ev["button"] = {"start": b, "end": round(max(end + 0.6, b + OUTRO_MS / 1000), 3)}
     ev["total"] = ev["button"]["end"]
 
-    (HERE / "timeline.json").write_text(json.dumps(ev, indent=1, ensure_ascii=False))
+    TIMELINE.write_text(json.dumps(ev, indent=1, ensure_ascii=False))
     print(f"hook to {ev['hook']['end']}, lesson to {ev['try']['start']}, english {ev['english'][0]['start']}-{intro}, "
           f"sung {p0}-{p1}, total {ev['total']} s  (song timings: {'yes' if SONG.exists() else 'not yet'})")
 

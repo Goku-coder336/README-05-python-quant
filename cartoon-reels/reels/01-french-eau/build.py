@@ -11,7 +11,9 @@ from characters import PARTNER_PIVOTS, TEACHER_PIVOTS, TEACHERS, partner
 
 ROOT = Path(__file__).parent
 W, H = 1080, 1920
-T = json.loads((ROOT / "timeline.json").read_text())
+from variant import AUDIO, TIMELINE
+
+T = json.loads(TIMELINE.read_text())
 teacher = TEACHERS[os.environ.get("TEACHER", "A")]
 TP, PP = TEACHER_PIVOTS, PARTNER_PIVOTS
 
@@ -19,7 +21,7 @@ P0 = T["payoff"]["start"]
 P1 = T["payoff"]["end"]
 B0 = T["button"]["start"]
 TOTAL = round(T["total"], 3)
-SONG_WORDS = json.loads((ROOT / "assets/audio/song.json").read_text())["words"]
+SONG_WORDS = json.loads((AUDIO / "song.json").read_text())["words"]
 
 FONT = "font-family: 'Montserrat', sans-serif;"
 INK = "#1d1d1b"
@@ -310,7 +312,7 @@ def button():
     script = "\n    ".join(js)
     return f"""<template>
   <style>{LESSON_CSS}
-    #btn-follow {{ position: absolute; top: 620px; left: 50%; margin-left: -230px; width: 460px; height: 76px; border-radius: 38px;
+    #btn-follow {{ position: absolute; top: 620px; left: 50%; margin-left: -290px; width: 580px; height: 76px; border-radius: 38px;
                   background: #3d6fd6; color: #fff; border: 5px solid {INK}; font-weight: 800; font-size: 34px;
                   display: flex; align-items: center; justify-content: center; }}
   </style>
@@ -321,7 +323,7 @@ def button():
     {LECTERN}
     <div class="set-tag">WORD SONG #01</div>
     <h1 id="btn-easy" class="word clip" data-start="0" data-duration="{dur}" style="font-size: 150px; top: 380px;">EASY.</h1>
-    <div id="btn-follow" class="clip" data-start="0" data-duration="{dur}">Follow for Lesson 2</div>
+    <div id="btn-follow" class="clip" data-start="0" data-duration="{dur}">Sing it in the comments</div>
   </div>
   <script>
     const tl = gsap.timeline({{ paused: true }});
@@ -356,7 +358,7 @@ def index(mix="mix-music"):
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="{TOTAL}" data-width="{W}" data-height="{H}">
       {scenes}
-      <audio id="mix" src="assets/audio/{mix}.wav" data-start="0" data-duration="{TOTAL}" data-track-index="2"></audio>
+      <audio id="mix" src="{AUDIO.relative_to(ROOT).as_posix()}/{mix}.wav" data-start="0" data-duration="{TOTAL}" data-track-index="2"></audio>
     </div>
     <script>
       window.__timelines = window.__timelines || {{}};
