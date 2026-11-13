@@ -184,11 +184,11 @@ def result_card(sc, x, y, label, opp, venue, res, score, scorers, t, w=560):
     chip_bg = TEAM_A if res == "W" else TEAM_B
     ven = {"H": "home", "A": "away", "N": "Berlin"}[venue]
     sc_txt = ", ".join(n + (f" {c}" if c > 1 else "") for n, c in scorers)
-    sc.add(f'<div id="{i}" class="card" style="left:{x}px;top:{y}px;width:{w}px;height:84px;opacity:0">'
-           f'<div style="position:absolute;left:18px;top:8px;font:400 26px Inter;color:{MUTED}">{label} · {ven}</div>'
-           f'<div style="position:absolute;left:18px;top:40px;font:700 30px Inter;color:{INK}">{opp}</div>'
-           f'<div class="chip" style="position:absolute;right:16px;top:12px;background:{chip_bg};color:#fff">{res} {score}</div>'
-           f'<div style="position:absolute;right:18px;top:52px;font:400 26px Inter;color:{INK};white-space:nowrap">{sc_txt}</div></div>',
+    sc.add(f'<div id="{i}" class="card" style="left:{x}px;top:{y}px;width:{w}px;height:86px;opacity:0">'
+           f'<div style="position:absolute;left:18px;top:6px;font:400 28px Inter;color:{MUTED}">{label} · {ven}</div>'
+           f'<div style="position:absolute;left:18px;top:42px;font:700 30px Inter;color:{INK}">{opp}</div>'
+           f'<div class="chip" style="position:absolute;right:16px;top:8px;background:{chip_bg};color:#fff">{res} {score}</div>'
+           f'<div style="position:absolute;right:18px;top:50px;font:400 28px Inter;color:{INK};white-space:nowrap">{sc_txt}</div></div>',
            f'tl.fromTo("#{i}", {{ opacity: 0, x: -40 }}, {{ opacity: 1, x: 0, duration: 0.35, ease: "expo.out" }}, {round(t, 3)});')
     sc.sfx(t, "click1", 0.5)
     return i
@@ -201,6 +201,7 @@ class Piles:
         self.sc, self.bs, self.base = sc, bs, base
         self.x = {n: x0 + k * gapx for k, n in enumerate(names)}
         self.count = {n: (start or {}).get(n, 0) for n in names}
+        self.start = dict(self.count)
         self.col = colours or {}
         self.i = sc.uid("pl")
         parts = []
@@ -225,7 +226,7 @@ class Piles:
         self.sc.add(self._block(n, k),
                     f'tl.fromTo("#{self.i}-{norm(n)}-b{k}", {{ opacity: 0, x: {from_xy[0] - self.x[n]}, y: {from_xy[1] - (self.base - (k + 1) * (self.bs + 6))}, rotation: -25 }}, '
                     f'{{ opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }}, {round(t, 3)});',
-                    f'tl.to("#{self.i}-{norm(n)}-num", {{ y: {-(self.bs + 6) * self.count[n] + (self.bs + 6) * 0}, duration: 0.3, ease: "power2.out" }}, {round(t + 0.35, 3)});',
+                    f'tl.to("#{self.i}-{norm(n)}-num", {{ y: {-(self.bs + 6) * (self.count[n] - self.start[n])}, duration: 0.3, ease: "power2.out" }}, {round(t + 0.35, 3)});',
                     f'tl.set("#{self.i}-{norm(n)}-num", {{ textContent: "{self.count[n]}" }}, {round(t + 0.4, 3)});')
         self.sc.sfx(t + 0.45, "clack", 0.45)
 

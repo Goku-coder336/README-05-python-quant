@@ -1,0 +1,449 @@
+<template>
+  <style>
+
+  #root { position: absolute; inset: 0; background: #07080a; overflow: hidden; font-family: Inter, sans-serif; color: #f4f5f7; }
+  .oswald { font-family: Oswald, sans-serif; font-weight: 700; }
+  .lbl { font-family: Inter, sans-serif; }
+  .src { position: absolute; font: 400 28px Inter, sans-serif; color: #8b93a1; letter-spacing: .02em; }
+  .recon { position: absolute; left: 96px; top: 64px; font: 700 28px Inter, sans-serif; color: #f4f5f7;
+            background: rgba(7,8,10,.72); border: 2px solid #ff3b47; border-radius: 6px; padding: 8px 16px; letter-spacing: .04em; }
+  .cap { position: absolute; left: 0; right: 0; bottom: 70px; text-align: center; }
+  .cap span { display: inline-block; font: 600 40px Inter, sans-serif; color: #f4f5f7; background: rgba(7,8,10,.62);
+               padding: 10px 26px; border-radius: 8px; max-width: 1560px; line-height: 1.25; }
+
+  .card { position: absolute; background: rgba(13,15,19,.92); border: 2px solid #2a2f38; border-radius: 10px; }
+  .chip { font: 700 30px Oswald, sans-serif; padding: 2px 12px; border-radius: 6px; }
+  </style>
+  <div id="root" data-composition-id="c8-verdict" data-width="1920" data-height="1080">
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0;opacity:0.3"><rect x="180" y="20" width="130" height="1040" fill="#14171c"/>
+<rect x="310" y="20" width="130" height="1040" fill="#171b21"/>
+<rect x="440" y="20" width="130" height="1040" fill="#14171c"/>
+<rect x="570" y="20" width="130" height="1040" fill="#171b21"/>
+<rect x="700" y="20" width="130" height="1040" fill="#14171c"/>
+<rect x="830" y="20" width="130" height="1040" fill="#171b21"/>
+<rect x="960" y="20" width="130" height="1040" fill="#14171c"/>
+<rect x="1090" y="20" width="130" height="1040" fill="#171b21"/>
+<rect x="1220" y="20" width="130" height="1040" fill="#14171c"/>
+<rect x="1350" y="20" width="130" height="1040" fill="#171b21"/>
+<rect x="1480" y="20" width="130" height="1040" fill="#14171c"/>
+<rect x="1610" y="20" width="130" height="1040" fill="#171b21"/>
+<rect x="180" y="20" width="1560" height="1040" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3"/>
+<line x1="960" y1="20" x2="960" y2="1060" stroke="rgba(255,255,255,.2)" stroke-width="3"/>
+<circle cx="960" cy="540" r="130" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3"/><circle cx="960" cy="540" r="4" fill="rgba(255,255,255,.2)"/>
+<rect x="180" y="254" width="234" height="572" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3"/>
+<rect x="180" y="410" width="78" height="260" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3"/>
+<rect x="151.4" y="488" width="28.599999999999994" height="104" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3"/>
+<circle cx="336" cy="540" r="4" fill="rgba(255,255,255,.2)"/>
+<polyline points="414.2,436.2 421.3,441.9 427.9,448.1 434.1,454.7 439.8,461.8 445.0,469.2 449.7,477.0 453.8,485.1 457.4,493.4 460.3,502.0 462.7,510.8 464.4,519.7 465.5,528.7 466.0,537.7 465.8,546.8 465.0,555.8 463.6,564.8 461.6,573.6 458.9,582.3 455.7,590.8 451.8,599.0 447.4,607.0 442.5,614.6 437.0,621.8 431.1,628.7 424.7,635.1 417.8,641.0" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3"/>
+<rect x="1506" y="254" width="234" height="572" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3"/>
+<rect x="1662" y="410" width="78" height="260" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3"/>
+<rect x="1740" y="488" width="28.59999999999991" height="104" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3"/>
+<circle cx="1584" cy="540" r="4" fill="rgba(255,255,255,.2)"/>
+<polyline points="1505.8,436.2 1498.7,441.9 1492.1,448.1 1485.9,454.7 1480.2,461.8 1475.0,469.2 1470.3,477.0 1466.2,485.1 1462.6,493.4 1459.7,502.0 1457.3,510.8 1455.6,519.7 1454.5,528.7 1454.0,537.7 1454.2,546.8 1455.0,555.8 1456.4,564.8 1458.4,573.6 1461.1,582.3 1464.3,590.8 1468.2,599.0 1472.6,607.0 1477.5,614.6 1483.0,621.8 1488.9,628.7 1495.3,635.1 1502.2,641.0" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="3"/></svg><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%, rgba(7,8,10,.15) 0%, rgba(7,8,10,.86) 80%)"></div>
+<div id="c8-verdict-ch1" class="oswald" style="position:absolute;left:96px;top:56px;font-size:30px;color:#8b93a1;letter-spacing:.08em;opacity:0;transform-origin:0 0"><span style="color:#ff3b47">8</span>&nbsp;&nbsp;THE VERDICT</div>
+<div id="c8-verdict-pn7" style="position:absolute;inset:0;opacity:0"><div id="c8-verdict-st2" style="position:absolute;left:140px;top:260px;width:300px;opacity:0"><div class="oswald" style="font-size:150px;line-height:1;color:#f4f5f7">13</div><div style="font:700 30px Inter;color:#8b93a1;letter-spacing:.06em">PLAYED</div></div><div id="c8-verdict-st3" style="position:absolute;left:480px;top:260px;width:300px;opacity:0"><div class="oswald" style="font-size:150px;line-height:1;color:#ff3b47">11</div><div style="font:700 30px Inter;color:#8b93a1;letter-spacing:.06em">WON</div></div><div id="c8-verdict-st4" style="position:absolute;left:820px;top:260px;width:300px;opacity:0"><div class="oswald" style="font-size:150px;line-height:1;color:#f4f5f7">2</div><div style="font:700 30px Inter;color:#8b93a1;letter-spacing:.06em">LOST</div></div><div id="c8-verdict-st5" style="position:absolute;left:1160px;top:260px;width:300px;opacity:0"><div class="oswald" style="font-size:150px;line-height:1;color:#f4f5f7">31</div><div style="font:700 30px Inter;color:#8b93a1;letter-spacing:.06em">SCORED</div></div><div id="c8-verdict-st6" style="position:absolute;left:1500px;top:260px;width:300px;opacity:0"><div class="oswald" style="font-size:150px;line-height:1;color:#f4f5f7">11</div><div style="font:700 30px Inter;color:#8b93a1;letter-spacing:.06em">CONCEDED</div></div><div id="c8-verdict-home" style="position:absolute;left:140px;top:560px;font:700 44px Inter;opacity:0">Home games: <span style="color:#ff3b47">won 6 of 6</span></div><div id="c8-verdict-away" style="position:absolute;left:140px;top:640px;font:700 44px Inter;opacity:0">Both defeats: <span style="color:#8b93a1">2-3 in Paris, 2-3 in Munich</span></div><div class="src" style="left:140px;top:740px">Source: UEFA</div></div>
+<div id="c8-verdict-pn8" style="position:absolute;inset:0;opacity:0"><div class="oswald" style="position:absolute;left:140px;top:160px;font-size:40px;color:#8b93a1">GROUP STAGE</div><div class="oswald" style="position:absolute;left:140px;top:400px;font-size:40px;color:#8b93a1">KNOCKOUTS</div><div class="src" style="left:140px;top:580px">Red: Messi · outlined: Neymar and Suárez · Source: UEFA</div></div>
+<div id="c8-verdict-vg0" style="position:absolute;left:140px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg1" style="position:absolute;left:209px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg2" style="position:absolute;left:278px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg3" style="position:absolute;left:347px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg4" style="position:absolute;left:416px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg5" style="position:absolute;left:485px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg6" style="position:absolute;left:554px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg7" style="position:absolute;left:623px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg8" style="position:absolute;left:692px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg9" style="position:absolute;left:761px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg10" style="position:absolute;left:830px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg11" style="position:absolute;left:899px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg12" style="position:absolute;left:968px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg13" style="position:absolute;left:1037px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vg14" style="position:absolute;left:1106px;top:230px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk0" style="position:absolute;left:140px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk1" style="position:absolute;left:209px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk2" style="position:absolute;left:278px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk3" style="position:absolute;left:347px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk4" style="position:absolute;left:416px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk5" style="position:absolute;left:485px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk6" style="position:absolute;left:554px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk7" style="position:absolute;left:623px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk8" style="position:absolute;left:692px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk9" style="position:absolute;left:761px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk10" style="position:absolute;left:830px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk11" style="position:absolute;left:899px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk12" style="position:absolute;left:968px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk13" style="position:absolute;left:1037px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk14" style="position:absolute;left:1106px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-vk15" style="position:absolute;left:1175px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
+<div id="c8-verdict-bt9" class="oswald" style="position:absolute;left:1240px;top:452px;width:300px;text-align:left;font-size:84px;line-height:1.05;color:#f4f5f7;opacity:0"><span style="color:#ff3b47">12</span><span style="color:#8b93a1;font-size:52px"> / 16</span></div>
+<div id="c8-verdict-pn10" style="position:absolute;inset:0;opacity:0"><div class="oswald" style="position:absolute;left:140px;top:160px;font-size:52px">JOINT TOP SCORERS, 2014/15</div><div class="src" style="left:140px;top:880px">Champions League goals · Source: UEFA</div></div>
+<div id="c8-verdict-pl11-messi-name" style="position:absolute;left:490px;top:854px;width:180px;text-align:center;font:700 28px Inter;color:#f4f5f7">Messi</div>
+<div id="c8-verdict-pl11-messi-num" class="oswald" style="position:absolute;left:490px;top:770px;width:180px;text-align:center;font-size:52px;color:#ff3b47">0</div>
+<div id="c8-verdict-pl11-neymar-name" style="position:absolute;left:870px;top:854px;width:180px;text-align:center;font:700 28px Inter;color:#f4f5f7">Neymar</div>
+<div id="c8-verdict-pl11-neymar-num" class="oswald" style="position:absolute;left:870px;top:770px;width:180px;text-align:center;font-size:52px;color:#f4f5f7">0</div>
+<div id="c8-verdict-pl11-cristianoronaldo-name" style="position:absolute;left:1250px;top:854px;width:180px;text-align:center;font:700 28px Inter;color:#f4f5f7">Cristiano Ronaldo</div>
+<div id="c8-verdict-pl11-cristianoronaldo-num" class="oswald" style="position:absolute;left:1250px;top:770px;width:180px;text-align:center;font-size:52px;color:#f4f5f7">0</div>
+<div id="c8-verdict-pl11-messi-b0" style="position:absolute;left:560px;top:794px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-neymar-b0" style="position:absolute;left:940px;top:794px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-cristianoronaldo-b0" style="position:absolute;left:1320px;top:794px;width:40px;height:40px;border-radius:8px;background:#6b7380;opacity:0"></div>
+<div id="c8-verdict-pl11-messi-b1" style="position:absolute;left:560px;top:748px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-neymar-b1" style="position:absolute;left:940px;top:748px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-cristianoronaldo-b1" style="position:absolute;left:1320px;top:748px;width:40px;height:40px;border-radius:8px;background:#6b7380;opacity:0"></div>
+<div id="c8-verdict-pl11-messi-b2" style="position:absolute;left:560px;top:702px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-neymar-b2" style="position:absolute;left:940px;top:702px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-cristianoronaldo-b2" style="position:absolute;left:1320px;top:702px;width:40px;height:40px;border-radius:8px;background:#6b7380;opacity:0"></div>
+<div id="c8-verdict-pl11-messi-b3" style="position:absolute;left:560px;top:656px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-neymar-b3" style="position:absolute;left:940px;top:656px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-cristianoronaldo-b3" style="position:absolute;left:1320px;top:656px;width:40px;height:40px;border-radius:8px;background:#6b7380;opacity:0"></div>
+<div id="c8-verdict-pl11-messi-b4" style="position:absolute;left:560px;top:610px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-neymar-b4" style="position:absolute;left:940px;top:610px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-cristianoronaldo-b4" style="position:absolute;left:1320px;top:610px;width:40px;height:40px;border-radius:8px;background:#6b7380;opacity:0"></div>
+<div id="c8-verdict-pl11-messi-b5" style="position:absolute;left:560px;top:564px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-neymar-b5" style="position:absolute;left:940px;top:564px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-cristianoronaldo-b5" style="position:absolute;left:1320px;top:564px;width:40px;height:40px;border-radius:8px;background:#6b7380;opacity:0"></div>
+<div id="c8-verdict-pl11-messi-b6" style="position:absolute;left:560px;top:518px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-neymar-b6" style="position:absolute;left:940px;top:518px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-cristianoronaldo-b6" style="position:absolute;left:1320px;top:518px;width:40px;height:40px;border-radius:8px;background:#6b7380;opacity:0"></div>
+<div id="c8-verdict-pl11-messi-b7" style="position:absolute;left:560px;top:472px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-neymar-b7" style="position:absolute;left:940px;top:472px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-cristianoronaldo-b7" style="position:absolute;left:1320px;top:472px;width:40px;height:40px;border-radius:8px;background:#6b7380;opacity:0"></div>
+<div id="c8-verdict-pl11-messi-b8" style="position:absolute;left:560px;top:426px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-neymar-b8" style="position:absolute;left:940px;top:426px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-cristianoronaldo-b8" style="position:absolute;left:1320px;top:426px;width:40px;height:40px;border-radius:8px;background:#6b7380;opacity:0"></div>
+<div id="c8-verdict-pl11-messi-b9" style="position:absolute;left:560px;top:380px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-neymar-b9" style="position:absolute;left:940px;top:380px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
+<div id="c8-verdict-pl11-cristianoronaldo-b9" style="position:absolute;left:1320px;top:380px;width:40px;height:40px;border-radius:8px;background:#6b7380;opacity:0"></div>
+<div id="c8-verdict-bt12" class="oswald" style="position:absolute;left:160.0px;top:300px;width:1600px;text-align:center;font-size:170px;line-height:1.05;color:#f4f5f7;opacity:0">2ND <span style="color:#ff3b47">TREBLE</span></div>
+<div id="c8-verdict-src13" class="src" style="left:760px;top:520px;opacity:0">First European club to win the treble twice · Source: UEFA</div>
+<div id="c8-verdict-pn14" style="position:absolute;inset:0;opacity:0"><div class="oswald" style="position:absolute;left:0;right:0;top:170px;text-align:center;font-size:60px;color:#8b93a1">“A TRANSITIONAL YEAR”</div></div>
+<div id="c8-verdict-yr15" style="position:absolute;left:260px;top:380px;width:400px;opacity:0"><div class="oswald" style="font-size:150px;line-height:1;color:#ff3b47">2015</div><div style="font:700 36px Inter;color:#8b93a1">Barcelona</div></div>
+<div id="c8-verdict-yr16" style="position:absolute;left:780px;top:380px;width:400px;opacity:0"><div class="oswald" style="font-size:150px;line-height:1;color:#f4f5f7">2025</div><div style="font:700 36px Inter;color:#8b93a1">PSG</div></div>
+<div id="c8-verdict-yr17" style="position:absolute;left:1300px;top:380px;width:400px;opacity:0"><div class="oswald" style="font-size:150px;line-height:1;color:#f4f5f7">2026</div><div style="font:700 36px Inter;color:#8b93a1">PSG</div></div>
+<div id="c8-verdict-src18" class="src" style="left:260px;top:640px;opacity:0">Luis Enrique, Champions League winner · Sources: UEFA, RFI, AP</div>
+<div id="c8-verdict-bt19" class="oswald" style="position:absolute;left:110.0px;top:230px;width:1700px;text-align:center;font-size:86px;line-height:1.05;color:#f4f5f7;opacity:0">WAS THIS THE BEST <span style="color:#ff3b47">FRONT THREE</span><br>THE CHAMPIONS LEAGUE HAS SEEN?</div>
+<div id="c8-verdict-mag20" style="position:absolute;left:560px;top:500px;width:120px;opacity:0"><div style="width:120px;height:120px;border-radius:50%;background:#e11d2e;box-shadow:0 9px 0 #9e1020, 0 0 36px #e11d2e"></div><div style="margin-top:20px;text-align:center;font:700 34px Inter;color:#f4f5f7">Messi</div></div>
+<div id="c8-verdict-mag21" style="position:absolute;left:900px;top:500px;width:120px;opacity:0"><div style="width:120px;height:120px;border-radius:50%;background:#e11d2e;box-shadow:0 9px 0 #9e1020, 0 0 36px #e11d2e"></div><div style="margin-top:20px;text-align:center;font:700 34px Inter;color:#f4f5f7">Neymar</div></div>
+<div id="c8-verdict-mag22" style="position:absolute;left:1240px;top:500px;width:120px;opacity:0"><div style="width:120px;height:120px;border-radius:50%;background:#e11d2e;box-shadow:0 9px 0 #9e1020, 0 0 36px #e11d2e"></div><div style="margin-top:20px;text-align:center;font:700 34px Inter;color:#f4f5f7">Suárez</div></div>
+<div id="c8-verdict-bt23" class="oswald" style="position:absolute;left:260.0px;top:720px;width:1400px;text-align:center;font-size:48px;line-height:1.05;color:#ff3b47;opacity:0">Tell me in the comments</div>
+<div id="c8-verdict-pn24" style="position:absolute;inset:0;opacity:0"><div style="position:absolute;inset:0;background:#07080a"></div><div class="oswald" style="position:absolute;left:140px;top:380px;font-size:44px;color:#8b93a1;letter-spacing:.08em">RUN OF THE CHAMPIONS</div><div class="oswald" style="position:absolute;left:140px;top:440px;font-size:130px">NEXT: <span style="color:#ff3b47">2015/16</span></div></div>
+    <svg class="pipl" width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0;overflow:visible;z-index:20">
+  <defs>
+    <filter id="c8-verdictx-glowA" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="7" result="b"/>
+      <feFlood flood-color="#e11d2e" flood-opacity=".85"/><feComposite in2="b" operator="in" result="g"/>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="c8-verdictx-glowW" x="-150%" y="-150%" width="400%" height="400%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feFlood flood-color="#ffffff" flood-opacity=".8"/><feComposite in2="b" operator="in" result="g"/>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+<g id="c8-verdict-pip0"><ellipse id="c8-verdict-pip0-shadow" cx="0" cy="2" rx="52" ry="10" fill="rgba(0,0,0,.55)"/><g id="c8-verdict-pip0-legL"><line x1="-13.2" y1="-62" x2="-22" y2="-6" stroke="#d5dae2" stroke-width="10" stroke-linecap="round"/><ellipse cx="-28" cy="-4" rx="16" ry="8" fill="#d5dae2"/></g><g id="c8-verdict-pip0-legR"><line x1="13.2" y1="-62" x2="22" y2="-6" stroke="#d5dae2" stroke-width="10" stroke-linecap="round"/><ellipse cx="28" cy="-4" rx="16" ry="8" fill="#d5dae2"/></g><g id="c8-verdict-pip0-body"><circle cx="0" cy="-104" r="58" fill="#9e1020"/><circle cx="0" cy="-112" r="58" fill="#e11d2e" filter="url(#c8-verdictx-glowA)"/><path d="M -38 -146 Q -20 -164 6 -166" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="7" stroke-linecap="round"/><g id="c8-verdict-pip0-face"><g id="c8-verdict-pip0-eyes-normal" opacity="1"><ellipse cx="-21" cy="-124" rx="15" ry="19" fill="#fff"/><ellipse cx="21" cy="-124" rx="15" ry="19" fill="#fff"/><g id="c8-verdict-pip0-pupils"><circle cx="-19" cy="-121" r="7.5" fill="#0b0c0f"/><circle cx="23" cy="-121" r="7.5" fill="#0b0c0f"/></g></g><g id="c8-verdict-pip0-eyes-wide" opacity="0"><ellipse cx="-22" cy="-126" rx="19" ry="24" fill="#fff"/><ellipse cx="22" cy="-126" rx="19" ry="24" fill="#fff"/><circle cx="-22" cy="-126" r="5" fill="#0b0c0f"/><circle cx="22" cy="-126" r="5" fill="#0b0c0f"/></g><g id="c8-verdict-pip0-eyes-happy" opacity="0"><path d="M -34 -120 Q -21 -138 -8 -120" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/><path d="M 8 -120 Q 21 -138 34 -120" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/></g><g id="c8-verdict-pip0-eyes-closed" opacity="0"><line x1="-34" y1="-122" x2="-8" y2="-122" stroke="#fff" stroke-width="6" stroke-linecap="round"/><line x1="8" y1="-122" x2="34" y2="-122" stroke="#fff" stroke-width="6" stroke-linecap="round"/></g><g id="c8-verdict-pip0-brows"><line id="c8-verdict-pip0-browL" x1="-34" y1="-152" x2="-10" y2="-149" stroke="#0b0c0f" stroke-width="6" stroke-linecap="round"/><line id="c8-verdict-pip0-browR" x1="10" y1="-149" x2="34" y2="-152" stroke="#0b0c0f" stroke-width="6" stroke-linecap="round"/></g><g id="c8-verdict-pip0-mouth-smile" opacity="1"><path d="M -14 -92 Q 0 -80 14 -92" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/></g><g id="c8-verdict-pip0-mouth-o" opacity="0"><ellipse cx="0" cy="-88" rx="8" ry="10" fill="#0b0c0f" stroke="#fff" stroke-width="4"/></g><g id="c8-verdict-pip0-mouth-flat" opacity="0"><line x1="-11" y1="-89" x2="11" y2="-89" stroke="#fff" stroke-width="5" stroke-linecap="round"/></g><g id="c8-verdict-pip0-mouth-grin" opacity="0"><path d="M -18 -94 Q 0 -70 18 -94 Z" fill="#0b0c0f" stroke="#fff" stroke-width="4" stroke-linejoin="round"/></g></g></g><g id="c8-verdict-pip0-armL"><line x1="-50" y1="-118" x2="-90" y2="-78" stroke="#d5dae2" stroke-width="9" stroke-linecap="round"/><circle cx="-92" cy="-76" r="10" fill="#fff"/></g><g id="c8-verdict-pip0-armR"><line x1="50" y1="-118" x2="90" y2="-78" stroke="#d5dae2" stroke-width="9" stroke-linecap="round"/><circle cx="92" cy="-76" r="10" fill="#fff"/><g id="c8-verdict-pip0-glass"><line x1="96" y1="-80" x2="116" y2="-108" stroke="#9aa1ad" stroke-width="7" stroke-linecap="round"/><circle cx="128" cy="-124" r="22" fill="rgba(255,255,255,.12)" stroke="#d9dde3" stroke-width="6"/></g></g></g></svg>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+
+    const PIPS = {};
+    const pipDraw = (id) => {
+      const S = PIPS[id], q = (s) => document.querySelector("#" + id + s);
+      q("").setAttribute("transform", `translate(${S.x} ${S.y}) scale(${S.s * S.dir} ${S.s})`);
+      q("-legL").setAttribute("transform", `rotate(${S.legL} -13 -62)`);
+      q("-legR").setAttribute("transform", `rotate(${S.legR} 13 -62)`);
+      q("-armL").setAttribute("transform", `rotate(${S.armL} -50 -118)`);
+      q("-armR").setAttribute("transform", `rotate(${S.armR} 50 -118)`);
+      q("-body").setAttribute("transform", `translate(0 ${S.bodyY}) translate(0 -50) scale(${S.sx} ${S.sy * S.br}) translate(0 50)`);
+      q("-pupils").setAttribute("transform", `translate(${S.px} ${S.py})`);
+      q("-browL").setAttribute("transform", `translate(0 ${-Math.max(0, S.browL) / 4}) rotate(${S.browL} -22 -150)`);
+      q("-browR").setAttribute("transform", `translate(0 ${Math.min(0, S.browR) / 4}) rotate(${S.browR} 22 -150)`);
+    };
+    const pipTo = (id, vars, dur, t, ease = "power2.out", from = null) => {
+      const tw = Object.assign({}, vars, { duration: dur, ease, onUpdate: () => pipDraw(id) });
+      if (from) tl.fromTo(PIPS[id], Object.assign({}, from), Object.assign(tw, { immediateRender: false }), t);
+      else tl.to(PIPS[id], tw, t);
+    };
+    const Pip = {
+      place(id, x, y, s = 1, dir = 1) {
+        PIPS[id] = { x, y, s, dir, legL: 0, legR: 0, armL: 0, armR: 0, bodyY: 0, sx: 1, sy: 1, br: 1, px: 0, py: 0, browL: 0, browR: 0 };
+        pipDraw(id);
+        tl.set(PIPS[id], { x, y, s, dir, onComplete: () => pipDraw(id) }, 0);
+      },
+      move(id, x, y, t, dur, ease = "power2.inOut") { pipTo(id, { x, y }, dur, t, ease); },
+      face(id, dir, t) { pipTo(id, { dir }, 0.12, t, "power1.inOut"); },
+      walk(id, x1, t, dur) {
+        pipTo(id, { x: x1 }, dur, t, "power1.inOut");
+        const steps = Math.max(2, Math.round(dur / 0.28)), d = dur / steps;
+        pipTo(id, { legL: 24, legR: -24 }, d, t, "sine.inOut", { legL: -24, legR: 24 });
+        tl.to(PIPS[id], { legL: -24, legR: 24, bodyY: -7, duration: d, repeat: steps - 2, yoyo: true, ease: "sine.inOut", onUpdate: () => pipDraw(id) }, t + d);
+        pipTo(id, { legL: 0, legR: 0, bodyY: 0 }, 0.18, t + dur);
+      },
+      mood(id, eyes, mouth, t) {  // a take: squash, the new face, a settle
+        pipTo(id, { sy: 0.9, sx: 1.06 }, 0.08, t);
+        ["normal", "wide", "happy", "closed"].forEach(k => tl.set("#" + id + "-eyes-" + k, { opacity: k === eyes ? 1 : 0 }, t + 0.06));
+        ["smile", "o", "flat", "grin"].forEach(k => tl.set("#" + id + "-mouth-" + k, { opacity: k === mouth ? 1 : 0 }, t + 0.06));
+        pipTo(id, { sy: 1, sx: 1 }, 0.4, t + 0.08, "elastic.out(1, 0.5)");
+      },
+      brows(id, l, r, t) { pipTo(id, { browL: l, browR: r }, 0.2, t); },
+      look(id, dx, dy, t) { pipTo(id, { px: dx, py: dy }, 0.18, t); },
+      arm(id, side, angle, t, dur = 0.32) { pipTo(id, side === "R" ? { armR: angle } : { armL: angle }, dur, t, "back.out(1.6)"); },
+      jump(id, t, h = 70) {
+        const y0 = PIPS[id].y;
+        pipTo(id, { sy: 0.86, sx: 1.08 }, 0.1, t);
+        pipTo(id, { y: y0 - h * PIPS[id].s, sy: 1.08, sx: 0.95 }, 0.24, t + 0.1, "power2.out");
+        pipTo(id, { y: y0, sy: 1, sx: 1 }, 0.22, t + 0.34, "power2.in");
+        pipTo(id, { sy: 0.9, sx: 1.06 }, 0.08, t + 0.56);
+        pipTo(id, { sy: 1, sx: 1 }, 0.35, t + 0.64, "elastic.out(1, 0.5)");
+      },
+      blink(id, t) {
+        tl.set("#" + id + "-eyes-normal", { opacity: 0 }, t); tl.set("#" + id + "-eyes-closed", { opacity: 1 }, t);
+        tl.set("#" + id + "-eyes-closed", { opacity: 0 }, t + 0.12); tl.set("#" + id + "-eyes-normal", { opacity: 1 }, t + 0.12);
+      },
+      breathe(id, t, dur) {  // idle life: a slow breath, finite repeats, on its own channel
+        const n = Math.max(1, Math.floor(dur / 1.6));
+        tl.fromTo(PIPS[id], { br: 1 }, { br: 1.025, duration: 0.8, repeat: n * 2 - 1, yoyo: true, ease: "sine.inOut", immediateRender: false, onUpdate: () => pipDraw(id) }, t);
+      },
+    };
+
+    tl.fromTo("#c8-verdict-ch1", { opacity: 0, scale: 3.2, x: 300, y: 360, filter: "blur(10px)" }, { opacity: 1, scale: 3.2, x: 300, y: 360, filter: "blur(0px)", duration: 0.25, ease: "power4.out" }, 0.15);
+    tl.to("#c8-verdict-ch1", { scale: 1, x: 0, y: 0, duration: 0.6, ease: "power3.inOut" }, 1.95);
+    tl.fromTo("#c8-verdict-pn7", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power4.out" }, 0.0);
+    tl.to("#c8-verdict-pn7", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 18.873);
+    tl.fromTo("#c8-verdict-st2", { opacity: 0, y: 30, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 1.924);
+    tl.fromTo("#c8-verdict-st3", { opacity: 0, y: 30, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 2.956);
+    tl.fromTo("#c8-verdict-st4", { opacity: 0, y: 30, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 4.16);
+    tl.fromTo("#c8-verdict-st5", { opacity: 0, y: 30, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 7.138);
+    tl.fromTo("#c8-verdict-st6", { opacity: 0, y: 30, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 8.662);
+    tl.fromTo("#c8-verdict-home", { opacity: 0, filter: "blur(8px)", y: 0 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.3, ease: "power4.out" }, 11.779);
+    tl.fromTo("#c8-verdict-away", { opacity: 0, filter: "blur(8px)", y: 0 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.3, ease: "power4.out" }, 13.959);
+    tl.fromTo("#c8-verdict-pn8", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power4.out" }, 18.923);
+    tl.to("#c8-verdict-pn8", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 27.051);
+    tl.fromTo("#c8-verdict-vg0", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.023);
+    tl.fromTo("#c8-verdict-vg1", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.068);
+    tl.fromTo("#c8-verdict-vg2", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.113);
+    tl.fromTo("#c8-verdict-vg3", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.158);
+    tl.fromTo("#c8-verdict-vg4", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.203);
+    tl.fromTo("#c8-verdict-vg5", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.248);
+    tl.fromTo("#c8-verdict-vg6", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.293);
+    tl.fromTo("#c8-verdict-vg7", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.338);
+    tl.fromTo("#c8-verdict-vg8", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.383);
+    tl.fromTo("#c8-verdict-vg9", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.428);
+    tl.fromTo("#c8-verdict-vg10", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.473);
+    tl.fromTo("#c8-verdict-vg11", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.518);
+    tl.fromTo("#c8-verdict-vg12", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.563);
+    tl.fromTo("#c8-verdict-vg13", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.608);
+    tl.fromTo("#c8-verdict-vg14", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.653);
+    tl.to("#c8-verdict-vg0", { backgroundColor: "#e11d2e", boxShadow: "0 0 22px #e11d2e", duration: 0.15 }, 20.643);
+    tl.to("#c8-verdict-vg1", { backgroundColor: "#e11d2e", boxShadow: "0 0 22px #e11d2e", duration: 0.15 }, 20.703);
+    tl.to("#c8-verdict-vg2", { backgroundColor: "#e11d2e", boxShadow: "0 0 22px #e11d2e", duration: 0.15 }, 20.763);
+    tl.to("#c8-verdict-vg3", { backgroundColor: "#e11d2e", boxShadow: "0 0 22px #e11d2e", duration: 0.15 }, 20.823);
+    tl.to("#c8-verdict-vg4", { backgroundColor: "#e11d2e", boxShadow: "0 0 22px #e11d2e", duration: 0.15 }, 20.883);
+    tl.to("#c8-verdict-vg5", { backgroundColor: "#e11d2e", boxShadow: "0 0 22px #e11d2e", duration: 0.15 }, 20.943);
+    tl.to("#c8-verdict-vg6", { backgroundColor: "#e11d2e", boxShadow: "0 0 22px #e11d2e", duration: 0.15 }, 21.003);
+    tl.to("#c8-verdict-vg7", { backgroundColor: "#e11d2e", boxShadow: "0 0 22px #e11d2e", duration: 0.15 }, 21.063);
+    tl.fromTo("#c8-verdict-vk0", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.323);
+    tl.fromTo("#c8-verdict-vk1", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.368);
+    tl.fromTo("#c8-verdict-vk2", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.413);
+    tl.fromTo("#c8-verdict-vk3", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.458);
+    tl.fromTo("#c8-verdict-vk4", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.503);
+    tl.fromTo("#c8-verdict-vk5", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.548);
+    tl.fromTo("#c8-verdict-vk6", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.593);
+    tl.fromTo("#c8-verdict-vk7", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.638);
+    tl.fromTo("#c8-verdict-vk8", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.683);
+    tl.fromTo("#c8-verdict-vk9", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.728);
+    tl.fromTo("#c8-verdict-vk10", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.773);
+    tl.fromTo("#c8-verdict-vk11", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.818);
+    tl.fromTo("#c8-verdict-vk12", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.863);
+    tl.fromTo("#c8-verdict-vk13", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.908);
+    tl.fromTo("#c8-verdict-vk14", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.953);
+    tl.fromTo("#c8-verdict-vk15", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }, 19.998);
+    tl.to("#c8-verdict-vk0", { backgroundColor: "#e11d2e", boxShadow: "0 0 22px #e11d2e", duration: 0.15 }, 22.323);
+    tl.to("#c8-verdict-vk1", { backgroundColor: "#e11d2e", boxShadow: "0 0 22px #e11d2e", duration: 0.15 }, 22.323);
+    tl.to("#c8-verdict-vk2", { backgroundColor: "rgba(225,29,46,.18)", boxShadow: "inset 0 0 0 4px #ff3b47", duration: 0.15 }, 24.595);
+    tl.to("#c8-verdict-vk3", { backgroundColor: "rgba(225,29,46,.18)", boxShadow: "inset 0 0 0 4px #ff3b47", duration: 0.15 }, 24.645);
+    tl.to("#c8-verdict-vk4", { backgroundColor: "rgba(225,29,46,.18)", boxShadow: "inset 0 0 0 4px #ff3b47", duration: 0.15 }, 24.695);
+    tl.to("#c8-verdict-vk5", { backgroundColor: "rgba(225,29,46,.18)", boxShadow: "inset 0 0 0 4px #ff3b47", duration: 0.15 }, 24.745);
+    tl.to("#c8-verdict-vk6", { backgroundColor: "rgba(225,29,46,.18)", boxShadow: "inset 0 0 0 4px #ff3b47", duration: 0.15 }, 24.795);
+    tl.to("#c8-verdict-vk7", { backgroundColor: "rgba(225,29,46,.18)", boxShadow: "inset 0 0 0 4px #ff3b47", duration: 0.15 }, 24.845);
+    tl.to("#c8-verdict-vk8", { backgroundColor: "rgba(225,29,46,.18)", boxShadow: "inset 0 0 0 4px #ff3b47", duration: 0.15 }, 24.895);
+    tl.to("#c8-verdict-vk9", { backgroundColor: "rgba(225,29,46,.18)", boxShadow: "inset 0 0 0 4px #ff3b47", duration: 0.15 }, 24.945);
+    tl.to("#c8-verdict-vk10", { backgroundColor: "rgba(225,29,46,.18)", boxShadow: "inset 0 0 0 4px #ff3b47", duration: 0.15 }, 24.995);
+    tl.to("#c8-verdict-vk11", { backgroundColor: "rgba(225,29,46,.18)", boxShadow: "inset 0 0 0 4px #ff3b47", duration: 0.15 }, 25.045);
+    tl.to("#c8-verdict-vk12", { backgroundColor: "rgba(225,29,46,.18)", boxShadow: "inset 0 0 0 4px #ff3b47", duration: 0.15 }, 25.095);
+    tl.to("#c8-verdict-vk13", { backgroundColor: "rgba(225,29,46,.18)", boxShadow: "inset 0 0 0 4px #ff3b47", duration: 0.15 }, 25.145);
+    tl.to("#c8-verdict-vg0", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg1", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg2", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg3", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg4", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg5", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg6", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg7", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg8", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg9", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg10", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg11", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg12", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg13", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vg14", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk0", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk1", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk2", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk3", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk4", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk5", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk6", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk7", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk8", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk9", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk10", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk11", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk12", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk13", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk14", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.to("#c8-verdict-vk15", { opacity: 0, duration: 0.15 }, 27.051000000000002);
+    tl.fromTo("#c8-verdict-bt9", { opacity: 0, scale: 1.18, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 25.195);
+    tl.to("#c8-verdict-bt9", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 27.051);
+    tl.fromTo("#c8-verdict-pn10", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power4.out" }, 27.101);
+    tl.to("#c8-verdict-pn10", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 36.72);
+    tl.fromTo("#c8-verdict-pl11-messi-b0", { opacity: 0, x: 0, y: -694, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.192);
+    tl.to("#c8-verdict-pl11-messi-num", { y: -46, duration: 0.3, ease: "power2.out" }, 29.542);
+    tl.set("#c8-verdict-pl11-messi-num", { textContent: "1" }, 29.592);
+    tl.fromTo("#c8-verdict-pl11-neymar-b0", { opacity: 0, x: 0, y: -694, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.222);
+    tl.to("#c8-verdict-pl11-neymar-num", { y: -46, duration: 0.3, ease: "power2.out" }, 29.572);
+    tl.set("#c8-verdict-pl11-neymar-num", { textContent: "1" }, 29.622);
+    tl.fromTo("#c8-verdict-pl11-cristianoronaldo-b0", { opacity: 0, x: 0, y: -694, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.252);
+    tl.to("#c8-verdict-pl11-cristianoronaldo-num", { y: -46, duration: 0.3, ease: "power2.out" }, 29.602);
+    tl.set("#c8-verdict-pl11-cristianoronaldo-num", { textContent: "1" }, 29.652);
+    tl.fromTo("#c8-verdict-pl11-messi-b1", { opacity: 0, x: 0, y: -648, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.272);
+    tl.to("#c8-verdict-pl11-messi-num", { y: -92, duration: 0.3, ease: "power2.out" }, 29.622);
+    tl.set("#c8-verdict-pl11-messi-num", { textContent: "2" }, 29.672);
+    tl.fromTo("#c8-verdict-pl11-neymar-b1", { opacity: 0, x: 0, y: -648, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.302);
+    tl.to("#c8-verdict-pl11-neymar-num", { y: -92, duration: 0.3, ease: "power2.out" }, 29.652);
+    tl.set("#c8-verdict-pl11-neymar-num", { textContent: "2" }, 29.702);
+    tl.fromTo("#c8-verdict-pl11-cristianoronaldo-b1", { opacity: 0, x: 0, y: -648, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.332);
+    tl.to("#c8-verdict-pl11-cristianoronaldo-num", { y: -92, duration: 0.3, ease: "power2.out" }, 29.682);
+    tl.set("#c8-verdict-pl11-cristianoronaldo-num", { textContent: "2" }, 29.732);
+    tl.fromTo("#c8-verdict-pl11-messi-b2", { opacity: 0, x: 0, y: -602, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.352);
+    tl.to("#c8-verdict-pl11-messi-num", { y: -138, duration: 0.3, ease: "power2.out" }, 29.702);
+    tl.set("#c8-verdict-pl11-messi-num", { textContent: "3" }, 29.752);
+    tl.fromTo("#c8-verdict-pl11-neymar-b2", { opacity: 0, x: 0, y: -602, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.382);
+    tl.to("#c8-verdict-pl11-neymar-num", { y: -138, duration: 0.3, ease: "power2.out" }, 29.732);
+    tl.set("#c8-verdict-pl11-neymar-num", { textContent: "3" }, 29.782);
+    tl.fromTo("#c8-verdict-pl11-cristianoronaldo-b2", { opacity: 0, x: 0, y: -602, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.412);
+    tl.to("#c8-verdict-pl11-cristianoronaldo-num", { y: -138, duration: 0.3, ease: "power2.out" }, 29.762);
+    tl.set("#c8-verdict-pl11-cristianoronaldo-num", { textContent: "3" }, 29.812);
+    tl.fromTo("#c8-verdict-pl11-messi-b3", { opacity: 0, x: 0, y: -556, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.432);
+    tl.to("#c8-verdict-pl11-messi-num", { y: -184, duration: 0.3, ease: "power2.out" }, 29.782);
+    tl.set("#c8-verdict-pl11-messi-num", { textContent: "4" }, 29.832);
+    tl.fromTo("#c8-verdict-pl11-neymar-b3", { opacity: 0, x: 0, y: -556, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.462);
+    tl.to("#c8-verdict-pl11-neymar-num", { y: -184, duration: 0.3, ease: "power2.out" }, 29.812);
+    tl.set("#c8-verdict-pl11-neymar-num", { textContent: "4" }, 29.862);
+    tl.fromTo("#c8-verdict-pl11-cristianoronaldo-b3", { opacity: 0, x: 0, y: -556, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.492);
+    tl.to("#c8-verdict-pl11-cristianoronaldo-num", { y: -184, duration: 0.3, ease: "power2.out" }, 29.842);
+    tl.set("#c8-verdict-pl11-cristianoronaldo-num", { textContent: "4" }, 29.892);
+    tl.fromTo("#c8-verdict-pl11-messi-b4", { opacity: 0, x: 0, y: -510, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.512);
+    tl.to("#c8-verdict-pl11-messi-num", { y: -230, duration: 0.3, ease: "power2.out" }, 29.862);
+    tl.set("#c8-verdict-pl11-messi-num", { textContent: "5" }, 29.912);
+    tl.fromTo("#c8-verdict-pl11-neymar-b4", { opacity: 0, x: 0, y: -510, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.542);
+    tl.to("#c8-verdict-pl11-neymar-num", { y: -230, duration: 0.3, ease: "power2.out" }, 29.892);
+    tl.set("#c8-verdict-pl11-neymar-num", { textContent: "5" }, 29.942);
+    tl.fromTo("#c8-verdict-pl11-cristianoronaldo-b4", { opacity: 0, x: 0, y: -510, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.572);
+    tl.to("#c8-verdict-pl11-cristianoronaldo-num", { y: -230, duration: 0.3, ease: "power2.out" }, 29.922);
+    tl.set("#c8-verdict-pl11-cristianoronaldo-num", { textContent: "5" }, 29.972);
+    tl.fromTo("#c8-verdict-pl11-messi-b5", { opacity: 0, x: 0, y: -464, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.592);
+    tl.to("#c8-verdict-pl11-messi-num", { y: -276, duration: 0.3, ease: "power2.out" }, 29.942);
+    tl.set("#c8-verdict-pl11-messi-num", { textContent: "6" }, 29.992);
+    tl.fromTo("#c8-verdict-pl11-neymar-b5", { opacity: 0, x: 0, y: -464, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.622);
+    tl.to("#c8-verdict-pl11-neymar-num", { y: -276, duration: 0.3, ease: "power2.out" }, 29.972);
+    tl.set("#c8-verdict-pl11-neymar-num", { textContent: "6" }, 30.022);
+    tl.fromTo("#c8-verdict-pl11-cristianoronaldo-b5", { opacity: 0, x: 0, y: -464, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.652);
+    tl.to("#c8-verdict-pl11-cristianoronaldo-num", { y: -276, duration: 0.3, ease: "power2.out" }, 30.002);
+    tl.set("#c8-verdict-pl11-cristianoronaldo-num", { textContent: "6" }, 30.052);
+    tl.fromTo("#c8-verdict-pl11-messi-b6", { opacity: 0, x: 0, y: -418, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.672);
+    tl.to("#c8-verdict-pl11-messi-num", { y: -322, duration: 0.3, ease: "power2.out" }, 30.022);
+    tl.set("#c8-verdict-pl11-messi-num", { textContent: "7" }, 30.072);
+    tl.fromTo("#c8-verdict-pl11-neymar-b6", { opacity: 0, x: 0, y: -418, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.702);
+    tl.to("#c8-verdict-pl11-neymar-num", { y: -322, duration: 0.3, ease: "power2.out" }, 30.052);
+    tl.set("#c8-verdict-pl11-neymar-num", { textContent: "7" }, 30.102);
+    tl.fromTo("#c8-verdict-pl11-cristianoronaldo-b6", { opacity: 0, x: 0, y: -418, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.732);
+    tl.to("#c8-verdict-pl11-cristianoronaldo-num", { y: -322, duration: 0.3, ease: "power2.out" }, 30.082);
+    tl.set("#c8-verdict-pl11-cristianoronaldo-num", { textContent: "7" }, 30.132);
+    tl.fromTo("#c8-verdict-pl11-messi-b7", { opacity: 0, x: 0, y: -372, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.752);
+    tl.to("#c8-verdict-pl11-messi-num", { y: -368, duration: 0.3, ease: "power2.out" }, 30.102);
+    tl.set("#c8-verdict-pl11-messi-num", { textContent: "8" }, 30.152);
+    tl.fromTo("#c8-verdict-pl11-neymar-b7", { opacity: 0, x: 0, y: -372, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.782);
+    tl.to("#c8-verdict-pl11-neymar-num", { y: -368, duration: 0.3, ease: "power2.out" }, 30.132);
+    tl.set("#c8-verdict-pl11-neymar-num", { textContent: "8" }, 30.182);
+    tl.fromTo("#c8-verdict-pl11-cristianoronaldo-b7", { opacity: 0, x: 0, y: -372, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.812);
+    tl.to("#c8-verdict-pl11-cristianoronaldo-num", { y: -368, duration: 0.3, ease: "power2.out" }, 30.162);
+    tl.set("#c8-verdict-pl11-cristianoronaldo-num", { textContent: "8" }, 30.212);
+    tl.fromTo("#c8-verdict-pl11-messi-b8", { opacity: 0, x: 0, y: -326, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.832);
+    tl.to("#c8-verdict-pl11-messi-num", { y: -414, duration: 0.3, ease: "power2.out" }, 30.182);
+    tl.set("#c8-verdict-pl11-messi-num", { textContent: "9" }, 30.232);
+    tl.fromTo("#c8-verdict-pl11-neymar-b8", { opacity: 0, x: 0, y: -326, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.862);
+    tl.to("#c8-verdict-pl11-neymar-num", { y: -414, duration: 0.3, ease: "power2.out" }, 30.212);
+    tl.set("#c8-verdict-pl11-neymar-num", { textContent: "9" }, 30.262);
+    tl.fromTo("#c8-verdict-pl11-cristianoronaldo-b8", { opacity: 0, x: 0, y: -326, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.892);
+    tl.to("#c8-verdict-pl11-cristianoronaldo-num", { y: -414, duration: 0.3, ease: "power2.out" }, 30.242);
+    tl.set("#c8-verdict-pl11-cristianoronaldo-num", { textContent: "9" }, 30.292);
+    tl.fromTo("#c8-verdict-pl11-messi-b9", { opacity: 0, x: 0, y: -280, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.912);
+    tl.to("#c8-verdict-pl11-messi-num", { y: -460, duration: 0.3, ease: "power2.out" }, 30.262);
+    tl.set("#c8-verdict-pl11-messi-num", { textContent: "10" }, 30.312);
+    tl.fromTo("#c8-verdict-pl11-neymar-b9", { opacity: 0, x: 0, y: -280, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.942);
+    tl.to("#c8-verdict-pl11-neymar-num", { y: -460, duration: 0.3, ease: "power2.out" }, 30.292);
+    tl.set("#c8-verdict-pl11-neymar-num", { textContent: "10" }, 30.342);
+    tl.fromTo("#c8-verdict-pl11-cristianoronaldo-b9", { opacity: 0, x: 0, y: -280, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.972);
+    tl.to("#c8-verdict-pl11-cristianoronaldo-num", { y: -460, duration: 0.3, ease: "power2.out" }, 30.322);
+    tl.set("#c8-verdict-pl11-cristianoronaldo-num", { textContent: "10" }, 30.372);
+    tl.to("[id^=c8-verdict-pl11-messi]", { opacity: 0, duration: 0.15 }, 36.72);
+    tl.to("[id^=c8-verdict-pl11-neymar]", { opacity: 0, duration: 0.15 }, 36.72);
+    tl.to("[id^=c8-verdict-pl11-cristianoronaldo]", { opacity: 0, duration: 0.15 }, 36.72);
+    tl.fromTo("#c8-verdict-bt12", { opacity: 0, scale: 1.18, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 37.95);
+    tl.fromTo("#c8-verdict-src13", { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.3, ease: "power4.out" }, 39.29);
+    tl.to("#c8-verdict-bt12", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 42.573);
+    tl.to("#c8-verdict-src13", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 42.573);
+    tl.fromTo("#c8-verdict-pn14", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power4.out" }, 42.723);
+    tl.to("#c8-verdict-pn14", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 53.207);
+    tl.fromTo("#c8-verdict-yr15", { opacity: 0, filter: "blur(8px)", y: 0 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.3, ease: "power4.out" }, 44.123);
+    tl.to("#c8-verdict-yr15", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 53.207);
+    tl.fromTo("#c8-verdict-yr16", { opacity: 0, filter: "blur(8px)", y: 0 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.3, ease: "power4.out" }, 50.266);
+    tl.to("#c8-verdict-yr16", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 53.207);
+    tl.fromTo("#c8-verdict-yr17", { opacity: 0, filter: "blur(8px)", y: 0 }, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.3, ease: "power4.out" }, 51.603);
+    tl.to("#c8-verdict-yr17", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 53.207);
+    tl.fromTo("#c8-verdict-src18", { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.3, ease: "power4.out" }, 45.863);
+    tl.to("#c8-verdict-src18", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 53.207);
+    tl.fromTo("#c8-verdict-bt19", { opacity: 0, scale: 1.18, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 56.837);
+    tl.fromTo("#c8-verdict-mag20", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 57.617);
+    tl.fromTo("#c8-verdict-mag21", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 57.767);
+    tl.fromTo("#c8-verdict-mag22", { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, 57.917);
+    tl.fromTo("#c8-verdict-bt23", { opacity: 0, scale: 1.18, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, 60.157);
+    tl.fromTo("#c8-verdict-pn24", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power4.out" }, 62.681);
+    Pip.place("c8-verdict-pip0", 1780, 930, 1.15, -1);
+    Pip.breathe("c8-verdict-pip0", 0, 68.399);
+    Pip.arm("c8-verdict-pip0", "R", -60, 1.924);
+    Pip.arm("c8-verdict-pip0", "R", -80, 2.956);
+    Pip.arm("c8-verdict-pip0", "R", -60, 7.138);
+    Pip.arm("c8-verdict-pip0", "R", 0, 10.059);
+    Pip.mood("c8-verdict-pip0", "happy", "smile", 10.979);
+    Pip.mood("c8-verdict-pip0", "normal", "smile", 19.023);
+    Pip.arm("c8-verdict-pip0", "L", 70, 24.595);
+    Pip.arm("c8-verdict-pip0", "L", 0, 26.781);
+    Pip.mood("c8-verdict-pip0", "closed", "smile", 29.792);
+    Pip.mood("c8-verdict-pip0", "normal", "smile", 33.497);
+    Pip.mood("c8-verdict-pip0", "wide", "flat", 34.217);
+    Pip.brows("c8-verdict-pip0", 14, -6, 34.317);
+    Pip.look("c8-verdict-pip0", -2, 2, 34.317);
+    Pip.brows("c8-verdict-pip0", 0, 0, 36.87);
+    Pip.mood("c8-verdict-pip0", "happy", "grin", 38.15);
+    Pip.jump("c8-verdict-pip0", 38.25, 50);
+    Pip.mood("c8-verdict-pip0", "normal", "smile", 42.723);
+    Pip.look("c8-verdict-pip0", 0, 3, 45.863);
+    Pip.move("c8-verdict-pip0", 1500, 930, 53.257, 0.5);
+    Pip.arm("c8-verdict-pip0", "R", -90, 60.157);
+    Pip.look("c8-verdict-pip0", 0, 4, 60.157);
+    Pip.mood("c8-verdict-pip0", "happy", "grin", 62.681000000000004);
+    Pip.arm("c8-verdict-pip0", "R", -150, 62.981);
+    Pip.arm("c8-verdict-pip0", "R", -110, 63.38100000000001);
+    Pip.arm("c8-verdict-pip0", "R", -150, 63.781000000000006);
+    window.__timelines["c8-verdict"] = tl;
+  </script>
+</template>
