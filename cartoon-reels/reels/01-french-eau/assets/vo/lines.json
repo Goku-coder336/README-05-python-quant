@@ -1,0 +1,164 @@
+{
+  "t-hook": {
+    "voice": "George",
+    "text": "French is easy.",
+    "lang": "en",
+    "seconds": 1.28
+  },
+  "t-water": {
+    "voice": "George",
+    "text": "Water.",
+    "lang": "en",
+    "seconds": 0.862
+  },
+  "t-eau": {
+    "voice": "George",
+    "text": "Eau.",
+    "lang": "fr",
+    "seconds": 0.653
+  },
+  "t-high": {
+    "voice": "George",
+    "text": "High.",
+    "lang": "en",
+    "seconds": 0.731
+  },
+  "t-haut": {
+    "voice": "George",
+    "text": "Haut.",
+    "lang": "fr",
+    "seconds": 0.679
+  },
+  "t-same": {
+    "voice": "George",
+    "text": "Same.",
+    "lang": "en",
+    "seconds": 0.784
+  },
+  "t-hat": {
+    "voice": "George",
+    "text": "Hat.",
+    "lang": "en",
+    "seconds": 0.731
+  },
+  "t-chapeau": {
+    "voice": "George",
+    "text": "Chapeau.",
+    "lang": "fr",
+    "seconds": 0.914
+  },
+  "t-bird": {
+    "voice": "George",
+    "text": "Bird.",
+    "lang": "en",
+    "seconds": 0.653
+  },
+  "t-oiseau": {
+    "voice": "George",
+    "text": "Oiseau.",
+    "lang": "fr",
+    "seconds": 0.862
+  },
+  "t-boat": {
+    "voice": "George",
+    "text": "Boat.",
+    "lang": "en",
+    "seconds": 0.653
+  },
+  "t-bateau": {
+    "voice": "George",
+    "text": "Bateau.",
+    "lang": "fr",
+    "seconds": 0.914,
+    "verified": true
+  },
+  "t-cake": {
+    "voice": "George",
+    "text": "Cake.",
+    "lang": "en",
+    "seconds": 0.653
+  },
+  "t-gateau": {
+    "voice": "George",
+    "text": "Gâteau.",
+    "lang": "fr",
+    "seconds": 0.862
+  },
+  "t-castle": {
+    "voice": "George",
+    "text": "Castle.",
+    "lang": "en",
+    "seconds": 0.914
+  },
+  "t-chateau": {
+    "voice": "George",
+    "text": "Château.",
+    "lang": "fr",
+    "seconds": 0.914
+  },
+  "t-knife": {
+    "voice": "George",
+    "text": "Knife.",
+    "lang": "en",
+    "seconds": 0.836
+  },
+  "t-couteau": {
+    "voice": "George",
+    "text": "Couteau.",
+    "lang": "fr",
+    "seconds": 0.862,
+    "verified": true
+  },
+  "t-try": {
+    "voice": "George",
+    "text": "Now try this.",
+    "lang": "en",
+    "seconds": 1.149
+  },
+  "t-easy": {
+    "voice": "George",
+    "text": "Easy.",
+    "lang": "en",
+    "seconds": 0.836
+  },
+  "t-p1": {
+    "voice": "George",
+    "text": "Le bel oiseau au chapeau !",
+    "lang": "fr",
+    "seconds": 1.855
+  },
+  "p-p2": {
+    "voice": "Laura",
+    "text": "Sur le bateau !",
+    "lang": "fr",
+    "seconds": 1.071,
+    "verified": true
+  },
+  "t-p3": {
+    "voice": "George",
+    "text": "Coupe le gâteau du château au couteau !",
+    "lang": "fr",
+    "seconds": 2.273
+  },
+  "p-p3": {
+    "voice": "Laura",
+    "text": "Coupe le gâteau du château au couteau !",
+    "lang": "fr",
+    "seconds": 2.273,
+    "verified": true
+  },
+  "t-p4": {
+    "voice": "George",
+    "text": "Et tombe à l'eau !",
+    "lang": "fr",
+    "seconds": 1.097,
+    "verified": true
+  },
+  "p-p4": {
+    "voice": "Laura",
+    "text": "Et tombe à l'eau !",
+    "lang": "fr",
+    "seconds": 1.071,
+    "verified": true
+  }
+}

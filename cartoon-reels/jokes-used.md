@@ -8,4 +8,4 @@ Check this before pitching ideas. Never reuse a sound set or stitched sentence l
 
 ## Our reels
 
-(none yet)
+- **#01 French "-eau"** (reels/01-french-eau): eau, haut, chapeau, oiseau, bateau, gâteau, château, couteau, plus the "EAU · HAUT · OH, Same." gag. Stitched: "Le bel oiseau au chapeau, sur le bateau, coupe le gâteau du château au couteau… et tombe à l'eau."

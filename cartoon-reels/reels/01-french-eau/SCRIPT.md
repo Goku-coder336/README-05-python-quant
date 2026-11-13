@@ -1,6 +1,6 @@
 # Reel 01: French is easy ("-eau")
 
-Status: **draft script, waiting for approval**
+Status: **rendered (v1)**. Owner may still change the script, voices or teacher design after watching. Files: `renders/01-french-eau-music.mp4`, `renders/01-french-eau-nomusic.mp4`.
 
 - Series tag: `WORD SONG #01`
 - Length: about 30.5 s · 1080x1920 · 30 fps
@@ -53,4 +53,4 @@ Two characters at a microphone. Each line appears big and centred at the top as 
 ## Voices (ElevenLabs, eleven_multilingual_v2)
 
 - Teacher (Barnaby): **George** (chosen).
-- Duet partner (Odette): **Laura** (proposed; not yet confirmed).
+- Duet partner (Odette): **Laura** (used in v1; owner may change it).

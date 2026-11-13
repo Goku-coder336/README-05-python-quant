@@ -1,32 +1,34 @@
 <template>
   <style>
-    #root { position: absolute; inset: 0; overflow: hidden; background: #2b1d4f; 
-  font-family: 'Montserrat', sans-serif;
- }
+    #root { position: absolute; inset: 0; overflow: hidden; background: #2b1d4f; font-family: 'Montserrat', sans-serif; }
+    #pay-shake { position: absolute; inset: 0; }
     #pay-tint { position: absolute; inset: 0; background: #7a2e8c; opacity: 0; }
     #pay-spot { position: absolute; left: 40px; top: 1330px; width: 900px; height: 260px; border-radius: 50%; background: #4a3580; }
     #pay-floor { position: absolute; left: 0; right: 0; top: 1440px; bottom: 0; background: #1d1436; border-top: 6px solid #1d1d1b; }
     #pay-tag { position: absolute; top: 154px; left: 50%; margin-left: -170px; width: 340px; height: 64px; border-radius: 32px;
                background: #ffd23f; color: #1d1d1b; font-weight: 700; font-size: 30px; letter-spacing: 0.08em;
                display: flex; align-items: center; justify-content: center; }
-    .pay-line { position: absolute; left: 50px; right: 50px; text-align: center; color: #fffdf6; font-weight: 800; line-height: 1.05; }
-    .pay-trans { position: absolute; left: 60px; right: 60px; text-align: center; color: #f4d9a8; font-weight: 600; }
+    .line { position: absolute; top: 300px; left: 50px; right: 50px; text-align: center; color: #fffdf6; font-weight: 800; line-height: 1.05; }
+    .trans { position: absolute; top: 620px; left: 60px; right: 60px; text-align: center; color: #f4d9a8; font-weight: 600; font-size: 40px; }
     #pay-t-wrap { position: absolute; left: 20px; top: 780px; width: 450px; height: 675px; }
     #pay-p-wrap { position: absolute; left: 560px; top: 780px; width: 412px; height: 675px; }
     #pay-t-wrap svg, #pay-p-wrap svg { width: 100%; height: 100%; }
-    #pay-mic { position: absolute; left: 445px; top: 680px; width: 150px; height: 450px; }
+    #pay-mic { position: absolute; left: 445px; top: 690px; width: 150px; height: 450px; }
+    #pay-water { position: absolute; left: 0; top: 1150px; width: 1080px; height: 420px; opacity: 0; }
+    #pay-flash { position: absolute; inset: 0; background: #fffdf6; opacity: 0; }
   </style>
   <div id="root" data-composition-id="payoff" data-width="1080" data-height="1920">
-    <div id="pay-tint"></div>
-    <div id="pay-spot"></div>
-    <div id="pay-floor"></div>
-    <svg id="pay-mic" viewBox="0 0 140 420" xmlns="http://www.w3.org/2000/svg">
-      <path d="M70 0 L70 250" stroke="#1d1d1b" stroke-width="8"/>
-      <rect x="40" y="250" width="60" height="110" rx="30" fill="#c9ccd6" stroke="#1d1d1b" stroke-width="6"/>
-      <path d="M44 290 L96 290 M44 315 L96 315" stroke="#1d1d1b" stroke-width="4"/>
-      <rect x="56" y="356" width="28" height="56" rx="10" fill="#3a3f55" stroke="#1d1d1b" stroke-width="6"/>
-    </svg>
-    <div id="pay-t-wrap">
+    <div id="pay-shake" data-layout-allow-overflow>
+      <div id="pay-tint"></div>
+      <div id="pay-spot"></div>
+      <div id="pay-floor"></div>
+      <svg id="pay-mic" viewBox="0 0 140 420" xmlns="http://www.w3.org/2000/svg">
+        <path d="M70 0 L70 250" stroke="#1d1d1b" stroke-width="8"/>
+        <rect x="40" y="250" width="60" height="110" rx="30" fill="#c9ccd6" stroke="#1d1d1b" stroke-width="6"/>
+        <path d="M44 290 L96 290 M44 315 L96 315" stroke="#1d1d1b" stroke-width="4"/>
+        <rect x="56" y="356" width="28" height="56" rx="10" fill="#3a3f55" stroke="#1d1d1b" stroke-width="6"/>
+      </svg>
+      <div id="pay-t-wrap">
 <svg id="pay-t" viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" overflow="visible">
   <g id="pay-t-legs">
     <rect x="245" y="680" width="44" height="150" rx="16" fill="#3a3f55" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
@@ -80,7 +82,7 @@
     <circle cx="434" cy="606" r="24" fill="#f3cfa8" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
   </g>
 </svg></div>
-    <div id="pay-p-wrap">
+      <div id="pay-p-wrap">
 <svg id="pay-p" viewBox="0 0 500 820" xmlns="http://www.w3.org/2000/svg" overflow="visible">
   <g id="pay-p-legs">
     <rect x="200" y="600" width="38" height="150" rx="15" fill="#2b2233" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
@@ -124,29 +126,202 @@
     </g>
   </g>
 </svg></div>
-    <div id="pay-tag">NOW TRY THIS</div>
-    <h1 id="pay-l1" class="pay-line clip" data-start="0" data-duration="2" style="font-size: 92px; top: 340px;">Le bel oiseau<br>au chapeau,</h1>
-    <div id="pay-l1t" class="pay-trans clip" data-start="0" data-duration="2" style="font-size: 40px; top: 560px;">The fine bird in a hat,</div>
+      <svg id="pay-water" viewBox="0 0 1080 420" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+        <path d="M0 420 L0 250 Q90 120 150 230 Q200 40 270 210 Q330 90 390 220 Q450 0 540 190 Q630 10 690 220 Q760 70 810 210 Q880 30 930 230 Q1000 110 1080 240 L1080 420 Z" fill="#3fa9e0" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M0 420 L0 320 Q140 260 270 320 Q400 270 540 320 Q680 270 810 320 Q950 270 1080 320 L1080 420 Z" fill="#2b86c4"/>
+        <circle cx="200" cy="80" r="22" fill="#3fa9e0" stroke="#1d1d1b" stroke-width="5"/>
+        <circle cx="560" cy="-30" r="26" fill="#3fa9e0" stroke="#1d1d1b" stroke-width="5"/>
+        <circle cx="880" cy="60" r="20" fill="#3fa9e0" stroke="#1d1d1b" stroke-width="5"/>
+        <circle cx="400" cy="40" r="14" fill="#3fa9e0" stroke="#1d1d1b" stroke-width="5"/>
+        <circle cx="720" cy="50" r="16" fill="#3fa9e0" stroke="#1d1d1b" stroke-width="5"/>
+      </svg>
+      <div id="pay-tag">NOW TRY THIS</div>
+      <h1 id="pay-l0" class="line clip" data-start="0.0" data-duration="2.286" style="font-size: 92px;">Le bel oiseau<br>au chapeau,</h1>
+    <div id="pay-e0" class="trans clip" data-start="0.0" data-duration="2.286" style="top: 521px;">The fine bird in a hat,</div>
+    <h1 id="pay-l1" class="line clip" data-start="2.286" data-duration="2.286" style="font-size: 92px;">sur le bateau,</h1>
+    <div id="pay-e1" class="trans clip" data-start="2.286" data-duration="2.286" style="top: 425px;">on the boat,</div>
+    <h1 id="pay-l2" class="line clip" data-start="4.572" data-duration="2.286" style="font-size: 84px;">coupe le gâteau<br>du château<br>au couteau…</h1>
+    <div id="pay-e2" class="trans clip" data-start="4.572" data-duration="2.286" style="top: 593px;">cuts the castle's cake with a knife…</div>
+    <h1 id="pay-l3" class="line clip" data-start="6.857" data-duration="2.286" style="font-size: 92px;">et tombe<br>à l'eau.</h1>
+    <div id="pay-e3" class="trans clip" data-start="6.857" data-duration="2.286" style="top: 521px;">and falls in the water.</div>
+    </div>
+    <div id="pay-flash"></div>
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
-    tl.fromTo("#pay-l1", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, 0);
-    tl.fromTo("#pay-l1t", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.15);
-    // background flips tint on the beat (105 BPM: 0.571 s a beat)
-    tl.set("#pay-tint", { opacity: 0.55 }, 0.571);
-    tl.set("#pay-tint", { opacity: 0 }, 1.143);
-    tl.set("#pay-tint", { opacity: 0.55 }, 1.714);
-    // both performing: mouths open, arms out, heads tilted toward the mic
-    tl.set(["#pay-t-mouth-o", "#pay-p-mouth-o"], { opacity: 1 }, 0);
-    tl.set(["#pay-t-mouth-c", "#pay-p-mouth-c"], { opacity: 0 }, 0);
-    tl.fromTo("#pay-t-arm-l", { rotation: 0 }, { rotation: 150, svgOrigin: "205 455", duration: 0.3, ease: "back.out(2)" }, 0);
-    tl.fromTo("#pay-t-arm-r", { rotation: 0 }, { rotation: -25, svgOrigin: "395 455", duration: 0.3, ease: "back.out(2)" }, 0.05);
-    tl.fromTo("#pay-t-head", { rotation: 0 }, { rotation: 7, svgOrigin: "300 415", duration: 0.3 }, 0);
-    tl.fromTo("#pay-p-arm-l", { rotation: 0 }, { rotation: 60, svgOrigin: "165 440", duration: 0.3, ease: "back.out(2)" }, 0.08);
-    tl.fromTo("#pay-p-arm-r", { rotation: 0 }, { rotation: -110, svgOrigin: "335 440", duration: 0.3, ease: "back.out(2)" }, 0.03);
-    tl.fromTo("#pay-p-head", { rotation: 0 }, { rotation: -8, svgOrigin: "250 385", duration: 0.3 }, 0);
-    tl.fromTo("#pay-p-brow-l", { y: 0 }, { y: -14, duration: 0.2 }, 0.1);
-    tl.fromTo("#pay-p-brow-r", { y: 0 }, { y: -14, duration: 0.2 }, 0.12);
+    tl.fromTo("#pay-l0", {scale: 0.7, opacity: 0}, {scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2.2)"}, 0.0);
+    tl.fromTo("#pay-e0", {opacity: 0}, {opacity: 1, duration: 0.2}, 0.12);
+    tl.fromTo("#pay-l1", {scale: 0.7, opacity: 0}, {scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2.2)"}, 2.286);
+    tl.fromTo("#pay-e1", {opacity: 0}, {opacity: 1, duration: 0.2}, 2.406);
+    tl.fromTo("#pay-l2", {scale: 0.7, opacity: 0}, {scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2.2)"}, 4.572);
+    tl.fromTo("#pay-e2", {opacity: 0}, {opacity: 1, duration: 0.2}, 4.692);
+    tl.fromTo("#pay-l3", {scale: 0.7, opacity: 0}, {scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2.2)"}, 6.857);
+    tl.fromTo("#pay-e3", {opacity: 0}, {opacity: 1, duration: 0.2}, 6.977);
+    tl.set("#pay-tint", {opacity: 0}, 0.0);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 0.0);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 0.257);
+    tl.set("#pay-tint", {opacity: 0.55}, 0.571);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 0.571);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 0.828);
+    tl.set("#pay-tint", {opacity: 0}, 1.143);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 1.143);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 1.4);
+    tl.set("#pay-tint", {opacity: 0.55}, 1.714);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 1.714);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 1.971);
+    tl.set("#pay-tint", {opacity: 0}, 2.286);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 2.286);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 2.543);
+    tl.set("#pay-tint", {opacity: 0.55}, 2.857);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 2.857);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 3.114);
+    tl.set("#pay-tint", {opacity: 0}, 3.428);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 3.428);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 3.685);
+    tl.set("#pay-tint", {opacity: 0.55}, 4.0);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 4.0);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 4.257);
+    tl.set("#pay-tint", {opacity: 0}, 4.571);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 4.571);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 4.828);
+    tl.set("#pay-tint", {opacity: 0.55}, 5.143);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 5.143);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 5.4);
+    tl.set("#pay-tint", {opacity: 0}, 5.714);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 5.714);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 5.971);
+    tl.set("#pay-tint", {opacity: 0.55}, 6.285);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 6.285);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 6.542);
+    tl.set("#pay-tint", {opacity: 0}, 6.857);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 6.857);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 7.114);
+    tl.set("#pay-tint", {opacity: 0.55}, 7.428);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: -14, duration: 0.229, ease: "power2.out"}, 7.428);tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 0, duration: 0.286, ease: "power2.in"}, 7.685);
+    tl.to("#pay-t-arm-l", {rotation: 150, svgOrigin: "205 455", duration: 0.2, ease: "back.out(2)"}, 0.0);tl.to("#pay-t-arm-r", {rotation: -25, svgOrigin: "395 455", duration: 0.2, ease: "back.out(2)"}, 0.04);tl.to("#pay-p-arm-l", {rotation: 60, svgOrigin: "165 440", duration: 0.2, ease: "back.out(2)"}, 0.02);tl.to("#pay-p-arm-r", {rotation: -110, svgOrigin: "335 440", duration: 0.2, ease: "back.out(2)"}, 0.06);
+    tl.to("#pay-t-arm-l", {rotation: 40, svgOrigin: "205 455", duration: 0.2, ease: "back.out(2)"}, 2.286);tl.to("#pay-t-arm-r", {rotation: -140, svgOrigin: "395 455", duration: 0.2, ease: "back.out(2)"}, 2.326);tl.to("#pay-p-arm-l", {rotation: 120, svgOrigin: "165 440", duration: 0.2, ease: "back.out(2)"}, 2.306);tl.to("#pay-p-arm-r", {rotation: -40, svgOrigin: "335 440", duration: 0.2, ease: "back.out(2)"}, 2.346);
+    tl.to("#pay-t-arm-l", {rotation: 160, svgOrigin: "205 455", duration: 0.2, ease: "back.out(2)"}, 4.571);tl.to("#pay-t-arm-r", {rotation: -160, svgOrigin: "395 455", duration: 0.2, ease: "back.out(2)"}, 4.611);tl.to("#pay-p-arm-l", {rotation: 150, svgOrigin: "165 440", duration: 0.2, ease: "back.out(2)"}, 4.591);tl.to("#pay-p-arm-r", {rotation: -150, svgOrigin: "335 440", duration: 0.2, ease: "back.out(2)"}, 4.631);
+    tl.to("#pay-t-head", {rotation: 7, svgOrigin: "300 415", duration: 0.3}, 0);
+    tl.to("#pay-p-head", {rotation: -8, svgOrigin: "250 385", duration: 0.3}, 0);
+    tl.to(["#pay-p-brow-l", "#pay-p-brow-r"], {y: -14, duration: 0.2}, 0.1);
+    tl.set("#pay-tint", {opacity: 0}, 8.0);
+    tl.to(["#pay-t-wrap", "#pay-p-wrap"], {y: 140, duration: 0.25, ease: "power3.in"}, 7.27);
+    tl.set("#pay-water", {scaleY: 0, opacity: 1, transformOrigin: "50% 100%"}, 7.46);tl.to("#pay-water", {scaleY: 1, duration: 0.25, ease: "back.out(2)"}, 7.47);
+    tl.set("#pay-flash", {opacity: 0.8}, 7.47);tl.to("#pay-flash", {opacity: 0, duration: 0.3}, 7.49);
+    tl.set("#pay-shake", {x: -18}, 7.47);tl.to("#pay-shake", {x: 0, duration: 0.4, ease: "elastic.out(1, 0.3)"}, 7.49);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 0.04);tl.set("#pay-t-mouth-c", {opacity: 0}, 0.04);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 0.107);tl.set("#pay-t-mouth-c", {opacity: 1}, 0.107);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 0.173);tl.set("#pay-t-mouth-c", {opacity: 0}, 0.173);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 0.24);tl.set("#pay-t-mouth-c", {opacity: 1}, 0.24);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 0.307);tl.set("#pay-t-mouth-c", {opacity: 0}, 0.307);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 0.373);tl.set("#pay-t-mouth-c", {opacity: 1}, 0.373);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 0.44);tl.set("#pay-t-mouth-c", {opacity: 0}, 0.44);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 0.507);tl.set("#pay-t-mouth-c", {opacity: 1}, 0.507);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 0.573);tl.set("#pay-t-mouth-c", {opacity: 0}, 0.573);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 0.64);tl.set("#pay-t-mouth-c", {opacity: 1}, 0.64);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 0.707);tl.set("#pay-t-mouth-c", {opacity: 0}, 0.707);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 0.773);tl.set("#pay-t-mouth-c", {opacity: 1}, 0.773);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 0.973);tl.set("#pay-t-mouth-c", {opacity: 0}, 0.973);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 1.04);tl.set("#pay-t-mouth-c", {opacity: 1}, 1.04);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 1.107);tl.set("#pay-t-mouth-c", {opacity: 0}, 1.107);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 1.173);tl.set("#pay-t-mouth-c", {opacity: 1}, 1.173);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 1.24);tl.set("#pay-t-mouth-c", {opacity: 0}, 1.24);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 1.307);tl.set("#pay-t-mouth-c", {opacity: 1}, 1.307);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 1.373);tl.set("#pay-t-mouth-c", {opacity: 0}, 1.373);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 1.44);tl.set("#pay-t-mouth-c", {opacity: 1}, 1.44);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 4.612);tl.set("#pay-t-mouth-c", {opacity: 0}, 4.612);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 4.679);tl.set("#pay-t-mouth-c", {opacity: 1}, 4.679);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 4.745);tl.set("#pay-t-mouth-c", {opacity: 0}, 4.745);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 4.812);tl.set("#pay-t-mouth-c", {opacity: 1}, 4.812);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 4.879);tl.set("#pay-t-mouth-c", {opacity: 0}, 4.879);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 4.945);tl.set("#pay-t-mouth-c", {opacity: 1}, 4.945);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 5.012);tl.set("#pay-t-mouth-c", {opacity: 0}, 5.012);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 5.079);tl.set("#pay-t-mouth-c", {opacity: 1}, 5.079);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 5.145);tl.set("#pay-t-mouth-c", {opacity: 0}, 5.145);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 5.212);tl.set("#pay-t-mouth-c", {opacity: 1}, 5.212);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 5.279);tl.set("#pay-t-mouth-c", {opacity: 0}, 5.279);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 5.345);tl.set("#pay-t-mouth-c", {opacity: 1}, 5.345);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 5.412);tl.set("#pay-t-mouth-c", {opacity: 0}, 5.412);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 5.479);tl.set("#pay-t-mouth-c", {opacity: 1}, 5.479);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 5.545);tl.set("#pay-t-mouth-c", {opacity: 0}, 5.545);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 5.612);tl.set("#pay-t-mouth-c", {opacity: 1}, 5.612);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 5.679);tl.set("#pay-t-mouth-c", {opacity: 0}, 5.679);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 5.745);tl.set("#pay-t-mouth-c", {opacity: 1}, 5.745);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 5.945);tl.set("#pay-t-mouth-c", {opacity: 0}, 5.945);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 6.012);tl.set("#pay-t-mouth-c", {opacity: 1}, 6.012);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 6.079);tl.set("#pay-t-mouth-c", {opacity: 0}, 6.079);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 6.145);tl.set("#pay-t-mouth-c", {opacity: 1}, 6.145);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 6.212);tl.set("#pay-t-mouth-c", {opacity: 0}, 6.212);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 6.279);tl.set("#pay-t-mouth-c", {opacity: 1}, 6.279);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 6.345);tl.set("#pay-t-mouth-c", {opacity: 0}, 6.345);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 6.412);tl.set("#pay-t-mouth-c", {opacity: 1}, 6.412);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 6.897);tl.set("#pay-t-mouth-c", {opacity: 0}, 6.897);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 6.964);tl.set("#pay-t-mouth-c", {opacity: 1}, 6.964);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 7.03);tl.set("#pay-t-mouth-c", {opacity: 0}, 7.03);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 7.097);tl.set("#pay-t-mouth-c", {opacity: 1}, 7.097);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 7.164);tl.set("#pay-t-mouth-c", {opacity: 0}, 7.164);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 7.23);tl.set("#pay-t-mouth-c", {opacity: 1}, 7.23);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 7.297);tl.set("#pay-t-mouth-c", {opacity: 0}, 7.297);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 7.364);tl.set("#pay-t-mouth-c", {opacity: 1}, 7.364);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 7.43);tl.set("#pay-t-mouth-c", {opacity: 0}, 7.43);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 7.497);tl.set("#pay-t-mouth-c", {opacity: 1}, 7.497);
+    tl.set("#pay-t-mouth-o", {opacity: 1}, 7.564);tl.set("#pay-t-mouth-c", {opacity: 0}, 7.564);
+    tl.set("#pay-t-mouth-o", {opacity: 0}, 7.63);tl.set("#pay-t-mouth-c", {opacity: 1}, 7.63);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 2.326);tl.set("#pay-p-mouth-c", {opacity: 0}, 2.326);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 2.393);tl.set("#pay-p-mouth-c", {opacity: 1}, 2.393);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 2.459);tl.set("#pay-p-mouth-c", {opacity: 0}, 2.459);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 2.526);tl.set("#pay-p-mouth-c", {opacity: 1}, 2.526);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 2.593);tl.set("#pay-p-mouth-c", {opacity: 0}, 2.593);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 2.659);tl.set("#pay-p-mouth-c", {opacity: 1}, 2.659);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 2.726);tl.set("#pay-p-mouth-c", {opacity: 0}, 2.726);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 2.793);tl.set("#pay-p-mouth-c", {opacity: 1}, 2.793);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 2.859);tl.set("#pay-p-mouth-c", {opacity: 0}, 2.859);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 2.926);tl.set("#pay-p-mouth-c", {opacity: 1}, 2.926);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 2.993);tl.set("#pay-p-mouth-c", {opacity: 0}, 2.993);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 3.059);tl.set("#pay-p-mouth-c", {opacity: 1}, 3.059);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 4.612);tl.set("#pay-p-mouth-c", {opacity: 0}, 4.612);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 4.679);tl.set("#pay-p-mouth-c", {opacity: 1}, 4.679);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 4.745);tl.set("#pay-p-mouth-c", {opacity: 0}, 4.745);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 4.812);tl.set("#pay-p-mouth-c", {opacity: 1}, 4.812);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 4.879);tl.set("#pay-p-mouth-c", {opacity: 0}, 4.879);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 4.945);tl.set("#pay-p-mouth-c", {opacity: 1}, 4.945);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 5.012);tl.set("#pay-p-mouth-c", {opacity: 0}, 5.012);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 5.079);tl.set("#pay-p-mouth-c", {opacity: 1}, 5.079);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 5.145);tl.set("#pay-p-mouth-c", {opacity: 0}, 5.145);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 5.212);tl.set("#pay-p-mouth-c", {opacity: 1}, 5.212);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 5.279);tl.set("#pay-p-mouth-c", {opacity: 0}, 5.279);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 5.345);tl.set("#pay-p-mouth-c", {opacity: 1}, 5.345);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 5.412);tl.set("#pay-p-mouth-c", {opacity: 0}, 5.412);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 5.479);tl.set("#pay-p-mouth-c", {opacity: 1}, 5.479);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 5.545);tl.set("#pay-p-mouth-c", {opacity: 0}, 5.545);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 5.612);tl.set("#pay-p-mouth-c", {opacity: 1}, 5.612);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 5.679);tl.set("#pay-p-mouth-c", {opacity: 0}, 5.679);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 5.745);tl.set("#pay-p-mouth-c", {opacity: 1}, 5.745);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 5.812);tl.set("#pay-p-mouth-c", {opacity: 0}, 5.812);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 5.879);tl.set("#pay-p-mouth-c", {opacity: 1}, 5.879);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 5.945);tl.set("#pay-p-mouth-c", {opacity: 0}, 5.945);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 6.012);tl.set("#pay-p-mouth-c", {opacity: 1}, 6.012);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 6.079);tl.set("#pay-p-mouth-c", {opacity: 0}, 6.079);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 6.145);tl.set("#pay-p-mouth-c", {opacity: 1}, 6.145);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 6.212);tl.set("#pay-p-mouth-c", {opacity: 0}, 6.212);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 6.279);tl.set("#pay-p-mouth-c", {opacity: 1}, 6.279);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 6.345);tl.set("#pay-p-mouth-c", {opacity: 0}, 6.345);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 6.412);tl.set("#pay-p-mouth-c", {opacity: 1}, 6.412);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 6.479);tl.set("#pay-p-mouth-c", {opacity: 0}, 6.479);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 6.545);tl.set("#pay-p-mouth-c", {opacity: 1}, 6.545);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 6.897);tl.set("#pay-p-mouth-c", {opacity: 0}, 6.897);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 6.964);tl.set("#pay-p-mouth-c", {opacity: 1}, 6.964);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 7.03);tl.set("#pay-p-mouth-c", {opacity: 0}, 7.03);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 7.097);tl.set("#pay-p-mouth-c", {opacity: 1}, 7.097);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 7.164);tl.set("#pay-p-mouth-c", {opacity: 0}, 7.164);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 7.23);tl.set("#pay-p-mouth-c", {opacity: 1}, 7.23);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 7.297);tl.set("#pay-p-mouth-c", {opacity: 0}, 7.297);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 7.364);tl.set("#pay-p-mouth-c", {opacity: 1}, 7.364);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 7.43);tl.set("#pay-p-mouth-c", {opacity: 0}, 7.43);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 7.497);tl.set("#pay-p-mouth-c", {opacity: 1}, 7.497);
+    tl.set("#pay-p-mouth-o", {opacity: 1}, 7.564);tl.set("#pay-p-mouth-c", {opacity: 0}, 7.564);
+    tl.set("#pay-p-mouth-o", {opacity: 0}, 7.63);tl.set("#pay-p-mouth-c", {opacity: 1}, 7.63);
+    tl.to("#pay-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 0.9);tl.to("#pay-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 1.0);
+    tl.to("#pay-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 0.9);tl.to("#pay-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 1.0);
+    tl.to("#pay-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 3.2);tl.to("#pay-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 3.3);
+    tl.to("#pay-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 3.2);tl.to("#pay-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 3.3);
+    tl.to("#pay-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 6.1);tl.to("#pay-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 6.2);
+    tl.to("#pay-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 6.1);tl.to("#pay-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 6.2);
+    tl.to("#pay-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 8.6);tl.to("#pay-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 8.7);
+    tl.to("#pay-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 8.6);tl.to("#pay-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 8.7);
+    tl.to("#pay-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 1.6);tl.to("#pay-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 1.7);
+    tl.to("#pay-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 1.6);tl.to("#pay-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 1.7);
+    tl.to("#pay-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 4.3);tl.to("#pay-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 4.4);
+    tl.to("#pay-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 4.3);tl.to("#pay-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 4.4);
+    tl.to("#pay-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 6.5);tl.to("#pay-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 6.6);
+    tl.to("#pay-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 6.5);tl.to("#pay-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 6.6);
     window.__timelines["payoff"] = tl;
   </script>
 </template>

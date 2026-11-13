@@ -1,26 +1,27 @@
 <template>
   <style>
-    #root { position: absolute; inset: 0; overflow: hidden; background: #f4ead8; 
-  font-family: 'Montserrat', sans-serif;
- }
-    #les-glow { position: absolute; left: 160px; top: 760px; width: 760px; height: 760px; border-radius: 50%; background: #efdcbc; }
-    #les-floor { position: absolute; left: 0; right: 0; top: 1470px; bottom: 0; background: #e6d1ad; border-top: 6px solid #1d1d1b; }
-    #les-tag { position: absolute; top: 154px; left: 50%; margin-left: -170px; width: 340px; height: 64px; border-radius: 32px;
+    #root { position: absolute; inset: 0; overflow: hidden; background: #f4ead8; font-family: 'Montserrat', sans-serif; }
+    .set-glow { position: absolute; left: 160px; top: 760px; width: 760px; height: 760px; border-radius: 50%; background: #efdcbc; }
+    .set-floor { position: absolute; left: 0; right: 0; top: 1470px; bottom: 0; background: #e6d1ad; border-top: 6px solid #1d1d1b; }
+    .set-tag { position: absolute; top: 154px; left: 50%; margin-left: -170px; width: 340px; height: 64px; border-radius: 32px;
                background: #1d1d1b; color: #f4ead8; font-weight: 700; font-size: 30px; letter-spacing: 0.08em;
                display: flex; align-items: center; justify-content: center; }
-    .les-label { position: absolute; top: 330px; left: 0; right: 0; display: flex; justify-content: center; }
-    .les-label span { padding: 10px 26px; border-radius: 26px; font-weight: 800; font-size: 32px; letter-spacing: 0.12em;
-                      border: 5px solid #1d1d1b; }
-    .les-word { position: absolute; top: 400px; left: 40px; right: 40px; text-align: center; color: #1d1d1b;
-                font-weight: 800; line-height: 1.02; }
-    #les-teacher-wrap { position: absolute; left: 240px; top: 760px; width: 600px; height: 900px; }
-    #les-teacher-wrap svg { width: 100%; height: 100%; }
-    #les-lectern { position: absolute; left: 330px; top: 1340px; width: 420px; height: 380px; }
+    .label { position: absolute; top: 330px; left: 0; right: 0; display: flex; justify-content: center; }
+    .label span { padding: 10px 26px; border-radius: 26px; font-weight: 800; font-size: 32px; letter-spacing: 0.12em; border: 5px solid #1d1d1b; }
+    .lab-en span { background: #e3cfa9; color: #1d1d1b; }
+    .lab-fr span { background: #3d6fd6; color: #fff; }
+    .lab-gag span { background: #ffd23f; color: #1d1d1b; }
+    .word { position: absolute; left: 40px; right: 40px; text-align: center; color: #1d1d1b; font-weight: 800; line-height: 1.02; }
+    .cue { position: absolute; top: 590px; left: 0; right: 0; text-align: center; color: #8c7652; font-weight: 700; font-size: 44px; }
+    .teacher-wrap { position: absolute; left: 240px; top: 760px; width: 600px; height: 900px; }
+    .teacher-wrap svg { width: 100%; height: 100%; }
+    .lectern { position: absolute; left: 330px; top: 1340px; width: 420px; height: 380px; }
+
   </style>
   <div id="root" data-composition-id="lesson" data-width="1080" data-height="1920">
-    <div id="les-glow"></div>
-    <div id="les-floor"></div>
-    <div id="les-teacher-wrap">
+    <div class="set-glow"></div>
+    <div class="set-floor"></div>
+    <div id="les-teacher-wrap" class="teacher-wrap">
 <svg id="les-t" viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" overflow="visible">
   <g id="les-t-legs">
     <rect x="245" y="680" width="44" height="150" rx="16" fill="#3a3f55" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
@@ -74,34 +75,245 @@
     <circle cx="434" cy="606" r="24" fill="#f3cfa8" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
   </g>
 </svg></div>
-    <svg id="les-lectern" viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg">
+    <svg class="lectern" viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg">
       <path d="M10 10 L410 10 L380 60 L40 60 Z" fill="#c98a52" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
       <path d="M60 60 L360 60 L330 370 L90 370 Z" fill="#b07a4a" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
       <path d="M120 120 L300 120" stroke="#8a5a32" stroke-width="6" stroke-linecap="round"/>
     </svg>
-    <div id="les-tag">WORD SONG #01</div>
-
-    <h1 id="les-hook" class="les-word clip" data-start="0" data-duration="2" style="font-size: 120px; top: 360px;">FRENCH<br>IS EASY</h1>
-
-    <div id="les-lab-fr" class="les-label clip" data-start="2" data-duration="2"><span style="background:#3d6fd6;color:#fff;">FRENCH</span></div>
-    <h1 id="les-w-chateau" class="les-word clip" data-start="2" data-duration="2" style="font-size: 132px; top: 420px;">CHÂTEAU</h1>
-    <div id="les-cue" class="les-word clip" data-start="2" data-duration="2" style="font-size: 44px; top: 590px; color: #8c7652; font-weight: 700;">castle</div>
+    <div class="set-tag">WORD SONG #01</div>
+    <h1 id="les-hook" class="word clip" data-start="0" data-duration="1.452" style="font-size: 120px; top: 360px;">FRENCH<br>IS EASY</h1>
+    <div id="les-en-0" class="label lab-en clip" data-start="1.452" data-duration="0.874"><span>ENGLISH</span></div>
+    <h1 id="les-cw-0" class="word clip" data-start="1.452" data-duration="0.874" style="font-size: 110px; top: 420px; color: #8c7652;">water</h1>
+    <div id="les-fr-0" class="label lab-fr clip" data-start="2.326" data-duration="0.844"><span>FRENCH</span></div>
+    <h1 id="les-w-0" class="word clip" data-start="2.326" data-duration="0.844" style="font-size: 132px; top: 420px;">EAU</h1>
+    <div id="les-c-0" class="cue clip" data-start="2.326" data-duration="0.844">water</div>
+    <div id="les-en-1" class="label lab-en clip" data-start="3.17" data-duration="0.772"><span>ENGLISH</span></div>
+    <h1 id="les-cw-1" class="word clip" data-start="3.17" data-duration="0.772" style="font-size: 110px; top: 420px; color: #8c7652;">high</h1>
+    <div id="les-fr-1" class="label lab-fr clip" data-start="3.942" data-duration="0.899"><span>FRENCH</span></div>
+    <h1 id="les-w-1" class="word clip" data-start="3.942" data-duration="0.899" style="font-size: 132px; top: 420px;">HAUT</h1>
+    <div id="les-c-1" class="cue clip" data-start="3.942" data-duration="0.899">high</div>
+    <div id="les-gag-lab" class="label lab-gag clip" data-start="4.841" data-duration="1.559"><span>SPOT THE DIFFERENCE</span></div>
+    <h1 id="les-gag" class="word clip" data-start="4.841" data-duration="1.559" style="font-size: 96px; top: 410px;">EAU<br>HAUT<br>OH</h1>
+    <div id="les-en-3" class="label lab-en clip" data-start="6.4" data-duration="0.709"><span>ENGLISH</span></div>
+    <h1 id="les-cw-3" class="word clip" data-start="6.4" data-duration="0.709" style="font-size: 110px; top: 420px; color: #8c7652;">hat</h1>
+    <div id="les-fr-3" class="label lab-fr clip" data-start="7.109" data-duration="1.125"><span>FRENCH</span></div>
+    <h1 id="les-w-3" class="word clip" data-start="7.109" data-duration="1.125" style="font-size: 132px; top: 420px;">CHAPEAU</h1>
+    <div id="les-c-3" class="cue clip" data-start="7.109" data-duration="1.125">hat</div>
+    <div id="les-en-4" class="label lab-en clip" data-start="8.234" data-duration="0.778"><span>ENGLISH</span></div>
+    <h1 id="les-cw-4" class="word clip" data-start="8.234" data-duration="0.778" style="font-size: 110px; top: 420px; color: #8c7652;">bird</h1>
+    <div id="les-fr-4" class="label lab-fr clip" data-start="9.012" data-duration="1.079"><span>FRENCH</span></div>
+    <h1 id="les-w-4" class="word clip" data-start="9.012" data-duration="1.079" style="font-size: 132px; top: 420px;">OISEAU</h1>
+    <div id="les-c-4" class="cue clip" data-start="9.012" data-duration="1.079">bird</div>
+    <div id="les-en-5" class="label lab-en clip" data-start="10.091" data-duration="0.731"><span>ENGLISH</span></div>
+    <h1 id="les-cw-5" class="word clip" data-start="10.091" data-duration="0.731" style="font-size: 110px; top: 420px; color: #8c7652;">boat</h1>
+    <div id="les-fr-5" class="label lab-fr clip" data-start="10.822" data-duration="1.124"><span>FRENCH</span></div>
+    <h1 id="les-w-5" class="word clip" data-start="10.822" data-duration="1.124" style="font-size: 132px; top: 420px;">BATEAU</h1>
+    <div id="les-c-5" class="cue clip" data-start="10.822" data-duration="1.124">boat</div>
+    <div id="les-en-6" class="label lab-en clip" data-start="11.946" data-duration="0.709"><span>ENGLISH</span></div>
+    <h1 id="les-cw-6" class="word clip" data-start="11.946" data-duration="0.709" style="font-size: 110px; top: 420px; color: #8c7652;">cake</h1>
+    <div id="les-fr-6" class="label lab-fr clip" data-start="12.655" data-duration="1.064"><span>FRENCH</span></div>
+    <h1 id="les-w-6" class="word clip" data-start="12.655" data-duration="1.064" style="font-size: 132px; top: 420px;">GÂTEAU</h1>
+    <div id="les-c-6" class="cue clip" data-start="12.655" data-duration="1.064">cake</div>
+    <div id="les-en-7" class="label lab-en clip" data-start="13.719" data-duration="0.835"><span>ENGLISH</span></div>
+    <h1 id="les-cw-7" class="word clip" data-start="13.719" data-duration="0.835" style="font-size: 110px; top: 420px; color: #8c7652;">castle</h1>
+    <div id="les-fr-7" class="label lab-fr clip" data-start="14.554" data-duration="1.128"><span>FRENCH</span></div>
+    <h1 id="les-w-7" class="word clip" data-start="14.554" data-duration="1.128" style="font-size: 132px; top: 420px;">CHÂTEAU</h1>
+    <div id="les-c-7" class="cue clip" data-start="14.554" data-duration="1.128">castle</div>
+    <div id="les-en-8" class="label lab-en clip" data-start="15.682" data-duration="0.805"><span>ENGLISH</span></div>
+    <h1 id="les-cw-8" class="word clip" data-start="15.682" data-duration="0.805" style="font-size: 110px; top: 420px; color: #8c7652;">knife</h1>
+    <div id="les-fr-8" class="label lab-fr clip" data-start="16.487" data-duration="1.041"><span>FRENCH</span></div>
+    <h1 id="les-w-8" class="word clip" data-start="16.487" data-duration="1.041" style="font-size: 132px; top: 420px;">COUTEAU</h1>
+    <div id="les-c-8" class="cue clip" data-start="16.487" data-duration="1.041">knife</div>
+    <h1 id="les-try" class="word clip" data-start="17.528" data-duration="1.329" style="font-size: 110px; top: 400px;">NOW<br>TRY THIS</h1>
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
-    const P = "les-t";
-    // hook: confident, small nod, talking
-    tl.fromTo("#les-hook", { scale: 0.86, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(1.6)" }, 0);
-    tl.set("#" + P + "-mouth-o", { opacity: 1 }, 0.0);
-    tl.set("#" + P + "-mouth-c", { opacity: 0 }, 0.0);
-    tl.to("#" + P + "-head", { rotation: -4, svgOrigin: "300 415", duration: 0.4, ease: "power2.out" }, 0.2);
-    tl.set("#" + P + "-mouth-o", { opacity: 0 }, 1.6);
-    tl.set("#" + P + "-mouth-c", { opacity: 1 }, 1.6);
-    // château: right arm and pointer up, one brow raised
-    tl.fromTo("#les-w-chateau", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2)" }, 2.0);
-    tl.fromTo("#" + P + "-arm-r", { rotation: 0 }, { rotation: -150, svgOrigin: "395 455", duration: 0.35, ease: "back.out(1.8)" }, 2.0);
-    tl.fromTo("#" + P + "-brow-r", { y: 0 }, { y: -22, duration: 0.2, ease: "power3.out" }, 2.2);
-    tl.to("#" + P + "-head", { rotation: 5, svgOrigin: "300 415", duration: 0.35, ease: "power2.out" }, 2.0);
+    tl.to("#les-t-head", {rotation: -4, svgOrigin: "300 415", duration: 0.3}, 0.15);tl.to("#les-t-head", {rotation: 0, svgOrigin: "300 415", duration: 0.3}, 1.152);
+    tl.fromTo("#les-cw-0", {opacity: 0}, {opacity: 1, duration: 0.12}, 1.452);
+    tl.fromTo("#les-w-0", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out"}, 2.326);
+    
+    tl.fromTo("#les-cw-1", {opacity: 0}, {opacity: 1, duration: 0.12}, 3.17);
+    tl.fromTo("#les-w-1", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out"}, 3.942);
+    tl.to("#les-t-arm-r", {rotation: -150, svgOrigin: "395 455", duration: 0.25, ease: "back.out(2)"}, 3.892);tl.to("#les-t-arm-r", {rotation: 0, svgOrigin: "395 455", duration: 0.3, ease: "power2.inOut"}, 4.692);tl.to("#les-t-brow-r", {y: -20, duration: 0.15}, 3.942);tl.to("#les-t-brow-r", {y: 0, duration: 0.2}, 4.742);
+    tl.fromTo("#les-gag", {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 0.2, ease: "power3.out"}, 4.841);
+    tl.to("#les-t-brow-r", {y: -26, duration: 0.18, ease: "power3.out"}, 5.191);tl.to("#les-t-brow-r", {y: 0, duration: 0.25}, 6.15);
+    tl.fromTo("#les-cw-3", {opacity: 0}, {opacity: 1, duration: 0.12}, 6.4);
+    tl.fromTo("#les-w-3", {scale: 0.6, opacity: 0}, {scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2.4)"}, 7.109);
+    tl.to("#les-t-arm-r", {rotation: -168, svgOrigin: "395 455", duration: 0.22, ease: "back.out(1.6)"}, 7.059);tl.to("#les-t-head", {rotation: -3, svgOrigin: "300 415", duration: 0.1, yoyo: true, repeat: 1}, 7.259);tl.to("#les-t-arm-r", {rotation: 0, svgOrigin: "395 455", duration: 0.3}, 7.809);
+    tl.fromTo("#les-cw-4", {opacity: 0}, {opacity: 1, duration: 0.12}, 8.234);
+    tl.fromTo("#les-w-4", {scale: 0.6, opacity: 0}, {scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2.4)"}, 9.012);
+    tl.to("#les-teacher-wrap", {y: -26, duration: 0.14, ease: "power2.out"}, 9.012);tl.to("#les-teacher-wrap", {y: 0, duration: 0.22, ease: "bounce.out"}, 9.152);
+    tl.fromTo("#les-cw-5", {opacity: 0}, {opacity: 1, duration: 0.12}, 10.091);
+    tl.fromTo("#les-w-5", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out"}, 10.822);
+    tl.to("#les-t-head", {rotation: 8, svgOrigin: "300 415", duration: 0.2, ease: "back.out(2)"}, 10.822);tl.to("#les-t-head", {rotation: 0, svgOrigin: "300 415", duration: 0.3}, 11.522);
+    tl.fromTo("#les-cw-6", {opacity: 0}, {opacity: 1, duration: 0.12}, 11.946);
+    tl.fromTo("#les-w-6", {scale: 0.6, opacity: 0}, {scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2.4)"}, 12.655);
+    tl.to("#les-teacher-wrap", {y: -26, duration: 0.14, ease: "power2.out"}, 12.655);tl.to("#les-teacher-wrap", {y: 0, duration: 0.22, ease: "bounce.out"}, 12.795);
+    tl.fromTo("#les-cw-7", {opacity: 0}, {opacity: 1, duration: 0.12}, 13.719);
+    tl.fromTo("#les-w-7", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out"}, 14.554);
+    tl.to("#les-t-arm-r", {rotation: -150, svgOrigin: "395 455", duration: 0.25, ease: "back.out(2)"}, 14.504);tl.to("#les-t-arm-r", {rotation: 0, svgOrigin: "395 455", duration: 0.3, ease: "power2.inOut"}, 15.304);tl.to("#les-t-brow-r", {y: -20, duration: 0.15}, 14.554);tl.to("#les-t-brow-r", {y: 0, duration: 0.2}, 15.354);
+    tl.fromTo("#les-cw-8", {opacity: 0}, {opacity: 1, duration: 0.12}, 15.682);
+    tl.fromTo("#les-w-8", {scale: 0.6, opacity: 0}, {scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2.4)"}, 16.487);
+    tl.to("#les-teacher-wrap", {y: -46, duration: 0.14, ease: "power2.out"}, 16.487);tl.to("#les-teacher-wrap", {y: 0, duration: 0.22, ease: "bounce.out"}, 16.627);tl.to("#les-t-brow-l", {y: -16, duration: 0.12}, 16.487);tl.to("#les-t-brow-l", {y: 0, duration: 0.2}, 17.187);
+    tl.fromTo("#les-try", {opacity: 0, y: 30}, {opacity: 1, y: 0, duration: 0.2, ease: "power3.out"}, 17.528);
+    tl.to("#les-teacher-wrap", {y: -18, scale: 1.04, transformOrigin: "50% 100%", duration: 0.5, ease: "power2.inOut"}, 17.528);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 0.15);tl.set("#les-t-mouth-c", {opacity: 0}, 0.15);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 0.217);tl.set("#les-t-mouth-c", {opacity: 1}, 0.217);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 0.283);tl.set("#les-t-mouth-c", {opacity: 0}, 0.283);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 0.35);tl.set("#les-t-mouth-c", {opacity: 1}, 0.35);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 0.417);tl.set("#les-t-mouth-c", {opacity: 0}, 0.417);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 0.483);tl.set("#les-t-mouth-c", {opacity: 1}, 0.483);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 0.55);tl.set("#les-t-mouth-c", {opacity: 0}, 0.55);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 0.617);tl.set("#les-t-mouth-c", {opacity: 1}, 0.617);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 0.683);tl.set("#les-t-mouth-c", {opacity: 0}, 0.683);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 0.75);tl.set("#les-t-mouth-c", {opacity: 1}, 0.75);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 0.817);tl.set("#les-t-mouth-c", {opacity: 0}, 0.817);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 0.883);tl.set("#les-t-mouth-c", {opacity: 1}, 0.883);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 0.95);tl.set("#les-t-mouth-c", {opacity: 0}, 0.95);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 1.017);tl.set("#les-t-mouth-c", {opacity: 1}, 1.017);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 1.452);tl.set("#les-t-mouth-c", {opacity: 0}, 1.452);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 1.519);tl.set("#les-t-mouth-c", {opacity: 1}, 1.519);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 1.585);tl.set("#les-t-mouth-c", {opacity: 0}, 1.585);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 1.652);tl.set("#les-t-mouth-c", {opacity: 1}, 1.652);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 1.719);tl.set("#les-t-mouth-c", {opacity: 0}, 1.719);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 1.785);tl.set("#les-t-mouth-c", {opacity: 1}, 1.785);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 1.852);tl.set("#les-t-mouth-c", {opacity: 0}, 1.852);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 1.919);tl.set("#les-t-mouth-c", {opacity: 1}, 1.919);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 2.326);tl.set("#les-t-mouth-c", {opacity: 0}, 2.326);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 2.393);tl.set("#les-t-mouth-c", {opacity: 1}, 2.393);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 2.459);tl.set("#les-t-mouth-c", {opacity: 0}, 2.459);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 2.526);tl.set("#les-t-mouth-c", {opacity: 1}, 2.526);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 3.17);tl.set("#les-t-mouth-c", {opacity: 0}, 3.17);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 3.237);tl.set("#les-t-mouth-c", {opacity: 1}, 3.237);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 3.303);tl.set("#les-t-mouth-c", {opacity: 0}, 3.303);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 3.37);tl.set("#les-t-mouth-c", {opacity: 1}, 3.37);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 3.437);tl.set("#les-t-mouth-c", {opacity: 0}, 3.437);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 3.503);tl.set("#les-t-mouth-c", {opacity: 1}, 3.503);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 3.942);tl.set("#les-t-mouth-c", {opacity: 0}, 3.942);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 4.009);tl.set("#les-t-mouth-c", {opacity: 1}, 4.009);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 4.075);tl.set("#les-t-mouth-c", {opacity: 0}, 4.075);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 4.142);tl.set("#les-t-mouth-c", {opacity: 1}, 4.142);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 4.209);tl.set("#les-t-mouth-c", {opacity: 0}, 4.209);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 4.275);tl.set("#les-t-mouth-c", {opacity: 1}, 4.275);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 5.391);tl.set("#les-t-mouth-c", {opacity: 0}, 5.391);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 5.458);tl.set("#les-t-mouth-c", {opacity: 1}, 5.458);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 5.524);tl.set("#les-t-mouth-c", {opacity: 0}, 5.524);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 5.591);tl.set("#les-t-mouth-c", {opacity: 1}, 5.591);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 5.658);tl.set("#les-t-mouth-c", {opacity: 0}, 5.658);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 5.724);tl.set("#les-t-mouth-c", {opacity: 1}, 5.724);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 6.4);tl.set("#les-t-mouth-c", {opacity: 0}, 6.4);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 6.467);tl.set("#les-t-mouth-c", {opacity: 1}, 6.467);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 6.533);tl.set("#les-t-mouth-c", {opacity: 0}, 6.533);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 6.6);tl.set("#les-t-mouth-c", {opacity: 1}, 6.6);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 6.667);tl.set("#les-t-mouth-c", {opacity: 0}, 6.667);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 6.733);tl.set("#les-t-mouth-c", {opacity: 1}, 6.733);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 7.109);tl.set("#les-t-mouth-c", {opacity: 0}, 7.109);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 7.176);tl.set("#les-t-mouth-c", {opacity: 1}, 7.176);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 7.242);tl.set("#les-t-mouth-c", {opacity: 0}, 7.242);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 7.309);tl.set("#les-t-mouth-c", {opacity: 1}, 7.309);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 7.376);tl.set("#les-t-mouth-c", {opacity: 0}, 7.376);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 7.442);tl.set("#les-t-mouth-c", {opacity: 1}, 7.442);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 7.509);tl.set("#les-t-mouth-c", {opacity: 0}, 7.509);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 7.576);tl.set("#les-t-mouth-c", {opacity: 1}, 7.576);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 8.234);tl.set("#les-t-mouth-c", {opacity: 0}, 8.234);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 8.301);tl.set("#les-t-mouth-c", {opacity: 1}, 8.301);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 8.367);tl.set("#les-t-mouth-c", {opacity: 0}, 8.367);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 8.434);tl.set("#les-t-mouth-c", {opacity: 1}, 8.434);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 8.501);tl.set("#les-t-mouth-c", {opacity: 0}, 8.501);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 8.567);tl.set("#les-t-mouth-c", {opacity: 1}, 8.567);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 9.012);tl.set("#les-t-mouth-c", {opacity: 0}, 9.012);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 9.079);tl.set("#les-t-mouth-c", {opacity: 1}, 9.079);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 9.145);tl.set("#les-t-mouth-c", {opacity: 0}, 9.145);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 9.212);tl.set("#les-t-mouth-c", {opacity: 1}, 9.212);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 9.279);tl.set("#les-t-mouth-c", {opacity: 0}, 9.279);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 9.345);tl.set("#les-t-mouth-c", {opacity: 1}, 9.345);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 9.412);tl.set("#les-t-mouth-c", {opacity: 0}, 9.412);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 9.479);tl.set("#les-t-mouth-c", {opacity: 1}, 9.479);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 10.091);tl.set("#les-t-mouth-c", {opacity: 0}, 10.091);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 10.158);tl.set("#les-t-mouth-c", {opacity: 1}, 10.158);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 10.224);tl.set("#les-t-mouth-c", {opacity: 0}, 10.224);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 10.291);tl.set("#les-t-mouth-c", {opacity: 1}, 10.291);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 10.358);tl.set("#les-t-mouth-c", {opacity: 0}, 10.358);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 10.424);tl.set("#les-t-mouth-c", {opacity: 1}, 10.424);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 10.822);tl.set("#les-t-mouth-c", {opacity: 0}, 10.822);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 10.889);tl.set("#les-t-mouth-c", {opacity: 1}, 10.889);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 10.955);tl.set("#les-t-mouth-c", {opacity: 0}, 10.955);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 11.022);tl.set("#les-t-mouth-c", {opacity: 1}, 11.022);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 11.089);tl.set("#les-t-mouth-c", {opacity: 0}, 11.089);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 11.155);tl.set("#les-t-mouth-c", {opacity: 1}, 11.155);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 11.222);tl.set("#les-t-mouth-c", {opacity: 0}, 11.222);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 11.289);tl.set("#les-t-mouth-c", {opacity: 1}, 11.289);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 11.946);tl.set("#les-t-mouth-c", {opacity: 0}, 11.946);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 12.013);tl.set("#les-t-mouth-c", {opacity: 1}, 12.013);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 12.079);tl.set("#les-t-mouth-c", {opacity: 0}, 12.079);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 12.146);tl.set("#les-t-mouth-c", {opacity: 1}, 12.146);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 12.213);tl.set("#les-t-mouth-c", {opacity: 0}, 12.213);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 12.279);tl.set("#les-t-mouth-c", {opacity: 1}, 12.279);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 12.655);tl.set("#les-t-mouth-c", {opacity: 0}, 12.655);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 12.722);tl.set("#les-t-mouth-c", {opacity: 1}, 12.722);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 12.788);tl.set("#les-t-mouth-c", {opacity: 0}, 12.788);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 12.855);tl.set("#les-t-mouth-c", {opacity: 1}, 12.855);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 12.922);tl.set("#les-t-mouth-c", {opacity: 0}, 12.922);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 12.988);tl.set("#les-t-mouth-c", {opacity: 1}, 12.988);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 13.055);tl.set("#les-t-mouth-c", {opacity: 0}, 13.055);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 13.122);tl.set("#les-t-mouth-c", {opacity: 1}, 13.122);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 13.719);tl.set("#les-t-mouth-c", {opacity: 0}, 13.719);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 13.786);tl.set("#les-t-mouth-c", {opacity: 1}, 13.786);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 13.852);tl.set("#les-t-mouth-c", {opacity: 0}, 13.852);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 13.919);tl.set("#les-t-mouth-c", {opacity: 1}, 13.919);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 13.986);tl.set("#les-t-mouth-c", {opacity: 0}, 13.986);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 14.052);tl.set("#les-t-mouth-c", {opacity: 1}, 14.052);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 14.119);tl.set("#les-t-mouth-c", {opacity: 0}, 14.119);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 14.186);tl.set("#les-t-mouth-c", {opacity: 1}, 14.186);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 14.554);tl.set("#les-t-mouth-c", {opacity: 0}, 14.554);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 14.621);tl.set("#les-t-mouth-c", {opacity: 1}, 14.621);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 14.687);tl.set("#les-t-mouth-c", {opacity: 0}, 14.687);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 14.754);tl.set("#les-t-mouth-c", {opacity: 1}, 14.754);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 14.821);tl.set("#les-t-mouth-c", {opacity: 0}, 14.821);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 14.887);tl.set("#les-t-mouth-c", {opacity: 1}, 14.887);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 14.954);tl.set("#les-t-mouth-c", {opacity: 0}, 14.954);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 15.021);tl.set("#les-t-mouth-c", {opacity: 1}, 15.021);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 15.682);tl.set("#les-t-mouth-c", {opacity: 0}, 15.682);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 15.749);tl.set("#les-t-mouth-c", {opacity: 1}, 15.749);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 15.815);tl.set("#les-t-mouth-c", {opacity: 0}, 15.815);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 15.882);tl.set("#les-t-mouth-c", {opacity: 1}, 15.882);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 15.949);tl.set("#les-t-mouth-c", {opacity: 0}, 15.949);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 16.015);tl.set("#les-t-mouth-c", {opacity: 1}, 16.015);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 16.487);tl.set("#les-t-mouth-c", {opacity: 0}, 16.487);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 16.554);tl.set("#les-t-mouth-c", {opacity: 1}, 16.554);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 16.62);tl.set("#les-t-mouth-c", {opacity: 0}, 16.62);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 16.687);tl.set("#les-t-mouth-c", {opacity: 1}, 16.687);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 16.754);tl.set("#les-t-mouth-c", {opacity: 0}, 16.754);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 16.82);tl.set("#les-t-mouth-c", {opacity: 1}, 16.82);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 16.887);tl.set("#les-t-mouth-c", {opacity: 0}, 16.887);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 16.954);tl.set("#les-t-mouth-c", {opacity: 1}, 16.954);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 17.528);tl.set("#les-t-mouth-c", {opacity: 0}, 17.528);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 17.595);tl.set("#les-t-mouth-c", {opacity: 1}, 17.595);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 17.661);tl.set("#les-t-mouth-c", {opacity: 0}, 17.661);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 17.728);tl.set("#les-t-mouth-c", {opacity: 1}, 17.728);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 17.795);tl.set("#les-t-mouth-c", {opacity: 0}, 17.795);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 17.861);tl.set("#les-t-mouth-c", {opacity: 1}, 17.861);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 17.928);tl.set("#les-t-mouth-c", {opacity: 0}, 17.928);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 17.995);tl.set("#les-t-mouth-c", {opacity: 1}, 17.995);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 18.061);tl.set("#les-t-mouth-c", {opacity: 0}, 18.061);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 18.128);tl.set("#les-t-mouth-c", {opacity: 1}, 18.128);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 18.195);tl.set("#les-t-mouth-c", {opacity: 0}, 18.195);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 18.261);tl.set("#les-t-mouth-c", {opacity: 1}, 18.261);
+    tl.to("#les-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 1.1);tl.to("#les-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 1.2);
+    tl.to("#les-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 1.1);tl.to("#les-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 1.2);
+    tl.to("#les-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 3.4);tl.to("#les-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 3.5);
+    tl.to("#les-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 3.4);tl.to("#les-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 3.5);
+    tl.to("#les-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 6.3);tl.to("#les-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 6.4);
+    tl.to("#les-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 6.3);tl.to("#les-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 6.4);
+    tl.to("#les-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 8.8);tl.to("#les-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 8.9);
+    tl.to("#les-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 8.8);tl.to("#les-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 8.9);
+    tl.to("#les-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 11.1);tl.to("#les-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 11.2);
+    tl.to("#les-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 11.1);tl.to("#les-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 11.2);
+    tl.to("#les-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 14.0);tl.to("#les-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 14.1);
+    tl.to("#les-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 14.0);tl.to("#les-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 14.1);
+    tl.to("#les-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 16.5);tl.to("#les-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 16.6);
+    tl.to("#les-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 16.5);tl.to("#les-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 16.6);
+    tl.fromTo("#les-t-body", {scaleY: 1}, {scaleY: 1.015, svgOrigin: "300 700", duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 11}, 0);
     window.__timelines["lesson"] = tl;
   </script>
 </template>
