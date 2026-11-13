@@ -1,0 +1,152 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; background: #2b1d4f; 
+  font-family: 'Montserrat', sans-serif;
+ }
+    #pay-tint { position: absolute; inset: 0; background: #7a2e8c; opacity: 0; }
+    #pay-spot { position: absolute; left: 40px; top: 1330px; width: 900px; height: 260px; border-radius: 50%; background: #4a3580; }
+    #pay-floor { position: absolute; left: 0; right: 0; top: 1440px; bottom: 0; background: #1d1436; border-top: 6px solid #1d1d1b; }
+    #pay-tag { position: absolute; top: 154px; left: 50%; margin-left: -170px; width: 340px; height: 64px; border-radius: 32px;
+               background: #ffd23f; color: #1d1d1b; font-weight: 700; font-size: 30px; letter-spacing: 0.08em;
+               display: flex; align-items: center; justify-content: center; }
+    .pay-line { position: absolute; left: 50px; right: 50px; text-align: center; color: #fffdf6; font-weight: 800; line-height: 1.05; }
+    .pay-trans { position: absolute; left: 60px; right: 60px; text-align: center; color: #f4d9a8; font-weight: 600; }
+    #pay-t-wrap { position: absolute; left: 20px; top: 780px; width: 450px; height: 675px; }
+    #pay-p-wrap { position: absolute; left: 560px; top: 780px; width: 412px; height: 675px; }
+    #pay-t-wrap svg, #pay-p-wrap svg { width: 100%; height: 100%; }
+    #pay-mic { position: absolute; left: 445px; top: 680px; width: 150px; height: 450px; }
+  </style>
+  <div id="root" data-composition-id="payoff" data-width="1080" data-height="1920">
+    <div id="pay-tint"></div>
+    <div id="pay-spot"></div>
+    <div id="pay-floor"></div>
+    <svg id="pay-mic" viewBox="0 0 140 420" xmlns="http://www.w3.org/2000/svg">
+      <path d="M70 0 L70 250" stroke="#1d1d1b" stroke-width="8"/>
+      <rect x="40" y="250" width="60" height="110" rx="30" fill="#c9ccd6" stroke="#1d1d1b" stroke-width="6"/>
+      <path d="M44 290 L96 290 M44 315 L96 315" stroke="#1d1d1b" stroke-width="4"/>
+      <rect x="56" y="356" width="28" height="56" rx="10" fill="#3a3f55" stroke="#1d1d1b" stroke-width="6"/>
+    </svg>
+    <div id="pay-t-wrap">
+<svg id="pay-t" viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+  <g id="pay-t-legs">
+    <rect x="245" y="680" width="44" height="150" rx="16" fill="#3a3f55" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <rect x="311" y="680" width="44" height="150" rx="16" fill="#3a3f55" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <ellipse cx="258" cy="840" rx="42" ry="20" fill="#6b4a32" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <ellipse cx="342" cy="840" rx="42" ry="20" fill="#6b4a32" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <g id="pay-t-arm-l">
+    <path d="M205 455 L168 600" stroke="#1d1d1b" stroke-width="52" stroke-linecap="round" fill="none"/><path d="M205 455 L168 600" stroke="#e8b13c" stroke-width="40" stroke-linecap="round" fill="none"/>
+    <circle cx="166" cy="606" r="24" fill="#f3cfa8" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <g id="pay-t-body">
+    <path d="M200 430 Q300 405 400 430 L440 700 Q300 722 160 700 Z" fill="#e8b13c" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M265 432 L300 482 L335 432 Z" fill="#fffdf6" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M300 482 L300 708" stroke="#1d1d1b" stroke-width="4" fill="none"/>
+    <circle cx="318" cy="530" r="7" fill="#8a5a1c"/>
+    <circle cx="318" cy="590" r="7" fill="#8a5a1c"/>
+    <circle cx="318" cy="650" r="7" fill="#8a5a1c"/>
+    <path d="M300 452 L262 432 L262 474 Z" fill="#2fa39a" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M300 452 L338 432 L338 474 Z" fill="#2fa39a" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="300" cy="452" r="10" fill="#2fa39a" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <g id="pay-t-head">
+    <rect x="275" y="385" width="50" height="45" fill="#f3cfa8" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="188" cy="262" r="26" fill="#f3cfa8" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="412" cy="262" r="26" fill="#f3cfa8" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <rect x="190" y="110" width="220" height="300" rx="100" fill="#f3cfa8" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M262 124 C246 58 282 6 326 16 C366 26 364 84 332 86 C310 88 302 64 318 54 C298 52 286 84 300 122 Z" fill="#3b2a20" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M196 196 Q200 150 232 132 Q214 170 214 204 Z" fill="#3b2a20" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M404 196 Q400 150 368 132 Q386 170 386 204 Z" fill="#3b2a20" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <g id="pay-t-brow-l"><path d="M218 178 L282 174" stroke="#1d1d1b" stroke-width="13" stroke-linecap="round"/></g>
+    <g id="pay-t-brow-r"><path d="M318 174 L382 178" stroke="#1d1d1b" stroke-width="13" stroke-linecap="round"/></g>
+    <path d="M206 240 L190 252 M394 240 L410 252" stroke="#1d1d1b" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="252" cy="248" r="46" fill="#fffdf6" stroke="#1d1d1b" stroke-width="7"/>
+    <circle cx="348" cy="248" r="46" fill="#fffdf6" stroke="#1d1d1b" stroke-width="7"/>
+    <path d="M296 242 Q300 236 304 242" stroke="#1d1d1b" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <g id="pay-t-eye-l"><circle cx="252" cy="252" r="13" fill="#1d1d1b"/></g>
+    <g id="pay-t-eye-r"><circle cx="348" cy="252" r="13" fill="#1d1d1b"/></g>
+    <path d="M300 276 Q320 304 297 312" stroke="#1d1d1b" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <g id="pay-t-mouth-c"><path d="M272 352 L328 352" stroke="#1d1d1b" stroke-width="7" stroke-linecap="round"/></g>
+    <g id="pay-t-mouth-o" opacity="0">
+      <ellipse cx="300" cy="354" rx="26" ry="19" fill="#5a1e1e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+      <ellipse cx="300" cy="362" rx="13" ry="6" fill="#e86a6a"/>
+    </g>
+  </g>
+  <g id="pay-t-arm-r">
+    <path d="M436 606 L470 770" stroke="#1d1d1b" stroke-width="20" stroke-linecap="round"/>
+    <path d="M436 606 L470 770" stroke="#a8743f" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="471" cy="772" r="7" fill="#fffdf6" stroke="#1d1d1b" stroke-width="4"/>
+    <path d="M395 455 L432 600" stroke="#1d1d1b" stroke-width="52" stroke-linecap="round" fill="none"/><path d="M395 455 L432 600" stroke="#e8b13c" stroke-width="40" stroke-linecap="round" fill="none"/>
+    <circle cx="434" cy="606" r="24" fill="#f3cfa8" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+</svg></div>
+    <div id="pay-p-wrap">
+<svg id="pay-p" viewBox="0 0 500 820" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+  <g id="pay-p-legs">
+    <rect x="200" y="600" width="38" height="150" rx="15" fill="#2b2233" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <rect x="262" y="600" width="38" height="150" rx="15" fill="#2b2233" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <ellipse cx="212" cy="762" rx="40" ry="20" fill="#ffd23f" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <ellipse cx="288" cy="762" rx="40" ry="20" fill="#ffd23f" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <g id="pay-p-arm-l">
+    <path d="M165 440 L100 560" stroke="#1d1d1b" stroke-width="50" stroke-linecap="round" fill="none"/><path d="M165 440 L100 560" stroke="#ff6f61" stroke-width="38" stroke-linecap="round" fill="none"/>
+    <circle cx="97" cy="566" r="22" fill="#c98b5e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <g id="pay-p-arm-r">
+    <path d="M335 440 L400 560" stroke="#1d1d1b" stroke-width="50" stroke-linecap="round" fill="none"/><path d="M335 440 L400 560" stroke="#ff6f61" stroke-width="38" stroke-linecap="round" fill="none"/>
+    <circle cx="403" cy="566" r="22" fill="#c98b5e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <g id="pay-p-body">
+    <path d="M175 405 Q250 378 325 405 Q392 520 360 625 Q250 655 140 625 Q108 520 175 405 Z" fill="#ff6f61" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M205 402 Q250 440 295 402" fill="#fffdf6" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M150 560 Q250 590 350 560" stroke="#1d1d1b" stroke-width="5" fill="none"/>
+  </g>
+  <g id="pay-p-head">
+    <rect x="228" y="360" width="44" height="45" fill="#c98b5e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="250" cy="96" r="70" fill="#2b2233" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="250" cy="252" r="125" fill="#c98b5e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M128 236 Q144 122 250 118 Q356 122 372 236 Q332 172 250 178 Q168 172 128 236 Z" fill="#2b2233" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="126" cy="304" r="17" fill="none" stroke="#ffd23f" stroke-width="8"/>
+    <circle cx="374" cy="304" r="17" fill="none" stroke="#ffd23f" stroke-width="8"/>
+    <g id="pay-p-brow-l"><path d="M180 208 Q204 192 228 202" stroke="#1d1d1b" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+    <g id="pay-p-brow-r"><path d="M272 202 Q296 192 320 208" stroke="#1d1d1b" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+    <ellipse cx="205" cy="252" rx="25" ry="31" fill="#fffdf6" stroke="#1d1d1b" stroke-width="5"/>
+    <ellipse cx="295" cy="252" rx="25" ry="31" fill="#fffdf6" stroke="#1d1d1b" stroke-width="5"/>
+    <g id="pay-p-eye-l"><circle cx="209" cy="258" r="12" fill="#1d1d1b"/></g>
+    <g id="pay-p-eye-r"><circle cx="291" cy="258" r="12" fill="#1d1d1b"/></g>
+    <circle cx="176" cy="304" r="16" fill="#ff8f8f" opacity="0.7"/>
+    <circle cx="324" cy="304" r="16" fill="#ff8f8f" opacity="0.7"/>
+    <path d="M250 276 Q262 292 248 298" stroke="#1d1d1b" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <g id="pay-p-mouth-c"><path d="M222 322 Q250 342 278 322" stroke="#1d1d1b" stroke-width="7" fill="none" stroke-linecap="round"/></g>
+    <g id="pay-p-mouth-o" opacity="0">
+      <path d="M214 314 Q250 380 286 314 Z" fill="#5a1e1e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+      <ellipse cx="250" cy="346" rx="14" ry="7" fill="#e86a6a"/>
+    </g>
+  </g>
+</svg></div>
+    <div id="pay-tag">NOW TRY THIS</div>
+    <h1 id="pay-l1" class="pay-line clip" data-start="0" data-duration="2" style="font-size: 92px; top: 340px;">Le bel oiseau<br>au chapeau,</h1>
+    <div id="pay-l1t" class="pay-trans clip" data-start="0" data-duration="2" style="font-size: 40px; top: 560px;">The fine bird in a hat,</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#pay-l1", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)" }, 0);
+    tl.fromTo("#pay-l1t", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.15);
+    // background flips tint on the beat (105 BPM: 0.571 s a beat)
+    tl.set("#pay-tint", { opacity: 0.55 }, 0.571);
+    tl.set("#pay-tint", { opacity: 0 }, 1.143);
+    tl.set("#pay-tint", { opacity: 0.55 }, 1.714);
+    // both performing: mouths open, arms out, heads tilted toward the mic
+    tl.set(["#pay-t-mouth-o", "#pay-p-mouth-o"], { opacity: 1 }, 0);
+    tl.set(["#pay-t-mouth-c", "#pay-p-mouth-c"], { opacity: 0 }, 0);
+    tl.fromTo("#pay-t-arm-l", { rotation: 0 }, { rotation: 150, svgOrigin: "205 455", duration: 0.3, ease: "back.out(2)" }, 0);
+    tl.fromTo("#pay-t-arm-r", { rotation: 0 }, { rotation: -25, svgOrigin: "395 455", duration: 0.3, ease: "back.out(2)" }, 0.05);
+    tl.fromTo("#pay-t-head", { rotation: 0 }, { rotation: 7, svgOrigin: "300 415", duration: 0.3 }, 0);
+    tl.fromTo("#pay-p-arm-l", { rotation: 0 }, { rotation: 60, svgOrigin: "165 440", duration: 0.3, ease: "back.out(2)" }, 0.08);
+    tl.fromTo("#pay-p-arm-r", { rotation: 0 }, { rotation: -110, svgOrigin: "335 440", duration: 0.3, ease: "back.out(2)" }, 0.03);
+    tl.fromTo("#pay-p-head", { rotation: 0 }, { rotation: -8, svgOrigin: "250 385", duration: 0.3 }, 0);
+    tl.fromTo("#pay-p-brow-l", { y: 0 }, { y: -14, duration: 0.2 }, 0.1);
+    tl.fromTo("#pay-p-brow-r", { y: 0 }, { y: -14, duration: 0.2 }, 0.12);
+    window.__timelines["payoff"] = tl;
+  </script>
+</template>

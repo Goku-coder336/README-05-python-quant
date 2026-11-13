@@ -49,3 +49,8 @@ Two characters at a microphone. Each line appears big and centred at the top as 
 - Sound: all end in the same "oh" sound (the "h" in "haut" is silent), so "Same." is a fair claim.
 - Grammar: "le bel oiseau" (bel before a vowel), "au chapeau" (with the hat, like "l'homme au chapeau"), "couper … au couteau" (to cut with a knife), "tomber à l'eau" (to fall in the water; also an idiom for plans falling through).
 - Friendly: laughs at the spelling, not at French people.
+
+## Voices (ElevenLabs, eleven_multilingual_v2)
+
+- Teacher (Barnaby): **George** (chosen).
+- Duet partner (Odette): **Laura** (proposed; not yet confirmed).
