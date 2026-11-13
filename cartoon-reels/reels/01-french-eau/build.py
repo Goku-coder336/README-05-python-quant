@@ -5,7 +5,12 @@ Stage 1 (now): a 6 s look-development cut for the 3 approval stills.
 """
 from pathlib import Path
 
-from characters import PARTNER_PIVOTS, TEACHER_PIVOTS, partner, teacher
+import os
+
+from characters import PARTNER_PIVOTS, TEACHER_PIVOTS, TEACHERS, partner
+
+# Which teacher design to use (see ../../character.md). Default: A.
+teacher = TEACHERS[os.environ.get("TEACHER", "A")]
 
 ROOT = Path(__file__).parent
 W, H = 1080, 1920

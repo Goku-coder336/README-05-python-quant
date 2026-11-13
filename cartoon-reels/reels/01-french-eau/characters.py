@@ -163,3 +163,126 @@ def partner(p):
     </g>
   </g>
 </svg>"""
+
+
+# ------------------------------------------------- teacher option B: pigeon ---
+# Gilbert: grey pigeon, red knitted scarf, orange eyes, iridescent neck band.
+# Same viewBox, part ids and pivots as the human teacher (TEACHER_PIVOTS).
+PIGEON = "#a3acbf"
+PIGEON_DARK = "#7c869b"
+SCARF = "#d9382f"
+
+
+def teacher_pigeon(p):
+    o = f'stroke="{INK}" stroke-width="{OUT}" stroke-linejoin="round"'
+    return f"""
+<svg id="{p}" viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+  <g id="{p}-legs">
+    <path d="M262 700 L262 820 M338 700 L338 820" stroke="{INK}" stroke-width="22" stroke-linecap="round"/>
+    <path d="M262 700 L262 820 M338 700 L338 820" stroke="#e5815a" stroke-width="10" stroke-linecap="round"/>
+    <path d="M226 836 L262 818 L298 836 M262 818 L262 842 M302 836 L338 818 L374 836 M338 818 L338 842" stroke="{INK}" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M226 836 L262 818 L298 836 M262 818 L262 842 M302 836 L338 818 L374 836 M338 818 L338 842" stroke="#e5815a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+  <g id="{p}-arm-l">
+    <path d="M205 455 Q120 520 150 640 Q200 600 230 520 Z" fill="{PIGEON_DARK}" {o}/>
+    <path d="M165 600 L150 640 M185 595 L172 632" stroke="{INK}" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <g id="{p}-body">
+    <ellipse cx="300" cy="555" rx="165" ry="185" fill="{PIGEON}" {o}/>
+    <ellipse cx="300" cy="600" rx="105" ry="125" fill="#c3cad8"/>
+    <path d="M250 640 Q300 660 350 640 M260 690 Q300 706 340 690" stroke="{PIGEON_DARK}" stroke-width="5" fill="none" stroke-linecap="round"/>
+  </g>
+  <g id="{p}-head">
+    <path d="M222 380 Q300 420 378 380 L372 420 Q300 455 228 420 Z" fill="#5fae9a" {o}/>
+    <path d="M232 396 Q300 430 368 396" stroke="#8d6bb8" stroke-width="10" fill="none"/>
+    <path d="M200 412 Q300 470 400 412 L404 452 Q300 505 196 452 Z" fill="{SCARF}" {o}/>
+    <path d="M330 470 L346 610 L384 600 L362 462 Z" fill="{SCARF}" {o}/>
+    <path d="M348 612 L344 636 M362 610 L362 634 M376 606 L380 630" stroke="{SCARF}" stroke-width="8" stroke-linecap="round"/>
+    <path d="M220 430 L230 444 M250 440 L258 456 M280 446 L286 462 M320 446 L314 462 M350 440 L342 456 M380 430 L370 444" stroke="#a5261f" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="300" cy="255" r="135" fill="{PIGEON}" {o}/>
+    <path d="M262 126 Q280 92 300 120 Q318 90 340 126" fill="{PIGEON_DARK}" {o}/>
+    <g id="{p}-brow-l"><path d="M214 182 L282 176" stroke="{INK}" stroke-width="12" stroke-linecap="round"/></g>
+    <g id="{p}-brow-r"><path d="M318 176 L386 182" stroke="{INK}" stroke-width="12" stroke-linecap="round"/></g>
+    <circle cx="252" cy="248" r="40" fill="#f29a3a" stroke="{INK}" stroke-width="6"/>
+    <circle cx="348" cy="248" r="40" fill="#f29a3a" stroke="{INK}" stroke-width="6"/>
+    <g id="{p}-eye-l"><circle cx="252" cy="252" r="18" fill="{INK}"/><circle cx="246" cy="244" r="5" fill="#fff"/></g>
+    <g id="{p}-eye-r"><circle cx="348" cy="252" r="18" fill="{INK}"/><circle cx="342" cy="244" r="5" fill="#fff"/></g>
+    <ellipse cx="300" cy="300" rx="22" ry="12" fill="#eef0f5" {o}/>
+    <g id="{p}-mouth-c"><path d="M272 312 L300 356 L328 312 Z" fill="#4b4f5c" {o}/></g>
+    <g id="{p}-mouth-o" opacity="0">
+      <path d="M268 306 L300 330 L332 306 Z" fill="#4b4f5c" {o}/>
+      <path d="M276 340 L300 372 L324 340 Z" fill="#4b4f5c" {o}/>
+      <path d="M282 326 L318 326 L310 342 L290 342 Z" fill="#5a1e1e"/>
+    </g>
+  </g>
+  <g id="{p}-arm-r">
+    <path d="M436 600 L470 770" stroke="{INK}" stroke-width="20" stroke-linecap="round"/>
+    <path d="M436 600 L470 770" stroke="#a8743f" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="471" cy="772" r="7" fill="#fffdf6" stroke="{INK}" stroke-width="4"/>
+    <path d="M395 455 Q480 520 450 640 Q400 600 370 520 Z" fill="{PIGEON_DARK}" {o}/>
+    <path d="M435 600 L450 640 M415 595 L428 632" stroke="{INK}" stroke-width="5" stroke-linecap="round"/>
+  </g>
+</svg>"""
+
+
+# -------------------------------------------------- teacher option C: robot ---
+# Unit 7: boxy robot, antenna with a red bulb, screen face. Same rig as above.
+STEEL = "#8fb3c9"
+STEEL_DARK = "#5d7f96"
+SCREEN = "#20323f"
+GLOW = "#7ff0d0"
+
+
+def teacher_robot(p):
+    o = f'stroke="{INK}" stroke-width="{OUT}" stroke-linejoin="round"'
+    return f"""
+<svg id="{p}" viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+  <g id="{p}-legs">
+    <rect x="240" y="690" width="46" height="130" rx="8" fill="{STEEL_DARK}" {o}/>
+    <rect x="314" y="690" width="46" height="130" rx="8" fill="{STEEL_DARK}" {o}/>
+    <rect x="216" y="816" width="84" height="32" rx="10" fill="#3a3f55" {o}/>
+    <rect x="300" y="816" width="84" height="32" rx="10" fill="#3a3f55" {o}/>
+  </g>
+  <g id="{p}-arm-l">
+    {limb(205, 455, 168, 600, STEEL_DARK, 32)}
+    <path d="M150 600 L150 632 L166 620 L182 632 L182 600 Z" fill="{STEEL}" {o}/>
+  </g>
+  <g id="{p}-body">
+    <rect x="185" y="425" width="230" height="280" rx="26" fill="{STEEL}" {o}/>
+    <rect x="225" y="470" width="150" height="110" rx="14" fill="{SCREEN}" {o}/>
+    <rect x="245" y="495" width="30" height="14" rx="4" fill="#ff5a4e"/>
+    <rect x="285" y="495" width="30" height="14" rx="4" fill="{GLOW}"/>
+    <rect x="325" y="495" width="30" height="14" rx="4" fill="#ffd23f"/>
+    <path d="M245 540 L355 540" stroke="{GLOW}" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="225" cy="650" r="10" fill="{STEEL_DARK}"/><circle cx="375" cy="650" r="10" fill="{STEEL_DARK}"/>
+  </g>
+  <g id="{p}-head">
+    <rect x="280" y="385" width="40" height="45" fill="{STEEL_DARK}" {o}/>
+    <path d="M300 130 L300 60" stroke="{INK}" stroke-width="8"/>
+    <circle cx="300" cy="48" r="22" fill="#ff5a4e" {o}/>
+    <circle cx="293" cy="41" r="6" fill="#ffb3ad"/>
+    <rect x="170" y="210" width="34" height="90" rx="10" fill="{STEEL_DARK}" {o}/>
+    <rect x="396" y="210" width="34" height="90" rx="10" fill="{STEEL_DARK}" {o}/>
+    <rect x="195" y="125" width="210" height="270" rx="36" fill="{STEEL}" {o}/>
+    <rect x="215" y="160" width="170" height="210" rx="22" fill="{SCREEN}" {o}/>
+    <g id="{p}-brow-l"><path d="M228 192 L280 188" stroke="{GLOW}" stroke-width="10" stroke-linecap="round"/></g>
+    <g id="{p}-brow-r"><path d="M320 188 L372 192" stroke="{GLOW}" stroke-width="10" stroke-linecap="round"/></g>
+    <g id="{p}-eye-l"><rect x="232" y="228" width="40" height="48" rx="8" fill="{GLOW}"/></g>
+    <g id="{p}-eye-r"><rect x="328" y="228" width="40" height="48" rx="8" fill="{GLOW}"/></g>
+    <g id="{p}-mouth-c"><path d="M262 330 L338 330" stroke="{GLOW}" stroke-width="8" stroke-linecap="round"/></g>
+    <g id="{p}-mouth-o" opacity="0">
+      <rect x="258" y="310" width="84" height="40" rx="8" fill="none" stroke="{GLOW}" stroke-width="7"/>
+      <path d="M279 312 L279 348 M300 312 L300 348 M321 312 L321 348" stroke="{GLOW}" stroke-width="5"/>
+    </g>
+  </g>
+  <g id="{p}-arm-r">
+    <path d="M436 606 L470 770" stroke="{INK}" stroke-width="20" stroke-linecap="round"/>
+    <path d="M436 606 L470 770" stroke="#a8743f" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="471" cy="772" r="7" fill="#fffdf6" stroke="{INK}" stroke-width="4"/>
+    {limb(395, 455, 432, 600, STEEL_DARK, 32)}
+    <path d="M418 600 L418 632 L434 620 L450 632 L450 600 Z" fill="{STEEL}" {o}/>
+  </g>
+</svg>"""
+
+
+TEACHERS = {"A": teacher, "B": teacher_pigeon, "C": teacher_robot}
