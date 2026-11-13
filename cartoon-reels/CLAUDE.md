@@ -9,15 +9,15 @@ The reference (Spanish "-aña" reel, 31 s, about 377K likes) showed what actuall
 - **One shared sound per reel.** Every taught word ends in, or contains, the same sound chunk (there it was "-aña": mañana, araña, maña, telaraña, extraña, España, montaña). That is where the song comes from. Pick the sound first, then the words.
 - **Cue, then answer.** The on-screen text shows the plain word first ("Spider"), then the answer replaces it ("Araña"). The viewer guesses for half a beat, then gets it. Use this rhythm for every word.
 - **Same word, two meanings.** Repeats with a new meaning (mañana = tomorrow and morning; araña = spider and scratches) are the cheapest laughs. Use one or two per reel when they are genuine.
-- **Short.** Target 30 to 40 s (never over 45). The lesson is about 1.5 to 2 s per word; the payoff is about 7 to 10 s.
+- **Short.** Target 30 to 40 s (never over 45). The lesson is about 1.5 to 2 s per word; the sung payoff is about 10 to 13 s.
 - **The payoff background flips colour on the beat** (light, then tinted, then light), which makes a static duet feel energetic. Do this.
-- **Make it loop.** The last frame should cut cleanly back to frame 0 so the reel replays. The button (section 1, step 5) stays, but keep it to about 1.5 s.
+- **Make it loop.** The last frame should cut cleanly back to frame 0 so the reel replays. The button (section 1, step 7) stays, but keep it to about 2 s.
 - **Do better than the reference on text.** Its words were small and the payoff lyrics sat at the bottom where Instagram's caption covers them. Ours are big, at the top, inside the safe area (section 4).
 - **Do not copy it.** No bald stick figure with a bean-shaped body, no armchair, no half-closed-eyes face from that reel, and never the "-aña" words or its stitched line (it is logged in `jokes-used.md`).
 
 ## 1. The format
 
-A deadpan cartoon character teaches viewers a handful of words or phrases, one at a time. Each word appears on screen as it is said. Then the character says "Now try this", and the words get stitched together into one ridiculous sentence that sounds like a song or tongue twister. The payoff is a second scene where two characters perform the stitched line on a beat, like a duet at a microphone.
+A deadpan cartoon character teaches viewers a handful of words or phrases, one at a time. Each word appears on screen as it is said. Then the character says "Now try this", and the words get stitched together into one ridiculous sentence that sounds like a song or tongue twister. Then the teacher reads the stitched sentence in English, and the payoff is a second scene where two characters sing it in the real language, like a duet at a microphone.
 
 Why it works:
 
@@ -25,7 +25,7 @@ Why it works:
 - The stitched sentence is absurd but makes sense, which is the laugh.
 - The rhythm of the payoff makes it replayable and gets it shared.
 
-Structure (25 to 35 seconds; see section 0):
+Structure (30 to 40 seconds; see section 0):
 
 1. **Hook, 0 to 2 s**: a title line on screen from frame 0, for example "Spanish is easy" or "Football English is easy". The character says it with total confidence.
 2. **The lesson, about 13 to 18 s**: 5 to 8 words or short phrases, each shown big on screen as it is said (cue, then answer). Use pairs where it helps (normal meaning, then the twist). Words should share one sound so they rhyme or echo each other.
