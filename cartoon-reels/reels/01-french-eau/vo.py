@@ -43,6 +43,11 @@ LINES = [
     ("t-couteau", TEACHER, "Couteau.", "fr", DEADPAN),
     ("t-try", TEACHER, "Now try this.", "en", DEADPAN),
     ("t-easy", TEACHER, "Easy.", "en", DEADPAN),
+    # the whole sentence in English, read deadpan before the song
+    ("t-en1", TEACHER, "The fine bird in a hat,", "en", DEADPAN),
+    ("t-en2", TEACHER, "on the boat,", "en", DEADPAN),
+    ("t-en3", TEACHER, "cuts the castle's cake with a knife...", "en", DEADPAN),
+    ("t-en4", TEACHER, "and falls in the water.", "en", DEADPAN),
     # payoff chant, one phrase per bar
     ("t-p1", TEACHER, "Le bel oiseau au chapeau !", "fr", ENERGY),
     ("p-p2", PARTNER, "Sur le bateau !", "fr", ENERGY),

@@ -1,0 +1,101 @@
+{
+ "seed": 11,
+ "heard": "[musique] Le bel oiseau au chapeau sur le bateau coupe le gâteau du château au couteau et tombe à l'eau. [musique]",
+ "words": [
+  {
+   "text": "Le",
+   "start": 26.619,
+   "end": 26.719
+  },
+  {
+   "text": "bel",
+   "start": 26.879,
+   "end": 27.119
+  },
+  {
+   "text": "oiseau",
+   "start": 27.159,
+   "end": 27.879
+  },
+  {
+   "text": "au",
+   "start": 28.039,
+   "end": 28.159
+  },
+  {
+   "text": "chapeau",
+   "start": 28.239,
+   "end": 29.079
+  },
+  {
+   "text": "sur",
+   "start": 29.999,
+   "end": 30.279
+  },
+  {
+   "text": "le",
+   "start": 30.339,
+   "end": 30.479
+  },
+  {
+   "text": "bateau",
+   "start": 30.559,
+   "end": 31.039
+  },
+  {
+   "text": "coupe",
+   "start": 31.159,
+   "end": 31.419
+  },
+  {
+   "text": "le",
+   "start": 31.459,
+   "end": 31.599
+  },
+  {
+   "text": "gâteau",
+   "start": 31.719,
+   "end": 32.259
+  },
+  {
+   "text": "du",
+   "start": 32.319,
+   "end": 32.439
+  },
+  {
+   "text": "château",
+   "start": 32.519,
+   "end": 33.059
+  },
+  {
+   "text": "au",
+   "start": 33.179,
+   "end": 33.279
+  },
+  {
+   "text": "couteau",
+   "start": 33.399,
+   "end": 34.139
+  },
+  {
+   "text": "et",
+   "start": 34.619,
+   "end": 34.719
+  },
+  {
+   "text": "tombe",
+   "start": 34.879,
+   "end": 35.159
+  },
+  {
+   "text": "à",
+   "start": 35.239,
+   "end": 35.379
+  },
+  {
+   "text": "l'eau.",
+   "start": 35.439,
+   "end": 35.839
+  }
+ ]
+}

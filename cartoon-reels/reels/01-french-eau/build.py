@@ -19,7 +19,7 @@ P0 = T["payoff"]["start"]
 P1 = T["payoff"]["end"]
 B0 = T["button"]["start"]
 TOTAL = round(T["total"], 3)
-BEAT = T["beat"]
+SONG_WORDS = json.loads((ROOT / "assets/audio/song.json").read_text())["words"]
 
 FONT = "font-family: 'Montserrat', sans-serif;"
 INK = "#1d1d1b"
@@ -142,9 +142,27 @@ def lesson():
             js.append(f'tl.fromTo("#les-w-{i}", {{opacity: 0, filter: "blur(6px)"}}, {{opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out"}}, {a});')
         js.append(gesture_js(p, wrap, it["gesture"], a))
     ts = T["try"]["start"]
-    html.append(f'<h1 id="les-try" class="word clip" data-start="{ts}" data-duration="{r(dur - ts)}" style="font-size: 110px; top: 400px;">NOW<br>TRY THIS</h1>')
+    e0 = T["english"][0]["start"]
+    html.append(f'<h1 id="les-try" class="word clip" data-start="{ts}" data-duration="{r(e0 - ts)}" style="font-size: 110px; top: 400px;">NOW<br>TRY THIS</h1>')
     js.append(f'tl.fromTo("#les-try", {{opacity: 0, y: 30}}, {{opacity: 1, y: 0, duration: 0.2, ease: "power3.out"}}, {ts});')
     js.append(f'tl.to("#{wrap}", {{y: -18, scale: 1.04, transformOrigin: "50% 100%", duration: 0.5, ease: "power2.inOut"}}, {ts});')
+    # the whole sentence in English, one phrase at a time
+    en_end = T["english"][-1]["end"]
+    html.append(f'<div id="les-en-lab" class="label lab-en clip" data-start="{e0}" data-duration="{r(en_end - e0)}"><span>IN ENGLISH</span></div>')
+    for j, e in enumerate(T["english"]):
+        html.append(f'<h1 id="les-en-{j}-t" class="word clip" data-start="{e["start"]}" data-duration="{r(e["end"] - e["start"])}" style="font-size: 92px; top: 410px;">{e["text"]}</h1>')
+        js.append(f'tl.fromTo("#les-en-{j}-t", {{opacity: 0, filter: "blur(6px)"}}, {{opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power3.out"}}, {e["start"]});')
+    js.append(f'tl.to("#{p}-head", {{rotation: 4, svgOrigin: "{TP["head"]}", duration: 0.4}}, {e0});')
+    # count-in: the song's lead-in bar; he lifts the pointer like a conductor and drops it on the cut
+    ci = T["count_in"]
+    if ci["end"] - ci["start"] > 0.3:
+        html.append(f'<div id="les-ci-lab" class="label lab-fr clip" data-start="{ci["start"]}" data-duration="{r(ci["end"] - ci["start"])}"><span>NOW IN FRENCH</span></div>')
+        html.append(f'<h1 id="les-ci" class="word clip" data-start="{ci["start"]}" data-duration="{r(ci["end"] - ci["start"])}" style="font-size: 130px; top: 420px;">1, 2, 3…</h1>')
+        js.append(f'tl.fromTo("#les-ci", {{scale: 0.7, opacity: 0}}, {{scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)"}}, {ci["start"]});')
+        js.append(f'tl.to("#{p}-arm-r", {{rotation: -160, svgOrigin: "{TP["arm-r"]}", duration: 0.3, ease: "back.out(1.6)"}}, {ci["start"]});')
+        js.append(f'tl.to("#{p}-brow-r", {{y: -24, duration: 0.2}}, {ci["start"]});')
+        js.append(f'tl.to("#{p}-head", {{rotation: 0, svgOrigin: "{TP["head"]}", duration: 0.3}}, {ci["start"]});')
+        js.append(f'tl.to("#{p}-arm-r", {{rotation: -60, svgOrigin: "{TP["arm-r"]}", duration: 0.15, ease: "power3.in"}}, {r(ci["end"] - 0.17)});')
     js.append(flaps_js(p, "t", 0, dur))
     js.append(blinks_js(p, dur))
     js.append(breath_js(p, TP["body"], dur))
@@ -174,9 +192,10 @@ def lesson():
 def payoff():
     dur = r(P1 - P0)
     html, js = [], []
-    for i, ln in enumerate(T["payoff"]["lines"]):
+    lines = T["payoff"]["lines"]
+    for i, ln in enumerate(lines):
         s = r(ln["start"] - P0)
-        e = r(dur - s) if i == 3 else r(T["bar"])
+        e = r((lines[i + 1]["start"] - P0 if i + 1 < len(lines) else dur) - s)
         size = 92 if i != 2 else 84
         html.append(f'<h1 id="pay-l{i}" class="line clip" data-start="{s}" data-duration="{e}" style="font-size: {size}px;">{ln["fr"]}</h1>')
         nlines = ln["fr"].count("<br>") + 1
@@ -185,15 +204,20 @@ def payoff():
         js.append(f'tl.fromTo("#pay-l{i}", {{scale: 0.7, opacity: 0}}, {{scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2.2)"}}, {s});')
         js.append(f'tl.fromTo("#pay-e{i}", {{opacity: 0}}, {{opacity: 1, duration: 0.2}}, {r(s + 0.12)});')
     splash = r(T["payoff"]["splash"] - P0)
-    for k in range(14):  # the beat drops out for the last two beats
-        t = r(k * BEAT)
+    # the background flips tint and both characters bounce on every sung word, so they move with the song
+    sung = [w for w in SONG_WORDS if P0 - 0.05 <= w["start"] < T["payoff"]["splash"] - 0.05]
+    last = -1.0
+    for k, w in enumerate(sung):
+        t = r(max(0, w["start"] - P0))
         js.append(f'tl.set("#pay-tint", {{opacity: {0.55 if k % 2 else 0}}}, {t});')
-        js.append(f'tl.to(["#pay-t-wrap", "#pay-p-wrap"], {{y: -14, duration: {r(BEAT * 0.4)}, ease: "power2.out"}}, {t});'
-                  f'tl.to(["#pay-t-wrap", "#pay-p-wrap"], {{y: 0, duration: {r(BEAT * 0.5)}, ease: "power2.in"}}, {r(t + BEAT * 0.45)});')
-    poses = [(150, -25, 60, -110), (40, -140, 120, -40), (160, -160, 150, -150)]
-    for bar in range(3):
-        t = r(bar * T["bar"])
-        tl_, tr_, pl_, pr_ = poses[bar]
+        if t - last >= 0.3:
+            js.append(f'tl.to(["#pay-t-wrap", "#pay-p-wrap"], {{y: -16, duration: 0.12, ease: "power2.out"}}, {t});'
+                      f'tl.to(["#pay-t-wrap", "#pay-p-wrap"], {{y: 0, duration: 0.15, ease: "power2.in"}}, {r(t + 0.13)});')
+            last = t
+    poses = [(150, -25, 60, -110), (40, -140, 120, -40), (125, -125, 115, -115)]
+    for i in range(3):
+        t = r(lines[i]["start"] - P0)
+        tl_, tr_, pl_, pr_ = poses[i]
         js.append(f'tl.to("#pay-t-arm-l", {{rotation: {tl_}, svgOrigin: "{TP["arm-l"]}", duration: 0.2, ease: "back.out(2)"}}, {t});'
                   f'tl.to("#pay-t-arm-r", {{rotation: {tr_}, svgOrigin: "{TP["arm-r"]}", duration: 0.2, ease: "back.out(2)"}}, {r(t + 0.04)});'
                   f'tl.to("#pay-p-arm-l", {{rotation: {pl_}, svgOrigin: "{PP["arm-l"]}", duration: 0.2, ease: "back.out(2)"}}, {r(t + 0.02)});'
@@ -201,16 +225,19 @@ def payoff():
     js.append(f'tl.to("#pay-t-head", {{rotation: 7, svgOrigin: "{TP["head"]}", duration: 0.3}}, 0);')
     js.append(f'tl.to("#pay-p-head", {{rotation: -8, svgOrigin: "{PP["head"]}", duration: 0.3}}, 0);')
     js.append('tl.to(["#pay-p-brow-l", "#pay-p-brow-r"], {y: -14, duration: 0.2}, 0.1);')
-    # the laugh: both drop as if into the water, the splash bursts up, the screen shakes
-    js.append(f'tl.set("#pay-tint", {{opacity: 0}}, {r(14 * BEAT)});')
+    # the laugh on "l'eau": both drop as if into the water, the splash bursts up, the screen shakes
+    js.append(f'tl.set("#pay-tint", {{opacity: 0}}, {r(splash - 0.05)});')
     js.append(f'tl.to(["#pay-t-wrap", "#pay-p-wrap"], {{y: 140, duration: 0.25, ease: "power3.in"}}, {r(splash - 0.2)});')
     # set() then to(): a fromTo would apply its start state from the first frame
     js.append(f'tl.set("#pay-water", {{scaleY: 0, opacity: 1, transformOrigin: "50% 100%"}}, {r(splash - 0.01)});'
               f'tl.to("#pay-water", {{scaleY: 1, duration: 0.25, ease: "back.out(2)"}}, {splash});')
     js.append(f'tl.set("#pay-flash", {{opacity: 0.8}}, {splash});tl.to("#pay-flash", {{opacity: 0, duration: 0.3}}, {r(splash + 0.02)});')
     js.append(f'tl.set("#pay-shake", {{x: -18}}, {splash});tl.to("#pay-shake", {{x: 0, duration: 0.4, ease: "elastic.out(1, 0.3)"}}, {r(splash + 0.02)});')
-    js.append(flaps_js("pay-t", "t", P0, P1))
-    js.append(flaps_js("pay-p", "p", P0, P1))
+    # both sing: mouths follow the sung words
+    for who in ("pay-t", "pay-p"):
+        for k, st in T["payoff"]["flaps"]:
+            if 0 <= k < dur:
+                js.append(f'tl.set("#{who}-mouth-o", {{opacity: {st}}}, {k});tl.set("#{who}-mouth-c", {{opacity: {1 - st}}}, {k});')
     js.append(blinks_js("pay-t", dur, 0.9))
     js.append(blinks_js("pay-p", dur, 1.6, (2.7, 2.2)))
     body = "\n    ".join(html)
@@ -256,7 +283,7 @@ def payoff():
         <circle cx="400" cy="40" r="14" fill="#3fa9e0" stroke="{INK}" stroke-width="5"/>
         <circle cx="720" cy="50" r="16" fill="#3fa9e0" stroke="{INK}" stroke-width="5"/>
       </svg>
-      <div id="pay-tag">NOW TRY THIS</div>
+      <div id="pay-tag">SING ALONG</div>
       {body}
     </div>
     <div id="pay-flash"></div>

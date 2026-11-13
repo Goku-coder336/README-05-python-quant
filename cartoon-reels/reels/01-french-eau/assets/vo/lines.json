@@ -69,8 +69,7 @@
     "voice": "George",
     "text": "Bateau.",
     "lang": "fr",
-    "seconds": 0.914,
-    "verified": true
+    "seconds": 0.914
   },
   "t-cake": {
     "voice": "George",
@@ -106,8 +105,7 @@
     "voice": "George",
     "text": "Couteau.",
     "lang": "fr",
-    "seconds": 0.862,
-    "verified": true
+    "seconds": 0.862
   },
   "t-try": {
     "voice": "George",
@@ -121,6 +119,30 @@
     "lang": "en",
     "seconds": 0.836
   },
+  "t-en1": {
+    "voice": "George",
+    "text": "The fine bird in a hat,",
+    "lang": "en",
+    "seconds": 1.698
+  },
+  "t-en2": {
+    "voice": "George",
+    "text": "on the boat,",
+    "lang": "en",
+    "seconds": 0.967
+  },
+  "t-en3": {
+    "voice": "George",
+    "text": "cuts the castle's cake with a knife...",
+    "lang": "en",
+    "seconds": 2.22
+  },
+  "t-en4": {
+    "voice": "George",
+    "text": "and falls in the water.",
+    "lang": "en",
+    "seconds": 1.567
+  },
   "t-p1": {
     "voice": "George",
     "text": "Le bel oiseau au chapeau !",
@@ -131,8 +153,7 @@
     "voice": "Laura",
     "text": "Sur le bateau !",
     "lang": "fr",
-    "seconds": 1.071,
-    "verified": true
+    "seconds": 1.071
   },
   "t-p3": {
     "voice": "George",
@@ -144,21 +165,18 @@
     "voice": "Laura",
     "text": "Coupe le gâteau du château au couteau !",
     "lang": "fr",
-    "seconds": 2.273,
-    "verified": true
+    "seconds": 2.273
   },
   "t-p4": {
     "voice": "George",
     "text": "Et tombe à l'eau !",
     "lang": "fr",
-    "seconds": 1.097,
-    "verified": true
+    "seconds": 1.097
   },
   "p-p4": {
     "voice": "Laura",
     "text": "Et tombe à l'eau !",
     "lang": "fr",
-    "seconds": 1.071,
-    "verified": true
+    "seconds": 1.071
   }
 }

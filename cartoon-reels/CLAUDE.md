@@ -9,7 +9,7 @@ The reference (Spanish "-aña" reel, 31 s, about 377K likes) showed what actuall
 - **One shared sound per reel.** Every taught word ends in, or contains, the same sound chunk (there it was "-aña": mañana, araña, maña, telaraña, extraña, España, montaña). That is where the song comes from. Pick the sound first, then the words.
 - **Cue, then answer.** The on-screen text shows the plain word first ("Spider"), then the answer replaces it ("Araña"). The viewer guesses for half a beat, then gets it. Use this rhythm for every word.
 - **Same word, two meanings.** Repeats with a new meaning (mañana = tomorrow and morning; araña = spider and scratches) are the cheapest laughs. Use one or two per reel when they are genuine.
-- **Short.** Target 25 to 35 s (never over 45). The lesson is about 1.5 to 2 s per word; the payoff is about 7 to 10 s.
+- **Short.** Target 30 to 40 s (never over 45). The lesson is about 1.5 to 2 s per word; the payoff is about 7 to 10 s.
 - **The payoff background flips colour on the beat** (light, then tinted, then light), which makes a static duet feel energetic. Do this.
 - **Make it loop.** The last frame should cut cleanly back to frame 0 so the reel replays. The button (section 1, step 5) stays, but keep it to about 1.5 s.
 - **Do better than the reference on text.** Its words were small and the payoff lyrics sat at the bottom where Instagram's caption covers them. Ours are big, at the top, inside the safe area (section 4).
@@ -30,8 +30,10 @@ Structure (25 to 35 seconds; see section 0):
 1. **Hook, 0 to 2 s**: a title line on screen from frame 0, for example "Spanish is easy" or "Football English is easy". The character says it with total confidence.
 2. **The lesson, about 13 to 18 s**: 5 to 8 words or short phrases, each shown big on screen as it is said (cue, then answer). Use pairs where it helps (normal meaning, then the twist). Words should share one sound so they rhyme or echo each other.
 3. **"Now try this", about 1 s**: the turn.
-4. **The payoff, about 7 to 10 s**: a new scene. Two characters perform the stitched sentence in rhythm over a beat, with the words on screen line by line. Bigger, faster, louder.
-5. **Button, about 1.5 s**: cut back to the first character for one deadpan word ("Easy.") and a "Follow for Lesson 2" tag.
+4. **The sentence in English, about 6 s**: the teacher reads the whole stitched sentence in English, deadpan, one phrase on screen at a time (as in the reference: "Tomorrow morning, / the strange / spider from Spain…").
+5. **Count-in, about 2 s**: "NOW IN FRENCH", the teacher lifts the pointer like a conductor while the song's lead-in bar plays.
+6. **The payoff, about 10 to 13 s**: a new scene. The stitched sentence in the real language is **sung** as a song (ElevenLabs music, male and female duet), the two characters lip-syncing, lyrics on screen line by line as they are sung with the translation under each. Bigger, faster, louder.
+7. **Button, about 2 s**: cut back to the first character for one deadpan word ("Easy.") and a "Follow for Lesson 2" tag.
 
 ## 2. Coming up with the idea (do this first, every time)
 
@@ -92,15 +94,14 @@ Voice options (ask me which one before recording):
 2. ElevenLabs, if I have connected it or given you an API key. Better for accents and emotion.
 3. An MP3 I record or make in VoiceStudio and give you.
 
-Note: the free voice speaks, it cannot sing. For the payoff, make it rhythmic instead: generate each word or short phrase separately and place them exactly on the beat of the music, like a chant. If I want real singing, tell me which tool would do it and I will set it up.
+Singing: the payoff is sung, not chanted. Generate one song for the whole reel with the ElevenLabs music model (`music.py`): an instrumental intro as long as the lesson and the English sentence, then the sung chorus with the stitched line as lyrics, then a short tail. Transcribe the sung part with ElevenLabs speech-to-text and only keep a take where every lyric word is heard in order; use those word timings for the on-screen lyrics and lip-sync. Split the song into stems (vocals and instrumental) so the no-music version keeps the singing.
 
 Sound:
 
-- A light, bouncy music loop for the lesson (around 100 to 110 BPM), generated with Python and numpy if no music tool is connected.
-- A bigger beat for the payoff scene, in the same key and tempo, with the stitched line landing on the beat.
+- Music: the ElevenLabs song above (light and sparse under the lesson, a full-band drop for the sung chorus). Numpy-generated music is only a fallback if no music tool is connected.
 - Pop or click on each new word, a whoosh on scene changes, a hit on the biggest laugh, crowd or room sound in the payoff if it fits.
 - Duck the music under the voice. Final mix around -14 to -16 LUFS.
-- Deliver two files: one with music and one with voice and effects only (so I can add Instagram music instead).
+- Deliver two files: one with the full song, and one with voice, effects and the sung vocals only (so I can add Instagram music instead).
 
 ## 6. Tools
 
