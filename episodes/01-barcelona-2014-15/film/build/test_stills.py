@@ -5,7 +5,7 @@ Usage: python build/test_stills.py   (from the film folder)
 import json
 import os
 
-from style import (ACCENT, BASE_CSS, INK, MUTED, TEAM_A, TEAM_B_EDGE, Pitch, arrow, defs, dot, place_tags, tag)
+from style import (ACCENT, BASE_CSS, INK, MUTED, PIP_JS, TEAM_A, TEAM_B_EDGE, Pitch, arrow, defs, dot, pip_svg, place_tags, tag)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FILM = os.path.join(HERE, "..")
@@ -152,7 +152,7 @@ def chart_scene():
         parts.append(f'<text x="{X(m)}" y="{Y0 + 44}" text-anchor="middle" font-family="Inter" font-size="28" fill="{MUTED}">{m}\'</text>')
     parts.append(f'<line x1="{X0}" x2="{X1}" y1="{Y0}" y2="{Y0}" stroke="rgba(255,255,255,.25)" stroke-width="3"/>')
     parts.append(f'<text x="{X0 - 18}" y="{Y1 - 34}" text-anchor="end" font-family="Inter" font-weight="700" font-size="28" fill="{MUTED}">xG</text>')
-    parts.append(f'<text x="{X1 + 70}" y="{Y0 + 44}" text-anchor="start" font-family="Inter" font-size="28" fill="{MUTED}">minute</text>')
+    parts.append(f'<text x="{X1}" y="{Y0 + 84}" text-anchor="end" font-family="Inter" font-size="28" fill="{MUTED}">minute</text>')
     lines = {}
     for team, col in (("Juventus", TEAM_B_EDGE), ("Barcelona", TEAM_A)):
         pts, cum = [(0, 0)], 0.0

@@ -175,3 +175,116 @@ def arrow(aid, x1, y1, x2, y2, kind="pass", prefix="s"):
             f'<path id="{aid}-mp" d="{d}" stroke="#fff" stroke-width="16" fill="none" pathLength="100" stroke-dasharray="100 120" stroke-dashoffset="100"/></mask>'
             f'<path d="{d}" fill="none" stroke="{col}" stroke-width="6" stroke-linecap="round" stroke-dasharray="16 12" mask="url(#{aid}-m)"/>'
             + head)
+
+
+# ---------------------------------------------------------------- Pip, the film's character
+# An original tactics-board magnet: a red glowing disc (like Barcelona's player dots) with eyes, brows, a mouth,
+# thin arms and legs, and a magnifying glass. Local origin (0, 0) is between the feet; the body centre is at
+# (0, -112), radius 58. Parts are separate groups so they can be offset in time (head leads, arms follow).
+def pip_svg(pid, prefix, glass=True):
+    ink = "#0b0c0f"
+    limb = "#d5dae2"  # light limbs so Pip reads on the dark board
+    leg = lambda side, x: (f'<g id="{pid}-leg{side}"><line x1="{x * 0.6}" y1="-62" x2="{x}" y2="-6" stroke="{limb}" stroke-width="10" stroke-linecap="round"/>'
+                           f'<ellipse cx="{x + (6 if x > 0 else -6)}" cy="-4" rx="16" ry="8" fill="{limb}"/></g>')
+    arm = lambda side, x: (f'<g id="{pid}-arm{side}"><line x1="{x}" y1="-118" x2="{x + (40 if x > 0 else -40)}" y2="-78" stroke="{limb}" stroke-width="9" stroke-linecap="round"/>'
+                           f'<circle cx="{x + (42 if x > 0 else -42)}" cy="-76" r="10" fill="#fff"/>'
+                           + (f'<g id="{pid}-glass"><line x1="{x + 46}" y1="-80" x2="{x + 66}" y2="-108" stroke="#9aa1ad" stroke-width="7" stroke-linecap="round"/>'
+                              f'<circle cx="{x + 78}" cy="-124" r="22" fill="rgba(255,255,255,.12)" stroke="#d9dde3" stroke-width="6"/></g>' if (glass and x > 0) else "")
+                           + '</g>')
+    eyes = {
+        "normal": f'<ellipse cx="-21" cy="-124" rx="15" ry="19" fill="#fff"/><ellipse cx="21" cy="-124" rx="15" ry="19" fill="#fff"/>'
+                  f'<g id="{pid}-pupils"><circle cx="-19" cy="-121" r="7.5" fill="{ink}"/><circle cx="23" cy="-121" r="7.5" fill="{ink}"/></g>',
+        "wide": f'<ellipse cx="-22" cy="-126" rx="19" ry="24" fill="#fff"/><ellipse cx="22" cy="-126" rx="19" ry="24" fill="#fff"/>'
+                f'<circle cx="-22" cy="-126" r="5" fill="{ink}"/><circle cx="22" cy="-126" r="5" fill="{ink}"/>',
+        "happy": f'<path d="M -34 -120 Q -21 -138 -8 -120" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>'
+                 f'<path d="M 8 -120 Q 21 -138 34 -120" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round"/>',
+        "closed": f'<line x1="-34" y1="-122" x2="-8" y2="-122" stroke="#fff" stroke-width="6" stroke-linecap="round"/>'
+                  f'<line x1="8" y1="-122" x2="34" y2="-122" stroke="#fff" stroke-width="6" stroke-linecap="round"/>',
+    }
+    mouths = {
+        "smile": '<path d="M -14 -92 Q 0 -80 14 -92" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>',
+        "o": '<ellipse cx="0" cy="-88" rx="8" ry="10" fill="#0b0c0f" stroke="#fff" stroke-width="4"/>',
+        "flat": '<line x1="-11" y1="-89" x2="11" y2="-89" stroke="#fff" stroke-width="5" stroke-linecap="round"/>',
+        "grin": '<path d="M -18 -94 Q 0 -70 18 -94 Z" fill="#0b0c0f" stroke="#fff" stroke-width="4" stroke-linejoin="round"/>',
+    }
+    brows = (f'<g id="{pid}-brows"><line id="{pid}-browL" x1="-34" y1="-152" x2="-10" y2="-149" stroke="{ink}" stroke-width="6" stroke-linecap="round"/>'
+             f'<line id="{pid}-browR" x1="10" y1="-149" x2="34" y2="-152" stroke="{ink}" stroke-width="6" stroke-linecap="round"/></g>')
+    eye_g = "".join(f'<g id="{pid}-eyes-{k}" opacity="{1 if k == "normal" else 0}">{v}</g>' for k, v in eyes.items())
+    mouth_g = "".join(f'<g id="{pid}-mouth-{k}" opacity="{1 if k == "smile" else 0}">{v}</g>' for k, v in mouths.items())
+    return (f'<g id="{pid}">'
+            f'<ellipse id="{pid}-shadow" cx="0" cy="2" rx="52" ry="10" fill="rgba(0,0,0,.55)"/>'
+            f'{leg("L", -22)}{leg("R", 22)}'
+            f'<g id="{pid}-body">'
+            f'<circle cx="0" cy="-104" r="58" fill="#9e1020"/>'                      # magnet base (thickness)
+            f'<circle cx="0" cy="-112" r="58" fill="{TEAM_A}" filter="url(#{prefix}-glowA)"/>'
+            f'<path d="M -38 -146 Q -20 -164 6 -166" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="7" stroke-linecap="round"/>'
+            f'<g id="{pid}-face">{eye_g}{brows}{mouth_g}</g>'
+            f'</g>'
+            f'{arm("L", -50)}{arm("R", 50)}'
+            f'</g>')
+
+
+# GSAP helpers for Pip, inlined into each scene that uses him. GSAP tweens a plain state object per Pip, and
+# draw() writes exact SVG transforms (each limb rotates about its own joint, in Pip's own coordinates), so every
+# frame is a function of timeline time. All moves are placed at absolute times.
+PIP_JS = r"""
+    const PIPS = {};
+    const pipDraw = (id) => {
+      const S = PIPS[id], q = (s) => document.querySelector("#" + id + s);
+      q("").setAttribute("transform", `translate(${S.x} ${S.y}) scale(${S.s * S.dir} ${S.s})`);
+      q("-legL").setAttribute("transform", `rotate(${S.legL} -13 -62)`);
+      q("-legR").setAttribute("transform", `rotate(${S.legR} 13 -62)`);
+      q("-armL").setAttribute("transform", `rotate(${S.armL} -50 -118)`);
+      q("-armR").setAttribute("transform", `rotate(${S.armR} 50 -118)`);
+      q("-body").setAttribute("transform", `translate(0 ${S.bodyY}) translate(0 -50) scale(${S.sx} ${S.sy * S.br}) translate(0 50)`);
+      q("-pupils").setAttribute("transform", `translate(${S.px} ${S.py})`);
+      q("-browL").setAttribute("transform", `translate(0 ${-Math.max(0, S.browL) / 4}) rotate(${S.browL} -22 -150)`);
+      q("-browR").setAttribute("transform", `translate(0 ${Math.min(0, S.browR) / 4}) rotate(${S.browR} 22 -150)`);
+    };
+    const pipTo = (id, vars, dur, t, ease = "power2.out", from = null) => {
+      const tw = Object.assign({}, vars, { duration: dur, ease, onUpdate: () => pipDraw(id) });
+      if (from) tl.fromTo(PIPS[id], Object.assign({}, from), Object.assign(tw, { immediateRender: false }), t);
+      else tl.to(PIPS[id], tw, t);
+    };
+    const Pip = {
+      place(id, x, y, s = 1, dir = 1) {
+        PIPS[id] = { x, y, s, dir, legL: 0, legR: 0, armL: 0, armR: 0, bodyY: 0, sx: 1, sy: 1, br: 1, px: 0, py: 0, browL: 0, browR: 0 };
+        pipDraw(id);
+        tl.set(PIPS[id], { x, y, s, dir, onComplete: () => pipDraw(id) }, 0);
+      },
+      move(id, x, y, t, dur, ease = "power2.inOut") { pipTo(id, { x, y }, dur, t, ease); },
+      face(id, dir, t) { pipTo(id, { dir }, 0.12, t, "power1.inOut"); },
+      walk(id, x1, t, dur) {
+        pipTo(id, { x: x1 }, dur, t, "power1.inOut");
+        const steps = Math.max(2, Math.round(dur / 0.28)), d = dur / steps;
+        pipTo(id, { legL: 24, legR: -24 }, d, t, "sine.inOut", { legL: -24, legR: 24 });
+        tl.to(PIPS[id], { legL: -24, legR: 24, bodyY: -7, duration: d, repeat: steps - 2, yoyo: true, ease: "sine.inOut", onUpdate: () => pipDraw(id) }, t + d);
+        pipTo(id, { legL: 0, legR: 0, bodyY: 0 }, 0.18, t + dur);
+      },
+      mood(id, eyes, mouth, t) {  // a take: squash, the new face, a settle
+        pipTo(id, { sy: 0.9, sx: 1.06 }, 0.08, t);
+        ["normal", "wide", "happy", "closed"].forEach(k => tl.set("#" + id + "-eyes-" + k, { opacity: k === eyes ? 1 : 0 }, t + 0.06));
+        ["smile", "o", "flat", "grin"].forEach(k => tl.set("#" + id + "-mouth-" + k, { opacity: k === mouth ? 1 : 0 }, t + 0.06));
+        pipTo(id, { sy: 1, sx: 1 }, 0.4, t + 0.08, "elastic.out(1, 0.5)");
+      },
+      brows(id, l, r, t) { pipTo(id, { browL: l, browR: r }, 0.2, t); },
+      look(id, dx, dy, t) { pipTo(id, { px: dx, py: dy }, 0.18, t); },
+      arm(id, side, angle, t, dur = 0.32) { pipTo(id, side === "R" ? { armR: angle } : { armL: angle }, dur, t, "back.out(1.6)"); },
+      jump(id, t, h = 70) {
+        const y0 = PIPS[id].y;
+        pipTo(id, { sy: 0.86, sx: 1.08 }, 0.1, t);
+        pipTo(id, { y: y0 - h * PIPS[id].s, sy: 1.08, sx: 0.95 }, 0.24, t + 0.1, "power2.out");
+        pipTo(id, { y: y0, sy: 1, sx: 1 }, 0.22, t + 0.34, "power2.in");
+        pipTo(id, { sy: 0.9, sx: 1.06 }, 0.08, t + 0.56);
+        pipTo(id, { sy: 1, sx: 1 }, 0.35, t + 0.64, "elastic.out(1, 0.5)");
+      },
+      blink(id, t) {
+        tl.set("#" + id + "-eyes-normal", { opacity: 0 }, t); tl.set("#" + id + "-eyes-closed", { opacity: 1 }, t);
+        tl.set("#" + id + "-eyes-closed", { opacity: 0 }, t + 0.12); tl.set("#" + id + "-eyes-normal", { opacity: 1 }, t + 0.12);
+      },
+      breathe(id, t, dur) {  // idle life: a slow breath, finite repeats, on its own channel
+        const n = Math.max(1, Math.floor(dur / 1.6));
+        tl.fromTo(PIPS[id], { br: 1 }, { br: 1.025, duration: 0.8, repeat: n * 2 - 1, yoyo: true, ease: "sine.inOut", immediateRender: false, onUpdate: () => pipDraw(id) }, t);
+      },
+    };
+"""
