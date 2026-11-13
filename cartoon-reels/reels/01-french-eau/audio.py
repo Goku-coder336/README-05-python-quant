@@ -136,7 +136,7 @@ def main():
         raw = OUT / f"{name}.raw.wav"
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f64le", "-ar", str(SR), "-ac", "1", "-i", "-", str(raw)],
                        input=x.astype(np.float64).tobytes(), check=True)
-        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-af", "loudnorm=I=-15:TP=-1.5:LRA=11",
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(raw), "-af", "loudnorm=I=-14:TP=-1.5:LRA=11",
                         "-ar", str(SR), "-ac", "2", str(OUT / f"{name}.wav")], check=True)
         raw.unlink()
     print("wrote", OUT / "mix-music.wav", "and", OUT / "mix-nomusic.wav")

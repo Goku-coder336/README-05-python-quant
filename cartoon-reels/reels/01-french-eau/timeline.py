@@ -13,7 +13,10 @@ import numpy as np
 HERE = Path(__file__).parent
 VO = HERE / "assets" / "vo"
 TRIM = VO / "trim"
-from variant import AUDIO, TIMELINE
+from variant import AUDIO, TIMELINE, V
+
+# v4 on: Odette asks, Barnaby answers (v2 and v3 keep the teacher saying both)
+DIALOGUE = V not in ("v2", "v3")
 
 SONG = AUDIO / "song.json"
 SR = 44100
@@ -119,13 +122,19 @@ def main():
 
     for w in WORDS:
         if w[0] == "SAME":
-            v = t + 0.55  # a beat of silence before the deadpan
+            if DIALOGUE:  # she realises "Oh!", he confirms deadpan
+                v = say("p-q-oh", t + 0.35, "p") + 0.35
+            else:
+                v = t + 0.55  # a beat of silence before the deadpan
             end = say("t-same", v)
             ev["items"].append({"kind": "same", "start": round(t, 3), "say": round(v, 3), "end": round(end + 0.5, 3)})
             t = end + 0.5
             continue
         cue, ans, label, word, gesture = w
-        a = say(cue, t) + 0.3  # a moment to guess
+        if DIALOGUE:
+            a = say(f"p-q-{label}", t, "p") + 0.3  # she asks; a moment to guess
+        else:
+            a = say(cue, t) + 0.3  # a moment to guess
         end = say(ans, a)
         ev["items"].append({"kind": "word", "start": round(t, 3), "answer": round(a, 3), "end": round(end + 0.5, 3),
                             "cue": label, "word": word, "gesture": gesture})
@@ -139,10 +148,12 @@ def main():
         ev["english"].append({"start": round(t, 3), "end": round(end + 0.2, 3), "text": text})
         t = end + 0.2
     ev["english"][-1]["end"] = round(t + 0.3, 3)
+    ev["dialogue"] = DIALOGUE
 
     # the song: an instrumental intro under everything so far, then the sung chorus, then a short tail
     intro = round(t + 0.3, 3)
-    ev["song_plan"] = {"intro_ms": int(intro * 1000), "sung_ms": SUNG_MS, "outro_ms": OUTRO_MS}
+    ev["song_plan"] = {"intro_ms": int(intro * 1000), "sung_ms": SUNG_MS, "outro_ms": OUTRO_MS,
+                       "lesson_ms": int(ev["try"]["start"] * 1000)}
     p0, p1 = intro, round(intro + SUNG_MS / 1000, 3)
     ev["payoff"] = {"start": p0, "end": p1, "lines": []}
 

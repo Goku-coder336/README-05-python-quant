@@ -7,6 +7,10 @@ Status: **two music versions rendered; owner to pick.**
 | v2 | French café pop, accordion, 105 BPM (seed 11) | 39.0 s | `renders/01-french-eau-v2-music.mp4`, `renders/01-french-eau-v2-nomusic.mp4` |
 | v3 | catchy upbeat bubblegum pop, whistled hook, 118 BPM (seed 11) | 36.2 s | `renders/01-french-eau-v3-music.mp4`, `renders/01-french-eau-v3-nomusic.mp4` |
 
+| v4 | the v3 song, but it only teases under a **conversation** (Odette asks, Barnaby answers) and builds into the drop | 40.7 s | `renders/01-french-eau-v4-music.mp4`, `renders/01-french-eau-v4-nomusic.mp4` |
+
+**v4 (latest):** like the reference, the words come as a dialogue. Odette (Laura): "How do you say water in French?" Barnaby (George): "Eau." "High?" "Haut." "Oh!" "Same." "Hat?" "Chapeau." … "Knife?!" "Couteau." The song is barely there under the conversation (about -25 LUFS), builds under the English sentence with a hint of the hook (about -20 LUFS), and drops into the sung chorus (about -15 LUFS) after a "NOW IN FRENCH" count-in.
+
 Build a version with `VARIANT=v2` or `VARIANT=v3` before every script (see `variant.py`). The ending is now "EASY." + "Sing it in the comments" (no lesson framing). v3 needs no count-in: its singing starts straight away.
 
 - Series tag: `WORD SONG #01` · 1080x1920 · 30 fps · 39.2 s

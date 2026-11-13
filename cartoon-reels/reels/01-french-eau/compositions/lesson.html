@@ -16,12 +16,14 @@
     .teacher-wrap { position: absolute; left: 240px; top: 760px; width: 600px; height: 900px; }
     .teacher-wrap svg { width: 100%; height: 100%; }
     .lectern { position: absolute; left: 330px; top: 1340px; width: 420px; height: 380px; }
+    .pupil-wrap { position: absolute; left: 600px; top: 905px; width: 380px; height: 623px; }
+    .pupil-wrap svg { width: 100%; height: 100%; }
 
   </style>
   <div id="root" data-composition-id="lesson" data-width="1080" data-height="1920">
     <div class="set-glow"></div>
     <div class="set-floor"></div>
-    <div id="les-teacher-wrap" class="teacher-wrap">
+    <div id="les-teacher-wrap" class="teacher-wrap" style="left: 20px;">
 <svg id="les-t" viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" overflow="visible">
   <g id="les-t-legs">
     <rect x="245" y="680" width="44" height="150" rx="16" fill="#3a3f55" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
@@ -75,105 +77,255 @@
     <circle cx="434" cy="606" r="24" fill="#f3cfa8" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
   </g>
 </svg></div>
-    <svg class="lectern" viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg">
+    <svg class="lectern" style="left: 110px;" viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg">
       <path d="M10 10 L410 10 L380 60 L40 60 Z" fill="#c98a52" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
       <path d="M60 60 L360 60 L330 370 L90 370 Z" fill="#b07a4a" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
       <path d="M120 120 L300 120" stroke="#8a5a32" stroke-width="6" stroke-linecap="round"/>
     </svg>
+    <div id="les-pupil-wrap" class="pupil-wrap">
+<svg id="les-p" viewBox="0 0 500 820" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+  <g id="les-p-legs">
+    <rect x="200" y="600" width="38" height="150" rx="15" fill="#2b2233" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <rect x="262" y="600" width="38" height="150" rx="15" fill="#2b2233" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <ellipse cx="212" cy="762" rx="40" ry="20" fill="#ffd23f" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <ellipse cx="288" cy="762" rx="40" ry="20" fill="#ffd23f" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <g id="les-p-arm-l">
+    <path d="M165 440 L100 560" stroke="#1d1d1b" stroke-width="50" stroke-linecap="round" fill="none"/><path d="M165 440 L100 560" stroke="#ff6f61" stroke-width="38" stroke-linecap="round" fill="none"/>
+    <circle cx="97" cy="566" r="22" fill="#c98b5e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <g id="les-p-arm-r">
+    <path d="M335 440 L400 560" stroke="#1d1d1b" stroke-width="50" stroke-linecap="round" fill="none"/><path d="M335 440 L400 560" stroke="#ff6f61" stroke-width="38" stroke-linecap="round" fill="none"/>
+    <circle cx="403" cy="566" r="22" fill="#c98b5e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <g id="les-p-body">
+    <path d="M175 405 Q250 378 325 405 Q392 520 360 625 Q250 655 140 625 Q108 520 175 405 Z" fill="#ff6f61" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M205 402 Q250 440 295 402" fill="#fffdf6" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M150 560 Q250 590 350 560" stroke="#1d1d1b" stroke-width="5" fill="none"/>
+  </g>
+  <g id="les-p-head">
+    <rect x="228" y="360" width="44" height="45" fill="#c98b5e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="250" cy="96" r="70" fill="#2b2233" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="250" cy="252" r="125" fill="#c98b5e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M128 236 Q144 122 250 118 Q356 122 372 236 Q332 172 250 178 Q168 172 128 236 Z" fill="#2b2233" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="126" cy="304" r="17" fill="none" stroke="#ffd23f" stroke-width="8"/>
+    <circle cx="374" cy="304" r="17" fill="none" stroke="#ffd23f" stroke-width="8"/>
+    <g id="les-p-brow-l"><path d="M180 208 Q204 192 228 202" stroke="#1d1d1b" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+    <g id="les-p-brow-r"><path d="M272 202 Q296 192 320 208" stroke="#1d1d1b" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+    <ellipse cx="205" cy="252" rx="25" ry="31" fill="#fffdf6" stroke="#1d1d1b" stroke-width="5"/>
+    <ellipse cx="295" cy="252" rx="25" ry="31" fill="#fffdf6" stroke="#1d1d1b" stroke-width="5"/>
+    <g id="les-p-eye-l"><circle cx="209" cy="258" r="12" fill="#1d1d1b"/></g>
+    <g id="les-p-eye-r"><circle cx="291" cy="258" r="12" fill="#1d1d1b"/></g>
+    <circle cx="176" cy="304" r="16" fill="#ff8f8f" opacity="0.7"/>
+    <circle cx="324" cy="304" r="16" fill="#ff8f8f" opacity="0.7"/>
+    <path d="M250 276 Q262 292 248 298" stroke="#1d1d1b" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <g id="les-p-mouth-c"><path d="M222 322 Q250 342 278 322" stroke="#1d1d1b" stroke-width="7" fill="none" stroke-linecap="round"/></g>
+    <g id="les-p-mouth-o" opacity="0">
+      <path d="M214 314 Q250 380 286 314 Z" fill="#5a1e1e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+      <ellipse cx="250" cy="346" rx="14" ry="7" fill="#e86a6a"/>
+    </g>
+  </g>
+</svg></div>
     <div class="set-tag">WORD SONG #01</div>
     <h1 id="les-hook" class="word clip" data-start="0" data-duration="1.452" style="font-size: 120px; top: 360px;">FRENCH<br>IS EASY</h1>
-    <div id="les-en-0" class="label lab-en clip" data-start="1.452" data-duration="0.854"><span>ENGLISH</span></div>
-    <h1 id="les-cw-0" class="word clip" data-start="1.452" data-duration="0.854" style="font-size: 110px; top: 420px; color: #8c7652;">water</h1>
-    <div id="les-fr-0" class="label lab-fr clip" data-start="2.306" data-duration="0.794"><span>FRENCH</span></div>
-    <h1 id="les-w-0" class="word clip" data-start="2.306" data-duration="0.794" style="font-size: 132px; top: 420px;">EAU</h1>
-    <div id="les-c-0" class="cue clip" data-start="2.306" data-duration="0.794">water</div>
-    <div id="les-en-1" class="label lab-en clip" data-start="3.1" data-duration="0.752"><span>ENGLISH</span></div>
-    <h1 id="les-cw-1" class="word clip" data-start="3.1" data-duration="0.752" style="font-size: 110px; top: 420px; color: #8c7652;">high</h1>
-    <div id="les-fr-1" class="label lab-fr clip" data-start="3.852" data-duration="0.849"><span>FRENCH</span></div>
-    <h1 id="les-w-1" class="word clip" data-start="3.852" data-duration="0.849" style="font-size: 132px; top: 420px;">HAUT</h1>
-    <div id="les-c-1" class="cue clip" data-start="3.852" data-duration="0.849">high</div>
-    <div id="les-gag-lab" class="label lab-gag clip" data-start="4.701" data-duration="1.509"><span>SPOT THE DIFFERENCE</span></div>
-    <h1 id="les-gag" class="word clip" data-start="4.701" data-duration="1.509" style="font-size: 96px; top: 410px;">EAU<br>HAUT<br>OH</h1>
-    <div id="les-en-3" class="label lab-en clip" data-start="6.21" data-duration="0.689"><span>ENGLISH</span></div>
-    <h1 id="les-cw-3" class="word clip" data-start="6.21" data-duration="0.689" style="font-size: 110px; top: 420px; color: #8c7652;">hat</h1>
-    <div id="les-fr-3" class="label lab-fr clip" data-start="6.899" data-duration="1.075"><span>FRENCH</span></div>
-    <h1 id="les-w-3" class="word clip" data-start="6.899" data-duration="1.075" style="font-size: 132px; top: 420px;">CHAPEAU</h1>
-    <div id="les-c-3" class="cue clip" data-start="6.899" data-duration="1.075">hat</div>
-    <div id="les-en-4" class="label lab-en clip" data-start="7.974" data-duration="0.758"><span>ENGLISH</span></div>
-    <h1 id="les-cw-4" class="word clip" data-start="7.974" data-duration="0.758" style="font-size: 110px; top: 420px; color: #8c7652;">bird</h1>
-    <div id="les-fr-4" class="label lab-fr clip" data-start="8.732" data-duration="1.029"><span>FRENCH</span></div>
-    <h1 id="les-w-4" class="word clip" data-start="8.732" data-duration="1.029" style="font-size: 132px; top: 420px;">OISEAU</h1>
-    <div id="les-c-4" class="cue clip" data-start="8.732" data-duration="1.029">bird</div>
-    <div id="les-en-5" class="label lab-en clip" data-start="9.761" data-duration="0.711"><span>ENGLISH</span></div>
-    <h1 id="les-cw-5" class="word clip" data-start="9.761" data-duration="0.711" style="font-size: 110px; top: 420px; color: #8c7652;">boat</h1>
-    <div id="les-fr-5" class="label lab-fr clip" data-start="10.472" data-duration="1.074"><span>FRENCH</span></div>
-    <h1 id="les-w-5" class="word clip" data-start="10.472" data-duration="1.074" style="font-size: 132px; top: 420px;">BATEAU</h1>
-    <div id="les-c-5" class="cue clip" data-start="10.472" data-duration="1.074">boat</div>
-    <div id="les-en-6" class="label lab-en clip" data-start="11.546" data-duration="0.689"><span>ENGLISH</span></div>
-    <h1 id="les-cw-6" class="word clip" data-start="11.546" data-duration="0.689" style="font-size: 110px; top: 420px; color: #8c7652;">cake</h1>
-    <div id="les-fr-6" class="label lab-fr clip" data-start="12.235" data-duration="1.014"><span>FRENCH</span></div>
-    <h1 id="les-w-6" class="word clip" data-start="12.235" data-duration="1.014" style="font-size: 132px; top: 420px;">GÂTEAU</h1>
-    <div id="les-c-6" class="cue clip" data-start="12.235" data-duration="1.014">cake</div>
-    <div id="les-en-7" class="label lab-en clip" data-start="13.249" data-duration="0.815"><span>ENGLISH</span></div>
-    <h1 id="les-cw-7" class="word clip" data-start="13.249" data-duration="0.815" style="font-size: 110px; top: 420px; color: #8c7652;">castle</h1>
-    <div id="les-fr-7" class="label lab-fr clip" data-start="14.064" data-duration="1.078"><span>FRENCH</span></div>
-    <h1 id="les-w-7" class="word clip" data-start="14.064" data-duration="1.078" style="font-size: 132px; top: 420px;">CHÂTEAU</h1>
-    <div id="les-c-7" class="cue clip" data-start="14.064" data-duration="1.078">castle</div>
-    <div id="les-en-8" class="label lab-en clip" data-start="15.142" data-duration="0.785"><span>ENGLISH</span></div>
-    <h1 id="les-cw-8" class="word clip" data-start="15.142" data-duration="0.785" style="font-size: 110px; top: 420px; color: #8c7652;">knife</h1>
-    <div id="les-fr-8" class="label lab-fr clip" data-start="15.927" data-duration="0.991"><span>FRENCH</span></div>
-    <h1 id="les-w-8" class="word clip" data-start="15.927" data-duration="0.991" style="font-size: 132px; top: 420px;">COUTEAU</h1>
-    <div id="les-c-8" class="cue clip" data-start="15.927" data-duration="0.991">knife</div>
-    <h1 id="les-try" class="word clip" data-start="16.918" data-duration="1.11" style="font-size: 110px; top: 400px;">NOW<br>TRY THIS</h1>
-    <div id="les-en-lab" class="label lab-en clip" data-start="18.028" data-duration="6.131"><span>IN ENGLISH</span></div>
-    <h1 id="les-en-0-t" class="word clip" data-start="18.028" data-duration="1.573" style="font-size: 92px; top: 410px;">The fine bird<br>in a hat,</h1>
-    <h1 id="les-en-1-t" class="word clip" data-start="19.601" data-duration="0.833" style="font-size: 92px; top: 410px;">on the boat,</h1>
-    <h1 id="les-en-2-t" class="word clip" data-start="20.434" data-duration="2.021" style="font-size: 92px; top: 410px;">cuts the castle's cake<br>with a knife…</h1>
-    <h1 id="les-en-3-t" class="word clip" data-start="22.455" data-duration="1.704" style="font-size: 92px; top: 410px;">and falls<br>in the water.</h1>
-    <div id="les-ci-lab" class="label lab-fr clip" data-start="24.159" data-duration="2.11"><span>NOW IN FRENCH</span></div>
-    <h1 id="les-ci" class="word clip" data-start="24.159" data-duration="2.11" style="font-size: 130px; top: 420px;">1, 2, 3…</h1>
+    <div id="les-en-0" class="label lab-en clip" data-start="1.452" data-duration="1.727"><span>HOW DO YOU SAY</span></div>
+    <h1 id="les-cw-0" class="word clip" data-start="1.452" data-duration="1.727" style="font-size: 110px; top: 420px; color: #8c7652;">water</h1>
+    <div id="les-fr-0" class="label lab-fr clip" data-start="3.179" data-duration="0.794"><span>FRENCH</span></div>
+    <h1 id="les-w-0" class="word clip" data-start="3.179" data-duration="0.794" style="font-size: 132px; top: 420px;">EAU</h1>
+    <div id="les-c-0" class="cue clip" data-start="3.179" data-duration="0.794">water</div>
+    <div id="les-en-1" class="label lab-en clip" data-start="3.973" data-duration="0.81"><span>ENGLISH</span></div>
+    <h1 id="les-cw-1" class="word clip" data-start="3.973" data-duration="0.81" style="font-size: 110px; top: 420px; color: #8c7652;">high</h1>
+    <div id="les-fr-1" class="label lab-fr clip" data-start="4.783" data-duration="0.849"><span>FRENCH</span></div>
+    <h1 id="les-w-1" class="word clip" data-start="4.783" data-duration="0.849" style="font-size: 132px; top: 420px;">HAUT</h1>
+    <div id="les-c-1" class="cue clip" data-start="4.783" data-duration="0.849">high</div>
+    <div id="les-gag-lab" class="label lab-gag clip" data-start="5.632" data-duration="2.147"><span>SPOT THE DIFFERENCE</span></div>
+    <h1 id="les-gag" class="word clip" data-start="5.632" data-duration="2.147" style="font-size: 96px; top: 410px;">EAU<br>HAUT<br>OH</h1>
+    <div id="les-en-3" class="label lab-en clip" data-start="7.779" data-duration="0.622"><span>ENGLISH</span></div>
+    <h1 id="les-cw-3" class="word clip" data-start="7.779" data-duration="0.622" style="font-size: 110px; top: 420px; color: #8c7652;">hat</h1>
+    <div id="les-fr-3" class="label lab-fr clip" data-start="8.401" data-duration="1.075"><span>FRENCH</span></div>
+    <h1 id="les-w-3" class="word clip" data-start="8.401" data-duration="1.075" style="font-size: 132px; top: 420px;">CHAPEAU</h1>
+    <div id="les-c-3" class="cue clip" data-start="8.401" data-duration="1.075">hat</div>
+    <div id="les-en-4" class="label lab-en clip" data-start="9.476" data-duration="0.697"><span>ENGLISH</span></div>
+    <h1 id="les-cw-4" class="word clip" data-start="9.476" data-duration="0.697" style="font-size: 110px; top: 420px; color: #8c7652;">bird</h1>
+    <div id="les-fr-4" class="label lab-fr clip" data-start="10.173" data-duration="1.029"><span>FRENCH</span></div>
+    <h1 id="les-w-4" class="word clip" data-start="10.173" data-duration="1.029" style="font-size: 132px; top: 420px;">OISEAU</h1>
+    <div id="les-c-4" class="cue clip" data-start="10.173" data-duration="1.029">bird</div>
+    <div id="les-en-5" class="label lab-en clip" data-start="11.202" data-duration="0.717"><span>ENGLISH</span></div>
+    <h1 id="les-cw-5" class="word clip" data-start="11.202" data-duration="0.717" style="font-size: 110px; top: 420px; color: #8c7652;">boat</h1>
+    <div id="les-fr-5" class="label lab-fr clip" data-start="11.919" data-duration="1.074"><span>FRENCH</span></div>
+    <h1 id="les-w-5" class="word clip" data-start="11.919" data-duration="1.074" style="font-size: 132px; top: 420px;">BATEAU</h1>
+    <div id="les-c-5" class="cue clip" data-start="11.919" data-duration="1.074">boat</div>
+    <div id="les-en-6" class="label lab-en clip" data-start="12.993" data-duration="0.726"><span>ENGLISH</span></div>
+    <h1 id="les-cw-6" class="word clip" data-start="12.993" data-duration="0.726" style="font-size: 110px; top: 420px; color: #8c7652;">cake</h1>
+    <div id="les-fr-6" class="label lab-fr clip" data-start="13.719" data-duration="1.014"><span>FRENCH</span></div>
+    <h1 id="les-w-6" class="word clip" data-start="13.719" data-duration="1.014" style="font-size: 132px; top: 420px;">GÂTEAU</h1>
+    <div id="les-c-6" class="cue clip" data-start="13.719" data-duration="1.014">cake</div>
+    <div id="les-en-7" class="label lab-en clip" data-start="14.733" data-duration="0.789"><span>ENGLISH</span></div>
+    <h1 id="les-cw-7" class="word clip" data-start="14.733" data-duration="0.789" style="font-size: 110px; top: 420px; color: #8c7652;">castle</h1>
+    <div id="les-fr-7" class="label lab-fr clip" data-start="15.522" data-duration="1.078"><span>FRENCH</span></div>
+    <h1 id="les-w-7" class="word clip" data-start="15.522" data-duration="1.078" style="font-size: 132px; top: 420px;">CHÂTEAU</h1>
+    <div id="les-c-7" class="cue clip" data-start="15.522" data-duration="1.078">castle</div>
+    <div id="les-en-8" class="label lab-en clip" data-start="16.6" data-duration="0.913"><span>ENGLISH</span></div>
+    <h1 id="les-cw-8" class="word clip" data-start="16.6" data-duration="0.913" style="font-size: 110px; top: 420px; color: #8c7652;">knife</h1>
+    <div id="les-fr-8" class="label lab-fr clip" data-start="17.513" data-duration="0.991"><span>FRENCH</span></div>
+    <h1 id="les-w-8" class="word clip" data-start="17.513" data-duration="0.991" style="font-size: 132px; top: 420px;">COUTEAU</h1>
+    <div id="les-c-8" class="cue clip" data-start="17.513" data-duration="0.991">knife</div>
+    <h1 id="les-try" class="word clip" data-start="18.504" data-duration="1.11" style="font-size: 110px; top: 400px;">NOW<br>TRY THIS</h1>
+    <div id="les-en-lab" class="label lab-en clip" data-start="19.614" data-duration="6.131"><span>IN ENGLISH</span></div>
+    <h1 id="les-en-0-t" class="word clip" data-start="19.614" data-duration="1.573" style="font-size: 92px; top: 410px;">The fine bird<br>in a hat,</h1>
+    <h1 id="les-en-1-t" class="word clip" data-start="21.187" data-duration="0.833" style="font-size: 92px; top: 410px;">on the boat,</h1>
+    <h1 id="les-en-2-t" class="word clip" data-start="22.02" data-duration="2.021" style="font-size: 92px; top: 410px;">cuts the castle's cake<br>with a knife…</h1>
+    <h1 id="les-en-3-t" class="word clip" data-start="24.041" data-duration="1.704" style="font-size: 92px; top: 410px;">and falls<br>in the water.</h1>
+    <div id="les-ci-lab" class="label lab-fr clip" data-start="25.745" data-duration="3.65"><span>NOW IN FRENCH</span></div>
+    <h1 id="les-ci" class="word clip" data-start="25.745" data-duration="3.65" style="font-size: 130px; top: 420px;">1, 2, 3…</h1>
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
     tl.to("#les-t-head", {rotation: -4, svgOrigin: "300 415", duration: 0.3}, 0.15);tl.to("#les-t-head", {rotation: 0, svgOrigin: "300 415", duration: 0.3}, 1.152);
+    tl.to("#les-p-brow-l", {y: -18, duration: 0.2}, 0.4);tl.to("#les-p-brow-l", {y: 0, duration: 0.2}, 1.452);
+    tl.to("#les-p-head", {rotation: -6, svgOrigin: "250 385", duration: 0.4}, 1.452);
+    tl.to("#les-p-arm-l", {rotation: 70, svgOrigin: "165 440", duration: 0.2, ease: "back.out(2)"}, 1.452);tl.to("#les-p-arm-l", {rotation: 0, svgOrigin: "165 440", duration: 0.25}, 3.179);
+    tl.to("#les-p-arm-l", {rotation: 70, svgOrigin: "165 440", duration: 0.2, ease: "back.out(2)"}, 3.973);tl.to("#les-p-arm-l", {rotation: 0, svgOrigin: "165 440", duration: 0.25}, 4.783);
+    tl.to("#les-pupil-wrap", {y: -36, duration: 0.14, ease: "power2.out"}, 5.982);tl.to("#les-pupil-wrap", {y: 0, duration: 0.25, ease: "bounce.out"}, 6.122);tl.to(["#les-p-brow-l", "#les-p-brow-r"], {y: -22, duration: 0.12}, 5.982);tl.to(["#les-p-brow-l", "#les-p-brow-r"], {y: 0, duration: 0.25}, 7.579);
+    tl.to("#les-p-arm-l", {rotation: 70, svgOrigin: "165 440", duration: 0.2, ease: "back.out(2)"}, 7.779);tl.to("#les-p-arm-l", {rotation: 0, svgOrigin: "165 440", duration: 0.25}, 8.401);
+    tl.to("#les-p-arm-l", {rotation: 70, svgOrigin: "165 440", duration: 0.2, ease: "back.out(2)"}, 9.476);tl.to("#les-p-arm-l", {rotation: 0, svgOrigin: "165 440", duration: 0.25}, 10.173);
+    tl.to("#les-p-arm-l", {rotation: 70, svgOrigin: "165 440", duration: 0.2, ease: "back.out(2)"}, 11.202);tl.to("#les-p-arm-l", {rotation: 0, svgOrigin: "165 440", duration: 0.25}, 11.919);
+    tl.to("#les-p-arm-l", {rotation: 70, svgOrigin: "165 440", duration: 0.2, ease: "back.out(2)"}, 12.993);tl.to("#les-p-arm-l", {rotation: 0, svgOrigin: "165 440", duration: 0.25}, 13.719);
+    tl.to("#les-p-arm-l", {rotation: 70, svgOrigin: "165 440", duration: 0.2, ease: "back.out(2)"}, 14.733);tl.to("#les-p-arm-l", {rotation: 0, svgOrigin: "165 440", duration: 0.25}, 15.522);
+    tl.to("#les-p-arm-l", {rotation: 70, svgOrigin: "165 440", duration: 0.2, ease: "back.out(2)"}, 16.6);tl.to("#les-p-arm-l", {rotation: 0, svgOrigin: "165 440", duration: 0.25}, 17.513);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 1.452);tl.set("#les-p-mouth-c", {opacity: 0}, 1.452);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 1.519);tl.set("#les-p-mouth-c", {opacity: 1}, 1.519);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 1.585);tl.set("#les-p-mouth-c", {opacity: 0}, 1.585);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 1.652);tl.set("#les-p-mouth-c", {opacity: 1}, 1.652);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 1.719);tl.set("#les-p-mouth-c", {opacity: 0}, 1.719);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 1.785);tl.set("#les-p-mouth-c", {opacity: 1}, 1.785);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 1.852);tl.set("#les-p-mouth-c", {opacity: 0}, 1.852);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 1.919);tl.set("#les-p-mouth-c", {opacity: 1}, 1.919);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 1.985);tl.set("#les-p-mouth-c", {opacity: 0}, 1.985);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 2.052);tl.set("#les-p-mouth-c", {opacity: 1}, 2.052);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 2.119);tl.set("#les-p-mouth-c", {opacity: 0}, 2.119);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 2.185);tl.set("#les-p-mouth-c", {opacity: 1}, 2.185);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 2.252);tl.set("#les-p-mouth-c", {opacity: 0}, 2.252);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 2.319);tl.set("#les-p-mouth-c", {opacity: 1}, 2.319);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 2.519);tl.set("#les-p-mouth-c", {opacity: 0}, 2.519);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 2.585);tl.set("#les-p-mouth-c", {opacity: 1}, 2.585);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 2.652);tl.set("#les-p-mouth-c", {opacity: 0}, 2.652);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 2.719);tl.set("#les-p-mouth-c", {opacity: 1}, 2.719);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 2.785);tl.set("#les-p-mouth-c", {opacity: 0}, 2.785);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 2.852);tl.set("#les-p-mouth-c", {opacity: 1}, 2.852);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 4.106);tl.set("#les-p-mouth-c", {opacity: 0}, 4.106);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 4.173);tl.set("#les-p-mouth-c", {opacity: 1}, 4.173);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 4.24);tl.set("#les-p-mouth-c", {opacity: 0}, 4.24);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 4.306);tl.set("#les-p-mouth-c", {opacity: 1}, 4.306);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 4.373);tl.set("#les-p-mouth-c", {opacity: 0}, 4.373);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 4.44);tl.set("#les-p-mouth-c", {opacity: 1}, 4.44);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 5.982);tl.set("#les-p-mouth-c", {opacity: 0}, 5.982);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 6.049);tl.set("#les-p-mouth-c", {opacity: 1}, 6.049);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 6.115);tl.set("#les-p-mouth-c", {opacity: 0}, 6.115);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 6.182);tl.set("#les-p-mouth-c", {opacity: 1}, 6.182);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 6.249);tl.set("#les-p-mouth-c", {opacity: 0}, 6.249);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 6.315);tl.set("#les-p-mouth-c", {opacity: 1}, 6.315);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 6.382);tl.set("#les-p-mouth-c", {opacity: 0}, 6.382);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 6.449);tl.set("#les-p-mouth-c", {opacity: 1}, 6.449);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 7.779);tl.set("#les-p-mouth-c", {opacity: 0}, 7.779);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 7.846);tl.set("#les-p-mouth-c", {opacity: 1}, 7.846);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 7.912);tl.set("#les-p-mouth-c", {opacity: 0}, 7.912);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 7.979);tl.set("#les-p-mouth-c", {opacity: 1}, 7.979);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 9.476);tl.set("#les-p-mouth-c", {opacity: 0}, 9.476);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 9.543);tl.set("#les-p-mouth-c", {opacity: 1}, 9.543);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 9.609);tl.set("#les-p-mouth-c", {opacity: 0}, 9.609);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 9.676);tl.set("#les-p-mouth-c", {opacity: 1}, 9.676);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 9.743);tl.set("#les-p-mouth-c", {opacity: 0}, 9.743);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 9.809);tl.set("#les-p-mouth-c", {opacity: 1}, 9.809);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 11.202);tl.set("#les-p-mouth-c", {opacity: 0}, 11.202);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 11.269);tl.set("#les-p-mouth-c", {opacity: 1}, 11.269);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 11.335);tl.set("#les-p-mouth-c", {opacity: 0}, 11.335);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 11.402);tl.set("#les-p-mouth-c", {opacity: 1}, 11.402);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 12.993);tl.set("#les-p-mouth-c", {opacity: 0}, 12.993);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 13.06);tl.set("#les-p-mouth-c", {opacity: 1}, 13.06);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 13.126);tl.set("#les-p-mouth-c", {opacity: 0}, 13.126);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 13.193);tl.set("#les-p-mouth-c", {opacity: 1}, 13.193);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 13.26);tl.set("#les-p-mouth-c", {opacity: 0}, 13.26);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 13.326);tl.set("#les-p-mouth-c", {opacity: 1}, 13.326);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 14.733);tl.set("#les-p-mouth-c", {opacity: 0}, 14.733);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 14.8);tl.set("#les-p-mouth-c", {opacity: 1}, 14.8);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 14.866);tl.set("#les-p-mouth-c", {opacity: 0}, 14.866);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 14.933);tl.set("#les-p-mouth-c", {opacity: 1}, 14.933);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 15.0);tl.set("#les-p-mouth-c", {opacity: 0}, 15.0);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 15.066);tl.set("#les-p-mouth-c", {opacity: 1}, 15.066);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 15.133);tl.set("#les-p-mouth-c", {opacity: 0}, 15.133);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 15.2);tl.set("#les-p-mouth-c", {opacity: 1}, 15.2);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 16.6);tl.set("#les-p-mouth-c", {opacity: 0}, 16.6);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 16.667);tl.set("#les-p-mouth-c", {opacity: 1}, 16.667);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 16.733);tl.set("#les-p-mouth-c", {opacity: 0}, 16.733);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 16.8);tl.set("#les-p-mouth-c", {opacity: 1}, 16.8);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 16.867);tl.set("#les-p-mouth-c", {opacity: 0}, 16.867);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 16.933);tl.set("#les-p-mouth-c", {opacity: 1}, 16.933);
+    tl.set("#les-p-mouth-o", {opacity: 1}, 17.0);tl.set("#les-p-mouth-c", {opacity: 0}, 17.0);
+    tl.set("#les-p-mouth-o", {opacity: 0}, 17.067);tl.set("#les-p-mouth-c", {opacity: 1}, 17.067);
+    tl.to("#les-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 1.6);tl.to("#les-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 1.7);
+    tl.to("#les-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 1.6);tl.to("#les-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 1.7);
+    tl.to("#les-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 4.3);tl.to("#les-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 4.4);
+    tl.to("#les-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 4.3);tl.to("#les-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 4.4);
+    tl.to("#les-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 6.5);tl.to("#les-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 6.6);
+    tl.to("#les-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 6.5);tl.to("#les-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 6.6);
+    tl.to("#les-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 9.2);tl.to("#les-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 9.3);
+    tl.to("#les-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 9.2);tl.to("#les-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 9.3);
+    tl.to("#les-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 11.4);tl.to("#les-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 11.5);
+    tl.to("#les-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 11.4);tl.to("#les-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 11.5);
+    tl.to("#les-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 14.1);tl.to("#les-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 14.2);
+    tl.to("#les-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 14.1);tl.to("#les-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 14.2);
+    tl.to("#les-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 16.3);tl.to("#les-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 16.4);
+    tl.to("#les-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 16.3);tl.to("#les-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 16.4);
+    tl.to("#les-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 19.0);tl.to("#les-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 19.1);
+    tl.to("#les-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 19.0);tl.to("#les-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 19.1);
+    tl.to("#les-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 21.2);tl.to("#les-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 21.3);
+    tl.to("#les-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 21.2);tl.to("#les-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 21.3);
+    tl.to("#les-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 23.9);tl.to("#les-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 24.0);
+    tl.to("#les-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 23.9);tl.to("#les-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 24.0);
+    tl.to("#les-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 26.1);tl.to("#les-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 26.2);
+    tl.to("#les-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 26.1);tl.to("#les-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 26.2);
+    tl.to("#les-p-eye-l", {scaleY: 0.1, svgOrigin: "205 252", duration: 0.05}, 28.8);tl.to("#les-p-eye-l", {scaleY: 1, svgOrigin: "205 252", duration: 0.07}, 28.9);
+    tl.to("#les-p-eye-r", {scaleY: 0.1, svgOrigin: "295 252", duration: 0.05}, 28.8);tl.to("#les-p-eye-r", {scaleY: 1, svgOrigin: "295 252", duration: 0.07}, 28.9);
+    tl.fromTo("#les-p-body", {scaleY: 1}, {scaleY: 1.015, svgOrigin: "250 640", duration: 1.7, ease: "sine.inOut", yoyo: true, repeat: 15}, 0);
     tl.fromTo("#les-cw-0", {opacity: 0}, {opacity: 1, duration: 0.12}, 1.452);
-    tl.fromTo("#les-w-0", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out"}, 2.306);
+    tl.fromTo("#les-w-0", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out"}, 3.179);
     
-    tl.fromTo("#les-cw-1", {opacity: 0}, {opacity: 1, duration: 0.12}, 3.1);
-    tl.fromTo("#les-w-1", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out"}, 3.852);
-    tl.to("#les-t-arm-r", {rotation: -150, svgOrigin: "395 455", duration: 0.25, ease: "back.out(2)"}, 3.802);tl.to("#les-t-arm-r", {rotation: 0, svgOrigin: "395 455", duration: 0.3, ease: "power2.inOut"}, 4.602);tl.to("#les-t-brow-r", {y: -20, duration: 0.15}, 3.852);tl.to("#les-t-brow-r", {y: 0, duration: 0.2}, 4.652);
-    tl.fromTo("#les-gag", {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 0.2, ease: "power3.out"}, 4.701);
-    tl.to("#les-t-brow-r", {y: -26, duration: 0.18, ease: "power3.out"}, 5.051);tl.to("#les-t-brow-r", {y: 0, duration: 0.25}, 5.96);
-    tl.fromTo("#les-cw-3", {opacity: 0}, {opacity: 1, duration: 0.12}, 6.21);
-    tl.fromTo("#les-w-3", {scale: 0.6, opacity: 0}, {scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2.4)"}, 6.899);
-    tl.to("#les-t-arm-r", {rotation: -168, svgOrigin: "395 455", duration: 0.22, ease: "back.out(1.6)"}, 6.849);tl.to("#les-t-head", {rotation: -3, svgOrigin: "300 415", duration: 0.1, yoyo: true, repeat: 1}, 7.049);tl.to("#les-t-arm-r", {rotation: 0, svgOrigin: "395 455", duration: 0.3}, 7.599);
-    tl.fromTo("#les-cw-4", {opacity: 0}, {opacity: 1, duration: 0.12}, 7.974);
-    tl.fromTo("#les-w-4", {scale: 0.6, opacity: 0}, {scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2.4)"}, 8.732);
-    tl.to("#les-teacher-wrap", {y: -26, duration: 0.14, ease: "power2.out"}, 8.732);tl.to("#les-teacher-wrap", {y: 0, duration: 0.22, ease: "bounce.out"}, 8.872);
-    tl.fromTo("#les-cw-5", {opacity: 0}, {opacity: 1, duration: 0.12}, 9.761);
-    tl.fromTo("#les-w-5", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out"}, 10.472);
-    tl.to("#les-t-head", {rotation: 8, svgOrigin: "300 415", duration: 0.2, ease: "back.out(2)"}, 10.472);tl.to("#les-t-head", {rotation: 0, svgOrigin: "300 415", duration: 0.3}, 11.172);
-    tl.fromTo("#les-cw-6", {opacity: 0}, {opacity: 1, duration: 0.12}, 11.546);
-    tl.fromTo("#les-w-6", {scale: 0.6, opacity: 0}, {scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2.4)"}, 12.235);
-    tl.to("#les-teacher-wrap", {y: -26, duration: 0.14, ease: "power2.out"}, 12.235);tl.to("#les-teacher-wrap", {y: 0, duration: 0.22, ease: "bounce.out"}, 12.375);
-    tl.fromTo("#les-cw-7", {opacity: 0}, {opacity: 1, duration: 0.12}, 13.249);
-    tl.fromTo("#les-w-7", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out"}, 14.064);
-    tl.to("#les-t-arm-r", {rotation: -150, svgOrigin: "395 455", duration: 0.25, ease: "back.out(2)"}, 14.014);tl.to("#les-t-arm-r", {rotation: 0, svgOrigin: "395 455", duration: 0.3, ease: "power2.inOut"}, 14.814);tl.to("#les-t-brow-r", {y: -20, duration: 0.15}, 14.064);tl.to("#les-t-brow-r", {y: 0, duration: 0.2}, 14.864);
-    tl.fromTo("#les-cw-8", {opacity: 0}, {opacity: 1, duration: 0.12}, 15.142);
-    tl.fromTo("#les-w-8", {scale: 0.6, opacity: 0}, {scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2.4)"}, 15.927);
-    tl.to("#les-teacher-wrap", {y: -46, duration: 0.14, ease: "power2.out"}, 15.927);tl.to("#les-teacher-wrap", {y: 0, duration: 0.22, ease: "bounce.out"}, 16.067);tl.to("#les-t-brow-l", {y: -16, duration: 0.12}, 15.927);tl.to("#les-t-brow-l", {y: 0, duration: 0.2}, 16.627);
-    tl.fromTo("#les-try", {opacity: 0, y: 30}, {opacity: 1, y: 0, duration: 0.2, ease: "power3.out"}, 16.918);
-    tl.to("#les-teacher-wrap", {y: -18, scale: 1.04, transformOrigin: "50% 100%", duration: 0.5, ease: "power2.inOut"}, 16.918);
-    tl.fromTo("#les-en-0-t", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power3.out"}, 18.028);
-    tl.fromTo("#les-en-1-t", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power3.out"}, 19.601);
-    tl.fromTo("#les-en-2-t", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power3.out"}, 20.434);
-    tl.fromTo("#les-en-3-t", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power3.out"}, 22.455);
-    tl.to("#les-t-head", {rotation: 4, svgOrigin: "300 415", duration: 0.4}, 18.028);
-    tl.fromTo("#les-ci", {scale: 0.7, opacity: 0}, {scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)"}, 24.159);
-    tl.to("#les-t-arm-r", {rotation: -160, svgOrigin: "395 455", duration: 0.3, ease: "back.out(1.6)"}, 24.159);
-    tl.to("#les-t-brow-r", {y: -24, duration: 0.2}, 24.159);
-    tl.to("#les-t-head", {rotation: 0, svgOrigin: "300 415", duration: 0.3}, 24.159);
-    tl.to("#les-t-arm-r", {rotation: -60, svgOrigin: "395 455", duration: 0.15, ease: "power3.in"}, 26.099);
+    tl.fromTo("#les-cw-1", {opacity: 0}, {opacity: 1, duration: 0.12}, 3.973);
+    tl.fromTo("#les-w-1", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out"}, 4.783);
+    tl.to("#les-t-arm-r", {rotation: -150, svgOrigin: "395 455", duration: 0.25, ease: "back.out(2)"}, 4.733);tl.to("#les-t-arm-r", {rotation: 0, svgOrigin: "395 455", duration: 0.3, ease: "power2.inOut"}, 5.533);tl.to("#les-t-brow-r", {y: -20, duration: 0.15}, 4.783);tl.to("#les-t-brow-r", {y: 0, duration: 0.2}, 5.583);
+    tl.fromTo("#les-gag", {opacity: 0, y: 20}, {opacity: 1, y: 0, duration: 0.2, ease: "power3.out"}, 5.632);
+    tl.to("#les-t-brow-r", {y: -26, duration: 0.18, ease: "power3.out"}, 6.62);tl.to("#les-t-brow-r", {y: 0, duration: 0.25}, 7.529);
+    tl.fromTo("#les-cw-3", {opacity: 0}, {opacity: 1, duration: 0.12}, 7.779);
+    tl.fromTo("#les-w-3", {scale: 0.6, opacity: 0}, {scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2.4)"}, 8.401);
+    tl.to("#les-t-arm-r", {rotation: -168, svgOrigin: "395 455", duration: 0.22, ease: "back.out(1.6)"}, 8.351);tl.to("#les-t-head", {rotation: -3, svgOrigin: "300 415", duration: 0.1, yoyo: true, repeat: 1}, 8.551);tl.to("#les-t-arm-r", {rotation: 0, svgOrigin: "395 455", duration: 0.3}, 9.101);
+    tl.fromTo("#les-cw-4", {opacity: 0}, {opacity: 1, duration: 0.12}, 9.476);
+    tl.fromTo("#les-w-4", {scale: 0.6, opacity: 0}, {scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2.4)"}, 10.173);
+    tl.to("#les-teacher-wrap", {y: -26, duration: 0.14, ease: "power2.out"}, 10.173);tl.to("#les-teacher-wrap", {y: 0, duration: 0.22, ease: "bounce.out"}, 10.313);
+    tl.fromTo("#les-cw-5", {opacity: 0}, {opacity: 1, duration: 0.12}, 11.202);
+    tl.fromTo("#les-w-5", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out"}, 11.919);
+    tl.to("#les-t-head", {rotation: 8, svgOrigin: "300 415", duration: 0.2, ease: "back.out(2)"}, 11.919);tl.to("#les-t-head", {rotation: 0, svgOrigin: "300 415", duration: 0.3}, 12.619);
+    tl.fromTo("#les-cw-6", {opacity: 0}, {opacity: 1, duration: 0.12}, 12.993);
+    tl.fromTo("#les-w-6", {scale: 0.6, opacity: 0}, {scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2.4)"}, 13.719);
+    tl.to("#les-teacher-wrap", {y: -26, duration: 0.14, ease: "power2.out"}, 13.719);tl.to("#les-teacher-wrap", {y: 0, duration: 0.22, ease: "bounce.out"}, 13.859);
+    tl.fromTo("#les-cw-7", {opacity: 0}, {opacity: 1, duration: 0.12}, 14.733);
+    tl.fromTo("#les-w-7", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power3.out"}, 15.522);
+    tl.to("#les-t-arm-r", {rotation: -150, svgOrigin: "395 455", duration: 0.25, ease: "back.out(2)"}, 15.472);tl.to("#les-t-arm-r", {rotation: 0, svgOrigin: "395 455", duration: 0.3, ease: "power2.inOut"}, 16.272);tl.to("#les-t-brow-r", {y: -20, duration: 0.15}, 15.522);tl.to("#les-t-brow-r", {y: 0, duration: 0.2}, 16.322);
+    tl.fromTo("#les-cw-8", {opacity: 0}, {opacity: 1, duration: 0.12}, 16.6);
+    tl.fromTo("#les-w-8", {scale: 0.6, opacity: 0}, {scale: 1, opacity: 1, duration: 0.32, ease: "back.out(2.4)"}, 17.513);
+    tl.to("#les-teacher-wrap", {y: -46, duration: 0.14, ease: "power2.out"}, 17.513);tl.to("#les-teacher-wrap", {y: 0, duration: 0.22, ease: "bounce.out"}, 17.653);tl.to("#les-t-brow-l", {y: -16, duration: 0.12}, 17.513);tl.to("#les-t-brow-l", {y: 0, duration: 0.2}, 18.213);
+    tl.fromTo("#les-try", {opacity: 0, y: 30}, {opacity: 1, y: 0, duration: 0.2, ease: "power3.out"}, 18.504);
+    tl.to("#les-teacher-wrap", {y: -18, scale: 1.04, transformOrigin: "50% 100%", duration: 0.5, ease: "power2.inOut"}, 18.504);
+    tl.fromTo("#les-en-0-t", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power3.out"}, 19.614);
+    tl.fromTo("#les-en-1-t", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power3.out"}, 21.187);
+    tl.fromTo("#les-en-2-t", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power3.out"}, 22.02);
+    tl.fromTo("#les-en-3-t", {opacity: 0, filter: "blur(6px)"}, {opacity: 1, filter: "blur(0px)", duration: 0.15, ease: "power3.out"}, 24.041);
+    tl.to("#les-t-head", {rotation: 4, svgOrigin: "300 415", duration: 0.4}, 19.614);
+    tl.fromTo("#les-ci", {scale: 0.7, opacity: 0}, {scale: 1, opacity: 1, duration: 0.25, ease: "back.out(2)"}, 25.745);
+    tl.to("#les-t-arm-r", {rotation: -160, svgOrigin: "395 455", duration: 0.3, ease: "back.out(1.6)"}, 25.745);
+    tl.to("#les-t-brow-r", {y: -24, duration: 0.2}, 25.745);
+    tl.to("#les-t-head", {rotation: 0, svgOrigin: "300 415", duration: 0.3}, 25.745);
+    tl.to("#les-t-arm-r", {rotation: -60, svgOrigin: "395 455", duration: 0.15, ease: "power3.in"}, 29.225);
     tl.set("#les-t-mouth-o", {opacity: 1}, 0.15);tl.set("#les-t-mouth-c", {opacity: 0}, 0.15);
     tl.set("#les-t-mouth-o", {opacity: 0}, 0.217);tl.set("#les-t-mouth-c", {opacity: 1}, 0.217);
     tl.set("#les-t-mouth-o", {opacity: 1}, 0.283);tl.set("#les-t-mouth-c", {opacity: 0}, 0.283);
@@ -188,210 +340,158 @@
     tl.set("#les-t-mouth-o", {opacity: 0}, 0.883);tl.set("#les-t-mouth-c", {opacity: 1}, 0.883);
     tl.set("#les-t-mouth-o", {opacity: 1}, 0.95);tl.set("#les-t-mouth-c", {opacity: 0}, 0.95);
     tl.set("#les-t-mouth-o", {opacity: 0}, 1.017);tl.set("#les-t-mouth-c", {opacity: 1}, 1.017);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 1.452);tl.set("#les-t-mouth-c", {opacity: 0}, 1.452);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 1.519);tl.set("#les-t-mouth-c", {opacity: 1}, 1.519);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 1.585);tl.set("#les-t-mouth-c", {opacity: 0}, 1.585);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 1.652);tl.set("#les-t-mouth-c", {opacity: 1}, 1.652);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 1.719);tl.set("#les-t-mouth-c", {opacity: 0}, 1.719);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 1.785);tl.set("#les-t-mouth-c", {opacity: 1}, 1.785);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 1.852);tl.set("#les-t-mouth-c", {opacity: 0}, 1.852);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 1.919);tl.set("#les-t-mouth-c", {opacity: 1}, 1.919);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 2.306);tl.set("#les-t-mouth-c", {opacity: 0}, 2.306);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 2.373);tl.set("#les-t-mouth-c", {opacity: 1}, 2.373);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 2.439);tl.set("#les-t-mouth-c", {opacity: 0}, 2.439);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 2.506);tl.set("#les-t-mouth-c", {opacity: 1}, 2.506);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 3.1);tl.set("#les-t-mouth-c", {opacity: 0}, 3.1);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 3.167);tl.set("#les-t-mouth-c", {opacity: 1}, 3.167);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 3.233);tl.set("#les-t-mouth-c", {opacity: 0}, 3.233);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 3.3);tl.set("#les-t-mouth-c", {opacity: 1}, 3.3);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 3.367);tl.set("#les-t-mouth-c", {opacity: 0}, 3.367);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 3.433);tl.set("#les-t-mouth-c", {opacity: 1}, 3.433);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 3.852);tl.set("#les-t-mouth-c", {opacity: 0}, 3.852);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 3.919);tl.set("#les-t-mouth-c", {opacity: 1}, 3.919);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 3.985);tl.set("#les-t-mouth-c", {opacity: 0}, 3.985);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 4.052);tl.set("#les-t-mouth-c", {opacity: 1}, 4.052);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 4.119);tl.set("#les-t-mouth-c", {opacity: 0}, 4.119);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 4.185);tl.set("#les-t-mouth-c", {opacity: 1}, 4.185);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 5.251);tl.set("#les-t-mouth-c", {opacity: 0}, 5.251);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 5.318);tl.set("#les-t-mouth-c", {opacity: 1}, 5.318);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 5.384);tl.set("#les-t-mouth-c", {opacity: 0}, 5.384);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 5.451);tl.set("#les-t-mouth-c", {opacity: 1}, 5.451);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 5.518);tl.set("#les-t-mouth-c", {opacity: 0}, 5.518);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 5.584);tl.set("#les-t-mouth-c", {opacity: 1}, 5.584);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 6.21);tl.set("#les-t-mouth-c", {opacity: 0}, 6.21);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 6.277);tl.set("#les-t-mouth-c", {opacity: 1}, 6.277);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 6.343);tl.set("#les-t-mouth-c", {opacity: 0}, 6.343);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 6.41);tl.set("#les-t-mouth-c", {opacity: 1}, 6.41);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 6.477);tl.set("#les-t-mouth-c", {opacity: 0}, 6.477);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 6.543);tl.set("#les-t-mouth-c", {opacity: 1}, 6.543);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 6.899);tl.set("#les-t-mouth-c", {opacity: 0}, 6.899);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 6.966);tl.set("#les-t-mouth-c", {opacity: 1}, 6.966);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 7.032);tl.set("#les-t-mouth-c", {opacity: 0}, 7.032);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 7.099);tl.set("#les-t-mouth-c", {opacity: 1}, 7.099);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 7.166);tl.set("#les-t-mouth-c", {opacity: 0}, 7.166);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 7.232);tl.set("#les-t-mouth-c", {opacity: 1}, 7.232);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 7.299);tl.set("#les-t-mouth-c", {opacity: 0}, 7.299);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 7.366);tl.set("#les-t-mouth-c", {opacity: 1}, 7.366);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 7.974);tl.set("#les-t-mouth-c", {opacity: 0}, 7.974);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 8.041);tl.set("#les-t-mouth-c", {opacity: 1}, 8.041);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 8.107);tl.set("#les-t-mouth-c", {opacity: 0}, 8.107);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 8.174);tl.set("#les-t-mouth-c", {opacity: 1}, 8.174);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 8.241);tl.set("#les-t-mouth-c", {opacity: 0}, 8.241);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 8.307);tl.set("#les-t-mouth-c", {opacity: 1}, 8.307);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 8.732);tl.set("#les-t-mouth-c", {opacity: 0}, 8.732);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 8.799);tl.set("#les-t-mouth-c", {opacity: 1}, 8.799);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 8.865);tl.set("#les-t-mouth-c", {opacity: 0}, 8.865);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 8.932);tl.set("#les-t-mouth-c", {opacity: 1}, 8.932);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 8.999);tl.set("#les-t-mouth-c", {opacity: 0}, 8.999);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 9.065);tl.set("#les-t-mouth-c", {opacity: 1}, 9.065);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 9.132);tl.set("#les-t-mouth-c", {opacity: 0}, 9.132);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 9.199);tl.set("#les-t-mouth-c", {opacity: 1}, 9.199);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 9.761);tl.set("#les-t-mouth-c", {opacity: 0}, 9.761);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 9.828);tl.set("#les-t-mouth-c", {opacity: 1}, 9.828);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 9.894);tl.set("#les-t-mouth-c", {opacity: 0}, 9.894);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 9.961);tl.set("#les-t-mouth-c", {opacity: 1}, 9.961);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 10.028);tl.set("#les-t-mouth-c", {opacity: 0}, 10.028);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 10.094);tl.set("#les-t-mouth-c", {opacity: 1}, 10.094);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 10.472);tl.set("#les-t-mouth-c", {opacity: 0}, 10.472);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 10.539);tl.set("#les-t-mouth-c", {opacity: 1}, 10.539);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 10.605);tl.set("#les-t-mouth-c", {opacity: 0}, 10.605);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 10.672);tl.set("#les-t-mouth-c", {opacity: 1}, 10.672);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 10.739);tl.set("#les-t-mouth-c", {opacity: 0}, 10.739);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 10.805);tl.set("#les-t-mouth-c", {opacity: 1}, 10.805);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 10.872);tl.set("#les-t-mouth-c", {opacity: 0}, 10.872);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 10.939);tl.set("#les-t-mouth-c", {opacity: 1}, 10.939);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 11.546);tl.set("#les-t-mouth-c", {opacity: 0}, 11.546);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 11.613);tl.set("#les-t-mouth-c", {opacity: 1}, 11.613);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 11.679);tl.set("#les-t-mouth-c", {opacity: 0}, 11.679);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 11.746);tl.set("#les-t-mouth-c", {opacity: 1}, 11.746);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 11.813);tl.set("#les-t-mouth-c", {opacity: 0}, 11.813);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 11.879);tl.set("#les-t-mouth-c", {opacity: 1}, 11.879);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 12.235);tl.set("#les-t-mouth-c", {opacity: 0}, 12.235);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 12.302);tl.set("#les-t-mouth-c", {opacity: 1}, 12.302);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 12.368);tl.set("#les-t-mouth-c", {opacity: 0}, 12.368);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 12.435);tl.set("#les-t-mouth-c", {opacity: 1}, 12.435);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 12.502);tl.set("#les-t-mouth-c", {opacity: 0}, 12.502);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 12.568);tl.set("#les-t-mouth-c", {opacity: 1}, 12.568);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 12.635);tl.set("#les-t-mouth-c", {opacity: 0}, 12.635);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 12.702);tl.set("#les-t-mouth-c", {opacity: 1}, 12.702);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 13.249);tl.set("#les-t-mouth-c", {opacity: 0}, 13.249);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 13.316);tl.set("#les-t-mouth-c", {opacity: 1}, 13.316);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 13.382);tl.set("#les-t-mouth-c", {opacity: 0}, 13.382);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 13.449);tl.set("#les-t-mouth-c", {opacity: 1}, 13.449);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 13.516);tl.set("#les-t-mouth-c", {opacity: 0}, 13.516);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 13.582);tl.set("#les-t-mouth-c", {opacity: 1}, 13.582);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 13.649);tl.set("#les-t-mouth-c", {opacity: 0}, 13.649);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 13.716);tl.set("#les-t-mouth-c", {opacity: 1}, 13.716);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 14.064);tl.set("#les-t-mouth-c", {opacity: 0}, 14.064);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 14.131);tl.set("#les-t-mouth-c", {opacity: 1}, 14.131);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 14.197);tl.set("#les-t-mouth-c", {opacity: 0}, 14.197);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 14.264);tl.set("#les-t-mouth-c", {opacity: 1}, 14.264);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 14.331);tl.set("#les-t-mouth-c", {opacity: 0}, 14.331);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 14.397);tl.set("#les-t-mouth-c", {opacity: 1}, 14.397);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 14.464);tl.set("#les-t-mouth-c", {opacity: 0}, 14.464);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 14.531);tl.set("#les-t-mouth-c", {opacity: 1}, 14.531);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 15.142);tl.set("#les-t-mouth-c", {opacity: 0}, 15.142);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 15.209);tl.set("#les-t-mouth-c", {opacity: 1}, 15.209);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 15.275);tl.set("#les-t-mouth-c", {opacity: 0}, 15.275);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 15.342);tl.set("#les-t-mouth-c", {opacity: 1}, 15.342);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 15.409);tl.set("#les-t-mouth-c", {opacity: 0}, 15.409);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 15.475);tl.set("#les-t-mouth-c", {opacity: 1}, 15.475);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 15.927);tl.set("#les-t-mouth-c", {opacity: 0}, 15.927);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 15.994);tl.set("#les-t-mouth-c", {opacity: 1}, 15.994);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 16.06);tl.set("#les-t-mouth-c", {opacity: 0}, 16.06);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 16.127);tl.set("#les-t-mouth-c", {opacity: 1}, 16.127);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 16.194);tl.set("#les-t-mouth-c", {opacity: 0}, 16.194);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 16.26);tl.set("#les-t-mouth-c", {opacity: 1}, 16.26);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 16.327);tl.set("#les-t-mouth-c", {opacity: 0}, 16.327);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 16.394);tl.set("#les-t-mouth-c", {opacity: 1}, 16.394);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 16.918);tl.set("#les-t-mouth-c", {opacity: 0}, 16.918);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 16.985);tl.set("#les-t-mouth-c", {opacity: 1}, 16.985);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 17.051);tl.set("#les-t-mouth-c", {opacity: 0}, 17.051);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 17.118);tl.set("#les-t-mouth-c", {opacity: 1}, 17.118);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 17.185);tl.set("#les-t-mouth-c", {opacity: 0}, 17.185);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 17.251);tl.set("#les-t-mouth-c", {opacity: 1}, 17.251);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 17.318);tl.set("#les-t-mouth-c", {opacity: 0}, 17.318);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 17.385);tl.set("#les-t-mouth-c", {opacity: 1}, 17.385);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 17.451);tl.set("#les-t-mouth-c", {opacity: 0}, 17.451);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 17.518);tl.set("#les-t-mouth-c", {opacity: 1}, 17.518);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 17.585);tl.set("#les-t-mouth-c", {opacity: 0}, 17.585);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 17.651);tl.set("#les-t-mouth-c", {opacity: 1}, 17.651);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 18.028);tl.set("#les-t-mouth-c", {opacity: 0}, 18.028);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 18.095);tl.set("#les-t-mouth-c", {opacity: 1}, 18.095);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 18.161);tl.set("#les-t-mouth-c", {opacity: 0}, 18.161);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 18.228);tl.set("#les-t-mouth-c", {opacity: 1}, 18.228);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 18.295);tl.set("#les-t-mouth-c", {opacity: 0}, 18.295);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 18.361);tl.set("#les-t-mouth-c", {opacity: 1}, 18.361);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 18.428);tl.set("#les-t-mouth-c", {opacity: 0}, 18.428);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 18.495);tl.set("#les-t-mouth-c", {opacity: 1}, 18.495);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 18.561);tl.set("#les-t-mouth-c", {opacity: 0}, 18.561);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 18.628);tl.set("#les-t-mouth-c", {opacity: 1}, 18.628);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 18.695);tl.set("#les-t-mouth-c", {opacity: 0}, 18.695);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 18.761);tl.set("#les-t-mouth-c", {opacity: 1}, 18.761);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 18.828);tl.set("#les-t-mouth-c", {opacity: 0}, 18.828);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 18.895);tl.set("#les-t-mouth-c", {opacity: 1}, 18.895);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 18.961);tl.set("#les-t-mouth-c", {opacity: 0}, 18.961);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 19.028);tl.set("#les-t-mouth-c", {opacity: 1}, 19.028);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 19.095);tl.set("#les-t-mouth-c", {opacity: 0}, 19.095);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 19.161);tl.set("#les-t-mouth-c", {opacity: 1}, 19.161);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 19.228);tl.set("#les-t-mouth-c", {opacity: 0}, 19.228);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 19.295);tl.set("#les-t-mouth-c", {opacity: 1}, 19.295);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 19.601);tl.set("#les-t-mouth-c", {opacity: 0}, 19.601);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 19.668);tl.set("#les-t-mouth-c", {opacity: 1}, 19.668);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 19.734);tl.set("#les-t-mouth-c", {opacity: 0}, 19.734);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 19.801);tl.set("#les-t-mouth-c", {opacity: 1}, 19.801);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 19.868);tl.set("#les-t-mouth-c", {opacity: 0}, 19.868);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 19.934);tl.set("#les-t-mouth-c", {opacity: 1}, 19.934);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 20.001);tl.set("#les-t-mouth-c", {opacity: 0}, 20.001);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 20.068);tl.set("#les-t-mouth-c", {opacity: 1}, 20.068);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 20.134);tl.set("#les-t-mouth-c", {opacity: 0}, 20.134);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 20.201);tl.set("#les-t-mouth-c", {opacity: 1}, 20.201);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 20.434);tl.set("#les-t-mouth-c", {opacity: 0}, 20.434);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 20.501);tl.set("#les-t-mouth-c", {opacity: 1}, 20.501);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 20.567);tl.set("#les-t-mouth-c", {opacity: 0}, 20.567);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 20.634);tl.set("#les-t-mouth-c", {opacity: 1}, 20.634);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 20.701);tl.set("#les-t-mouth-c", {opacity: 0}, 20.701);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 20.767);tl.set("#les-t-mouth-c", {opacity: 1}, 20.767);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 20.834);tl.set("#les-t-mouth-c", {opacity: 0}, 20.834);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 20.901);tl.set("#les-t-mouth-c", {opacity: 1}, 20.901);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 20.967);tl.set("#les-t-mouth-c", {opacity: 0}, 20.967);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 21.034);tl.set("#les-t-mouth-c", {opacity: 1}, 21.034);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 21.101);tl.set("#les-t-mouth-c", {opacity: 0}, 21.101);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 21.167);tl.set("#les-t-mouth-c", {opacity: 1}, 21.167);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 21.234);tl.set("#les-t-mouth-c", {opacity: 0}, 21.234);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 21.301);tl.set("#les-t-mouth-c", {opacity: 1}, 21.301);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 21.367);tl.set("#les-t-mouth-c", {opacity: 0}, 21.367);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 21.434);tl.set("#les-t-mouth-c", {opacity: 1}, 21.434);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 21.501);tl.set("#les-t-mouth-c", {opacity: 0}, 21.501);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 21.567);tl.set("#les-t-mouth-c", {opacity: 1}, 21.567);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 21.634);tl.set("#les-t-mouth-c", {opacity: 0}, 21.634);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 21.701);tl.set("#les-t-mouth-c", {opacity: 1}, 21.701);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 21.767);tl.set("#les-t-mouth-c", {opacity: 0}, 21.767);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 21.834);tl.set("#les-t-mouth-c", {opacity: 1}, 21.834);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 21.901);tl.set("#les-t-mouth-c", {opacity: 0}, 21.901);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 21.967);tl.set("#les-t-mouth-c", {opacity: 1}, 21.967);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 22.034);tl.set("#les-t-mouth-c", {opacity: 0}, 22.034);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 22.101);tl.set("#les-t-mouth-c", {opacity: 1}, 22.101);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 22.167);tl.set("#les-t-mouth-c", {opacity: 0}, 22.167);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 22.234);tl.set("#les-t-mouth-c", {opacity: 1}, 22.234);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 22.455);tl.set("#les-t-mouth-c", {opacity: 0}, 22.455);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 22.522);tl.set("#les-t-mouth-c", {opacity: 1}, 22.522);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 22.588);tl.set("#les-t-mouth-c", {opacity: 0}, 22.588);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 22.655);tl.set("#les-t-mouth-c", {opacity: 1}, 22.655);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 22.722);tl.set("#les-t-mouth-c", {opacity: 0}, 22.722);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 22.788);tl.set("#les-t-mouth-c", {opacity: 1}, 22.788);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 22.855);tl.set("#les-t-mouth-c", {opacity: 0}, 22.855);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 22.922);tl.set("#les-t-mouth-c", {opacity: 1}, 22.922);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 22.988);tl.set("#les-t-mouth-c", {opacity: 0}, 22.988);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 23.055);tl.set("#les-t-mouth-c", {opacity: 1}, 23.055);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 23.122);tl.set("#les-t-mouth-c", {opacity: 0}, 23.122);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 23.188);tl.set("#les-t-mouth-c", {opacity: 1}, 23.188);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 23.255);tl.set("#les-t-mouth-c", {opacity: 0}, 23.255);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 23.322);tl.set("#les-t-mouth-c", {opacity: 1}, 23.322);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 23.388);tl.set("#les-t-mouth-c", {opacity: 0}, 23.388);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 23.455);tl.set("#les-t-mouth-c", {opacity: 1}, 23.455);
-    tl.set("#les-t-mouth-o", {opacity: 1}, 23.522);tl.set("#les-t-mouth-c", {opacity: 0}, 23.522);
-    tl.set("#les-t-mouth-o", {opacity: 0}, 23.588);tl.set("#les-t-mouth-c", {opacity: 1}, 23.588);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 3.179);tl.set("#les-t-mouth-c", {opacity: 0}, 3.179);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 3.246);tl.set("#les-t-mouth-c", {opacity: 1}, 3.246);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 3.312);tl.set("#les-t-mouth-c", {opacity: 0}, 3.312);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 3.379);tl.set("#les-t-mouth-c", {opacity: 1}, 3.379);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 4.783);tl.set("#les-t-mouth-c", {opacity: 0}, 4.783);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 4.85);tl.set("#les-t-mouth-c", {opacity: 1}, 4.85);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 4.916);tl.set("#les-t-mouth-c", {opacity: 0}, 4.916);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 4.983);tl.set("#les-t-mouth-c", {opacity: 1}, 4.983);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 5.05);tl.set("#les-t-mouth-c", {opacity: 0}, 5.05);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 5.116);tl.set("#les-t-mouth-c", {opacity: 1}, 5.116);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 6.82);tl.set("#les-t-mouth-c", {opacity: 0}, 6.82);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 6.887);tl.set("#les-t-mouth-c", {opacity: 1}, 6.887);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 6.953);tl.set("#les-t-mouth-c", {opacity: 0}, 6.953);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 7.02);tl.set("#les-t-mouth-c", {opacity: 1}, 7.02);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 7.087);tl.set("#les-t-mouth-c", {opacity: 0}, 7.087);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 7.153);tl.set("#les-t-mouth-c", {opacity: 1}, 7.153);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 8.401);tl.set("#les-t-mouth-c", {opacity: 0}, 8.401);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 8.468);tl.set("#les-t-mouth-c", {opacity: 1}, 8.468);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 8.534);tl.set("#les-t-mouth-c", {opacity: 0}, 8.534);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 8.601);tl.set("#les-t-mouth-c", {opacity: 1}, 8.601);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 8.668);tl.set("#les-t-mouth-c", {opacity: 0}, 8.668);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 8.734);tl.set("#les-t-mouth-c", {opacity: 1}, 8.734);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 8.801);tl.set("#les-t-mouth-c", {opacity: 0}, 8.801);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 8.868);tl.set("#les-t-mouth-c", {opacity: 1}, 8.868);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 10.173);tl.set("#les-t-mouth-c", {opacity: 0}, 10.173);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 10.24);tl.set("#les-t-mouth-c", {opacity: 1}, 10.24);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 10.306);tl.set("#les-t-mouth-c", {opacity: 0}, 10.306);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 10.373);tl.set("#les-t-mouth-c", {opacity: 1}, 10.373);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 10.44);tl.set("#les-t-mouth-c", {opacity: 0}, 10.44);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 10.506);tl.set("#les-t-mouth-c", {opacity: 1}, 10.506);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 10.573);tl.set("#les-t-mouth-c", {opacity: 0}, 10.573);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 10.64);tl.set("#les-t-mouth-c", {opacity: 1}, 10.64);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 11.919);tl.set("#les-t-mouth-c", {opacity: 0}, 11.919);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 11.986);tl.set("#les-t-mouth-c", {opacity: 1}, 11.986);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 12.052);tl.set("#les-t-mouth-c", {opacity: 0}, 12.052);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 12.119);tl.set("#les-t-mouth-c", {opacity: 1}, 12.119);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 12.186);tl.set("#les-t-mouth-c", {opacity: 0}, 12.186);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 12.252);tl.set("#les-t-mouth-c", {opacity: 1}, 12.252);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 12.319);tl.set("#les-t-mouth-c", {opacity: 0}, 12.319);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 12.386);tl.set("#les-t-mouth-c", {opacity: 1}, 12.386);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 13.719);tl.set("#les-t-mouth-c", {opacity: 0}, 13.719);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 13.786);tl.set("#les-t-mouth-c", {opacity: 1}, 13.786);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 13.852);tl.set("#les-t-mouth-c", {opacity: 0}, 13.852);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 13.919);tl.set("#les-t-mouth-c", {opacity: 1}, 13.919);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 13.986);tl.set("#les-t-mouth-c", {opacity: 0}, 13.986);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 14.052);tl.set("#les-t-mouth-c", {opacity: 1}, 14.052);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 14.119);tl.set("#les-t-mouth-c", {opacity: 0}, 14.119);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 14.186);tl.set("#les-t-mouth-c", {opacity: 1}, 14.186);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 15.522);tl.set("#les-t-mouth-c", {opacity: 0}, 15.522);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 15.589);tl.set("#les-t-mouth-c", {opacity: 1}, 15.589);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 15.655);tl.set("#les-t-mouth-c", {opacity: 0}, 15.655);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 15.722);tl.set("#les-t-mouth-c", {opacity: 1}, 15.722);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 15.789);tl.set("#les-t-mouth-c", {opacity: 0}, 15.789);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 15.855);tl.set("#les-t-mouth-c", {opacity: 1}, 15.855);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 15.922);tl.set("#les-t-mouth-c", {opacity: 0}, 15.922);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 15.989);tl.set("#les-t-mouth-c", {opacity: 1}, 15.989);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 17.513);tl.set("#les-t-mouth-c", {opacity: 0}, 17.513);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 17.58);tl.set("#les-t-mouth-c", {opacity: 1}, 17.58);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 17.646);tl.set("#les-t-mouth-c", {opacity: 0}, 17.646);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 17.713);tl.set("#les-t-mouth-c", {opacity: 1}, 17.713);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 17.78);tl.set("#les-t-mouth-c", {opacity: 0}, 17.78);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 17.846);tl.set("#les-t-mouth-c", {opacity: 1}, 17.846);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 17.913);tl.set("#les-t-mouth-c", {opacity: 0}, 17.913);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 17.98);tl.set("#les-t-mouth-c", {opacity: 1}, 17.98);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 18.504);tl.set("#les-t-mouth-c", {opacity: 0}, 18.504);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 18.571);tl.set("#les-t-mouth-c", {opacity: 1}, 18.571);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 18.637);tl.set("#les-t-mouth-c", {opacity: 0}, 18.637);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 18.704);tl.set("#les-t-mouth-c", {opacity: 1}, 18.704);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 18.771);tl.set("#les-t-mouth-c", {opacity: 0}, 18.771);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 18.837);tl.set("#les-t-mouth-c", {opacity: 1}, 18.837);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 18.904);tl.set("#les-t-mouth-c", {opacity: 0}, 18.904);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 18.971);tl.set("#les-t-mouth-c", {opacity: 1}, 18.971);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 19.037);tl.set("#les-t-mouth-c", {opacity: 0}, 19.037);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 19.104);tl.set("#les-t-mouth-c", {opacity: 1}, 19.104);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 19.171);tl.set("#les-t-mouth-c", {opacity: 0}, 19.171);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 19.237);tl.set("#les-t-mouth-c", {opacity: 1}, 19.237);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 19.614);tl.set("#les-t-mouth-c", {opacity: 0}, 19.614);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 19.681);tl.set("#les-t-mouth-c", {opacity: 1}, 19.681);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 19.747);tl.set("#les-t-mouth-c", {opacity: 0}, 19.747);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 19.814);tl.set("#les-t-mouth-c", {opacity: 1}, 19.814);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 19.881);tl.set("#les-t-mouth-c", {opacity: 0}, 19.881);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 19.947);tl.set("#les-t-mouth-c", {opacity: 1}, 19.947);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 20.014);tl.set("#les-t-mouth-c", {opacity: 0}, 20.014);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 20.081);tl.set("#les-t-mouth-c", {opacity: 1}, 20.081);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 20.147);tl.set("#les-t-mouth-c", {opacity: 0}, 20.147);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 20.214);tl.set("#les-t-mouth-c", {opacity: 1}, 20.214);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 20.281);tl.set("#les-t-mouth-c", {opacity: 0}, 20.281);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 20.347);tl.set("#les-t-mouth-c", {opacity: 1}, 20.347);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 20.414);tl.set("#les-t-mouth-c", {opacity: 0}, 20.414);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 20.481);tl.set("#les-t-mouth-c", {opacity: 1}, 20.481);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 20.547);tl.set("#les-t-mouth-c", {opacity: 0}, 20.547);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 20.614);tl.set("#les-t-mouth-c", {opacity: 1}, 20.614);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 20.681);tl.set("#les-t-mouth-c", {opacity: 0}, 20.681);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 20.747);tl.set("#les-t-mouth-c", {opacity: 1}, 20.747);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 20.814);tl.set("#les-t-mouth-c", {opacity: 0}, 20.814);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 20.881);tl.set("#les-t-mouth-c", {opacity: 1}, 20.881);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 21.187);tl.set("#les-t-mouth-c", {opacity: 0}, 21.187);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 21.254);tl.set("#les-t-mouth-c", {opacity: 1}, 21.254);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 21.32);tl.set("#les-t-mouth-c", {opacity: 0}, 21.32);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 21.387);tl.set("#les-t-mouth-c", {opacity: 1}, 21.387);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 21.454);tl.set("#les-t-mouth-c", {opacity: 0}, 21.454);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 21.52);tl.set("#les-t-mouth-c", {opacity: 1}, 21.52);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 21.587);tl.set("#les-t-mouth-c", {opacity: 0}, 21.587);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 21.654);tl.set("#les-t-mouth-c", {opacity: 1}, 21.654);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 21.72);tl.set("#les-t-mouth-c", {opacity: 0}, 21.72);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 21.787);tl.set("#les-t-mouth-c", {opacity: 1}, 21.787);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 22.02);tl.set("#les-t-mouth-c", {opacity: 0}, 22.02);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 22.087);tl.set("#les-t-mouth-c", {opacity: 1}, 22.087);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 22.153);tl.set("#les-t-mouth-c", {opacity: 0}, 22.153);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 22.22);tl.set("#les-t-mouth-c", {opacity: 1}, 22.22);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 22.287);tl.set("#les-t-mouth-c", {opacity: 0}, 22.287);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 22.353);tl.set("#les-t-mouth-c", {opacity: 1}, 22.353);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 22.42);tl.set("#les-t-mouth-c", {opacity: 0}, 22.42);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 22.487);tl.set("#les-t-mouth-c", {opacity: 1}, 22.487);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 22.553);tl.set("#les-t-mouth-c", {opacity: 0}, 22.553);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 22.62);tl.set("#les-t-mouth-c", {opacity: 1}, 22.62);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 22.687);tl.set("#les-t-mouth-c", {opacity: 0}, 22.687);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 22.753);tl.set("#les-t-mouth-c", {opacity: 1}, 22.753);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 22.82);tl.set("#les-t-mouth-c", {opacity: 0}, 22.82);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 22.887);tl.set("#les-t-mouth-c", {opacity: 1}, 22.887);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 22.953);tl.set("#les-t-mouth-c", {opacity: 0}, 22.953);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 23.02);tl.set("#les-t-mouth-c", {opacity: 1}, 23.02);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 23.087);tl.set("#les-t-mouth-c", {opacity: 0}, 23.087);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 23.153);tl.set("#les-t-mouth-c", {opacity: 1}, 23.153);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 23.22);tl.set("#les-t-mouth-c", {opacity: 0}, 23.22);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 23.287);tl.set("#les-t-mouth-c", {opacity: 1}, 23.287);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 23.353);tl.set("#les-t-mouth-c", {opacity: 0}, 23.353);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 23.42);tl.set("#les-t-mouth-c", {opacity: 1}, 23.42);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 23.487);tl.set("#les-t-mouth-c", {opacity: 0}, 23.487);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 23.553);tl.set("#les-t-mouth-c", {opacity: 1}, 23.553);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 23.62);tl.set("#les-t-mouth-c", {opacity: 0}, 23.62);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 23.687);tl.set("#les-t-mouth-c", {opacity: 1}, 23.687);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 23.753);tl.set("#les-t-mouth-c", {opacity: 0}, 23.753);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 23.82);tl.set("#les-t-mouth-c", {opacity: 1}, 23.82);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 24.041);tl.set("#les-t-mouth-c", {opacity: 0}, 24.041);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 24.108);tl.set("#les-t-mouth-c", {opacity: 1}, 24.108);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 24.174);tl.set("#les-t-mouth-c", {opacity: 0}, 24.174);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 24.241);tl.set("#les-t-mouth-c", {opacity: 1}, 24.241);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 24.308);tl.set("#les-t-mouth-c", {opacity: 0}, 24.308);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 24.374);tl.set("#les-t-mouth-c", {opacity: 1}, 24.374);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 24.441);tl.set("#les-t-mouth-c", {opacity: 0}, 24.441);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 24.508);tl.set("#les-t-mouth-c", {opacity: 1}, 24.508);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 24.574);tl.set("#les-t-mouth-c", {opacity: 0}, 24.574);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 24.641);tl.set("#les-t-mouth-c", {opacity: 1}, 24.641);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 24.708);tl.set("#les-t-mouth-c", {opacity: 0}, 24.708);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 24.774);tl.set("#les-t-mouth-c", {opacity: 1}, 24.774);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 24.841);tl.set("#les-t-mouth-c", {opacity: 0}, 24.841);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 24.908);tl.set("#les-t-mouth-c", {opacity: 1}, 24.908);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 24.974);tl.set("#les-t-mouth-c", {opacity: 0}, 24.974);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 25.041);tl.set("#les-t-mouth-c", {opacity: 1}, 25.041);
+    tl.set("#les-t-mouth-o", {opacity: 1}, 25.108);tl.set("#les-t-mouth-c", {opacity: 0}, 25.108);
+    tl.set("#les-t-mouth-o", {opacity: 0}, 25.174);tl.set("#les-t-mouth-c", {opacity: 1}, 25.174);
     tl.to("#les-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 1.1);tl.to("#les-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 1.2);
     tl.to("#les-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 1.1);tl.to("#les-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 1.2);
     tl.to("#les-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 3.4);tl.to("#les-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 3.5);
@@ -412,7 +512,9 @@
     tl.to("#les-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 21.7);tl.to("#les-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 21.8);
     tl.to("#les-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 24.2);tl.to("#les-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 24.3);
     tl.to("#les-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 24.2);tl.to("#les-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 24.3);
-    tl.fromTo("#les-t-body", {scaleY: 1}, {scaleY: 1.015, svgOrigin: "300 700", duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 15}, 0);
+    tl.to("#les-t-eye-l", {scaleY: 0.1, svgOrigin: "252 252", duration: 0.05}, 26.5);tl.to("#les-t-eye-l", {scaleY: 1, svgOrigin: "252 252", duration: 0.07}, 26.6);
+    tl.to("#les-t-eye-r", {scaleY: 0.1, svgOrigin: "348 252", duration: 0.05}, 26.5);tl.to("#les-t-eye-r", {scaleY: 1, svgOrigin: "348 252", duration: 0.07}, 26.6);
+    tl.fromTo("#les-t-body", {scaleY: 1}, {scaleY: 1.015, svgOrigin: "300 700", duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 17}, 0);
     window.__timelines["lesson"] = tl;
   </script>
 </template>

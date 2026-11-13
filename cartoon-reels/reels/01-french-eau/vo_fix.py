@@ -23,11 +23,11 @@ def norm(s):
     return "".join(c for c in s if c.isalnum())
 
 
-def transcribe(path):
+def transcribe(path, lang="fra"):
     boundary = uuid.uuid4().hex
     parts = [
         f'--{boundary}\r\nContent-Disposition: form-data; name="model_id"\r\n\r\nscribe_v1\r\n'.encode(),
-        f'--{boundary}\r\nContent-Disposition: form-data; name="language_code"\r\n\r\nfra\r\n'.encode(),
+        f'--{boundary}\r\nContent-Disposition: form-data; name="language_code"\r\n\r\n{lang}\r\n'.encode(),
         f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="a.mp3"\r\nContent-Type: audio/mpeg\r\n\r\n'.encode()
         + path.read_bytes() + b"\r\n",
         f"--{boundary}--\r\n".encode(),
@@ -50,11 +50,11 @@ def main(ids):
             for take in range(TAKES):
                 s = dict(settings, stability=min(0.9, settings["stability"] + 0.1 * take))
                 body = {"text": text, "voice_settings": s, "model_id": model}
-                if code:
+                if code and lang == "fr":
                     body["language_code"] = code
                 tmp = OUT / f"{lid}.try.mp3"
                 tmp.write_bytes(call(f"/text-to-speech/{voices[voice]}?output_format=mp3_44100_128", body))
-                heard = transcribe(tmp)
+                heard = transcribe(tmp, "eng" if lang == "en" else "fra")
                 ok = norm(heard) == norm(text)
                 print(f"{lid:10} {model:24} take {take + 1}: heard {heard!r} {'OK' if ok else ''}")
                 if ok:

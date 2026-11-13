@@ -83,7 +83,25 @@ LESSON_CSS = f"""
     .teacher-wrap {{ position: absolute; left: 240px; top: 760px; width: 600px; height: 900px; }}
     .teacher-wrap svg {{ width: 100%; height: 100%; }}
     .lectern {{ position: absolute; left: 330px; top: 1340px; width: 420px; height: 380px; }}
+    .pupil-wrap {{ position: absolute; left: 600px; top: 905px; width: 380px; height: 623px; }}
+    .pupil-wrap svg {{ width: 100%; height: 100%; }}
 """
+
+DIALOGUE = T.get("dialogue", False)
+
+
+def set_html(prefix, wrap):
+    """The lesson set: the teacher at the lectern, and in dialogue reels Odette beside him asking."""
+    if not DIALOGUE:
+        return f'<div id="{wrap}" class="teacher-wrap">{teacher(prefix)}</div>\n    {LECTERN}'
+    lectern = LECTERN.replace('class="lectern"', 'class="lectern" style="left: 110px;"')
+    return (f'<div id="{wrap}" class="teacher-wrap" style="left: 20px;">{teacher(prefix)}</div>\n    {lectern}\n'
+            f'    <div id="{prefix[:3]}-pupil-wrap" class="pupil-wrap">{partner(prefix[:3] + "-p")}</div>')
+
+
+def pupil_js(q, dur):
+    """Odette's life in the lesson set: she breathes, blinks and talks."""
+    return "\n    ".join([flaps_js(q, "p", 0, dur), blinks_js(q, dur, 1.6, (2.7, 2.2)), breath_js(q, PP["body"], dur, 3.4)])
 
 LECTERN = f"""<svg class="lectern" viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg">
       <path d="M10 10 L410 10 L380 60 L40 60 Z" fill="#c98a52" stroke="{INK}" stroke-width="6" stroke-linejoin="round"/>
@@ -121,6 +139,22 @@ def lesson():
                 f'style="font-size: 120px; top: 360px;">FRENCH<br>IS EASY</h1>')
     js.append(f'tl.to("#{p}-head", {{rotation: -4, svgOrigin: "{TP["head"]}", duration: 0.3}}, 0.15);'
               f'tl.to("#{p}-head", {{rotation: 0, svgOrigin: "{TP["head"]}", duration: 0.3}}, {r(T["hook"]["end"] - 0.3)});')
+    if DIALOGUE:
+        q = "les-p"
+        js.append(f'tl.to("#{q}-brow-l", {{y: -18, duration: 0.2}}, 0.4);tl.to("#{q}-brow-l", {{y: 0, duration: 0.2}}, {r(T["hook"]["end"])});')
+        js.append(f'tl.to("#{q}-head", {{rotation: -6, svgOrigin: "{PP["head"]}", duration: 0.4}}, {r(T["hook"]["end"])});')
+        for it in T["items"]:
+            if it["kind"] == "same":
+                oh = it["start"] + 0.35  # when she says "Oh!"
+                js.append(f'tl.to("#les-pupil-wrap", {{y: -36, duration: 0.14, ease: "power2.out"}}, {r(oh)});'
+                          f'tl.to("#les-pupil-wrap", {{y: 0, duration: 0.25, ease: "bounce.out"}}, {r(oh + 0.14)});'
+                          f'tl.to(["#{q}-brow-l", "#{q}-brow-r"], {{y: -22, duration: 0.12}}, {r(oh)});'
+                          f'tl.to(["#{q}-brow-l", "#{q}-brow-r"], {{y: 0, duration: 0.25}}, {r(it["end"] - 0.2)});')
+                continue
+            # she gestures towards him with the arm on his side
+            js.append(f'tl.to("#{q}-arm-l", {{rotation: 70, svgOrigin: "{PP["arm-l"]}", duration: 0.2, ease: "back.out(2)"}}, {it["start"]});'
+                      f'tl.to("#{q}-arm-l", {{rotation: 0, svgOrigin: "{PP["arm-l"]}", duration: 0.25}}, {r(it["answer"])});')
+        js.append(pupil_js(q, dur))
     for i, it in enumerate(T["items"]):
         s, e = it["start"], it["end"]
         if it["kind"] == "same":
@@ -131,7 +165,8 @@ def lesson():
                       f'tl.to("#{p}-brow-r", {{y: 0, duration: 0.25}}, {r(e - 0.25)});')
             continue
         a = it["answer"]
-        html.append(f'<div id="les-en-{i}" class="label lab-en clip" data-start="{s}" data-duration="{r(a - s)}"><span>ENGLISH</span></div>')
+        first = DIALOGUE and i == 0
+        html.append(f'<div id="les-en-{i}" class="label lab-en clip" data-start="{s}" data-duration="{r(a - s)}"><span>{"HOW DO YOU SAY" if first else "ENGLISH"}</span></div>')
         html.append(f'<h1 id="les-cw-{i}" class="word clip" data-start="{s}" data-duration="{r(a - s)}" style="font-size: 110px; top: 420px; color: #8c7652;">{it["cue"]}</h1>')
         html.append(f'<div id="les-fr-{i}" class="label lab-fr clip" data-start="{a}" data-duration="{r(e - a)}"><span>FRENCH</span></div>')
         size = 132 if len(it["word"]) <= 7 else 120
@@ -176,8 +211,7 @@ def lesson():
   <div id="root" data-composition-id="lesson" data-width="{W}" data-height="{H}">
     <div class="set-glow"></div>
     <div class="set-floor"></div>
-    <div id="{wrap}" class="teacher-wrap">{teacher(p)}</div>
-    {LECTERN}
+    {set_html(p, wrap)}
     <div class="set-tag">WORD SONG #01</div>
     {body}
   </div>
@@ -309,6 +343,9 @@ def button():
         f'tl.set("#{p}-brow-r", {{y: -26}}, 0);',
         flaps_js(p, "t", B0, TOTAL + 1),
     ]
+    if DIALOGUE:
+        js.append('tl.set(["#btn-p-brow-l", "#btn-p-brow-r"], {y: -20}, 0);')
+        js.append(f'tl.set("#btn-p-head", {{rotation: -6, svgOrigin: "{PP["head"]}"}}, 0);')
     script = "\n    ".join(js)
     return f"""<template>
   <style>{LESSON_CSS}
@@ -319,8 +356,7 @@ def button():
   <div id="root" data-composition-id="button" data-width="{W}" data-height="{H}">
     <div class="set-glow"></div>
     <div class="set-floor"></div>
-    <div id="{wrap}" class="teacher-wrap">{teacher(p)}</div>
-    {LECTERN}
+    {set_html(p, wrap)}
     <div class="set-tag">WORD SONG #01</div>
     <h1 id="btn-easy" class="word clip" data-start="0" data-duration="{dur}" style="font-size: 150px; top: 380px;">EASY.</h1>
     <div id="btn-follow" class="clip" data-start="0" data-duration="{dur}">Sing it in the comments</div>

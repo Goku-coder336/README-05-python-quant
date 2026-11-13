@@ -19,6 +19,7 @@ TEACHER = "George"
 PARTNER = "Laura"
 
 DEADPAN = {"stability": 0.75, "similarity_boost": 0.8, "style": 0.05, "use_speaker_boost": True}
+CURIOUS = {"stability": 0.45, "similarity_boost": 0.8, "style": 0.35, "use_speaker_boost": True}
 ENERGY = {"stability": 0.35, "similarity_boost": 0.8, "style": 0.6, "use_speaker_boost": True}
 
 # id, voice, text, language ("en" or "fr"), settings
@@ -48,6 +49,16 @@ LINES = [
     ("t-en2", TEACHER, "on the boat,", "en", DEADPAN),
     ("t-en3", TEACHER, "cuts the castle's cake with a knife...", "en", DEADPAN),
     ("t-en4", TEACHER, "and falls in the water.", "en", DEADPAN),
+    # v4 dialogue: Odette asks, Barnaby answers
+    ("p-q-water", PARTNER, "How do you say water in French?", "en", CURIOUS),
+    ("p-q-high", PARTNER, "High?", "en", CURIOUS),
+    ("p-q-oh", PARTNER, "Oh!", "en", CURIOUS),
+    ("p-q-hat", PARTNER, "Hat?", "en", CURIOUS),
+    ("p-q-bird", PARTNER, "Bird?", "en", CURIOUS),
+    ("p-q-boat", PARTNER, "Boat?", "en", CURIOUS),
+    ("p-q-cake", PARTNER, "Cake?", "en", CURIOUS),
+    ("p-q-castle", PARTNER, "Castle?", "en", CURIOUS),
+    ("p-q-knife", PARTNER, "Knife?!", "en", CURIOUS),
     # payoff chant, one phrase per bar
     ("t-p1", TEACHER, "Le bel oiseau au chapeau !", "fr", ENERGY),
     ("p-p2", PARTNER, "Sur le bateau !", "fr", ENERGY),

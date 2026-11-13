@@ -25,6 +25,8 @@ STYLES["v2"] = ["105 BPM", "F major", "playful comedic French café pop", "accor
 # v3: more engaging, like the reference: a catchy earworm with a bouncy groove and a big singalong chorus
 STYLES["v3"] = ["118 BPM", "G major", "catchy upbeat bubblegum pop", "bouncy bassline", "punchy kick and handclaps",
                 "plucky synth and ukulele", "whistled hook", "playful, viral, earworm energy"]
+# v4: the v3 song, but the music only teases under the conversation and builds towards the drop
+STYLES["v4"] = STYLES["v3"]
 STYLE = STYLES[V]
 
 LYRICS = ("Le bel oiseau au chapeau,\n"
@@ -33,25 +35,40 @@ LYRICS = ("Le bel oiseau au chapeau,\n"
           "et tombe à l'eau !")
 
 
-def plan(intro_ms, sung_ms, outro_ms):
+def plan(intro_ms, sung_ms, outro_ms, lesson_ms=None):
+    no_vocals = ["vocals", "singing", "humming", "choir", "spoken words"]
+    chorus = {"text": "[Chorus]\n" + LYRICS, "duration_ms": sung_ms,
+              "positive_styles": STYLE + ["vocals start on the very first beat, no instrumental lead-in",
+                                          "every lyric word sung clearly, none skipped", "full band drop", "handclaps",
+                                          "catchy sing-along chorus", "male and female duet singing together in French",
+                                          "clear French diction", "big, joyful energy"],
+              "negative_styles": ["English lyrics", "rap", "spoken word"]}
+    outro = {"text": "[Outro]", "duration_ms": max(3000, outro_ms),  # the API minimum is 3 s; the mix trims it
+             "positive_styles": STYLE + ["short final flourish", "one last cymbal hit", "instrumental only"],
+             "negative_styles": ["vocals", "singing"]}
+    if lesson_ms and V not in ("v2", "v3"):
+        # a quiet tease under the conversation, then a build under the English sentence, then the drop
+        tease = {"text": "[Instrumental intro, very quiet]", "duration_ms": lesson_ms,
+                 "positive_styles": [STYLE[0], STYLE[1], "barely there, very quiet and minimal",
+                                     "soft ticking pizzicato pulse", "a faint plucked hint of the chorus melody now and then",
+                                     "no drums", "playful suspense", "instrumental only"],
+                 "negative_styles": no_vocals + ["drums", "loud", "busy arrangement", "bass drops"]}
+        build = {"text": "[Build-up]", "duration_ms": intro_ms - lesson_ms,
+                 "positive_styles": [STYLE[0], STYLE[1], "the chorus hook teased on a whistle and plucked synth",
+                                     "building anticipation", "a soft kick enters halfway", "rising snare roll and riser in the last bar",
+                                     "something big is about to drop", "instrumental only"],
+                 "negative_styles": no_vocals}
+        return {"chunks": [tease, build, chorus, outro]}
     return {"chunks": [
         {"text": "[Instrumental intro]", "duration_ms": intro_ms,
          "positive_styles": STYLE + ["light and sparse, leaves room for a speaking voice", "instrumental only",
                                      "gentle build in the last bars"],
-         "negative_styles": ["vocals", "singing", "humming", "choir", "spoken words"]},
-        {"text": "[Chorus]\n" + LYRICS, "duration_ms": sung_ms,
-         "positive_styles": STYLE + ["vocals start on the very first beat, no instrumental lead-in", "every lyric word sung clearly, none skipped", "full band drop", "handclaps", "catchy sing-along chorus",
-                                     "male and female duet singing together in French", "clear French diction",
-                                     "big, joyful energy"],
-         "negative_styles": ["English lyrics", "rap", "spoken word"]},
-        {"text": "[Outro]", "duration_ms": max(3000, outro_ms),  # the API minimum is 3 s; the mix trims it
-         "positive_styles": STYLE + ["short final accordion flourish", "one last cymbal hit", "instrumental only"],
-         "negative_styles": ["vocals", "singing"]},
-    ]}
+         "negative_styles": no_vocals},
+        chorus, outro]}
 
 
 def compose(seed, T):
-    body = {"composition_plan": plan(T["intro_ms"], T["sung_ms"], T["outro_ms"]), "model_id": "music_v2_5",
+    body = {"composition_plan": plan(T["intro_ms"], T["sung_ms"], T["outro_ms"], T.get("lesson_ms")), "model_id": "music_v2_5",
             "respect_sections_durations": True, "with_timestamps": True, "seed": seed}
     req = urllib.request.Request(API, data=json.dumps(body).encode(), method="POST")
     req.add_header("xi-api-key", "proxy-injected")

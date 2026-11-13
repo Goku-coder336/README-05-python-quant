@@ -16,6 +16,8 @@
     .teacher-wrap { position: absolute; left: 240px; top: 760px; width: 600px; height: 900px; }
     .teacher-wrap svg { width: 100%; height: 100%; }
     .lectern { position: absolute; left: 330px; top: 1340px; width: 420px; height: 380px; }
+    .pupil-wrap { position: absolute; left: 600px; top: 905px; width: 380px; height: 623px; }
+    .pupil-wrap svg { width: 100%; height: 100%; }
 
     #btn-follow { position: absolute; top: 620px; left: 50%; margin-left: -290px; width: 580px; height: 76px; border-radius: 38px;
                   background: #3d6fd6; color: #fff; border: 5px solid #1d1d1b; font-weight: 800; font-size: 34px;
@@ -24,7 +26,7 @@
   <div id="root" data-composition-id="button" data-width="1080" data-height="1920">
     <div class="set-glow"></div>
     <div class="set-floor"></div>
-    <div id="btn-teacher-wrap" class="teacher-wrap">
+    <div id="btn-teacher-wrap" class="teacher-wrap" style="left: 20px;">
 <svg id="btn-t" viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" overflow="visible">
   <g id="btn-t-legs">
     <rect x="245" y="680" width="44" height="150" rx="16" fill="#3a3f55" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
@@ -78,11 +80,55 @@
     <circle cx="434" cy="606" r="24" fill="#f3cfa8" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
   </g>
 </svg></div>
-    <svg class="lectern" viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg">
+    <svg class="lectern" style="left: 110px;" viewBox="0 0 420 380" xmlns="http://www.w3.org/2000/svg">
       <path d="M10 10 L410 10 L380 60 L40 60 Z" fill="#c98a52" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
       <path d="M60 60 L360 60 L330 370 L90 370 Z" fill="#b07a4a" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
       <path d="M120 120 L300 120" stroke="#8a5a32" stroke-width="6" stroke-linecap="round"/>
     </svg>
+    <div id="btn-pupil-wrap" class="pupil-wrap">
+<svg id="btn-p" viewBox="0 0 500 820" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+  <g id="btn-p-legs">
+    <rect x="200" y="600" width="38" height="150" rx="15" fill="#2b2233" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <rect x="262" y="600" width="38" height="150" rx="15" fill="#2b2233" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <ellipse cx="212" cy="762" rx="40" ry="20" fill="#ffd23f" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <ellipse cx="288" cy="762" rx="40" ry="20" fill="#ffd23f" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <g id="btn-p-arm-l">
+    <path d="M165 440 L100 560" stroke="#1d1d1b" stroke-width="50" stroke-linecap="round" fill="none"/><path d="M165 440 L100 560" stroke="#ff6f61" stroke-width="38" stroke-linecap="round" fill="none"/>
+    <circle cx="97" cy="566" r="22" fill="#c98b5e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <g id="btn-p-arm-r">
+    <path d="M335 440 L400 560" stroke="#1d1d1b" stroke-width="50" stroke-linecap="round" fill="none"/><path d="M335 440 L400 560" stroke="#ff6f61" stroke-width="38" stroke-linecap="round" fill="none"/>
+    <circle cx="403" cy="566" r="22" fill="#c98b5e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+  </g>
+  <g id="btn-p-body">
+    <path d="M175 405 Q250 378 325 405 Q392 520 360 625 Q250 655 140 625 Q108 520 175 405 Z" fill="#ff6f61" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M205 402 Q250 440 295 402" fill="#fffdf6" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M150 560 Q250 590 350 560" stroke="#1d1d1b" stroke-width="5" fill="none"/>
+  </g>
+  <g id="btn-p-head">
+    <rect x="228" y="360" width="44" height="45" fill="#c98b5e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="250" cy="96" r="70" fill="#2b2233" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="250" cy="252" r="125" fill="#c98b5e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M128 236 Q144 122 250 118 Q356 122 372 236 Q332 172 250 178 Q168 172 128 236 Z" fill="#2b2233" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="126" cy="304" r="17" fill="none" stroke="#ffd23f" stroke-width="8"/>
+    <circle cx="374" cy="304" r="17" fill="none" stroke="#ffd23f" stroke-width="8"/>
+    <g id="btn-p-brow-l"><path d="M180 208 Q204 192 228 202" stroke="#1d1d1b" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+    <g id="btn-p-brow-r"><path d="M272 202 Q296 192 320 208" stroke="#1d1d1b" stroke-width="10" fill="none" stroke-linecap="round"/></g>
+    <ellipse cx="205" cy="252" rx="25" ry="31" fill="#fffdf6" stroke="#1d1d1b" stroke-width="5"/>
+    <ellipse cx="295" cy="252" rx="25" ry="31" fill="#fffdf6" stroke="#1d1d1b" stroke-width="5"/>
+    <g id="btn-p-eye-l"><circle cx="209" cy="258" r="12" fill="#1d1d1b"/></g>
+    <g id="btn-p-eye-r"><circle cx="291" cy="258" r="12" fill="#1d1d1b"/></g>
+    <circle cx="176" cy="304" r="16" fill="#ff8f8f" opacity="0.7"/>
+    <circle cx="324" cy="304" r="16" fill="#ff8f8f" opacity="0.7"/>
+    <path d="M250 276 Q262 292 248 298" stroke="#1d1d1b" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <g id="btn-p-mouth-c"><path d="M222 322 Q250 342 278 322" stroke="#1d1d1b" stroke-width="7" fill="none" stroke-linecap="round"/></g>
+    <g id="btn-p-mouth-o" opacity="0">
+      <path d="M214 314 Q250 380 286 314 Z" fill="#5a1e1e" stroke="#1d1d1b" stroke-width="6" stroke-linejoin="round"/>
+      <ellipse cx="250" cy="346" rx="14" ry="7" fill="#e86a6a"/>
+    </g>
+  </g>
+</svg></div>
     <div class="set-tag">WORD SONG #01</div>
     <h1 id="btn-easy" class="word clip" data-start="0" data-duration="2.0" style="font-size: 150px; top: 380px;">EASY.</h1>
     <div id="btn-follow" class="clip" data-start="0" data-duration="2.0">Sing it in the comments</div>
@@ -100,6 +146,8 @@
     tl.set("#btn-t-mouth-o", {opacity: 0}, 0.483);tl.set("#btn-t-mouth-c", {opacity: 1}, 0.483);
     tl.set("#btn-t-mouth-o", {opacity: 1}, 0.55);tl.set("#btn-t-mouth-c", {opacity: 0}, 0.55);
     tl.set("#btn-t-mouth-o", {opacity: 0}, 0.617);tl.set("#btn-t-mouth-c", {opacity: 1}, 0.617);
+    tl.set(["#btn-p-brow-l", "#btn-p-brow-r"], {y: -20}, 0);
+    tl.set("#btn-p-head", {rotation: -6, svgOrigin: "250 385"}, 0);
     window.__timelines["button"] = tl;
   </script>
 </template>

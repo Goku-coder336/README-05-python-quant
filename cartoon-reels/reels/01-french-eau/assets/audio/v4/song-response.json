@@ -1,0 +1,222 @@
+{
+ "composition_plan": {
+  "chunks": [
+   {
+    "text": "[Instrumental intro, very quiet]",
+    "duration_ms": 18504,
+    "positive_styles": [
+     "118 BPM",
+     "G major",
+     "barely there, very quiet and minimal",
+     "soft ticking pizzicato pulse",
+     "a faint plucked hint of the chorus melody now and then",
+     "no drums",
+     "playful suspense",
+     "instrumental only"
+    ],
+    "negative_styles": [
+     "vocals",
+     "singing",
+     "humming",
+     "choir",
+     "spoken words",
+     "drums",
+     "loud",
+     "busy arrangement",
+     "bass drops"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   },
+   {
+    "text": "[Build-up]",
+    "duration_ms": 7241,
+    "positive_styles": [
+     "118 BPM",
+     "G major",
+     "the chorus hook teased on a whistle and plucked synth",
+     "building anticipation",
+     "a soft kick enters halfway",
+     "rising snare roll and riser in the last bar",
+     "something big is about to drop",
+     "instrumental only"
+    ],
+    "negative_styles": [
+     "vocals",
+     "singing",
+     "humming",
+     "choir",
+     "spoken words"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   },
+   {
+    "text": "[Chorus]\nLe bel oiseau au chapeau,\nsur le bateau,\ncoupe le gâteau du château au couteau,\net tombe à l'eau !",
+    "duration_ms": 13000,
+    "positive_styles": [
+     "118 BPM",
+     "G major",
+     "catchy upbeat bubblegum pop",
+     "bouncy bassline",
+     "punchy kick and handclaps",
+     "plucky synth and ukulele",
+     "whistled hook",
+     "playful, viral, earworm energy",
+     "vocals start on the very first beat, no instrumental lead-in",
+     "every lyric word sung clearly, none skipped",
+     "full band drop",
+     "handclaps",
+     "catchy sing-along chorus",
+     "male and female duet singing together in French",
+     "clear French diction",
+     "big, joyful energy"
+    ],
+    "negative_styles": [
+     "English lyrics",
+     "rap",
+     "spoken word"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   },
+   {
+    "text": "[Outro]",
+    "duration_ms": 3000,
+    "positive_styles": [
+     "118 BPM",
+     "G major",
+     "catchy upbeat bubblegum pop",
+     "bouncy bassline",
+     "punchy kick and handclaps",
+     "plucky synth and ukulele",
+     "whistled hook",
+     "playful, viral, earworm energy",
+     "short final flourish",
+     "one last cymbal hit",
+     "instrumental only"
+    ],
+    "negative_styles": [
+     "vocals",
+     "singing"
+    ],
+    "context_adherence": "high",
+    "conditioning_ref": null,
+    "condition_strength": null
+   }
+  ]
+ },
+ "song_metadata": {
+  "title": null,
+  "description": null,
+  "genres": [],
+  "languages": [],
+  "is_explicit": null
+ },
+ "words_timestamps": [
+  {
+   "word": "Le",
+   "start_ms": 29720,
+   "end_ms": 29880
+  },
+  {
+   "word": "bel",
+   "start_ms": 29960,
+   "end_ms": 30200
+  },
+  {
+   "word": "oiseau",
+   "start_ms": 30280,
+   "end_ms": 30800
+  },
+  {
+   "word": "au",
+   "start_ms": 30980,
+   "end_ms": 31120
+  },
+  {
+   "word": "chapeau,",
+   "start_ms": 31180,
+   "end_ms": 31640
+  },
+  {
+   "word": "sur",
+   "start_ms": 31720,
+   "end_ms": 31980
+  },
+  {
+   "word": "le",
+   "start_ms": 32040,
+   "end_ms": 32180
+  },
+  {
+   "word": "bateau,",
+   "start_ms": 32240,
+   "end_ms": 32860
+  },
+  {
+   "word": "coupe",
+   "start_ms": 33780,
+   "end_ms": 34020
+  },
+  {
+   "word": "le",
+   "start_ms": 34080,
+   "end_ms": 34220
+  },
+  {
+   "word": "gâteau",
+   "start_ms": 34280,
+   "end_ms": 34860
+  },
+  {
+   "word": "du",
+   "start_ms": 35040,
+   "end_ms": 35220
+  },
+  {
+   "word": "château",
+   "start_ms": 35260,
+   "end_ms": 35800
+  },
+  {
+   "word": "au",
+   "start_ms": 36080,
+   "end_ms": 36220
+  },
+  {
+   "word": "couteau,",
+   "start_ms": 36300,
+   "end_ms": 36820
+  },
+  {
+   "word": "et",
+   "start_ms": 36920,
+   "end_ms": 37040
+  },
+  {
+   "word": "tombe",
+   "start_ms": 37100,
+   "end_ms": 37360
+  },
+  {
+   "word": "à",
+   "start_ms": 37480,
+   "end_ms": 37560
+  },
+  {
+   "word": "l'eau",
+   "start_ms": 37600,
+   "end_ms": 37840
+  },
+  {
+   "word": "!",
+   "start_ms": 38100,
+   "end_ms": 38100
+  }
+ ],
+ "waveform_visual": null
+}

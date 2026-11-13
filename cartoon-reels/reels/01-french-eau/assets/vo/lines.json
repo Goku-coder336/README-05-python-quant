@@ -143,6 +143,62 @@
     "lang": "en",
     "seconds": 1.567
   },
+  "p-q-water": {
+    "voice": "Laura",
+    "text": "How do you say water in French?",
+    "lang": "en",
+    "seconds": 1.75
+  },
+  "p-q-high": {
+    "voice": "Laura",
+    "text": "High?",
+    "lang": "en",
+    "seconds": 0.653
+  },
+  "p-q-oh": {
+    "voice": "Laura",
+    "text": "Oh!",
+    "lang": "en",
+    "seconds": 0.601
+  },
+  "p-q-hat": {
+    "voice": "Laura",
+    "text": "Hat?",
+    "lang": "en",
+    "seconds": 0.731,
+    "verified": true
+  },
+  "p-q-bird": {
+    "voice": "Laura",
+    "text": "Bird?",
+    "lang": "en",
+    "seconds": 0.679
+  },
+  "p-q-boat": {
+    "voice": "Laura",
+    "text": "Boat?",
+    "lang": "en",
+    "seconds": 0.731,
+    "verified": true
+  },
+  "p-q-cake": {
+    "voice": "Laura",
+    "text": "Cake?",
+    "lang": "en",
+    "seconds": 0.549
+  },
+  "p-q-castle": {
+    "voice": "Laura",
+    "text": "Castle?",
+    "lang": "en",
+    "seconds": 0.653
+  },
+  "p-q-knife": {
+    "voice": "Laura",
+    "text": "Knife?!",
+    "lang": "en",
+    "seconds": 0.784
+  },
   "t-p1": {
     "voice": "George",
     "text": "Le bel oiseau au chapeau !",
