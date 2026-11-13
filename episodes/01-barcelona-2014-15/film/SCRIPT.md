@@ -61,6 +61,9 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 **0.3** Barcelona still won the Champions League. So where did the goals go?
 *See:* **Pip lifts a magnifying glass to one eye; the lens fills the frame** and becomes the title card: "RUN OF THE CHAMPIONS", "Barcelona 2014/15", "The case of the moving goals".
 
+**0.4** This is a case about where goals go. Follow them, and the season tells a different story.
+*See:* the lens shrinks back into Pip's hand; **Pip tips an imaginary hat to camera.**
+
 ### c1-year: A transitional year
 
 **1.1** Start with the man in charge. Twenty fourteen to fifteen was Luis Enrique's first season as Barcelona coach.
@@ -71,9 +74,15 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 *See:* the quote set in Oswald on the board, quotation marks in red. **Pip reads it, tilts its head, underlines "transitional" with chalk.** Source line "Luis Enrique after the final · UEFA.com".
 *Source:* [UEFA] (quote verbatim)
 
+**1.2b** Keep that phrase in mind. It matters at the end of this story.
+*See:* **Pip taps the quote twice with the chalk** and pins it to the corner of the board.
+
 **1.3** Up front, he had three forwards. Lionel Messi. Neymar. Luis Suárez.
 *See:* **Pip places three big red magnets on the board, one per name**; each gets a name tag.
 *Source:* names only
+
+**1.3b** Three forwards. One ball. Somebody had to score the goals.
+*See:* **Pip juggles a single goal block between the three magnets**, unsure where to put it.
 
 **1.4** All three could score. So Pip follows the goals: who scored them, round by round, from the group to the final.
 *See:* **Pip chalks a route across the board: Group F, Round of 16, Quarter-final, Semi-final, Final, then sets off walking along it.**
@@ -96,6 +105,10 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 *See:* four result cards land, one per phrase; **blocks rain down and Pip sorts them into piles at speed.**
 *Source:* [UEFA]
 
+**2.4b** Six games. Five wins. One defeat. Fifteen goals scored, five conceded.
+*See:* a small tally card: W 5, L 1, scored 15, conceded 5. **Pip chalks it.**
+*Source:* [UEFA]
+
 **2.5** Messi scored in all four. Once, twice, three times, once.
 *See:* **Pip counts on its fingers as Messi's pile grows** 1, 3, 6, 7.
 *Source:* [UEFA]
@@ -108,6 +121,9 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 *See:* the three piles side by side, Messi's the tallest; **Pip leans on it, satisfied.** "Group stage goals · Source: UEFA".
 *Source:* [UEFA]
 
+**2.8** If you had stopped watching here, you would have called it the Messi show.
+*See:* **Pip sits on top of Messi's pile, swinging his legs.** Title flash: "THE MESSI SHOW?"
+
 ### c3-r16qf: Manchester and Paris, the goals move
 
 **3.1** The round of sixteen. Manchester City.
@@ -115,6 +131,10 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 
 **3.2** In Manchester, Barcelona won two-one. Both goals came from Suárez.
 *See:* "Man City (A) W 2-1"; two blocks fly past Pip into Suárez's knockout pile. **Pip turns to watch them go.**
+*Source:* [UEFA]
+
+**3.2b** Suárez had scored twice in the whole group stage. He matched that in one night in Manchester.
+*See:* Suárez's group pile (2) sits next to his new knockout pile (2); **Pip holds them up side by side.**
 *Source:* [UEFA]
 
 **3.3** At home, one-nil. The scorer was Ivan Rakitić. Three-one on aggregate.
@@ -127,6 +147,10 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 
 **3.5** Three-one in Paris. Neymar once, Suárez twice. Two-nil at home. Both goals, Neymar.
 *See:* two result cards; blocks fly to Neymar's and Suárez's piles.
+*Source:* [UEFA]
+
+**3.5b** Paris had beaten Barcelona in the group. In the quarter-final, Barcelona beat them twice and conceded once.
+*See:* the MD2 defeat card slides back in beside the two quarter-final wins; **Pip crosses it out with chalk.**
 *Source:* [UEFA]
 
 **3.6** Four knockout games. Eight goals. Suárez four. Neymar three. Rakitić one.
@@ -150,6 +174,10 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 *See:* "(A) L 2-3 · Neymar 2"; two more blocks to Neymar.
 *Source:* [UEFA]
 
+**4.3b** So Neymar scored in both legs: three goals across the tie.
+*See:* Neymar's knockout pile climbs to seven; **Pip whistles.**
+*Source:* [UEFA]
+
 **4.4** Five-three on aggregate. Barcelona were in the final.
 *See:* "Agg 5-3"; the route line runs on to the Final stop.
 *Source:* [UEFA]
@@ -164,6 +192,9 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 *See:* title "BERLIN · 6 JUNE 2015", "Olympiastadion", "Juventus v Barcelona". **Pip unrolls the tactics board as a full pitch.**
 *Source:* [UEFA]
 
+**5.1b** Pip has followed the goals all the way here. Now the board shows the final itself, from the event data.
+*See:* **Pip unrolls the board into a full pitch and steps to the touchline.**
+
 **5.2** Four minutes in, Messi switched the play to Jordi Alba on the left.
 *See:* top-down pitch. **Pip stands at the edge of the board and slides Messi's magnet; the long white dashed pass draws to Alba.** "Reconstruction · positions illustrative", "Data: StatsBomb open data".
 *Source:* [SB]
@@ -175,6 +206,10 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 **5.4** One-nil.
 *See:* the shot arrow into the goal; slow push in; "Juventus 0-1 Barcelona · 4'". **Pip punches the air.** Low hit.
 *Source:* [SB] [UEFA]
+
+**5.4b** Four passes, then the shot.
+*See:* the four pass arrows glow in order, the shot last.
+*Source:* [SB]
 
 **5.5** Ten minutes into the second half, Andrea Barzagli found Carlos Tevez.
 *See:* a new board, Juventus attacking: Barzagli's pass draws on to Tevez (grey magnets). **Pip peeks out from behind the goal.**
@@ -202,6 +237,10 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 *See:* Neymar to Pedro, Pedro back to Neymar, the shot. Pedro tagged (on from 95'). "1-3 · 90+7'".
 *Source:* [SB] [UEFA]
 
+**6.4b** Pedro had come on a minute and twenty seconds earlier.
+*See:* a small clock: Pedro on 95:19, assist 96:38. **Pip checks his wrist.**
+*Source:* [SB]
+
 **6.5** Barcelona were champions of Europe.
 *See:* hard cut: "CHAMPIONS". **Pip jumps; the route on the board lights all five stops red.**
 *Source:* [UEFA]
@@ -209,6 +248,10 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 **6.6** Andrés Iniesta was the official man of the match. And it was Xavi's last game for the club, his seven hundred and sixty-seventh.
 *See:* **Pip pins two cards:** "Man of the match: Andrés Iniesta", "Xavi: appearance 767, the last" (count 0 to 767).
 *Source:* [UEFA] [ESPN]
+
+**6.6b** Xavi came on in the seventy-eighth minute, for Iniesta.
+*See:* substitution card "78' Xavi for Iniesta".
+*Source:* [SB]
 
 ### c7-numbers: The evidence
 
@@ -231,8 +274,20 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 *See:* passes per 15 minutes, two series; Barcelona's first-half bars tallest. **Pip stacks the bars.**
 *Source:* [SB]
 
+**7.5b** In the first half, Barcelona made three hundred and seventy-four passes. Juventus made one hundred and seventy-five.
+*See:* the first three bars of each side light up; **Pip stretches to the top of Barcelona's.**
+*Source:* [SB]
+
+**7.5c** After the break the gap closed: two hundred and twenty-six to two hundred and two.
+*See:* the second-half bars light; the two sides almost level.
+*Source:* [SB]
+
 **7.6** But Juventus pressed more: one hundred and forty-four pressures to one hundred and twenty-two.
 *See:* pressing by thirds: Juventus 60 / 66 / 18, Barcelona 45 / 48 / 29, units "pressures". **Pip is jostled by grey magnets.**
+*Source:* [SB]
+
+**7.6b** Barcelona pressed higher: twenty-nine pressures in the attacking third, to Juventus's eighteen.
+*See:* the attacking-third column glows on both sides: 29 against 18.
 *Source:* [SB]
 
 **7.7** Barcelona's busiest passing link was Dani Alves to Rakitić: thirty-five completed passes before the first substitution.
@@ -257,6 +312,10 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 *See:* 31 and 11 land.
 *Source:* [UEFA]
 
+**8.2b** They won every home game, six out of six. Both defeats were by a single goal: three-two in Paris, three-two in Munich.
+*See:* six home result cards glow red; the two 2-3 cards tilt in grey. **Pip nods.**
+*Source:* [UEFA]
+
 **8.3** In the group, Messi scored eight. In the knockouts, two. Neymar and Suárez scored twelve of the sixteen.
 *See:* the opening blocks return; **Pip sweeps Neymar's and Suárez's knockout blocks together**: 12 of 16.
 *Source:* [UEFA]
@@ -264,6 +323,9 @@ Each line: narration, then what we see (Pip's action in **bold**), then the sour
 **8.4** Messi still finished joint top scorer, on ten goals, level with Neymar and Cristiano Ronaldo.
 *See:* three piles of ten. **Pip nods slowly: case closed.**
 *Source:* [UEFA] [ESPN] (both agree)
+
+**8.4b** So, case closed? Not quite.
+*See:* **Pip starts to close the case file, stops, and looks at the camera.**
 
 **8.5** It was Barcelona's second treble, and they were the first European club to win the treble twice.
 *See:* "2nd TREBLE"; "first club to win it twice · UEFA.com".
