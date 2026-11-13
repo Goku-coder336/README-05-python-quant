@@ -53,6 +53,15 @@ def goal_scene(sc, key, attack, anchors, t_show, t_hide, score_html, frame=(150,
 
     js, arrows, actors, extras = [], [], {}, []
     team_of = {}
+
+    def add_actor(name, loc, t0, team):
+        """A player's dot where the events put him; a second dot when he has moved more than 10 yards."""
+        last = [k for k in actors if k.split("#")[0] == name]
+        if last:
+            (px, py), _, _ = actors[last[-1]]
+            if ((px - loc[0]) ** 2 + (py - loc[1]) ** 2) ** 0.5 <= 10:
+                return
+        actors[name if not last else f"{name}#{len(last) + 1}"] = (loc, t0, team)
     for i, s in enumerate(steps):
         t0, d = times[i], durs[i]
         if s["kind"] in ("pass", "carry", "shot"):
@@ -63,11 +72,11 @@ def goal_scene(sc, key, attack, anchors, t_show, t_hide, score_html, frame=(150,
             js.append(f'tl.fromTo("#{aid}-mp", {{ attr: {{ "stroke-dashoffset": 100 }} }}, {{ attr: {{ "stroke-dashoffset": 0 }}, duration: {d}, ease: "power2.inOut" }}, {t0});')
             js.append(f'tl.fromTo("#{aid}-head", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.1 }}, {round(t0 + d - 0.05, 3)});')
             js.append(f'tl.fromTo("#{g}-ball", {{ attr: {{ cx: {x1}, cy: {y1} }} }}, {{ attr: {{ cx: {x2}, cy: {y2} }}, duration: {d}, ease: "power2.inOut", immediateRender: false }}, {t0});')
-            actors.setdefault(s["player"], (s["from"], t0, s["team"]))
+            add_actor(s["player"], s["from"], t0, s["team"])
             if s.get("to_player"):
-                actors.setdefault(s["to_player"], (s["to"], round(t0 + d, 3), s["team"]))
+                add_actor(s["to_player"], s["to"], round(t0 + d, 3), s["team"])
         elif s["kind"] in ("keeper", "beaten"):
-            actors.setdefault(s["player"], (s["at"], t0, s["team"]))
+            add_actor(s["player"], s["at"], t0, s["team"])
             if s["kind"] == "keeper":
                 kx, ky = P.P(*s["at"])
                 extras.append(f'<g id="{g}-save" opacity="0"><circle cx="{kx}" cy="{ky}" r="34" fill="none" stroke="#fff" stroke-width="4" stroke-dasharray="8 8"/>'
@@ -84,7 +93,7 @@ def goal_scene(sc, key, attack, anchors, t_show, t_hide, score_html, frame=(150,
 
     # opponents (and unnamed teammates) at the moment of the scoring shot: StatsBomb freeze frame
     others = []
-    named = set(actors)
+    named = {k.split("#")[0] for k in actors}
     for f in shot.get("freeze", []):
         if f["name"] in named:
             continue
@@ -94,7 +103,7 @@ def goal_scene(sc, key, attack, anchors, t_show, t_hide, score_html, frame=(150,
     for k, (name, (loc, t0, team)) in enumerate(actors.items()):
         x, y = P.P(*loc)
         mine.append((k, name, x, y, t0, team))
-    spots = place_tags([(k, x, y, name) for k, name, x, y, _, _ in mine],
+    spots = place_tags([(k, x, y, name.split("#")[0]) for k, name, x, y, _, _ in mine],
                        [(x, y, 30) for _, _, x, y, _, _ in mine] + [((x, y)[0], (x, y)[1], 20) for (x, y), _ in others],
                        frame=(60, 190, 1860, 920))
     dots, tags = [], []
@@ -104,9 +113,11 @@ def goal_scene(sc, key, attack, anchors, t_show, t_hide, score_html, frame=(150,
         js.append(f'tl.fromTo("#{pid}", {{ opacity: 0 }}, {{ opacity: 0.9, duration: 0.4 }}, {round(times[0] + 0.2 + j * 0.04, 3)});')
     for k, name, x, y, t0, team in mine:
         pid = f"{g}-p{k}"
+        if k == 0:  # the player who starts the move is on the board as soon as the scene opens
+            t0 = min(t0, round(t_show + 0.6, 3))
         side = "A" if team == "Barcelona" else "B"
         dots.append(dot(pid, x, y, side, key=True, prefix=sc.cid))
-        tags.append(tag(f"{pid}-tag", x, y, *spots[k], name, side))
+        tags.append(tag(f"{pid}-tag", x, y, *spots[k], name.split("#")[0], side))
         js.append(f'tl.fromTo("#{pid}", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.3 }}, {round(t0 - 0.3, 3)});')
         js.append(f'tl.fromTo("#{pid}-ring", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.25 }}, {round(t0 - 0.25, 3)});')
         js.append(f'tl.fromTo("#{pid}-tag", {{ opacity: 0 }}, {{ opacity: 1, duration: 0.25 }}, {round(t0 - 0.2, 3)});')

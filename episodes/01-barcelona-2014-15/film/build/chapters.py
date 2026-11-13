@@ -17,11 +17,14 @@ def rc(sc, m, x, y, t, w=600):
     return result_card(sc, x, y, m["label"], m["opp"], m["venue"], m["res"], m["score"], m["scorers"], t, w)
 
 
-def blocks_row(sc, key, total, red, x0, y, t_drop, red_times, bs=56, gap=13, outline=None):
+def blocks_row(sc, key, total, red, x0, y, t_drop, red_times, bs=56, gap=13, outline=None, static=False):
     ids = []
     for i in range(total):
         bid = f"{sc.cid}-{key}{i}"
         ids.append(bid)
+        if static:  # on screen from the first frame (the film's opening frame is its poster)
+            sc.add(f'<div id="{bid}" style="position:absolute;left:{x0 + i * (bs + gap)}px;top:{y}px;width:{bs}px;height:{bs}px;border-radius:9px;background:{BLOCK}"></div>')
+            continue
         sc.add(f'<div id="{bid}" style="position:absolute;left:{x0 + i * (bs + gap)}px;top:{y}px;width:{bs}px;height:{bs}px;border-radius:9px;background:{BLOCK};opacity:0"></div>',
                f'tl.fromTo("#{bid}", {{ opacity: 0, y: -60 }}, {{ opacity: 1, y: 0, duration: 0.35, ease: "bounce.out" }}, {round(t_drop + i * 0.045, 3)});')
     for i, tr in zip(range(red), red_times):
@@ -29,7 +32,8 @@ def blocks_row(sc, key, total, red, x0, y, t_drop, red_times, bs=56, gap=13, out
         sc.sfx(tr, "click2", 0.35)
     for i, t in (outline or []):
         sc.js.append(f'tl.to("#{ids[i]}", {{ backgroundColor: "rgba(225,29,46,.18)", boxShadow: "inset 0 0 0 4px {ACCENT}", duration: 0.15 }}, {round(t, 3)});')
-    sc.sfx(t_drop, "pop", 0.4)
+    if not static:
+        sc.sfx(t_drop, "pop", 0.4)
     return ids
 
 
@@ -62,9 +66,8 @@ def c0():
     board(sc)
     X0 = 140
     t1 = sc.W("0.1", "eight")
-    blocks_row(sc, "g", 15, 8, X0, 230, sc.T("0.1") + 0.2, [t1 + 0.12 * i for i in range(8)])
-    sc.add(f'<div id="{sc.cid}-gl" class="oswald" style="position:absolute;left:{X0}px;top:160px;font-size:40px;color:{MUTED};letter-spacing:.06em;opacity:0">GROUP STAGE</div>',
-           fade_in(f"#{sc.cid}-gl", sc.T("0.1"), 0.3))
+    blocks_row(sc, "g", 15, 8, X0, 230, sc.T("0.1") + 0.2, [t1 + 0.12 * i for i in range(8)], static=True)
+    sc.add(f'<div id="{sc.cid}-gl" class="oswald" style="position:absolute;left:{X0}px;top:160px;font-size:40px;color:{MUTED};letter-spacing:.06em">GROUP STAGE</div>')
     number(sc, 1290, 212, 8, 15, t1 + 1.1)
     t2 = sc.W("0.2", "two")
     blocks_row(sc, "k", 16, 2, X0, 470, sc.T("0.2") + 0.3, [t2, t2 + 0.25])
@@ -574,8 +577,9 @@ def c8():
     sc.js.append(fade_out(f"#{sc.cid}-bt{sc.n}", sc.T("8.4") - 0.15))
     # joint top scorers: three piles of ten
     tp = panel(sc, f'<div class="oswald" style="position:absolute;left:140px;top:160px;font-size:52px">JOINT TOP SCORERS, 2014/15</div>'
-                   f'<div class="src" style="left:140px;top:880px">Champions League goals · Source: UEFA</div>', sc.T("8.4") - 0.1, sc.T("8.5") - 0.15)
-    piles = Piles(sc, ["Messi", "Neymar", "Cristiano Ronaldo"], 560, 840, gapx=380, bs=40, colours={"Cristiano Ronaldo": "#6b7380"})
+                   f'<div class="src" style="left:140px;top:905px">Champions League goals · Source: UEFA</div>', sc.T("8.4") - 0.1, sc.T("8.5") - 0.15)
+    piles = Piles(sc, ["Messi", "Neymar", "Cristiano Ronaldo"], 560, 840, gapx=380, bs=40, colours={"Cristiano Ronaldo": "#6b7380"},
+                  show=sc.T("8.4") - 0.1, hide=sc.T("8.5") - 0.15)
     for k in range(10):
         for j, n in enumerate(["Messi", "Neymar", "Cristiano Ronaldo"]):
             piles.add_goal(n, sc.W("8.4", "ten") - 0.6 + k * 0.08 + j * 0.03, from_xy=(piles.x[n], 100))

@@ -197,7 +197,7 @@ def result_card(sc, x, y, label, opp, venue, res, score, scorers, t, w=560):
 class Piles:
     """Goal blocks stacked into a pile per player, bottom-up, with a name and a running count."""
 
-    def __init__(self, sc, names, x0, base, gapx=170, bs=46, colours=None, start=None):
+    def __init__(self, sc, names, x0, base, gapx=170, bs=46, colours=None, start=None, show=None, hide=None):
         self.sc, self.bs, self.base = sc, bs, base
         self.x = {n: x0 + k * gapx for k, n in enumerate(names)}
         self.count = {n: (start or {}).get(n, 0) for n in names}
@@ -211,7 +211,11 @@ class Piles:
             for k in range(self.count[n]):
                 parts.append(self._block(n, k, visible=True))
         self.parts = parts
-        sc.add("\n".join(parts))
+        if show is None:
+            sc.add("\n".join(parts))
+        else:  # the labels and counts appear with the piles, not before
+            sc.add(f'<div id="{self.i}-wrap" style="position:absolute;inset:0;opacity:0">' + "\n".join(parts) + '</div>',
+                   fade_in(f"#{self.i}-wrap", show, 0.3, blur=False), fade_out(f"#{self.i}-wrap", hide) if hide else None)
 
     def _block(self, n, k, visible=False):
         x, y = self.x[n], self.base - (k + 1) * (self.bs + 6)

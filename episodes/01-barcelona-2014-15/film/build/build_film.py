@@ -1,7 +1,7 @@
 """Build the whole film: the nine chapter scenes, the captions, the audio mixes and the root composition.
 
 Usage: python build/build_film.py [--no-audio]
-Writes compositions/c*.html, compositions/captions.html, assets/audio/mix_full.wav, assets/audio/mix_nomusic.wav,
+Writes compositions/c*.html, compositions/captions.html, assets/audio/mix_full.m4a, assets/audio/mix_nomusic.wav,
 data/timeline.json and index.html.
 """
 import argparse
@@ -165,6 +165,8 @@ def mix():
         write(raw, arr)
         finish(raw, os.path.join(AUD, f"mix_{name}.wav"))
         os.remove(raw)
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", os.path.join(AUD, f"mix_{name}.wav"), "-c:a", "aac", "-b:a", "256k",
+                        os.path.join(AUD, f"mix_{name}.m4a")], check=True)  # the repo keeps the compressed copy
     print("mixes:", {f: round(lufs(os.path.join(AUD, f"mix_{f}.wav")), 1) for f in ("full", "nomusic")}, "LUFS")
 
 
@@ -186,7 +188,7 @@ def main():
     open(os.path.join(comp, "captions.html"), "w", encoding="utf-8").write(captions_html())
     hosts.append(f'      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html" '
                  f'data-start="0" data-duration="{FILM_END}" data-track-index="2" data-track-kind="captions" data-width="1920" data-height="1080" style="z-index:5"></div>')
-    hosts.append(f'      <audio id="mix" class="clip" src="assets/audio/mix_full.wav" data-start="0" data-duration="{FILM_END}" data-track-index="3" data-volume="1"></audio>')
+    hosts.append(f'      <audio id="mix" class="clip" src="assets/audio/mix_full.m4a" data-start="0" data-duration="{FILM_END}" data-track-index="3" data-volume="1"></audio>')
     open(os.path.join(FILM, "index.html"), "w", encoding="utf-8").write(f"""<!doctype html>
 <html lang="en">
   <head>

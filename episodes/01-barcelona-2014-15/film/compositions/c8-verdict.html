@@ -75,13 +75,13 @@
 <div id="c8-verdict-vk14" style="position:absolute;left:1106px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
 <div id="c8-verdict-vk15" style="position:absolute;left:1175px;top:470px;width:56px;height:56px;border-radius:9px;background:#2a2f38;opacity:0"></div>
 <div id="c8-verdict-bt9" class="oswald" style="position:absolute;left:1240px;top:452px;width:300px;text-align:left;font-size:84px;line-height:1.05;color:#f4f5f7;opacity:0"><span style="color:#ff3b47">12</span><span style="color:#8b93a1;font-size:52px"> / 16</span></div>
-<div id="c8-verdict-pn10" style="position:absolute;inset:0;opacity:0"><div class="oswald" style="position:absolute;left:140px;top:160px;font-size:52px">JOINT TOP SCORERS, 2014/15</div><div class="src" style="left:140px;top:880px">Champions League goals · Source: UEFA</div></div>
-<div id="c8-verdict-pl11-messi-name" style="position:absolute;left:490px;top:854px;width:180px;text-align:center;font:700 28px Inter;color:#f4f5f7">Messi</div>
+<div id="c8-verdict-pn10" style="position:absolute;inset:0;opacity:0"><div class="oswald" style="position:absolute;left:140px;top:160px;font-size:52px">JOINT TOP SCORERS, 2014/15</div><div class="src" style="left:140px;top:905px">Champions League goals · Source: UEFA</div></div>
+<div id="c8-verdict-pl11-wrap" style="position:absolute;inset:0;opacity:0"><div id="c8-verdict-pl11-messi-name" style="position:absolute;left:490px;top:854px;width:180px;text-align:center;font:700 28px Inter;color:#f4f5f7">Messi</div>
 <div id="c8-verdict-pl11-messi-num" class="oswald" style="position:absolute;left:490px;top:770px;width:180px;text-align:center;font-size:52px;color:#ff3b47">0</div>
 <div id="c8-verdict-pl11-neymar-name" style="position:absolute;left:870px;top:854px;width:180px;text-align:center;font:700 28px Inter;color:#f4f5f7">Neymar</div>
 <div id="c8-verdict-pl11-neymar-num" class="oswald" style="position:absolute;left:870px;top:770px;width:180px;text-align:center;font-size:52px;color:#f4f5f7">0</div>
 <div id="c8-verdict-pl11-cristianoronaldo-name" style="position:absolute;left:1250px;top:854px;width:180px;text-align:center;font:700 28px Inter;color:#f4f5f7">Cristiano Ronaldo</div>
-<div id="c8-verdict-pl11-cristianoronaldo-num" class="oswald" style="position:absolute;left:1250px;top:770px;width:180px;text-align:center;font-size:52px;color:#f4f5f7">0</div>
+<div id="c8-verdict-pl11-cristianoronaldo-num" class="oswald" style="position:absolute;left:1250px;top:770px;width:180px;text-align:center;font-size:52px;color:#f4f5f7">0</div></div>
 <div id="c8-verdict-pl11-messi-b0" style="position:absolute;left:560px;top:794px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
 <div id="c8-verdict-pl11-neymar-b0" style="position:absolute;left:940px;top:794px;width:40px;height:40px;border-radius:8px;background:#e11d2e;box-shadow:0 0 16px #e11d2e;opacity:0"></div>
 <div id="c8-verdict-pl11-cristianoronaldo-b0" style="position:absolute;left:1320px;top:794px;width:40px;height:40px;border-radius:8px;background:#6b7380;opacity:0"></div>
@@ -304,6 +304,8 @@
     tl.to("#c8-verdict-bt9", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 27.051);
     tl.fromTo("#c8-verdict-pn10", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.25, ease: "power4.out" }, 27.101);
     tl.to("#c8-verdict-pn10", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 36.72);
+    tl.fromTo("#c8-verdict-pl11-wrap", { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.3, ease: "power4.out" }, 27.101);
+    tl.to("#c8-verdict-pl11-wrap", { opacity: 0, filter: "blur(6px)", duration: 0.2, ease: "power2.in" }, 36.72);
     tl.fromTo("#c8-verdict-pl11-messi-b0", { opacity: 0, x: 0, y: -694, rotation: -25 }, { opacity: 1, x: 0, y: 0, rotation: 0, duration: 0.55, ease: "power3.out" }, 29.192);
     tl.to("#c8-verdict-pl11-messi-num", { y: -46, duration: 0.3, ease: "power2.out" }, 29.542);
     tl.set("#c8-verdict-pl11-messi-num", { textContent: "1" }, 29.592);
