@@ -46,3 +46,5 @@ ElevenLabs key is saved on the cloud environment as a network secret for `api.el
 ## Tools installed in the old session (temporary: reinstall in a new session)
 
 HyperFrames skills (`npx skills add heygen-com/hyperframes -g -y -a claude-code`), Lemo-Opuscar plugin, Bang Motion plugin, YouTube agent plugin, claude-drawing / huashu-art-motion / vox-explainer / vox-director skills, claude-mem, Vercel and addyosmani skills. Python needs `scipy`. Huashu needs Python Playwright pinned to 1.63.0 (`uv run --with playwright==1.63.0`) to match the preinstalled Chromium.
+
+Free motion/audio tools added (pip): `numba pedalboard pyloudnorm faster-whisper opencv-python-headless`. Use pyloudnorm + pedalboard for the final loudness/limiter pass, opencv to catch black or frozen frames in renders, faster-whisper (model `small`, CPU int8; pass a numpy array, not a file path, because of a PyAV version clash) as a free fallback to ElevenLabs speech-to-text. ElevenLabs scribe stays the main lyric checker: whisper mishears sung French ("et tombe à l'eau" came out as "et ton balai"). No tokens needed for any of them.
