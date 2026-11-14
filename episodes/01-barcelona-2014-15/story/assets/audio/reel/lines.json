@@ -1,0 +1,47 @@
+{
+ "r1": {
+  "text": "Three forwards. One season. Messi. Suárez. Neymar.",
+  "dur": 5.02,
+  "heard": "Three forwards, one season. Messi, Suarez, Neymar"
+ },
+ "r2": {
+  "text": "Group stage. Messi scores eight of Barcelona's fifteen goals, three of them in one night in Cyprus.",
+  "dur": 6.92,
+  "heard": "Group stage: Messi scores eight of Barcelona's fifteen goals, three of them in one night in Cyprus"
+ },
+ "r3": {
+  "text": "Round of sixteen. In Manchester, Suárez scores twice.",
+  "dur": 4.02,
+  "heard": "Round of 16. In Manchester, Suarez scores twice"
+ },
+ "r4": {
+  "text": "Quarter-final. Paris. Suárez twice more, Neymar three times.",
+  "dur": 4.83,
+  "heard": "Quarterfinal, Paris. Suarez twice more, Neymar three times"
+ },
+ "r5": {
+  "text": "Semi-final. Bayern. Messi twice, and Neymar in both legs.",
+  "dur": 4.6,
+  "heard": "Semifinal: Bayern, Messi twice and Neymar in both legs"
+ },
+ "r6": {
+  "text": "Berlin. Four minutes in, Rakitić.",
+  "dur": 2.64,
+  "heard": "Berlin, four minutes in, Rakitić"
+ },
+ "r7": {
+  "text": "Messi runs at Juventus. Buffon saves. Suárez scores.",
+  "dur": 4.08,
+  "heard": "Messi runs at Juventus, Buffon saves, Suarez scores"
+ },
+ "r8": {
+  "text": "And in stoppage time, Neymar.",
+  "dur": 1.99,
+  "heard": "And in stoppage time, Neymar"
+ },
+ "r9": {
+  "text": "Champions of Europe. The treble, again. Messi, Suárez and Neymar: twenty-seven of Barcelona's thirty-one goals.",
+  "dur": 8.25,
+  "heard": "Champions of Europe. The treble again. Messi, Suarez, and Neymar. 27 of Barcelona's 31 goals"
+ }
+}

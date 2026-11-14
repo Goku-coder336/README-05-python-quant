@@ -10,6 +10,8 @@
     JUV: { shirt: "#f4f4f2", stripe: "#151515", shorts: "#151515", socks: "#151515", boots: "#101010", sleeve: "#f4f4f2" },
     GKJ: { shirt: "#f2a516", stripe: null, shorts: "#f2a516", socks: "#f2a516", boots: "#101010", sleeve: "#d98e0c" },
     GKB: { shirt: "#b8e01f", stripe: null, shorts: "#b8e01f", socks: "#b8e01f", boots: "#101010", sleeve: "#a0c616" },
+    OPP: { shirt: "#3d4452", stripe: null, shorts: "#262a33", socks: "#3d4452", boots: "#101010", sleeve: "#353b47" },
+    OPPGK: { shirt: "#2fbf71", stripe: null, shorts: "#1f8a50", socks: "#2fbf71", boots: "#101010", sleeve: "#29a863" },
   };
   const SKIN = "#b97a55", HAIR = "#1d130c";
 
