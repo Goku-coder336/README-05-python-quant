@@ -2,12 +2,17 @@
 import json, os, re, subprocess
 import numpy as np
 SR, DUR = 48000, 60.0
+import sys
+PLAN = json.load(open(sys.argv[1])) if len(sys.argv) > 1 else None
 A = "assets/audio/reel"
 VO = {"r1": 0.5, "r2": 5.95, "r3": 13.35, "r4": 19.55, "r5": 25.95, "r6": 32.2, "r7": 37.4, "r8": 46.2, "r9": 51.6}
 CUTS = [5.8, 13.2, 19.4, 25.8, 32.0, 37.0, 44.0, 50.5]
 SHOTS = [8.5, 15.9, 22.1, 28.5, 34.0, 40.0, 41.4, 47.6]          # a boot on the ball
 PASSES = [33.0, 44.6, 45.8]
 GOALS = [8.85, 16.25, 22.45, 28.85, 34.35, 41.75, 47.95]          # ball in the net
+CUPT, OUT = 50.7, "reel"
+if PLAN:
+    VO, CUTS, SHOTS, PASSES, GOALS, CUPT, OUT = PLAN["vo"], PLAN["cuts"], PLAN["shots"], PLAN.get("passes", []), PLAN["goals"], PLAN["cup"], PLAN["out"]
 def load(p):
     raw = subprocess.run(["ffmpeg", "-v", "error", "-i", p, "-ac", "1", "-ar", str(SR), "-f", "f32le", "-"], capture_output=True).stdout
     return np.frombuffer(raw, np.float32).copy()
@@ -34,7 +39,7 @@ for t in SHOTS: place(fx, kick, t)
 for t in PASSES: place(fx, kick, t, 0.45)
 for t in GOALS:
     place(fx, net, t); r = roar.copy(); r[-int(1.0 * SR):] *= np.linspace(1, 0, int(1.0 * SR)); place(fx, r, t + 0.05)
-place(fx, cup, 50.7)
+place(fx, cup, CUPT)
 mu = load(f"{A}/music.mp3")[:n]; mu = np.pad(mu, (0, n - len(mu)))
 mu *= 10 ** ((-20 - lufs(mu)) / 20)
 k = int(0.25 * SR); duck = 1 - 0.45 * np.convolve(active, np.ones(k) / k, mode="same")
@@ -42,7 +47,7 @@ mu *= duck; mu[-int(1.5 * SR):] *= np.linspace(1, 0, int(1.5 * SR))
 for name, mix in (("full", vo + fx + mu), ("nomusic", vo + fx)):
     mix = mix * 10 ** ((-15 - lufs(mix)) / 20)
     write(f"{A}/_raw.wav", mix)
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", f"{A}/_raw.wav", "-af", "alimiter=limit=0.8:level=false", "-ar", str(SR), f"{A}/reel_{name}.wav"], check=True)
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", f"{A}/_raw.wav", "-af", "alimiter=limit=0.8:level=false", "-ar", str(SR), f"{A}/{OUT}_{name}.wav"], check=True)
     os.remove(f"{A}/_raw.wav")
 # captions: each line split into short groups, timed by character position over the line's length
 caps = []
@@ -60,5 +65,5 @@ for k, t in VO.items():
         i = text.index(p, pos); j = i + len(p); pos = j
         caps.append([round(t + 0.1 + (d - 0.3) * i / len(text), 2), round(t + 0.1 + (d - 0.3) * j / len(text) + 0.25, 2), p])
 for a, b in zip(caps, caps[1:]): a[1] = min(a[1], b[0])
-json.dump(caps, open(f"{A}/captions.json", "w"), ensure_ascii=False, indent=0)
+json.dump(caps, open(f"{A}/{OUT}_captions.json", "w"), ensure_ascii=False, indent=0)
 print(len(caps), "caption groups")
