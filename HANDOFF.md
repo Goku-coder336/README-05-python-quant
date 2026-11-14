@@ -38,8 +38,8 @@ ElevenLabs key is saved on the cloud environment as a network secret for `api.el
 
 ## Next steps the owner asked for / is deciding
 
-1. Third demo drawing to finish the set: **"et tombe à l'eau !"** (bird toppling off the boat into the water, splash, hat flying). Same style as `cartoon-reels/demos/oiseau_gateau.py`.
-2. Then add the drawings into reel 01 (e.g. as cutaways during the sung chorus, rendered at full 1080x1920 with more frames), likely on top of v4.
+1. DONE: third drawing `demos/oiseau_tombe.py` ("et tombe à l'eau !").
+2. DONE: the three drawings are cut into v4's sung chorus (`CUTAWAYS=1`, frames in `assets/drawings/`): `renders/01-french-eau-v4-drawings-{music,nomusic}.mp4`. Waiting for the owner's verdict.
 3. Owner may still change the music, voices or script of reel 01.
 4. Football reels: rules were in `~/football-reels/CLAUDE.md` (temporary, now lost). The owner wants them in a separate GitHub repo they will create; the full brief is in the chat history (ask the owner to paste it again if needed).
 

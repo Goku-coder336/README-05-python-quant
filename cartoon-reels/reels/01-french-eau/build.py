@@ -22,6 +22,8 @@ P1 = T["payoff"]["end"]
 B0 = T["button"]["start"]
 TOTAL = round(T["total"], 3)
 SONG_WORDS = json.loads((AUDIO / "song.json").read_text())["words"]
+# CUTAWAYS=1 cuts from the duet to the three hand-drawn pictures (../../demos) during the sung chorus
+CUTAWAYS = os.environ.get("CUTAWAYS") == "1"
 
 FONT = "font-family: 'Montserrat', sans-serif;"
 INK = "#1d1d1b"
@@ -276,10 +278,11 @@ def payoff():
                 js.append(f'tl.set("#{who}-mouth-o", {{opacity: {st}}}, {k});tl.set("#{who}-mouth-c", {{opacity: {1 - st}}}, {k});')
     js.append(blinks_js("pay-t", dur, 0.9))
     js.append(blinks_js("pay-p", dur, 1.6, (2.7, 2.2)))
+    cut_html, cut_js, cut_css = cutaways() if CUTAWAYS else ("", "", "")
     body = "\n    ".join(html)
-    script = "\n    ".join(js)
+    script = "\n    ".join(js) + "\n    " + cut_js
     return f"""<template>
-  <style>
+  <style>{cut_css}
     #root {{ position: absolute; inset: 0; overflow: hidden; background: #2b1d4f; {FONT} }}
     #pay-shake {{ position: absolute; inset: 0; }}
     #pay-tint {{ position: absolute; inset: 0; background: #7a2e8c; opacity: 0; }}
@@ -321,6 +324,7 @@ def payoff():
       </svg>
       <div id="pay-tag">SING ALONG</div>
       {body}
+      {cut_html}
     </div>
     <div id="pay-flash"></div>
   </div>
@@ -331,6 +335,45 @@ def payoff():
   </script>
 </template>
 """
+
+
+# ------------------------------------------------------------- drawn cutaways ---
+def cutaways():
+    """Full-screen drawings that draw themselves on (pencil, ink, colour, shade) over the chorus.
+    Times are absolute, from the sung lines; the duet comes back for the splash on "l'eau"."""
+    lines = T["payoff"]["lines"]
+    splash = T["payoff"]["splash"]
+    cuts = [  # (drawing, start, end, translation, draw-on seconds)
+        (1, lines[1]["start"] - 0.1, lines[2]["start"] - 0.1, "The bird in a hat, on the boat,", 1.0),
+        (2, lines[2]["start"] - 0.1, lines[3]["start"] - 0.1, "cuts the castle's cake with a knife…", 1.0),
+        (3, lines[3]["start"] - 0.1, splash - 0.04, None, 0.3),  # too quick for a caption; the duet's line follows
+    ]
+    html, js = [], []
+    # the sung lyric lines under a drawing are hidden while it is up (the drawing carries the lyric)
+    lyr = ", ".join(f"#pay-l{i}, #pay-e{i}" for i in range(len(lines)))
+    js.append(f'tl.set([{", ".join(repr(x.strip()) for x in lyr.split(","))}], {{visibility: "hidden"}}, {r(cuts[0][1] - P0)});')
+    js.append(f'tl.set([{", ".join(repr(x.strip()) for x in lyr.split(","))}], {{visibility: "visible"}}, {r(cuts[-1][2] - P0)});')
+    for d, a, b, en, draw in cuts:
+        s, dur = r(a - P0), r(b - a)
+        imgs = "".join(f'<img id="cut{d}-{k}" class="cut-img" src="../assets/drawings/d{d}-0{k}.jpg" alt="">' for k in range(1, 7))
+        top = {1: 470, 2: 590}.get(d, 590)  # clear of each drawing's title and sun
+        cap = f'<div id="cut{d}-en" class="cut-en" style="top: {top}px;">{en}</div>' if en else ""
+        html.append(f'<div id="cut{d}" class="cut clip" data-start="{s}" data-duration="{dur}">{imgs}{cap}</div>')
+        js.append(f'tl.set("#cut{d}-1", {{opacity: 1}}, {s});')
+        step = draw / 5
+        for k in range(2, 7):
+            t = r(s + step * (k - 1))
+            js.append(f'tl.to("#cut{d}-{k}", {{opacity: 1, duration: {r(step * 0.8)}}}, {r(t - step * 0.8)});')
+        js.append(f'tl.fromTo("#cut{d}", {{scale: 1.12}}, {{scale: 1.0, duration: 0.35, ease: "power3.out"}}, {s});')
+        js.append(f'tl.to("#cut{d}", {{scale: 1.04, duration: {r(max(0.1, dur - 0.35))}, ease: "none"}}, {r(s + 0.35)});')
+        if en:
+            js.append(f'tl.fromTo("#cut{d}-en", {{y: 20, opacity: 0}}, {{y: 0, opacity: 1, duration: 0.25}}, {r(s + min(draw, 0.3))});')
+    css = """
+    .cut { position: absolute; inset: 0; overflow: hidden; }
+    .cut-img { position: absolute; inset: 0; width: 1080px; height: 1920px; opacity: 0; }
+    .cut-en { position: absolute; top: 600px; left: 90px; right: 90px; text-align: center; padding: 14px 20px; border-radius: 34px;
+              background: rgba(29, 29, 27, 0.78); color: #fffdf6; font-weight: 700; font-size: 40px; opacity: 0; }"""
+    return "\n      ".join(html), "\n    ".join(js), css
 
 
 # ------------------------------------------------------------------ button ---
