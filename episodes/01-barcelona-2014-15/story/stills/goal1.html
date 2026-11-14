@@ -1,0 +1,17 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #146a66; font-family: Inter, sans-serif; color: #fff; }
+  .bg { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 40%, #1f8e86 0%, #146a66 55%, #0a3a3d 100%); }
+  .tag { position: absolute; transform: translate(-50%, -100%); font: 700 28px Inter; padding: 6px 18px; border-radius: 22px; background: rgba(4,32,36,.88); border: 3px solid #ff3b55; white-space: nowrap; }
+</style>
+<script src="../data/mocap.js"></script><script src="../assets/story.js"></script><script src="../assets/mo.js"></script><script src="../assets/goal1.js"></script>
+</head><body><div class="bg"></div>
+<svg id="s" width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0"></svg><div id="tags"></div>
+<script>
+const t = parseFloat(new URLSearchParams(location.search).get("t") || "0");
+try { GOAL1.render(t, document.getElementById("s"), document.getElementById("tags")); } catch (e) { console.log("ERR", e.stack); }
+document.body.setAttribute("data-ready", "1");
+</script></body></html>
