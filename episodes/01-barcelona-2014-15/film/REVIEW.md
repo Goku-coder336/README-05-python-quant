@@ -6,7 +6,7 @@
 - Both are 1920x1080, 30 fps, about 7:03.
 
 ## Sound
-- I measured the sound but could not listen to it. The voice is set to about -16 LUFS and the music to -22 LUFS, ducked about 45% under the voice. Each file is finished at about -15 LUFS with a true peak limit of -1.5 dBTP.
+- I measured the sound but could not listen to it. The voice is set to about -16 LUFS and the music to -22 LUFS, ducked about 45% under the voice. Measured on the finished files: -15.5 LUFS with a true peak of -2.6 dBTP (with music) and -15.4 LUFS with -1.9 dBTP (without music). Both run 7:03 (423.07 s).
 - Every voice line was checked with speech to text. One flag is left on purpose: 7.6b ("Juventus'"), where the transcriber writes "Juventus's". The voice says it correctly.
 
 ## Accuracy changes from the earlier script
