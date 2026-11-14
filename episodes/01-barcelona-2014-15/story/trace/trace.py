@@ -165,6 +165,8 @@ for idx, fr in enumerate(frames()):
                 cnts, _ = cv2.findContours(m, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
                 cv2.drawContours(out, cnts, -1, (25, 25, 25), 2, cv2.LINE_AA)
                 continue
+            px = win[m > 0].astype(np.float32)  # the outline was smoothed above
+            if len(px) < 60: continue
             nclu = min(a.colours, len(px))
             _, lab, cen = cv2.kmeans(px, nclu, None, (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0), 2, cv2.KMEANS_PP_CENTERS)
             cen = np.clip(cen * 1.08, 0, 255).astype(np.uint8)
