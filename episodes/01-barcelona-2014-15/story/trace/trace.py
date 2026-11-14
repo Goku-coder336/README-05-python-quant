@@ -21,6 +21,7 @@ ap.add_argument("--zoom", type=float, default=1.0, help="1 = window as tall as t
 ap.add_argument("--start", type=float, default=0); ap.add_argument("--end", type=float, default=0)
 ap.add_argument("--fps", type=float, default=30)
 ap.add_argument("--colours", type=int, default=4)
+ap.add_argument("--nolines", action="store_true", help="skip pitch markings (close-ups next to advertising boards)")
 ap.add_argument("--horizontal", action="store_true", help="16:9 output instead of 9:16")
 a = ap.parse_args()
 
@@ -117,7 +118,7 @@ for idx, fr in enumerate(frames()):
         keep[c] = max(w_, h_) > 0.05 * max(OW, OH) and st_l[c, 4] < 0.4 * w_ * h_ + 80
     lines = (keep[lab_l] * 255).astype(np.uint8)
     lines = cv2.dilate(lines, np.ones((3, 3), np.uint8))
-    out[lines > 0] = (255, 255, 255)
+    if not a.nolines: out[lines > 0] = (255, 255, 255)
 
     res = model(win, classes=[0, 32, 41, 75], conf=0.25, verbose=False, retina_masks=True)[0]
     if res.masks is not None:
@@ -171,7 +172,7 @@ for idx, fr in enumerate(frames()):
             _, lab, cen = cv2.kmeans(px, nclu, None, (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0), 2, cv2.KMEANS_PP_CENTERS)
             cen = np.clip(cen * 1.08, 0, 255).astype(np.uint8)
             flat = np.zeros_like(win); flat[m > 0] = cen[lab.ravel()]
-            kk = max(5, (int(0.01 * max(OW, OH)) // 2) * 2 + 1)  # washes out sponsor names, crests and numbers
+            kk = max(5, (int(max(0.01 * max(OW, OH), 0.035 * (by1 - by0))) // 2) * 2 + 1)  # washes out sponsor names, crests and numbers
             flat = cv2.medianBlur(flat, kk)
             m2 = cv2.erode(m, np.ones((3, 3), np.uint8))
             out[m2 > 0] = flat[m2 > 0]

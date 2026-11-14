@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #146a66; }
+      #root { position: absolute; inset: 0; overflow: hidden; color: #fff; font-family: Inter, sans-serif; }
+      .bg { position: absolute; inset: 0; background: radial-gradient(110% 70% at 50% 40%, #1f8e86 0%, #146a66 55%, #0a3a3d 100%); }
+      .streak { position: absolute; height: 120px; background: rgba(5,45,48,.35); border-radius: 60px; transform: rotate(-24deg); }
+      .vid { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #cards { position: absolute; inset: 0; }
+      .card { position: absolute; left: 120px; right: 192px; top: 380px; bottom: 850px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+      .card.over { justify-content: flex-start; padding-top: 80px; }
+      .mega { font: 700 150px/0.95 Oswald, sans-serif; letter-spacing: .01em; text-shadow: 0 10px 40px rgba(0,0,0,.35); }
+      .big { font: 700 84px/1.04 Oswald, sans-serif; text-shadow: 0 8px 30px rgba(0,0,0,.35); }
+      .big2 { font-size: 72px !important; }
+      .y { color: #ffd166; } .r { color: #ff3b55; }
+      .top { font: 700 64px Oswald, sans-serif; letter-spacing: .04em; }
+      .sub { font: 700 34px Oswald, sans-serif; letter-spacing: .08em; color: #ffd166; margin-top: 14px; }
+      .lbl { font: 600 32px Inter, sans-serif; background: rgba(4,32,36,.75); padding: 6px 18px; border-radius: 10px; margin-top: 18px; }
+      .lbl2 { font: 600 30px Inter, sans-serif; color: rgba(255,255,255,.85); margin-top: 12px; }
+      .names { margin-top: 40px; }
+      .name { font: 700 112px/1.0 Oswald, sans-serif; }
+      #n1 { color: #ff3b55; } #n2 { color: #ffd166; } #n3 { color: #ffffff; }
+      .grid { display: grid; grid-template-columns: repeat(5, 96px); gap: 22px; }
+      .ball { width: 96px; height: 96px; border-radius: 50%; background: rgba(255,255,255,0.18); border: 5px solid rgba(255,255,255,.8); }
+      .count { margin-top: 26px; font: 700 150px/1 Oswald, sans-serif; }
+      .count .of { font-size: 70px; color: rgba(255,255,255,.85); }
+      .cap2 { font: 600 32px Inter, sans-serif; margin-top: 10px; }
+      .banner { margin-top: 34px; font: 700 46px Oswald, sans-serif; background: #a3123a; padding: 8px 30px; border-radius: 12px; box-shadow: 0 0 40px rgba(163,18,58,.6); }
+      .score { display: flex; align-items: center; gap: 22px; background: rgba(4,32,36,.85); padding: 16px 26px; border-radius: 20px; margin-bottom: 36px; }
+      .score .team { font: 700 50px Oswald, sans-serif; } .score .num { font: 700 96px Oswald, sans-serif; color: #ffd166; }
+      .scoreline { margin-top: 26px; font: 700 64px Oswald, sans-serif; background: rgba(4,32,36,.85); padding: 10px 34px; border-radius: 16px; }
+      .pill { font: 700 54px Oswald, sans-serif; background: rgba(4,32,36,.85); padding: 8px 32px; border-radius: 16px; border: 4px solid #ff3b55; }
+      .pill.y2 { border-color: #ffd166; color: #ffd166; }
+      .chip { position: absolute; left: 130px; top: 300px; font: 700 44px Oswald, sans-serif; letter-spacing: .05em; background: #a3123a; padding: 4px 22px; border-radius: 10px; box-shadow: 0 0 30px rgba(163,18,58,.6); }
+      .traced { position: absolute; left: 130px; top: 370px; font: 600 30px Inter, sans-serif; background: rgba(4,32,36,.75); padding: 6px 16px; border-radius: 10px; }
+      .src { position: absolute; left: 0; right: 0; top: 650px; font: 400 28px Inter, sans-serif; color: rgba(255,255,255,.75); }
+      .caption { position: absolute; left: 120px; right: 260px; top: 1090px; text-align: center; }
+      .caption span { display: inline-block; font: 800 36px/1.18 Inter, sans-serif; background: rgba(4,32,36,.82); padding: 10px 26px; border-radius: 14px; }
+      .rays { position: absolute; left: 384px; top: 120px; width: 0; height: 0; }
+      .ray { position: absolute; left: -30px; top: -1100px; width: 60px; height: 1100px; background: linear-gradient(to top, rgba(255,209,102,.35), rgba(255,209,102,0)); transform-origin: 30px 1100px; }
+      .cupt { font-size: 96px; }
+      #cupsvg { margin-top: -40px; width: 300px; height: 320px; filter: drop-shadow(0 0 40px rgba(255,255,255,.35)); }
+      .treble { margin-top: 18px; font: 700 25px Oswald, sans-serif; letter-spacing: .06em; color: #ffd166; }
+      .stat { position: absolute; left: 0; right: 0; top: 400px; background: rgba(4,32,36,.9); border: 4px solid #ffd166; border-radius: 22px; padding: 20px; }
+      .stat .n { font: 700 72px Oswald, sans-serif; color: #ffd166; } .stat .d { font: 700 34px Inter, sans-serif; } .stat .s { font: 400 26px Inter, sans-serif; color: rgba(255,255,255,.8); margin-top: 6px; }
+      .end { position: absolute; left: 0; right: 0; top: 420px; }
+      .conf { position: absolute; top: 0; }
+      .flash { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="60" data-width="1080" data-height="1920">
+      <div class="bg"></div>
+      <div class="streak" style="left:-200px;top:380px;width:900px"></div>
+      <div class="streak" style="left:420px;top:1260px;width:900px"></div>
+      <div class="streak" style="left:-100px;top:1650px;width:700px"></div>
+      <div id="cards">
+            <video id="v0" class="vid clip" src="assets/clips/sf_messi_close.mp4" data-start="0.0" data-duration="1.43" data-media-start="0" data-track-index="1" muted playsinline></video>
+      <video id="v1" class="vid clip" src="assets/clips/r16_slow.mp4" data-start="17.6" data-duration="2.5" data-media-start="0" data-track-index="1" muted playsinline></video>
+      <video id="v2" class="vid clip" src="assets/clips/qf_suarez.mp4" data-start="20.2" data-duration="6.2" data-media-start="0" data-track-index="1" muted playsinline></video>
+      <video id="v3" class="vid clip" src="assets/clips/sf_messi_close.mp4" data-start="27.6" data-duration="3.3" data-media-start="0" data-track-index="1" muted playsinline></video>
+      <video id="v4" class="vid clip" src="assets/clips/final_celebration.mp4" data-start="41.0" data-duration="0.79" data-media-start="0" data-track-index="1" muted playsinline></video>
+      <div id="tr0" class="traced clip" data-start="0.0" data-duration="1.43" data-track-index="6">Traced from match footage</div>
+      <div id="tr1" class="traced clip" data-start="17.6" data-duration="2.5" data-track-index="6">Traced from match footage</div>
+      <div id="tr2" class="traced clip" data-start="20.2" data-duration="6.2" data-track-index="6">Traced from match footage</div>
+      <div id="tr3" class="traced clip" data-start="27.6" data-duration="3.3" data-track-index="6">Traced from match footage</div>
+      <div id="tr4" class="traced clip" data-start="41.0" data-duration="0.79" data-track-index="6">Traced from match footage</div>
+      <div id="h0" class="card over clip" data-start="0.0" data-duration="1.43" data-track-index="3"><div class="mega y">MSN</div><div class="lbl">Barcelona 2014/15</div></div>
+      <div id="h1" class="card clip" data-start="1.43" data-duration="1.57" data-track-index="3"><div id="h1a" class="mega y">27 GOALS</div><div id="h1b" class="big">3 FORWARDS</div><div id="h1c" class="big r">1 TREBLE</div></div>
+      <div id="i0" class="card clip" data-start="3.0" data-duration="5.6" data-track-index="3"><div class="top">ROAD TO THE TREBLE</div><div class="sub">BARCELONA · CHAMPIONS LEAGUE 2014/15</div><div class="names"><div id="n1" class="name">MESSI</div><div id="n2" class="name">SUÁREZ</div><div id="n3" class="name">NEYMAR</div></div></div>
+      <div id="g0" class="card clip" data-start="8.6" data-duration="7.2" data-track-index="3"><div class="grid"><div id="gb0" class="ball red"></div><div id="gb1" class="ball red"></div><div id="gb2" class="ball red"></div><div id="gb3" class="ball red"></div><div id="gb4" class="ball red"></div><div id="gb5" class="ball red"></div><div id="gb6" class="ball red"></div><div id="gb7" class="ball red"></div><div id="gb8" class="ball"></div><div id="gb9" class="ball"></div><div id="gb10" class="ball"></div><div id="gb11" class="ball"></div><div id="gb12" class="ball"></div><div id="gb13" class="ball"></div><div id="gb14" class="ball"></div></div><div class="count"><span id="gc" class="y">8</span><span class="of">/15</span></div><div class="cap2">Messi's share of Barcelona's group goals · UEFA</div><div id="g3" class="banner">HAT-TRICK v APOEL · 4-0 AWAY</div></div>
+      <div id="r0" class="card clip" data-start="15.8" data-duration="1.8" data-track-index="3"><div class="score"><div class="team">MAN CITY</div><div class="num">1-2</div><div class="team">BARÇA</div></div><div id="r0b" class="big y">SUÁREZ ×2</div><div class="sub">away leg · aggregate 3-1</div><div class="src">Results: UEFA</div></div>
+      <div id="r1" class="card over clip" data-start="17.6" data-duration="2.5" data-track-index="3"><div id="r1a" class="pill">SUÁREZ</div></div>
+      <div id="q0" class="card over clip" data-start="20.2" data-duration="6.2" data-track-index="3"><div id="q0a" class="pill">SUÁREZ v DAVID LUIZ</div><div id="q0b" class="pill y2">SUÁREZ ×2 IN PARIS</div></div>
+      <div id="q1" class="card clip" data-start="26.4" data-duration="1.2" data-track-index="3"><div class="big y">NEYMAR ×3</div><div class="sub">AGGREGATE 5-1</div><div class="src">Results: UEFA</div></div>
+      <div id="s0" class="card over clip" data-start="27.6" data-duration="3.3" data-track-index="3"><div id="s0a" class="pill">MESSI v BAYERN</div></div>
+      <div id="s1" class="card clip" data-start="30.9" data-duration="2.1" data-track-index="3"><div class="score"><div class="team">BARÇA</div><div class="num">3-0</div><div class="team">BAYERN</div></div><div id="s1b" class="big y">MESSI ×2</div><div class="sub">AGGREGATE 5-3</div><div class="src">Results: UEFA</div></div>
+      <div id="f0" class="card clip" data-start="33.0" data-duration="3.0" data-track-index="3"><div class="top">THE FINAL</div><div class="sub">BERLIN · 6 JUNE 2015</div><div id="f0a" class="mega y">4'</div><div id="f0b" class="big">RAKITIĆ</div><div id="f0c" class="scoreline">JUV 0-1 BARÇA</div><div class="src">Results: UEFA</div></div>
+      <div id="f1" class="card clip" data-start="36.0" data-duration="5.0" data-track-index="3"><div id="f1a" class="mega y">68'</div><div id="f1b" class="big">MESSI RUNS</div><div id="f1c" class="big">BUFFON SAVES</div><div id="f1d" class="big r">SUÁREZ SCORES</div><div id="f1e" class="scoreline">JUV 1-2 BARÇA</div><div class="lbl2">Morata had equalised on 55'</div><div class="src">Results: UEFA</div></div>
+      <div id="f2" class="card over clip" data-start="41.0" data-duration="0.79" data-track-index="3"><div class="pill">MESSI · NEYMAR</div></div>
+      <div id="f3" class="card clip" data-start="41.79" data-duration="1.21" data-track-index="3"><div class="scoreline big2">JUV 1-2 BARÇA</div></div>
+      <div id="f4" class="card clip" data-start="43.0" data-duration="3.0" data-track-index="3"><div id="f4a" class="mega y">90+7'</div><div id="f4b" class="big">NEYMAR</div><div id="f4c" class="scoreline">JUV 1-3 BARÇA</div><div class="src">Results: UEFA</div></div>
+      <div id="c0" class="card clip" data-start="46.0" data-duration="14.0" data-track-index="3"><div class="rays"><div class="ray" style="transform:rotate(0deg)"></div><div class="ray" style="transform:rotate(15deg)"></div><div class="ray" style="transform:rotate(30deg)"></div><div class="ray" style="transform:rotate(45deg)"></div><div class="ray" style="transform:rotate(60deg)"></div><div class="ray" style="transform:rotate(75deg)"></div><div class="ray" style="transform:rotate(90deg)"></div><div class="ray" style="transform:rotate(105deg)"></div><div class="ray" style="transform:rotate(120deg)"></div><div class="ray" style="transform:rotate(135deg)"></div><div class="ray" style="transform:rotate(150deg)"></div><div class="ray" style="transform:rotate(165deg)"></div><div class="ray" style="transform:rotate(180deg)"></div><div class="ray" style="transform:rotate(195deg)"></div><div class="ray" style="transform:rotate(210deg)"></div><div class="ray" style="transform:rotate(225deg)"></div><div class="ray" style="transform:rotate(240deg)"></div><div class="ray" style="transform:rotate(255deg)"></div><div class="ray" style="transform:rotate(270deg)"></div><div class="ray" style="transform:rotate(285deg)"></div><div class="ray" style="transform:rotate(300deg)"></div><div class="ray" style="transform:rotate(315deg)"></div><div class="ray" style="transform:rotate(330deg)"></div><div class="ray" style="transform:rotate(345deg)"></div></div><svg id="cupsvg" viewBox="-80 -130 160 170" width="560" height="595"><defs><linearGradient id="sil" x1="0" x2="1">
+<stop offset="0" stop-color="#7c858d"/><stop offset=".45" stop-color="#f6f8fa"/><stop offset="1" stop-color="#6f7880"/></linearGradient></defs>
+<path d="M -30 -102 Q -74 -104 -72 -64 Q -70 -36 -24 -34" fill="none" stroke="url(#sil)" stroke-width="10"/>
+<path d="M 30 -102 Q 74 -104 72 -64 Q 70 -36 24 -34" fill="none" stroke="url(#sil)" stroke-width="10"/>
+<path d="M -34 -110 Q -34 -42 -11 -26 L -9 -4 L -26 8 L 26 8 L 9 -4 L 11 -26 Q 34 -42 34 -110 Z" fill="url(#sil)"/>
+<rect x="-30" y="8" width="60" height="22" rx="4" fill="url(#sil)"/><rect x="-30" y="16" width="60" height="4" fill="#1d3c8f"/></svg><div id="c1" class="mega y cupt">CHAMPIONS</div><div id="c2" class="big">OF EUROPE</div><div id="c3" class="treble">LA LIGA · COPA DEL REY · CHAMPIONS LEAGUE</div><div id="c4" class="stat"><div class="n">MSN · 27 OF 31</div><div class="d">Messi 10 · Neymar 10 · Suárez 7</div><div class="s">Champions League goals · Source: UEFA</div></div><div id="cf0" class="conf" style="left:350px;width:12px;height:6px;background:#ff3b55"></div><div id="cf1" class="conf" style="left:548px;width:10px;height:5px;background:#1d3c8f"></div><div id="cf2" class="conf" style="left:134px;width:13px;height:6px;background:#ffd166"></div><div id="cf3" class="conf" style="left:50px;width:20px;height:10px;background:#ffffff"></div><div id="cf4" class="conf" style="left:195px;width:17px;height:8px;background:#ff3b55"></div><div id="cf5" class="conf" style="left:222px;width:18px;height:9px;background:#1d3c8f"></div><div id="cf6" class="conf" style="left:858px;width:18px;height:9px;background:#ffd166"></div><div id="cf7" class="conf" style="left:311px;width:22px;height:11px;background:#ffffff"></div><div id="cf8" class="conf" style="left:42px;width:18px;height:9px;background:#ff3b55"></div><div id="cf9" class="conf" style="left:642px;width:17px;height:8px;background:#1d3c8f"></div><div id="cf10" class="conf" style="left:66px;width:18px;height:9px;background:#ffd166"></div><div id="cf11" class="conf" style="left:722px;width:10px;height:5px;background:#ffffff"></div><div id="cf12" class="conf" style="left:140px;width:13px;height:6px;background:#ff3b55"></div><div id="cf13" class="conf" style="left:954px;width:20px;height:10px;background:#1d3c8f"></div><div id="cf14" class="conf" style="left:1034px;width:12px;height:6px;background:#ffd166"></div><div id="cf15" class="conf" style="left:284px;width:10px;height:5px;background:#ffffff"></div><div id="cf16" class="conf" style="left:557px;width:17px;height:9px;background:#ff3b55"></div><div id="cf17" class="conf" style="left:862px;width:15px;height:7px;background:#1d3c8f"></div><div id="cf18" class="conf" style="left:225px;width:12px;height:6px;background:#ffd166"></div><div id="cf19" class="conf" style="left:393px;width:10px;height:5px;background:#ffffff"></div><div id="cf20" class="conf" style="left:393px;width:11px;height:6px;background:#ff3b55"></div><div id="cf21" class="conf" style="left:110px;width:14px;height:7px;background:#1d3c8f"></div><div id="cf22" class="conf" style="left:571px;width:12px;height:6px;background:#ffd166"></div><div id="cf23" class="conf" style="left:752px;width:13px;height:7px;background:#ffffff"></div><div id="cf24" class="conf" style="left:356px;width:13px;height:6px;background:#ff3b55"></div><div id="cf25" class="conf" style="left:799px;width:13px;height:6px;background:#1d3c8f"></div><div id="cf26" class="conf" style="left:280px;width:18px;height:9px;background:#ffd166"></div><div id="cf27" class="conf" style="left:394px;width:13px;height:6px;background:#ffffff"></div><div id="cf28" class="conf" style="left:908px;width:16px;height:8px;background:#ff3b55"></div><div id="cf29" class="conf" style="left:845px;width:19px;height:10px;background:#1d3c8f"></div><div id="cf30" class="conf" style="left:1049px;width:15px;height:7px;background:#ffd166"></div><div id="cf31" class="conf" style="left:163px;width:21px;height:10px;background:#ffffff"></div><div id="cf32" class="conf" style="left:378px;width:17px;height:8px;background:#ff3b55"></div><div id="cf33" class="conf" style="left:1008px;width:15px;height:8px;background:#1d3c8f"></div><div id="cf34" class="conf" style="left:260px;width:17px;height:9px;background:#ffd166"></div><div id="cf35" class="conf" style="left:495px;width:17px;height:9px;background:#ffffff"></div><div id="cf36" class="conf" style="left:565px;width:10px;height:5px;background:#ff3b55"></div><div id="cf37" class="conf" style="left:511px;width:19px;height:9px;background:#1d3c8f"></div><div id="cf38" class="conf" style="left:115px;width:17px;height:8px;background:#ffd166"></div><div id="cf39" class="conf" style="left:821px;width:21px;height:10px;background:#ffffff"></div><div id="cf40" class="conf" style="left:489px;width:16px;height:8px;background:#ff3b55"></div><div id="cf41" class="conf" style="left:280px;width:17px;height:8px;background:#1d3c8f"></div><div id="cf42" class="conf" style="left:78px;width:13px;height:6px;background:#ffd166"></div><div id="cf43" class="conf" style="left:773px;width:18px;height:9px;background:#ffffff"></div><div id="cf44" class="conf" style="left:430px;width:16px;height:8px;background:#ff3b55"></div><div id="cf45" class="conf" style="left:366px;width:12px;height:6px;background:#1d3c8f"></div><div id="cf46" class="conf" style="left:20px;width:14px;height:7px;background:#ffd166"></div><div id="cf47" class="conf" style="left:1049px;width:11px;height:6px;background:#ffffff"></div><div id="cf48" class="conf" style="left:456px;width:21px;height:10px;background:#ff3b55"></div><div id="cf49" class="conf" style="left:756px;width:11px;height:6px;background:#1d3c8f"></div><div id="cf50" class="conf" style="left:685px;width:20px;height:10px;background:#ffd166"></div><div id="cf51" class="conf" style="left:366px;width:17px;height:8px;background:#ffffff"></div><div id="cf52" class="conf" style="left:118px;width:12px;height:6px;background:#ff3b55"></div><div id="cf53" class="conf" style="left:313px;width:16px;height:8px;background:#1d3c8f"></div><div id="cf54" class="conf" style="left:792px;width:17px;height:8px;background:#ffd166"></div><div id="cf55" class="conf" style="left:467px;width:16px;height:8px;background:#ffffff"></div><div id="cf56" class="conf" style="left:370px;width:20px;height:10px;background:#ff3b55"></div><div id="cf57" class="conf" style="left:140px;width:11px;height:5px;background:#1d3c8f"></div><div id="cf58" class="conf" style="left:940px;width:18px;height:9px;background:#ffd166"></div><div id="cf59" class="conf" style="left:481px;width:13px;height:7px;background:#ffffff"></div><div id="cf60" class="conf" style="left:334px;width:14px;height:7px;background:#ff3b55"></div><div id="cf61" class="conf" style="left:545px;width:10px;height:5px;background:#1d3c8f"></div><div id="cf62" class="conf" style="left:329px;width:13px;height:6px;background:#ffd166"></div><div id="cf63" class="conf" style="left:949px;width:15px;height:7px;background:#ffffff"></div><div id="cf64" class="conf" style="left:47px;width:20px;height:10px;background:#ff3b55"></div><div id="cf65" class="conf" style="left:566px;width:16px;height:8px;background:#1d3c8f"></div><div id="cf66" class="conf" style="left:738px;width:18px;height:9px;background:#ffd166"></div><div id="cf67" class="conf" style="left:903px;width:17px;height:8px;background:#ffffff"></div><div id="cf68" class="conf" style="left:862px;width:19px;height:9px;background:#ff3b55"></div><div id="cf69" class="conf" style="left:272px;width:11px;height:5px;background:#1d3c8f"></div><div id="cf70" class="conf" style="left:533px;width:15px;height:7px;background:#ffd166"></div><div id="cf71" class="conf" style="left:84px;width:12px;height:6px;background:#ffffff"></div><div id="cf72" class="conf" style="left:66px;width:13px;height:7px;background:#ff3b55"></div><div id="cf73" class="conf" style="left:502px;width:16px;height:8px;background:#1d3c8f"></div><div id="cf74" class="conf" style="left:19px;width:16px;height:8px;background:#ffd166"></div><div id="cf75" class="conf" style="left:1021px;width:13px;height:6px;background:#ffffff"></div><div id="cf76" class="conf" style="left:886px;width:16px;height:8px;background:#ff3b55"></div><div id="cf77" class="conf" style="left:27px;width:10px;height:5px;background:#1d3c8f"></div><div id="cf78" class="conf" style="left:341px;width:20px;height:10px;background:#ffd166"></div><div id="cf79" class="conf" style="left:770px;width:21px;height:10px;background:#ffffff"></div><div id="cf80" class="conf" style="left:390px;width:15px;height:8px;background:#ff3b55"></div><div id="cf81" class="conf" style="left:1010px;width:13px;height:6px;background:#1d3c8f"></div><div id="cf82" class="conf" style="left:955px;width:20px;height:10px;background:#ffd166"></div><div id="cf83" class="conf" style="left:53px;width:19px;height:9px;background:#ffffff"></div><div id="cf84" class="conf" style="left:1001px;width:12px;height:6px;background:#ff3b55"></div><div id="cf85" class="conf" style="left:281px;width:18px;height:9px;background:#1d3c8f"></div><div id="cf86" class="conf" style="left:225px;width:21px;height:10px;background:#ffd166"></div><div id="cf87" class="conf" style="left:151px;width:12px;height:6px;background:#ffffff"></div><div id="cf88" class="conf" style="left:615px;width:21px;height:10px;background:#ff3b55"></div><div id="cf89" class="conf" style="left:365px;width:11px;height:5px;background:#1d3c8f"></div><div id="cf90" class="conf" style="left:932px;width:13px;height:6px;background:#ffd166"></div><div id="cf91" class="conf" style="left:917px;width:20px;height:10px;background:#ffffff"></div><div id="cf92" class="conf" style="left:634px;width:10px;height:5px;background:#ff3b55"></div><div id="cf93" class="conf" style="left:268px;width:11px;height:6px;background:#1d3c8f"></div><div id="cf94" class="conf" style="left:699px;width:19px;height:10px;background:#ffd166"></div><div id="cf95" class="conf" style="left:994px;width:18px;height:9px;background:#ffffff"></div><div id="cf96" class="conf" style="left:121px;width:11px;height:5px;background:#ff3b55"></div><div id="cf97" class="conf" style="left:11px;width:14px;height:7px;background:#1d3c8f"></div><div id="cf98" class="conf" style="left:254px;width:13px;height:6px;background:#ffd166"></div><div id="cf99" class="conf" style="left:728px;width:15px;height:8px;background:#ffffff"></div><div id="cf100" class="conf" style="left:365px;width:15px;height:8px;background:#ff3b55"></div><div id="cf101" class="conf" style="left:222px;width:22px;height:11px;background:#1d3c8f"></div><div id="cf102" class="conf" style="left:319px;width:21px;height:11px;background:#ffd166"></div><div id="cf103" class="conf" style="left:1025px;width:12px;height:6px;background:#ffffff"></div><div id="cf104" class="conf" style="left:65px;width:15px;height:7px;background:#ff3b55"></div><div id="cf105" class="conf" style="left:356px;width:12px;height:6px;background:#1d3c8f"></div><div id="cf106" class="conf" style="left:404px;width:14px;height:7px;background:#ffd166"></div><div id="cf107" class="conf" style="left:134px;width:22px;height:11px;background:#ffffff"></div><div id="cf108" class="conf" style="left:53px;width:16px;height:8px;background:#ff3b55"></div><div id="cf109" class="conf" style="left:33px;width:15px;height:7px;background:#1d3c8f"></div></div>
+      <div id="c5" class="card clip" data-start="57.4" data-duration="2.6" data-track-index="4"><div class="end"><div class="top">RUN OF THE CHAMPIONS</div><div class="sub">NEXT: 2015/16</div></div></div>
+      <div id="ch0" class="chip clip" data-start="15.8" data-duration="4.4" data-track-index="5">ROUND OF 16</div>
+      <div id="ch1" class="chip clip" data-start="20.2" data-duration="7.4" data-track-index="5">QUARTER-FINAL</div>
+      <div id="ch2" class="chip clip" data-start="27.6" data-duration="5.4" data-track-index="5">SEMI-FINAL</div>
+      <div id="ch3" class="chip clip" data-start="8.6" data-duration="7.2" data-track-index="5">GROUP STAGE</div>
+      <div id="ch4" class="chip clip" data-start="33.0" data-duration="13.0" data-track-index="5">THE FINAL · BERLIN</div>
+      <div id="cp0" class="caption clip" data-start="3.4" data-duration="4.97" data-track-index="7"><span>Three forwards. One season. Messi. Suárez. Neymar.</span></div>
+      <div id="cp1" class="caption clip" data-start="8.9" data-duration="4.15" data-track-index="7"><span>Group stage. Messi scores eight of Barcelona's fifteen goals,</span></div>
+      <div id="cp2" class="caption clip" data-start="13.05" data-duration="2.72" data-track-index="7"><span>three of them in one night in Cyprus.</span></div>
+      <div id="cp3" class="caption clip" data-start="16.1" data-duration="2.32" data-track-index="7"><span>Round of sixteen. In Manchester,</span></div>
+      <div id="cp4" class="caption clip" data-start="18.42" data-duration="1.65" data-track-index="7"><span>Suárez scores twice.</span></div>
+      <div id="cp5" class="caption clip" data-start="20.5" data-duration="3.1" data-track-index="7"><span>Quarter-final. Paris. Suárez twice more,</span></div>
+      <div id="cp6" class="caption clip" data-start="23.6" data-duration="1.68" data-track-index="7"><span>Neymar three times.</span></div>
+      <div id="cp7" class="caption clip" data-start="27.9" data-duration="2.49" data-track-index="7"><span>Semi-final. Bayern. Messi twice,</span></div>
+      <div id="cp8" class="caption clip" data-start="30.39" data-duration="2.06" data-track-index="7"><span>and Neymar in both legs.</span></div>
+      <div id="cp9" class="caption clip" data-start="33.3" data-duration="2.59" data-track-index="7"><span>Berlin. Four minutes in, Rakitić.</span></div>
+      <div id="cp10" class="caption clip" data-start="36.7" data-duration="4.03" data-track-index="7"><span>Messi runs at Juventus. Buffon saves. Suárez scores.</span></div>
+      <div id="cp11" class="caption clip" data-start="43.5" data-duration="1.94" data-track-index="7"><span>And in stoppage time, Neymar.</span></div>
+      <div id="cp12" class="caption clip" data-start="46.7" data-duration="3.0" data-track-index="7"><span>Champions of Europe. The treble, again.</span></div>
+      <div id="cp13" class="caption clip" data-start="49.7" data-duration="2.0" data-track-index="7"><span>Messi, Suárez and Neymar:</span></div>
+      <div id="cp14" class="caption clip" data-start="51.7" data-duration="3.2" data-track-index="7"><span>twenty-seven of Barcelona's thirty-one goals.</span></div>
+      </div>
+      <div id="flash" class="flash"></div>
+      <audio id="mix" class="clip" src="assets/audio/short_full.wav" data-start="0" data-duration="60" data-track-index="9" data-volume="1"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+            tl.fromTo("#v0", { scale: 1.08 }, { scale: 1, duration: 1.2, ease: "power2.out" }, 0.0);
+      tl.fromTo("#v1", { scale: 1.08 }, { scale: 1, duration: 1.2, ease: "power2.out" }, 17.6);
+      tl.fromTo("#v2", { scale: 1.08 }, { scale: 1, duration: 1.2, ease: "power2.out" }, 20.2);
+      tl.fromTo("#v3", { scale: 1.08 }, { scale: 1, duration: 1.2, ease: "power2.out" }, 27.6);
+      tl.fromTo("#v4", { scale: 1.08 }, { scale: 1, duration: 0.79, ease: "power2.out" }, 41.0);
+      tl.fromTo("#h0 .mega", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 0.05);
+      tl.fromTo("#h1a", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 1.45);
+      tl.fromTo("#h1b", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 1.85);
+      tl.fromTo("#h1c", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 2.25);
+      tl.fromTo("#flash", { opacity: 0.55 }, { opacity: 0, duration: 0.35, immediateRender: false }, 1.43);
+      tl.fromTo("#cards", { x: -14 }, { x: 0, duration: 0.25, ease: "elastic.out(1,0.3)" }, 2.25);
+      tl.fromTo("#i0 .top", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 3.05);
+      tl.fromTo("#i0 .sub", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 3.3);
+      tl.fromTo("#n1", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 5.75);
+      tl.fromTo("#cards", { x: -14 }, { x: 0, duration: 0.25, ease: "elastic.out(1,0.3)" }, 5.75);
+      tl.fromTo("#n2", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 6.55);
+      tl.fromTo("#cards", { x: -14 }, { x: 0, duration: 0.25, ease: "elastic.out(1,0.3)" }, 6.55);
+      tl.fromTo("#n3", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 7.35);
+      tl.fromTo("#cards", { x: -14 }, { x: 0, duration: 0.25, ease: "elastic.out(1,0.3)" }, 7.35);
+      tl.fromTo("#gb0", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 8.75);
+      tl.fromTo("#gb1", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 8.8);
+      tl.fromTo("#gb2", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 8.85);
+      tl.fromTo("#gb3", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 8.9);
+      tl.fromTo("#gb4", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 8.95);
+      tl.fromTo("#gb5", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 9.0);
+      tl.fromTo("#gb6", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 9.05);
+      tl.fromTo("#gb7", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 9.1);
+      tl.fromTo("#gb8", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 9.15);
+      tl.fromTo("#gb9", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 9.2);
+      tl.fromTo("#gb10", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 9.25);
+      tl.fromTo("#gb11", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 9.3);
+      tl.fromTo("#gb12", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 9.35);
+      tl.fromTo("#gb13", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 9.4);
+      tl.fromTo("#gb14", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.18, ease: "back.out(3)" }, 9.45);
+      tl.fromTo("#gb0", { backgroundColor: "rgba(255,255,255,0.18)" }, { backgroundColor: "#ff3b55", boxShadow: "0 0 30px #ff3b55", duration: 0.12, immediateRender: false }, 10.0);
+      tl.fromTo("#gb1", { backgroundColor: "rgba(255,255,255,0.18)" }, { backgroundColor: "#ff3b55", boxShadow: "0 0 30px #ff3b55", duration: 0.12, immediateRender: false }, 10.17);
+      tl.fromTo("#gb2", { backgroundColor: "rgba(255,255,255,0.18)" }, { backgroundColor: "#ff3b55", boxShadow: "0 0 30px #ff3b55", duration: 0.12, immediateRender: false }, 10.34);
+      tl.fromTo("#gb3", { backgroundColor: "rgba(255,255,255,0.18)" }, { backgroundColor: "#ff3b55", boxShadow: "0 0 30px #ff3b55", duration: 0.12, immediateRender: false }, 10.51);
+      tl.fromTo("#gb4", { backgroundColor: "rgba(255,255,255,0.18)" }, { backgroundColor: "#ff3b55", boxShadow: "0 0 30px #ff3b55", duration: 0.12, immediateRender: false }, 10.68);
+      tl.fromTo("#gb5", { backgroundColor: "rgba(255,255,255,0.18)" }, { backgroundColor: "#ff3b55", boxShadow: "0 0 30px #ff3b55", duration: 0.12, immediateRender: false }, 10.85);
+      tl.fromTo("#gb6", { backgroundColor: "rgba(255,255,255,0.18)" }, { backgroundColor: "#ff3b55", boxShadow: "0 0 30px #ff3b55", duration: 0.12, immediateRender: false }, 11.02);
+      tl.fromTo("#gb7", { backgroundColor: "rgba(255,255,255,0.18)" }, { backgroundColor: "#ff3b55", boxShadow: "0 0 30px #ff3b55", duration: 0.12, immediateRender: false }, 11.19);
+      tl.fromTo("#g0 .count", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 11.4);
+      tl.fromTo("#cards", { x: -14 }, { x: 0, duration: 0.25, ease: "elastic.out(1,0.3)" }, 11.4);
+      tl.fromTo("#g0 .cap2", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 11.7);
+      tl.fromTo("#g3", { scale: 1.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 13.1);
+      tl.fromTo("#r0 .score", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 15.85);
+      tl.fromTo("#r0b", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 16.5);
+      tl.fromTo("#cards", { x: -14 }, { x: 0, duration: 0.25, ease: "elastic.out(1,0.3)" }, 16.5);
+      tl.fromTo("#r1a", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 17.7);
+      tl.fromTo("#q0a", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 20.35);
+      tl.fromTo("#q0b", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 23.6);
+      tl.to("#q0a", { opacity: 0, duration: 0.2 }, 23.4);
+      tl.fromTo("#q1 .big", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 26.42);
+      tl.fromTo("#flash", { opacity: 0.55 }, { opacity: 0, duration: 0.35, immediateRender: false }, 26.4);
+      tl.fromTo("#s0a", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 27.75);
+      tl.fromTo("#s1 .score", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 30.92);
+      tl.fromTo("#s1b", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 31.4);
+      tl.fromTo("#flash", { opacity: 0.55 }, { opacity: 0, duration: 0.35, immediateRender: false }, 30.9);
+      tl.fromTo("#cards", { x: -14 }, { x: 0, duration: 0.25, ease: "elastic.out(1,0.3)" }, 31.4);
+      tl.fromTo("#f0 .top", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 33.05);
+      tl.fromTo("#f0 .sub", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 33.25);
+      tl.fromTo("#f0a", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 34.6);
+      tl.fromTo("#f0b", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 34.85);
+      tl.fromTo("#f0c", { scale: 1.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 35.15);
+      tl.fromTo("#flash", { opacity: 0.55 }, { opacity: 0, duration: 0.35, immediateRender: false }, 34.6);
+      tl.fromTo("#cards", { x: -14 }, { x: 0, duration: 0.25, ease: "elastic.out(1,0.3)" }, 34.85);
+      tl.fromTo("#f1a", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 36.1);
+      tl.fromTo("#f1b", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 36.75);
+      tl.fromTo("#f1c", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 38.1);
+      tl.fromTo("#f1d", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 39.6);
+      tl.fromTo("#f1e", { scale: 1.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 39.95);
+      tl.fromTo("#flash", { opacity: 0.55 }, { opacity: 0, duration: 0.35, immediateRender: false }, 39.6);
+      tl.fromTo("#cards", { x: -14 }, { x: 0, duration: 0.25, ease: "elastic.out(1,0.3)" }, 39.6);
+      tl.fromTo("#f1 .lbl2", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 40.2);
+      tl.fromTo("#f3 .scoreline", { scale: 1.2, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 41.8);
+      tl.fromTo("#f4a", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 43.05);
+      tl.fromTo("#f4b", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 43.55);
+      tl.fromTo("#f4c", { scale: 1.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 44.0);
+      tl.fromTo("#flash", { opacity: 0.55 }, { opacity: 0, duration: 0.35, immediateRender: false }, 43.55);
+      tl.fromTo("#cards", { x: -14 }, { x: 0, duration: 0.25, ease: "elastic.out(1,0.3)" }, 43.55);
+      tl.fromTo("#cf0", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -24, rotation: 39, duration: 2.76, ease: "none" }, 48.71);
+      tl.fromTo("#cf0", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 24, rotation: -39, duration: 2.76, ease: "none", immediateRender: false }, 51.55);
+      tl.fromTo("#cf1", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -14, rotation: -442, duration: 2.75, ease: "none" }, 47.90);
+      tl.fromTo("#cf1", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 14, rotation: 442, duration: 2.75, ease: "none", immediateRender: false }, 51.90);
+      tl.fromTo("#cf2", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -19, rotation: 83, duration: 4.68, ease: "none" }, 48.62);
+      tl.fromTo("#cf2", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 19, rotation: -83, duration: 4.68, ease: "none", immediateRender: false }, 54.77);
+      tl.fromTo("#cf3", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -34, rotation: -413, duration: 2.92, ease: "none" }, 47.37);
+      tl.fromTo("#cf3", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 34, rotation: 413, duration: 2.92, ease: "none", immediateRender: false }, 51.51);
+      tl.fromTo("#cf4", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -79, rotation: 52, duration: 3.42, ease: "none" }, 48.66);
+      tl.fromTo("#cf4", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 79, rotation: -52, duration: 3.42, ease: "none", immediateRender: false }, 52.17);
+      tl.fromTo("#cf5", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -8, rotation: 92, duration: 3.29, ease: "none" }, 47.88);
+      tl.fromTo("#cf5", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 8, rotation: -92, duration: 3.29, ease: "none", immediateRender: false }, 51.62);
+      tl.fromTo("#cf6", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 68, rotation: 27, duration: 3.86, ease: "none" }, 47.20);
+      tl.fromTo("#cf6", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -68, rotation: -27, duration: 3.86, ease: "none", immediateRender: false }, 52.16);
+      tl.fromTo("#cf7", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -63, rotation: 278, duration: 3.52, ease: "none" }, 46.74);
+      tl.fromTo("#cf7", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 63, rotation: -278, duration: 3.52, ease: "none", immediateRender: false }, 50.99);
+      tl.fromTo("#cf8", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -34, rotation: 406, duration: 3.86, ease: "none" }, 49.13);
+      tl.fromTo("#cf8", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 34, rotation: -406, duration: 3.86, ease: "none", immediateRender: false }, 54.03);
+      tl.fromTo("#cf9", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -5, rotation: 480, duration: 4.45, ease: "none" }, 47.99);
+      tl.fromTo("#cf9", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 5, rotation: -480, duration: 4.45, ease: "none", immediateRender: false }, 53.43);
+      tl.fromTo("#cf10", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -39, rotation: 348, duration: 4.78, ease: "none" }, 48.69);
+      tl.fromTo("#cf10", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 39, rotation: -348, duration: 4.78, ease: "none", immediateRender: false }, 54.06);
+      tl.fromTo("#cf11", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -79, rotation: -414, duration: 2.97, ease: "none" }, 48.01);
+      tl.fromTo("#cf11", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 79, rotation: 414, duration: 2.97, ease: "none", immediateRender: false }, 52.13);
+      tl.fromTo("#cf12", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -9, rotation: -453, duration: 4.52, ease: "none" }, 47.75);
+      tl.fromTo("#cf12", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 9, rotation: 453, duration: 4.52, ease: "none", immediateRender: false }, 53.09);
+      tl.fromTo("#cf13", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -25, rotation: -91, duration: 3.21, ease: "none" }, 49.50);
+      tl.fromTo("#cf13", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 25, rotation: 91, duration: 3.21, ease: "none", immediateRender: false }, 54.04);
+      tl.fromTo("#cf14", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -3, rotation: -288, duration: 3.11, ease: "none" }, 46.95);
+      tl.fromTo("#cf14", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 3, rotation: 288, duration: 3.11, ease: "none", immediateRender: false }, 50.95);
+      tl.fromTo("#cf15", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 82, rotation: 72, duration: 3.41, ease: "none" }, 47.85);
+      tl.fromTo("#cf15", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -82, rotation: -72, duration: 3.41, ease: "none", immediateRender: false }, 52.30);
+      tl.fromTo("#cf16", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 50, rotation: 431, duration: 2.72, ease: "none" }, 48.80);
+      tl.fromTo("#cf16", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -50, rotation: -431, duration: 2.72, ease: "none", immediateRender: false }, 52.83);
+      tl.fromTo("#cf17", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -79, rotation: 145, duration: 2.83, ease: "none" }, 47.78);
+      tl.fromTo("#cf17", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 79, rotation: -145, duration: 2.83, ease: "none", immediateRender: false }, 50.71);
+      tl.fromTo("#cf18", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -63, rotation: -540, duration: 2.72, ease: "none" }, 47.56);
+      tl.fromTo("#cf18", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 63, rotation: 540, duration: 2.72, ease: "none", immediateRender: false }, 50.43);
+      tl.fromTo("#cf19", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -45, rotation: -380, duration: 3.95, ease: "none" }, 49.54);
+      tl.fromTo("#cf19", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 45, rotation: 380, duration: 3.95, ease: "none", immediateRender: false }, 54.01);
+      tl.fromTo("#cf20", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -3, rotation: -37, duration: 4.78, ease: "none" }, 49.44);
+      tl.fromTo("#cf20", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 3, rotation: 37, duration: 4.78, ease: "none", immediateRender: false }, 54.35);
+      tl.fromTo("#cf21", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -86, rotation: -366, duration: 4.42, ease: "none" }, 47.28);
+      tl.fromTo("#cf21", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 86, rotation: 366, duration: 4.42, ease: "none", immediateRender: false }, 53.13);
+      tl.fromTo("#cf22", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 86, rotation: 30, duration: 2.66, ease: "none" }, 48.31);
+      tl.fromTo("#cf22", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -86, rotation: -30, duration: 2.66, ease: "none", immediateRender: false }, 52.26);
+      tl.fromTo("#cf23", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 6, rotation: 294, duration: 2.97, ease: "none" }, 47.66);
+      tl.fromTo("#cf23", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -6, rotation: -294, duration: 2.97, ease: "none", immediateRender: false }, 51.79);
+      tl.fromTo("#cf24", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 55, rotation: 381, duration: 4.77, ease: "none" }, 49.30);
+      tl.fromTo("#cf24", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -55, rotation: -381, duration: 4.77, ease: "none", immediateRender: false }, 55.30);
+      tl.fromTo("#cf25", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -85, rotation: -509, duration: 3.38, ease: "none" }, 48.22);
+      tl.fromTo("#cf25", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 85, rotation: 509, duration: 3.38, ease: "none", immediateRender: false }, 52.02);
+      tl.fromTo("#cf26", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 88, rotation: 472, duration: 3.58, ease: "none" }, 49.84);
+      tl.fromTo("#cf26", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -88, rotation: -472, duration: 3.58, ease: "none", immediateRender: false }, 54.86);
+      tl.fromTo("#cf27", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 22, rotation: -319, duration: 3.03, ease: "none" }, 47.14);
+      tl.fromTo("#cf27", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -22, rotation: 319, duration: 3.03, ease: "none", immediateRender: false }, 51.52);
+      tl.fromTo("#cf28", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 29, rotation: -448, duration: 4.36, ease: "none" }, 48.72);
+      tl.fromTo("#cf28", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -29, rotation: 448, duration: 4.36, ease: "none", immediateRender: false }, 54.44);
+      tl.fromTo("#cf29", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -30, rotation: 312, duration: 2.99, ease: "none" }, 48.07);
+      tl.fromTo("#cf29", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 30, rotation: -312, duration: 2.99, ease: "none", immediateRender: false }, 52.26);
+      tl.fromTo("#cf30", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -59, rotation: 243, duration: 4.68, ease: "none" }, 47.79);
+      tl.fromTo("#cf30", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 59, rotation: -243, duration: 4.68, ease: "none", immediateRender: false }, 52.66);
+      tl.fromTo("#cf31", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 86, rotation: 353, duration: 2.92, ease: "none" }, 49.28);
+      tl.fromTo("#cf31", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -86, rotation: -353, duration: 2.92, ease: "none", immediateRender: false }, 53.19);
+      tl.fromTo("#cf32", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 27, rotation: 509, duration: 2.63, ease: "none" }, 46.78);
+      tl.fromTo("#cf32", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -27, rotation: -509, duration: 2.63, ease: "none", immediateRender: false }, 50.21);
+      tl.fromTo("#cf33", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -45, rotation: -312, duration: 4.42, ease: "none" }, 49.53);
+      tl.fromTo("#cf33", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 45, rotation: 312, duration: 4.42, ease: "none", immediateRender: false }, 54.38);
+      tl.fromTo("#cf34", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 74, rotation: -398, duration: 3.52, ease: "none" }, 47.26);
+      tl.fromTo("#cf34", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -74, rotation: 398, duration: 3.52, ease: "none", immediateRender: false }, 51.31);
+      tl.fromTo("#cf35", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 0, rotation: 451, duration: 3.53, ease: "none" }, 49.65);
+      tl.fromTo("#cf35", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -0, rotation: -451, duration: 3.53, ease: "none", immediateRender: false }, 53.97);
+      tl.fromTo("#cf36", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 54, rotation: -536, duration: 3.00, ease: "none" }, 47.93);
+      tl.fromTo("#cf36", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -54, rotation: 536, duration: 3.00, ease: "none", immediateRender: false }, 51.19);
+      tl.fromTo("#cf37", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 10, rotation: 20, duration: 3.32, ease: "none" }, 48.36);
+      tl.fromTo("#cf37", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -10, rotation: -20, duration: 3.32, ease: "none", immediateRender: false }, 52.85);
+      tl.fromTo("#cf38", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 1, rotation: 294, duration: 3.21, ease: "none" }, 47.22);
+      tl.fromTo("#cf38", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -1, rotation: -294, duration: 3.21, ease: "none", immediateRender: false }, 51.27);
+      tl.fromTo("#cf39", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 2, rotation: 6, duration: 3.95, ease: "none" }, 47.94);
+      tl.fromTo("#cf39", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -2, rotation: -6, duration: 3.95, ease: "none", immediateRender: false }, 52.93);
+      tl.fromTo("#cf40", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 68, rotation: 215, duration: 4.67, ease: "none" }, 48.07);
+      tl.fromTo("#cf40", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -68, rotation: -215, duration: 4.67, ease: "none", immediateRender: false }, 54.15);
+      tl.fromTo("#cf41", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -68, rotation: -392, duration: 4.45, ease: "none" }, 49.79);
+      tl.fromTo("#cf41", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 68, rotation: 392, duration: 4.45, ease: "none", immediateRender: false }, 54.90);
+      tl.fromTo("#cf42", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 71, rotation: 307, duration: 4.07, ease: "none" }, 46.57);
+      tl.fromTo("#cf42", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -71, rotation: -307, duration: 4.07, ease: "none", immediateRender: false }, 50.88);
+      tl.fromTo("#cf43", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -50, rotation: 505, duration: 4.54, ease: "none" }, 46.83);
+      tl.fromTo("#cf43", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 50, rotation: -505, duration: 4.54, ease: "none", immediateRender: false }, 52.80);
+      tl.fromTo("#cf44", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -12, rotation: -366, duration: 4.43, ease: "none" }, 49.96);
+      tl.fromTo("#cf44", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 12, rotation: 366, duration: 4.43, ease: "none", immediateRender: false }, 55.17);
+      tl.fromTo("#cf45", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 10, rotation: -519, duration: 4.19, ease: "none" }, 47.48);
+      tl.fromTo("#cf45", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -10, rotation: 519, duration: 4.19, ease: "none", immediateRender: false }, 52.33);
+      tl.fromTo("#cf46", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 87, rotation: -471, duration: 3.73, ease: "none" }, 48.61);
+      tl.fromTo("#cf46", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -87, rotation: 471, duration: 3.73, ease: "none", immediateRender: false }, 53.52);
+      tl.fromTo("#cf47", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -41, rotation: 301, duration: 2.69, ease: "none" }, 47.28);
+      tl.fromTo("#cf47", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 41, rotation: -301, duration: 2.69, ease: "none", immediateRender: false }, 50.16);
+      tl.fromTo("#cf48", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 75, rotation: -379, duration: 3.17, ease: "none" }, 49.33);
+      tl.fromTo("#cf48", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -75, rotation: 379, duration: 3.17, ease: "none", immediateRender: false }, 53.36);
+      tl.fromTo("#cf49", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -77, rotation: -81, duration: 4.11, ease: "none" }, 46.51);
+      tl.fromTo("#cf49", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 77, rotation: 81, duration: 4.11, ease: "none", immediateRender: false }, 52.03);
+      tl.fromTo("#cf50", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 65, rotation: -468, duration: 4.48, ease: "none" }, 46.61);
+      tl.fromTo("#cf50", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -65, rotation: 468, duration: 4.48, ease: "none", immediateRender: false }, 51.77);
+      tl.fromTo("#cf51", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 5, rotation: -400, duration: 3.19, ease: "none" }, 49.73);
+      tl.fromTo("#cf51", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -5, rotation: 400, duration: 3.19, ease: "none", immediateRender: false }, 53.28);
+      tl.fromTo("#cf52", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -35, rotation: -203, duration: 3.04, ease: "none" }, 46.49);
+      tl.fromTo("#cf52", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 35, rotation: 203, duration: 3.04, ease: "none", immediateRender: false }, 50.67);
+      tl.fromTo("#cf53", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -45, rotation: -520, duration: 3.36, ease: "none" }, 46.96);
+      tl.fromTo("#cf53", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 45, rotation: 520, duration: 3.36, ease: "none", immediateRender: false }, 50.34);
+      tl.fromTo("#cf54", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -71, rotation: 469, duration: 3.64, ease: "none" }, 47.00);
+      tl.fromTo("#cf54", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 71, rotation: -469, duration: 3.64, ease: "none", immediateRender: false }, 51.87);
+      tl.fromTo("#cf55", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 34, rotation: 7, duration: 3.46, ease: "none" }, 49.39);
+      tl.fromTo("#cf55", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -34, rotation: -7, duration: 3.46, ease: "none", immediateRender: false }, 54.33);
+      tl.fromTo("#cf56", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -27, rotation: -103, duration: 4.00, ease: "none" }, 48.91);
+      tl.fromTo("#cf56", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 27, rotation: 103, duration: 4.00, ease: "none", immediateRender: false }, 53.00);
+      tl.fromTo("#cf57", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -75, rotation: -364, duration: 3.16, ease: "none" }, 49.04);
+      tl.fromTo("#cf57", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 75, rotation: 364, duration: 3.16, ease: "none", immediateRender: false }, 53.47);
+      tl.fromTo("#cf58", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -7, rotation: -223, duration: 3.13, ease: "none" }, 47.34);
+      tl.fromTo("#cf58", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 7, rotation: 223, duration: 3.13, ease: "none", immediateRender: false }, 50.71);
+      tl.fromTo("#cf59", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -46, rotation: 51, duration: 4.74, ease: "none" }, 49.86);
+      tl.fromTo("#cf59", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 46, rotation: -51, duration: 4.74, ease: "none", immediateRender: false }, 56.05);
+      tl.fromTo("#cf60", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 0, rotation: -27, duration: 3.44, ease: "none" }, 46.30);
+      tl.fromTo("#cf60", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -0, rotation: 27, duration: 3.44, ease: "none", immediateRender: false }, 50.05);
+      tl.fromTo("#cf61", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -82, rotation: -109, duration: 2.80, ease: "none" }, 47.28);
+      tl.fromTo("#cf61", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 82, rotation: 109, duration: 2.80, ease: "none", immediateRender: false }, 50.11);
+      tl.fromTo("#cf62", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 28, rotation: 271, duration: 3.76, ease: "none" }, 48.47);
+      tl.fromTo("#cf62", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -28, rotation: -271, duration: 3.76, ease: "none", immediateRender: false }, 53.30);
+      tl.fromTo("#cf63", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 40, rotation: -379, duration: 4.77, ease: "none" }, 47.51);
+      tl.fromTo("#cf63", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -40, rotation: 379, duration: 4.77, ease: "none", immediateRender: false }, 53.24);
+      tl.fromTo("#cf64", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 56, rotation: 253, duration: 3.98, ease: "none" }, 49.60);
+      tl.fromTo("#cf64", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -56, rotation: -253, duration: 3.98, ease: "none", immediateRender: false }, 53.79);
+      tl.fromTo("#cf65", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 15, rotation: 353, duration: 4.37, ease: "none" }, 49.39);
+      tl.fromTo("#cf65", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -15, rotation: -353, duration: 4.37, ease: "none", immediateRender: false }, 55.10);
+      tl.fromTo("#cf66", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -25, rotation: -396, duration: 2.67, ease: "none" }, 47.15);
+      tl.fromTo("#cf66", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 25, rotation: 396, duration: 2.67, ease: "none", immediateRender: false }, 49.98);
+      tl.fromTo("#cf67", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -2, rotation: 195, duration: 3.98, ease: "none" }, 48.62);
+      tl.fromTo("#cf67", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 2, rotation: -195, duration: 3.98, ease: "none", immediateRender: false }, 52.61);
+      tl.fromTo("#cf68", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -78, rotation: 172, duration: 3.78, ease: "none" }, 48.16);
+      tl.fromTo("#cf68", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 78, rotation: -172, duration: 3.78, ease: "none", immediateRender: false }, 53.04);
+      tl.fromTo("#cf69", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 43, rotation: -318, duration: 4.20, ease: "none" }, 47.28);
+      tl.fromTo("#cf69", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -43, rotation: 318, duration: 4.20, ease: "none", immediateRender: false }, 52.95);
+      tl.fromTo("#cf70", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 21, rotation: 288, duration: 4.10, ease: "none" }, 48.07);
+      tl.fromTo("#cf70", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -21, rotation: -288, duration: 4.10, ease: "none", immediateRender: false }, 53.14);
+      tl.fromTo("#cf71", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 12, rotation: -211, duration: 4.24, ease: "none" }, 47.24);
+      tl.fromTo("#cf71", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -12, rotation: 211, duration: 4.24, ease: "none", immediateRender: false }, 51.49);
+      tl.fromTo("#cf72", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -38, rotation: 190, duration: 4.12, ease: "none" }, 48.79);
+      tl.fromTo("#cf72", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 38, rotation: -190, duration: 4.12, ease: "none", immediateRender: false }, 53.68);
+      tl.fromTo("#cf73", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 86, rotation: -325, duration: 4.57, ease: "none" }, 46.74);
+      tl.fromTo("#cf73", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -86, rotation: 325, duration: 4.57, ease: "none", immediateRender: false }, 52.71);
+      tl.fromTo("#cf74", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -42, rotation: -55, duration: 4.73, ease: "none" }, 49.33);
+      tl.fromTo("#cf74", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 42, rotation: 55, duration: 4.73, ease: "none", immediateRender: false }, 54.38);
+      tl.fromTo("#cf75", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 81, rotation: 26, duration: 2.91, ease: "none" }, 48.45);
+      tl.fromTo("#cf75", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -81, rotation: -26, duration: 2.91, ease: "none", immediateRender: false }, 51.56);
+      tl.fromTo("#cf76", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 72, rotation: -290, duration: 4.15, ease: "none" }, 49.58);
+      tl.fromTo("#cf76", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -72, rotation: 290, duration: 4.15, ease: "none", immediateRender: false }, 54.46);
+      tl.fromTo("#cf77", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -65, rotation: -214, duration: 3.59, ease: "none" }, 48.12);
+      tl.fromTo("#cf77", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 65, rotation: 214, duration: 3.59, ease: "none", immediateRender: false }, 52.23);
+      tl.fromTo("#cf78", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -68, rotation: 366, duration: 4.25, ease: "none" }, 46.31);
+      tl.fromTo("#cf78", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 68, rotation: -366, duration: 4.25, ease: "none", immediateRender: false }, 51.95);
+      tl.fromTo("#cf79", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 90, rotation: -116, duration: 3.42, ease: "none" }, 47.37);
+      tl.fromTo("#cf79", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -90, rotation: 116, duration: 3.42, ease: "none", immediateRender: false }, 51.68);
+      tl.fromTo("#cf80", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 60, rotation: -430, duration: 2.71, ease: "none" }, 47.32);
+      tl.fromTo("#cf80", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -60, rotation: 430, duration: 2.71, ease: "none", immediateRender: false }, 50.45);
+      tl.fromTo("#cf81", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -23, rotation: -335, duration: 3.72, ease: "none" }, 47.28);
+      tl.fromTo("#cf81", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 23, rotation: 335, duration: 3.72, ease: "none", immediateRender: false }, 52.44);
+      tl.fromTo("#cf82", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 9, rotation: 476, duration: 4.61, ease: "none" }, 48.63);
+      tl.fromTo("#cf82", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -9, rotation: -476, duration: 4.61, ease: "none", immediateRender: false }, 54.32);
+      tl.fromTo("#cf83", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -38, rotation: 156, duration: 4.26, ease: "none" }, 47.97);
+      tl.fromTo("#cf83", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 38, rotation: -156, duration: 4.26, ease: "none", immediateRender: false }, 52.30);
+      tl.fromTo("#cf84", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 43, rotation: -218, duration: 3.36, ease: "none" }, 48.05);
+      tl.fromTo("#cf84", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -43, rotation: 218, duration: 3.36, ease: "none", immediateRender: false }, 52.87);
+      tl.fromTo("#cf85", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -60, rotation: -114, duration: 3.83, ease: "none" }, 47.41);
+      tl.fromTo("#cf85", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 60, rotation: 114, duration: 3.83, ease: "none", immediateRender: false }, 51.48);
+      tl.fromTo("#cf86", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 89, rotation: 439, duration: 3.08, ease: "none" }, 48.14);
+      tl.fromTo("#cf86", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -89, rotation: -439, duration: 3.08, ease: "none", immediateRender: false }, 51.90);
+      tl.fromTo("#cf87", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -47, rotation: -442, duration: 3.35, ease: "none" }, 46.64);
+      tl.fromTo("#cf87", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 47, rotation: 442, duration: 3.35, ease: "none", immediateRender: false }, 50.38);
+      tl.fromTo("#cf88", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 4, rotation: -93, duration: 3.51, ease: "none" }, 49.07);
+      tl.fromTo("#cf88", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -4, rotation: 93, duration: 3.51, ease: "none", immediateRender: false }, 53.15);
+      tl.fromTo("#cf89", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 1, rotation: -404, duration: 4.73, ease: "none" }, 47.33);
+      tl.fromTo("#cf89", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -1, rotation: 404, duration: 4.73, ease: "none", immediateRender: false }, 53.00);
+      tl.fromTo("#cf90", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -10, rotation: -108, duration: 3.15, ease: "none" }, 47.30);
+      tl.fromTo("#cf90", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 10, rotation: 108, duration: 3.15, ease: "none", immediateRender: false }, 51.88);
+      tl.fromTo("#cf91", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 71, rotation: 226, duration: 2.67, ease: "none" }, 46.38);
+      tl.fromTo("#cf91", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -71, rotation: -226, duration: 2.67, ease: "none", immediateRender: false }, 49.76);
+      tl.fromTo("#cf92", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 64, rotation: 352, duration: 4.64, ease: "none" }, 47.75);
+      tl.fromTo("#cf92", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -64, rotation: -352, duration: 4.64, ease: "none", immediateRender: false }, 53.85);
+      tl.fromTo("#cf93", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 79, rotation: 197, duration: 3.75, ease: "none" }, 46.87);
+      tl.fromTo("#cf93", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -79, rotation: -197, duration: 3.75, ease: "none", immediateRender: false }, 51.70);
+      tl.fromTo("#cf94", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 51, rotation: -497, duration: 3.81, ease: "none" }, 47.99);
+      tl.fromTo("#cf94", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -51, rotation: 497, duration: 3.81, ease: "none", immediateRender: false }, 52.15);
+      tl.fromTo("#cf95", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 25, rotation: -268, duration: 2.88, ease: "none" }, 47.42);
+      tl.fromTo("#cf95", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -25, rotation: 268, duration: 2.88, ease: "none", immediateRender: false }, 51.35);
+      tl.fromTo("#cf96", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -50, rotation: -121, duration: 3.88, ease: "none" }, 48.24);
+      tl.fromTo("#cf96", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 50, rotation: 121, duration: 3.88, ease: "none", immediateRender: false }, 53.02);
+      tl.fromTo("#cf97", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 69, rotation: 156, duration: 4.71, ease: "none" }, 48.00);
+      tl.fromTo("#cf97", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -69, rotation: -156, duration: 4.71, ease: "none", immediateRender: false }, 53.43);
+      tl.fromTo("#cf98", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -86, rotation: -208, duration: 4.15, ease: "none" }, 49.85);
+      tl.fromTo("#cf98", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 86, rotation: 208, duration: 4.15, ease: "none", immediateRender: false }, 54.75);
+      tl.fromTo("#cf99", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -49, rotation: 459, duration: 4.07, ease: "none" }, 47.25);
+      tl.fromTo("#cf99", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 49, rotation: -459, duration: 4.07, ease: "none", immediateRender: false }, 51.37);
+      tl.fromTo("#cf100", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 43, rotation: 321, duration: 3.04, ease: "none" }, 48.83);
+      tl.fromTo("#cf100", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -43, rotation: -321, duration: 3.04, ease: "none", immediateRender: false }, 52.62);
+      tl.fromTo("#cf101", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -50, rotation: -291, duration: 4.40, ease: "none" }, 47.45);
+      tl.fromTo("#cf101", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 50, rotation: 291, duration: 4.40, ease: "none", immediateRender: false }, 53.00);
+      tl.fromTo("#cf102", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -15, rotation: -299, duration: 3.01, ease: "none" }, 48.13);
+      tl.fromTo("#cf102", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 15, rotation: 299, duration: 3.01, ease: "none", immediateRender: false }, 52.14);
+      tl.fromTo("#cf103", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -64, rotation: 512, duration: 3.07, ease: "none" }, 47.76);
+      tl.fromTo("#cf103", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 64, rotation: -512, duration: 3.07, ease: "none", immediateRender: false }, 50.90);
+      tl.fromTo("#cf104", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 90, rotation: 251, duration: 4.54, ease: "none" }, 49.62);
+      tl.fromTo("#cf104", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -90, rotation: -251, duration: 4.54, ease: "none", immediateRender: false }, 55.56);
+      tl.fromTo("#cf105", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 30, rotation: -506, duration: 4.24, ease: "none" }, 49.76);
+      tl.fromTo("#cf105", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -30, rotation: 506, duration: 4.24, ease: "none", immediateRender: false }, 54.57);
+      tl.fromTo("#cf106", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -27, rotation: -238, duration: 2.61, ease: "none" }, 46.93);
+      tl.fromTo("#cf106", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 27, rotation: 238, duration: 2.61, ease: "none", immediateRender: false }, 50.97);
+      tl.fromTo("#cf107", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: 58, rotation: 347, duration: 3.38, ease: "none" }, 47.07);
+      tl.fromTo("#cf107", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: -58, rotation: -347, duration: 3.38, ease: "none", immediateRender: false }, 51.10);
+      tl.fromTo("#cf108", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -24, rotation: -332, duration: 4.62, ease: "none" }, 47.68);
+      tl.fromTo("#cf108", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 24, rotation: 332, duration: 4.62, ease: "none", immediateRender: false }, 53.65);
+      tl.fromTo("#cf109", { y: -60, x: 0, rotation: 0, opacity: 1 }, { y: 2000, x: -84, rotation: -496, duration: 4.29, ease: "none" }, 49.30);
+      tl.fromTo("#cf109", { y: -60, x: 0, rotation: 0 }, { y: 2000, x: 84, rotation: 496, duration: 4.29, ease: "none", immediateRender: false }, 53.68);
+      tl.fromTo("#cupsvg", { y: 700, scale: 0.6 }, { y: 0, scale: 1, duration: 0.9, ease: "back.out(1.4)" }, 46.05);
+      tl.fromTo("#c0 .rays", { rotation: 0, opacity: 0 }, { rotation: 60, opacity: 1, duration: 14, ease: "none" }, 46.0);
+      tl.fromTo("#flash", { opacity: 0.55 }, { opacity: 0, duration: 0.35, immediateRender: false }, 46.6);
+      tl.fromTo("#c1", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 46.7);
+      tl.fromTo("#c2", { scale: 1.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 47.1);
+      tl.fromTo("#cards", { x: -14 }, { x: 0, duration: 0.25, ease: "elastic.out(1,0.3)" }, 46.7);
+      tl.fromTo("#c3", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 48.3);
+      tl.to(["#c1", "#c2", "#c3"], { opacity: 0, duration: 0.3 }, 50.8);
+      tl.fromTo("#c4", { scale: 1.25, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.28, ease: "power4.out" }, 51.2);
+      tl.fromTo("#cards", { x: -14 }, { x: 0, duration: 0.25, ease: "elastic.out(1,0.3)" }, 51.2);
+      tl.to("#c4", { opacity: 0, duration: 0.4 }, 57.2);
+      tl.fromTo("#c5 .end", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 57.4);
+      tl.fromTo("#ch0", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 15.83);
+      tl.fromTo("#ch1", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 20.23);
+      tl.fromTo("#ch2", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 27.630000000000003);
+      tl.fromTo("#ch3", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 8.629999999999999);
+      tl.fromTo("#ch4", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: "power3.out" }, 33.03);
+      tl.set({}, {}, 60);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
