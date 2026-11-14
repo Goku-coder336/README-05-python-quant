@@ -1,0 +1,104 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #3d1f9c; font-family: Inter, sans-serif; color: #fff; }
+  .bg { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 40%, #5b31d1 0%, #4423b0 55%, #2a1272 100%); }
+  .oswald { font-family: Oswald, sans-serif; font-weight: 700; }
+  .recon { position: absolute; left: 60px; top: 48px; font: 700 28px Inter; padding: 8px 18px; border: 3px solid #ff3b55; border-radius: 8px; background: rgba(20,8,60,.6); }
+  .src { position: absolute; font: 400 28px Inter; color: rgba(255,255,255,.75); }
+  .cap { position: absolute; left: 0; right: 0; bottom: 52px; text-align: center; }
+  .cap span { display: inline-block; font: 600 40px Inter; background: rgba(20,8,60,.78); padding: 8px 24px; border-radius: 10px; }
+  .score { position: absolute; right: 60px; top: 44px; font-size: 46px; background: rgba(20,8,60,.8); padding: 6px 20px; border-radius: 10px; }
+</style>
+<script src="../assets/story.js"></script>
+</head><body>
+<div class="bg"></div>
+<svg id="s" width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0"></svg>
+<div id="html"></div>
+<script>
+const S = window.Story;
+const which = new URLSearchParams(location.search).get("s") || "1";
+const svg = document.getElementById("s"), html = document.getElementById("html");
+const facing = (cam, x, y, tx, ty) => { const a = cam.p(x, y), b = cam.p(tx, ty); return b[0] >= a[0] ? 1 : -1; };
+
+fetch("../data/film_data.json").then(r => r.json()).then(D => {
+  if (which === "1") {
+    // cold open: Gus at his chalkboard
+    const balls = (n, red, y, x0) => {
+      let o = "";
+      for (let i = 0; i < n; i++) {
+        const x = x0 + i * 52, c = i < red ? "#ff3b55" : "rgba(255,255,255,.25)";
+        o += `<circle cx="${x}" cy="${y}" r="20" fill="${i < red ? "#ff3b55" : "none"}" stroke="${i < red ? "#ff3b55" : "rgba(255,255,255,.55)"}" stroke-width="4" ${i < red ? 'filter="url(#glow)"' : ""}/>`;
+      }
+      return o;
+    };
+    svg.innerHTML = `<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <rect x="0" y="930" width="1920" height="150" fill="rgba(20,8,60,.45)"/>
+      <rect x="800" y="120" width="1040" height="700" rx="22" fill="#6b4a2e"/>
+      <rect x="822" y="142" width="996" height="656" rx="12" fill="#1d2a26"/>
+      <text x="870" y="230" font-family="Oswald" font-weight="700" font-size="44" fill="rgba(255,255,255,.7)" letter-spacing="3">GROUP STAGE</text>
+      ${balls(15, 8, 300, 892)}
+      <text x="870" y="400" font-family="Oswald" font-weight="700" font-size="74" fill="#ff3b55">MESSI 8</text>
+      <text x="1130" y="400" font-family="Oswald" font-weight="700" font-size="46" fill="rgba(255,255,255,.8)">OF 15 GOALS</text>
+      <text x="870" y="530" font-family="Oswald" font-weight="700" font-size="44" fill="rgba(255,255,255,.7)" letter-spacing="3">KNOCKOUTS</text>
+      ${balls(16, 2, 600, 892)}
+      <text x="870" y="700" font-family="Oswald" font-weight="700" font-size="74" fill="#ff3b55">MESSI 2</text>
+      <text x="1130" y="700" font-family="Oswald" font-weight="700" font-size="46" fill="rgba(255,255,255,.8)">OF 16 GOALS</text>
+      <text x="870" y="770" font-family="Inter" font-size="28" fill="rgba(255,255,255,.6)">Barcelona, Champions League 2014/15 · Source: UEFA</text>
+      <g transform="translate(440 1010) scale(1.45)">${S.gus("gus", { armB: -112, armF: 8, mouth: 12, tilt: 4 })}</g>`;
+    html.innerHTML = `<div class="cap"><span>In the knockout rounds, Barcelona scored sixteen. Messi scored two.</span></div>`;
+  }
+  if (which === "2") {
+    // wide angled shot: Rakitić's goal, 4 minutes, at the moment of the shot (StatsBomb freeze frame)
+    const cam = new S.Camera({ ex: 101, ey: 62, ez: 9, tx: 114, ty: 37, tz: 0, fov: 2300, cy: 560 });
+    const shot = D.goals["4'"].slice(-1)[0];
+    const items = [];
+    for (const f of shot.freeze) {
+      const team = f.teammate ? "BAR" : "JUV";
+      const kit = f.name === "Buffon" ? "GKJ" : team;
+      const pose = f.name === "Buffon" ? "ready" : (f.teammate ? "run1" : "ready");
+      const [x, y] = f.loc;
+      const dir = f.teammate ? facing(cam, x, y, 120, 40) : facing(cam, x, y, shot.from[0], shot.from[1]);
+      items.push({ x, y, svg: S.player(cam, x, y, pose, kit, dir), name: ["Iniesta"].includes(f.name) ? f.name : null, team });
+    }
+    const [rx, ry] = shot.from;
+    items.push({ x: rx, y: ry, svg: S.player(cam, rx, ry, "kick", "BAR", facing(cam, rx, ry, 120, 40)), name: "Rakitić", team: "BAR" });
+    items.sort((a, b) => cam.p(b.x, b.y)[2] - cam.p(a.x, a.y)[2]); // far first
+    const bx = rx + (shot.to[0] - rx) * 0.45, by = ry + (shot.to[1] - ry) * 0.45;
+    svg.innerHTML = S.pitchSVG(cam) +
+      S.groundArrow(cam, D.goals["4'"][5].from, D.goals["4'"][5].to, "rgba(255,255,255,.9)") +
+      S.groundArrow(cam, [rx + 0.6, ry], shot.to, "#fff", 0.4) +
+      items.map(i => i.svg).join("") + S.ball(cam, bx, by, 0.9) +
+      items.filter(i => i.name).map(i => S.nameTag(cam, i.x, i.y, i.name, i.team)).join("");
+    html.innerHTML = `<div class="recon">Reconstruction · positions illustrative</div>
+      <div class="src" style="left:62px;top:112px">Data: StatsBomb open data</div>
+      <div class="score oswald">JUV 0-1 BAR · 4'</div>
+      <div class="cap"><span>Iniesta found Rakitić.</span></div>`;
+  }
+  if (which === "3") {
+    // close-up: Messi goes past Barzagli, 68 minutes
+    const cam = new S.Camera({ ex: 92.5, ey: 41, ez: 3.4, tx: 98.6, ty: 30, tz: 0.9, fov: 1900, cy: 560 });
+    const shot = D.goals["68'"].find(s => s.kind === "shot" && s.player === "Messi");
+    const parts = [];
+    for (const f of shot.freeze) {
+      if (f.teammate || f.name === "Barzagli" || Math.hypot(f.loc[0] - 97, f.loc[1] - 28.6) < 4) continue;
+      const kit = f.name === "Buffon" ? "GKJ" : "JUV";
+      const [x, y] = f.loc;
+      parts.push({ x, y, s: S.player(cam, x, y, "ready", kit, facing(cam, x, y, 98, 30)) });
+    }
+    parts.push({ x: 97, y: 28.6, s: S.player(cam, 97, 28.6, "stretch", "JUV", facing(cam, 97, 28.6, 99, 31)) });
+    parts.push({ x: 98.6, y: 30.4, s: S.player(cam, 98.6, 30.4, "dribble", "BAR", facing(cam, 98, 30, 110, 34)) });
+    parts.sort((a, b) => cam.p(b.x, b.y)[2] - cam.p(a.x, a.y)[2]);
+    svg.innerHTML = S.pitchSVG(cam) + S.groundArrow(cam, [80, 34], [98.4, 30.3], "#ff3b55") + parts.map(p => p.s).join("") + S.ball(cam, 99.6, 30.9) +
+      S.nameTag(cam, 98.6, 30.4, "Messi", "BAR", 2.6) + S.nameTag(cam, 97, 28.6, "Barzagli", "JUV", 2.6);
+    html.innerHTML = `<div class="recon">Reconstruction · positions and poses illustrative</div>
+      <div class="src" style="left:62px;top:112px">Data: StatsBomb open data</div>
+      <div class="score oswald">JUV 1-1 BAR · 68'</div>
+      <div class="cap"><span>He carried it nearly forty yards and went past Barzagli.</span></div>`;
+  }
+  document.fonts.ready.then(() => document.body.setAttribute("data-ready", "1"));
+});
+</script>
+</body></html>
