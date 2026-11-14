@@ -16,7 +16,7 @@ like a bedtime story, in the first person. He is fiction; everything he tells is
 
 ## The look
 
-- **Background**: a bold violet (`#4423b0` to `#5b31d1`), as you asked, following your reference clip.
+- **Background**: a deep teal (`#1f8e86` to `#0a3a3d`), changed from violet at your request.
 - **The pitch**: white lines in perspective, seen from an angled camera that moves with the play: wide for the
   build-up, then a cut in close for the moment that matters (a shot, a save, a player beaten).
 - **Players**: flat illustrated figures with posable limbs (run, dribble, kick, stretch, dive, celebrate).

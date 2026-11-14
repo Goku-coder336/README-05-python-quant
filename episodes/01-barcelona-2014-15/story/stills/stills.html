@@ -3,14 +3,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { width: 1920px; height: 1080px; overflow: hidden; background: #3d1f9c; font-family: Inter, sans-serif; color: #fff; }
-  .bg { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 40%, #5b31d1 0%, #4423b0 55%, #2a1272 100%); }
+  body { width: 1920px; height: 1080px; overflow: hidden; background: #146a66; font-family: Inter, sans-serif; color: #fff; }
+  .bg { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 40%, #1f8e86 0%, #146a66 55%, #0a3a3d 100%); }
   .oswald { font-family: Oswald, sans-serif; font-weight: 700; }
-  .recon { position: absolute; left: 60px; top: 48px; font: 700 28px Inter; padding: 8px 18px; border: 3px solid #ff3b55; border-radius: 8px; background: rgba(20,8,60,.6); }
+  .recon { position: absolute; left: 60px; top: 48px; font: 700 28px Inter; padding: 8px 18px; border: 3px solid #ff3b55; border-radius: 8px; background: rgba(4,32,36,.6); }
   .src { position: absolute; font: 400 28px Inter; color: rgba(255,255,255,.75); }
   .cap { position: absolute; left: 0; right: 0; bottom: 52px; text-align: center; }
-  .cap span { display: inline-block; font: 600 40px Inter; background: rgba(20,8,60,.78); padding: 8px 24px; border-radius: 10px; }
-  .score { position: absolute; right: 60px; top: 44px; font-size: 46px; background: rgba(20,8,60,.8); padding: 6px 20px; border-radius: 10px; }
+  .cap span { display: inline-block; font: 600 40px Inter; background: rgba(4,32,36,.8); padding: 8px 24px; border-radius: 10px; }
+  .score { position: absolute; right: 60px; top: 44px; font-size: 46px; background: rgba(4,32,36,.82); padding: 6px 20px; border-radius: 10px; }
 </style>
 <script src="../assets/story.js"></script>
 </head><body>
@@ -35,7 +35,7 @@ fetch("../data/film_data.json").then(r => r.json()).then(D => {
       return o;
     };
     svg.innerHTML = `<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-      <rect x="0" y="930" width="1920" height="150" fill="rgba(20,8,60,.45)"/>
+      <rect x="0" y="930" width="1920" height="150" fill="rgba(4,32,36,.4)"/>
       <rect x="800" y="120" width="1040" height="700" rx="22" fill="#6b4a2e"/>
       <rect x="822" y="142" width="996" height="656" rx="12" fill="#1d2a26"/>
       <text x="870" y="230" font-family="Oswald" font-weight="700" font-size="44" fill="rgba(255,255,255,.7)" letter-spacing="3">GROUP STAGE</text>
@@ -65,7 +65,7 @@ fetch("../data/film_data.json").then(r => r.json()).then(D => {
     }
     const [rx, ry] = shot.from;
     items.push({ x: rx, y: ry, svg: S.player(cam, rx, ry, "kick", "BAR", facing(cam, rx, ry, 120, 40)), name: "Rakitić", team: "BAR" });
-    items.sort((a, b) => cam.p(b.x, b.y)[2] - cam.p(a.x, a.y)[2]); // far first
+    items.sort((a, b) => cam.p(a.x, a.y)[2] - cam.p(b.x, b.y)[2]); // far first
     const bx = rx + (shot.to[0] - rx) * 0.45, by = ry + (shot.to[1] - ry) * 0.45;
     svg.innerHTML = S.pitchSVG(cam) +
       S.groundArrow(cam, D.goals["4'"][5].from, D.goals["4'"][5].to, "rgba(255,255,255,.9)") +
@@ -79,7 +79,7 @@ fetch("../data/film_data.json").then(r => r.json()).then(D => {
   }
   if (which === "3") {
     // close-up: Messi goes past Barzagli, 68 minutes
-    const cam = new S.Camera({ ex: 92.5, ey: 41, ez: 3.4, tx: 98.6, ty: 30, tz: 0.9, fov: 1900, cy: 560 });
+    const cam = new S.Camera({ ex: 94.2, ey: 38.6, ez: 2.6, tx: 98.4, ty: 29.8, tz: 0.9, fov: 2000, cy: 560 });
     const shot = D.goals["68'"].find(s => s.kind === "shot" && s.player === "Messi");
     const parts = [];
     for (const f of shot.freeze) {
@@ -90,13 +90,44 @@ fetch("../data/film_data.json").then(r => r.json()).then(D => {
     }
     parts.push({ x: 97, y: 28.6, s: S.player(cam, 97, 28.6, "stretch", "JUV", facing(cam, 97, 28.6, 99, 31)) });
     parts.push({ x: 98.6, y: 30.4, s: S.player(cam, 98.6, 30.4, "dribble", "BAR", facing(cam, 98, 30, 110, 34)) });
-    parts.sort((a, b) => cam.p(b.x, b.y)[2] - cam.p(a.x, a.y)[2]);
+    parts.sort((a, b) => cam.p(a.x, a.y)[2] - cam.p(b.x, b.y)[2]);
     svg.innerHTML = S.pitchSVG(cam) + S.groundArrow(cam, [80, 34], [98.4, 30.3], "#ff3b55") + parts.map(p => p.s).join("") + S.ball(cam, 99.6, 30.9) +
       S.nameTag(cam, 98.6, 30.4, "Messi", "BAR", 2.6) + S.nameTag(cam, 97, 28.6, "Barzagli", "JUV", 2.6);
     html.innerHTML = `<div class="recon">Reconstruction · positions and poses illustrative</div>
       <div class="src" style="left:62px;top:112px">Data: StatsBomb open data</div>
       <div class="score oswald">JUV 1-1 BAR · 68'</div>
       <div class="cap"><span>He carried it nearly forty yards and went past Barzagli.</span></div>`;
+  }
+  if (which === "4") {
+    // close-up: Rakitić strikes, 4 minutes (StatsBomb shot location; poses illustrative)
+    const cam = new S.Camera({ ex: 109.5, ey: 49, ez: 2.2, tx: 114.5, ty: 38.4, tz: 0.9, fov: 2300, cy: 560 });
+    const shot = D.goals["4'"].slice(-1)[0];
+    const parts = [];
+    for (const f of shot.freeze) {
+      const [x, y] = f.loc;
+      if (x < 108 || cam.p(x, y)[2] > 260 || (f.name !== "Buffon" && Math.hypot(x - 112, y - 38) < 4)) continue;
+      const kit = f.name === "Buffon" ? "GKJ" : (f.teammate ? "BAR" : "JUV");
+      const pose = f.name === "Buffon" ? "ready" : (f.teammate ? "run2" : "ready");
+      parts.push({ x, y, s: S.player(cam, x, y, pose, kit, facing(cam, x, y, f.teammate ? 120 : 112, f.teammate ? 40 : 38)) });
+    }
+    parts.push({ x: 112, y: 38, s: S.player(cam, 112, 38, "kick", "BAR", facing(cam, 112, 38, 120, 41.7)) });
+    parts.sort((a, b) => cam.p(a.x, a.y)[2] - cam.p(b.x, b.y)[2]);
+    svg.innerHTML = S.pitchSVG(cam) + parts.map(p => p.s).join("") + S.ball(cam, 113.1, 38.5, 0.45) + S.nameTag(cam, 112, 38, "Rakitić", "BAR", 2.5);
+    html.innerHTML = `<div class="recon">Reconstruction · positions and poses illustrative</div>
+      <div class="src" style="left:62px;top:112px">Data: StatsBomb open data</div>
+      <div class="score oswald">JUV 0-0 BAR · 4'</div>
+      <div class="cap"><span>Iniesta found Rakitić. One-nil.</span></div>`;
+  }
+  if (which === "5") {
+    // the player figures, every pose, large
+    const poses = ["stand", "ready", "run1", "run2", "dribble", "wind", "kick", "stretch", "slide", "dive", "joy"];
+    let o = "";
+    poses.forEach((p, i) => {
+      const x = 130 + (i % 6) * 300, y = i < 6 ? 470 : 960, kit = p === "dive" ? "GKJ" : (i % 2 ? "JUV" : "BAR");
+      o += `<ellipse cx="${x}" cy="${y}" rx="70" ry="14" fill="rgba(0,20,25,.35)"/><g transform="translate(${x} ${y}) scale(3.4)">${S.figureInner(p, kit, 1)}</g>` +
+           `<text x="${x}" y="${y + 50}" text-anchor="middle" font-family="Inter" font-size="26" fill="rgba(255,255,255,.7)">${p}</text>`;
+    });
+    svg.innerHTML = o;
   }
   document.fonts.ready.then(() => document.body.setAttribute("data-ready", "1"));
 });
