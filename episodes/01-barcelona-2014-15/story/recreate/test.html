@@ -1,0 +1,38 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1080px; height: 1920px; overflow: hidden; font-family: Inter, sans-serif; color: #fff; background: #1f8e86; }
+  .bg { position: absolute; inset: 0; background: radial-gradient(110% 70% at 50% 45%, #23a096 0%, #1a8079 55%, #0d4a48 100%); }
+  .streak { position: absolute; height: 150px; background: rgba(6,48,50,.33); border-radius: 75px; transform: rotate(-28deg); }
+</style>
+<script src="../assets/players.js"></script><script src="flat.js"></script><script src="qf_suarez.js"></script>
+</head><body><div class="bg"></div>
+<div class="streak" style="left:-260px;top:520px;width:1000px"></div><div class="streak" style="left:380px;top:1180px;width:1000px"></div><div class="streak" style="left:-140px;top:1560px;width:800px"></div>
+<svg id="s" width="1080" height="1920" viewBox="0 0 1080 1920" style="position:absolute;inset:0"></svg>
+<script>
+const P = window.POSES_QF, F = window.FLAT, PL = window.PLAYERS;
+const f = parseFloat(new URLSearchParams(location.search).get("f") || "0");
+const ROLE = { 1: PL["Suárez"], 2: PL["David Luiz"] };
+function draw(fr) {
+  const i = Math.floor(fr), u = fr - i, j = Math.min(P.n - 1, i + 1);
+  const k = 0.96, ox = (1080 - P.w * k) / 2, oy = 0;
+  const items = [];
+  for (const t of P.tracks) {
+    const A = t.K[i], Bk = t.K[j] || A;
+    if (!A) continue;
+    const K = A.map((p, q) => [ox + (p[0] + (Bk[q][0] - p[0]) * u) * k, oy + (p[1] + (Bk[q][1] - p[1]) * u) * k]);
+    const base = ROLE[t.id] || { kit: t.team === "REF" ? "REF" : t.team, skin: "#d29b77", hairCol: "#1a120c", build: 1 };
+    const T = Object.assign({}, base, { kit: t.team === "BARA" ? "BARA" : (t.team === "REF" ? "REF" : "PSG") });
+    items.push(Object.assign(F.player(K, t.C[i], T), { size: t.size }));
+  }
+  items.sort((a, b) => a.foot - b.foot);
+  let o = items.map((x) => x.svg).join("");
+  const b = P.ball[i];
+  if (b) o += F.ball(ox + b[0] * k, oy + b[1] * k, Math.max(14, b[2] * k));
+  document.getElementById("s").innerHTML = o;
+}
+draw(f);
+document.fonts.ready.then(() => document.body.setAttribute("data-ready", "1"));
+</script></body></html>
