@@ -356,6 +356,8 @@ def cutaways():
     for d, a, b, en, draw in cuts:
         s, dur = r(a - P0), r(b - a)
         imgs = "".join(f'<img id="cut{d}-{k}" class="cut-img" src="../assets/drawings/d{d}-0{k}.jpg" alt="">' for k in range(1, 7))
+        # boiling line: three re-traces of the finished drawing (demos/boil_frames.py), cycled every 3 frames
+        imgs += "".join(f'<img id="cut{d}-b{k}" class="cut-img" src="../assets/drawings/d{d}-b{k}.jpg" alt="">' for k in range(1, 4))
         top = {1: 470, 2: 590}.get(d, 590)  # clear of each drawing's title and sun
         cap = f'<div id="cut{d}-en" class="cut-en" style="top: {top}px;">{en}</div>' if en else ""
         html.append(f'<div id="cut{d}" class="cut clip" data-start="{s}" data-duration="{dur}">{imgs}{cap}</div>')
@@ -364,6 +366,10 @@ def cutaways():
         for k in range(2, 7):
             t = r(s + step * (k - 1))
             js.append(f'tl.to("#cut{d}-{k}", {{opacity: 1, duration: {r(step * 0.8)}}}, {r(t - step * 0.8)});')
+        t, k, ids = r(s + draw + 0.1), 0, [f"#cut{d}-b1", f"#cut{d}-b2", f"#cut{d}-b3"]
+        while t < s + dur - 0.05:
+            js.append(f'tl.set({ids!r}, {{opacity: 0}}, {t});tl.set("{ids[k % 3]}", {{opacity: 1}}, {t});')
+            t, k = r(t + 0.1), k + 1
         js.append(f'tl.fromTo("#cut{d}", {{scale: 1.12}}, {{scale: 1.0, duration: 0.35, ease: "power3.out"}}, {s});')
         js.append(f'tl.to("#cut{d}", {{scale: 1.04, duration: {r(max(0.1, dur - 0.35))}, ease: "none"}}, {r(s + 0.35)});')
         if en:

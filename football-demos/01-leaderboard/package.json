@@ -1,0 +1,9 @@
+{
+  "name": "football-leaderboard-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npx --yes hyperframes@0.9.49 check",
+    "render": "npx --yes hyperframes@0.9.49 render"
+  }
+}
