@@ -9,11 +9,13 @@
     BAR: { shirt: "#a3123a", stripe: "#1d3c8f", shorts: "#1d3c8f", socks: "#1d3c8f", boots: "#101010", sleeve: "#a3123a" },
     JUV: { shirt: "#f4f4f2", stripe: "#151515", shorts: "#151515", socks: "#151515", boots: "#101010", sleeve: "#f4f4f2" },
     GKJ: { shirt: "#f2a516", stripe: null, shorts: "#f2a516", socks: "#f2a516", boots: "#101010", sleeve: "#d98e0c" },
+    PSG: { shirt: "#1b2440", stripe: null, shorts: "#1b2440", socks: "#1b2440", boots: "#101010", sleeve: "#1b2440", band: "#c8102e" },
+    BAY: { shirt: "#eceef0", stripe: null, shorts: "#eceef0", socks: "#eceef0", boots: "#101010", sleeve: "#d9dde1", band: "#c8102e" },
     GKB: { shirt: "#b8e01f", stripe: null, shorts: "#b8e01f", socks: "#b8e01f", boots: "#101010", sleeve: "#a0c616" },
     OPP: { shirt: "#3d4452", stripe: null, shorts: "#262a33", socks: "#3d4452", boots: "#101010", sleeve: "#353b47" },
     OPPGK: { shirt: "#2fbf71", stripe: null, shorts: "#1f8a50", socks: "#2fbf71", boots: "#101010", sleeve: "#29a863" },
   };
-  const SKIN = "#b97a55", HAIR = "#1d130c";
+  const SKIN0 = "#b97a55", HAIR0 = "#1d130c";
 
   function shade(hex, k) {
     const n = parseInt(hex.slice(1), 16);
@@ -63,16 +65,20 @@
   }
   let UID = 0;
   // P: world joint positions (yards). Returns { svg, depth } so the scene can sort players.
-  function body(cam, P, kitName) {
+  // T (optional): one player's look. skin, hair colour, hair style (short, curly, thin, top), beard, build (limb
+  // thickness), number and name on the back, captain's armband. No faces: players are told apart by these.
+  function body(cam, P, kitName, T) {
+    T = T || {};
+    const SKIN = T.skin || SKIN0, HAIR = T.hairCol || HAIR0, B = T.build || 1;
     const K = KITS[kitName], id = "b" + (UID++);
     const prims = []; // {d, depth, fill, kind}
     const depthOf = (p) => { const v = sub(p, [cam.ex, cam.ey, cam.ez]); return v[0] * cam.f[0] + v[1] * cam.f[1] + v[2] * cam.f[2]; };
     const pr = (p) => cam.p(p[0], p[1], p[2]);
     const hips = J(P, "Hips"), dHip = depthOf(hips);
     const seg = (a, b, r1, r2, col, kind, bias) => {
-      const A = pr(a), B = pr(b), m = lerp3(a, b, 0.5), dep = depthOf(m) + (bias || 0);
+      const A = pr(a), B_ = pr(b), m = lerp3(a, b, 0.5), dep = depthOf(m) + (bias || 0), Bk = kind === "torso" ? 1 : B;
       const far = dep > dHip + 0.06;
-      prims.push({ d: capsule(A, B, r1 * A[2], r2 * B[2]), depth: dep, fill: far ? shade(col, 0.78) : col, kind });
+      prims.push({ d: capsule(A, B_, r1 * A[2] * Bk, r2 * B_[2] * Bk), depth: dep, fill: far ? shade(col, 0.78) : col, kind });
     };
     for (const side of ["Left", "Right"]) {
       const up = J(P, side + "UpLeg"), kn = J(P, side + "Leg"), an = J(P, side + "Foot"), toe = J(P, side + "ToeBase"), tip = J(P, side + "ToeBase_end");
@@ -87,6 +93,8 @@
       seg(el, ha, 0.043, 0.034, SKIN);
       seg(ha, ha, 0.04, 0.04, SKIN);
       seg(ar, lerp3(ar, el, 0.42), 0.072, 0.064, K.sleeve, null, -0.004);
+      if (K.band) seg(lerp3(ar, el, 0.36), lerp3(ar, el, 0.42), 0.074, 0.066, K.band, null, -0.005);
+      if (T.armband && side === "Left") seg(lerp3(ar, el, 0.3), lerp3(ar, el, 0.42), 0.075, 0.068, "#ffd166", null, -0.006);
     }
     const lU = J(P, "LeftUpLeg"), rU = J(P, "RightUpLeg"), sp = J(P, "Spine1"), nk = J(P, "Neck1"), hd = J(P, "Head"), he = J(P, "Head_end");
     const lA = J(P, "LeftArm"), rA = J(P, "RightArm");
@@ -94,7 +102,7 @@
     // torso: three fat capsules, with stripes clipped to them
     const torso = [[lerp3(lU, rU, 0.5), sp, 0.155, 0.17], [sp, nk, 0.17, 0.13], [lA, rA, 0.09, 0.09]];
     const tDepth = depthOf(sp);
-    const tPaths = torso.map(([a, b, r1, r2]) => { const A = pr(a), B = pr(b); return capsule(A, B, r1 * A[2], r2 * B[2]); }).join(" ");
+    const tPaths = torso.map(([a, b, r1, r2]) => { const A = pr(a), Bp = pr(b); return capsule(A, Bp, r1 * A[2] * B, r2 * Bp[2] * B); }).join(" ");
     let stripes = "";
     if (K.stripe) {
       const sh = nrm(sub(rA, lA)), offs = kitName === "JUV" ? [-0.16, -0.08, 0, 0.08, 0.16] : [-0.12, 0, 0.12];
@@ -116,9 +124,33 @@
     const hc = lerp3(hd, he, 0.45), H = pr(hc), r = 0.118 * H[2];
     const back = pr(add(add(hc, mul(fwd, -0.03)), [0, 0, 0.03])), face = pr(add(add(hc, mul(fwd, 0.035)), [0, 0, -0.02]));
     const faceVisible = depthOf(add(hc, fwd)) < depthOf(hc);
-    const headSvg = faceVisible
-      ? `<circle cx="${back[0].toFixed(1)}" cy="${back[1].toFixed(1)}" r="${(r * 1.02).toFixed(1)}" fill="${HAIR}"/><circle cx="${face[0].toFixed(1)}" cy="${face[1].toFixed(1)}" r="${(r * 0.93).toFixed(1)}" fill="${SKIN}"/>`
-      : `<circle cx="${face[0].toFixed(1)}" cy="${face[1].toFixed(1)}" r="${(r * 0.93).toFixed(1)}" fill="${SKIN}"/><circle cx="${back[0].toFixed(1)}" cy="${back[1].toFixed(1)}" r="${(r * 1.02).toFixed(1)}" fill="${HAIR}"/>`;
+    const P2 = (v) => pr(add(hc, v)), up = [0, 0, 1], sideV = nrm(sub(rA, lA));
+    const c = (q, rr, col, op) => `<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="${rr.toFixed(1)}" fill="${col}"${op ? ` opacity="${op}"` : ""}/>`;
+    const style = T.hair || "short";
+    let hairBack = "", hairTop = "";
+    if (style === "curly") {
+      for (const [sx, sz, sf, rr] of [[0, 0.07, -0.02, 0.9], [-0.075, 0.04, -0.03, 0.72], [0.075, 0.04, -0.03, 0.72], [0, 0.03, -0.07, 0.8], [-0.05, 0.08, 0.01, 0.6], [0.05, 0.08, 0.01, 0.6]])
+        hairBack += c(P2(add(add(mul(sideV, sx), mul(up, sz)), mul(fwd, sf))), r * rr * 1.05, HAIR);
+    } else if (style === "thin") {
+      hairBack = c(P2(add(mul(fwd, -0.045), mul(up, -0.015))), r * 0.92, HAIR);
+    } else {
+      hairBack = c(P2(add(mul(fwd, -0.03), mul(up, 0.03))), r * 1.02, HAIR);
+      if (style === "top") hairTop = c(P2(add(mul(fwd, 0.0), mul(up, 0.085))), r * 0.62, HAIR);
+    }
+    const faceC = P2(add(mul(fwd, 0.035), mul(up, -0.02)));
+    let faceSvg = c(faceC, r * 0.93, SKIN);
+    if (T.beard && faceVisible) {
+      faceSvg += `<clipPath id="${id}f"><circle cx="${faceC[0].toFixed(1)}" cy="${faceC[1].toFixed(1)}" r="${(r * 0.93).toFixed(1)}"/></clipPath>` +
+        `<g clip-path="url(#${id}f)">${c(P2(add(mul(fwd, 0.06), mul(up, -0.085))), r * 0.62, HAIR, 0.55)}</g>`;
+    }
+    const headSvg = faceVisible ? hairBack + faceSvg + hairTop : faceSvg + hairBack + hairTop;
+    // the number (and name) on the back, when the back is to the camera
+    if (T.num && !faceVisible) {
+      const q = pr(lerp3(lerp3(lU, rU, 0.5), nk, 0.55)), qn = pr(lerp3(lerp3(lU, rU, 0.5), nk, 0.86));
+      const col = kitName === "BAR" ? "#ffd166" : (kitName === "JUV" || kitName === "BAY" ? "#151515" : "#ffffff");
+      prims.push({ depth: tDepth - 0.01, raw: `<text x="${q[0].toFixed(1)}" y="${q[1].toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-family="Oswald" font-weight="700" font-size="${(0.2 * q[2]).toFixed(1)}" fill="${col}">${T.num}</text>` +
+        (T.name ? `<text x="${qn[0].toFixed(1)}" y="${qn[1].toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-family="Oswald" font-weight="700" font-size="${(0.06 * qn[2]).toFixed(1)}" fill="${col}">${T.name.toUpperCase()}</text>` : "") });
+    }
     prims.push({ depth: depthOf(hc) - 0.02, raw: headSvg });
     prims.sort((a, b) => b.depth - a.depth);
     // ground shadow
@@ -135,5 +167,7 @@
       `<circle cx="${(sx + r * 0.15).toFixed(1)}" cy="${(sy - r * 0.1).toFixed(1)}" r="${(r * 0.32).toFixed(1)}" fill="#1a1a1a"/>`;
   }
 
-  window.MO = { frame, loopFrame, place, facing, body, ball, J, JI, KITS, fps: M.fps };
+  // scale a pose about the hips' ground point (taller or shorter players)
+  function scaleH(P, k) { const h = P[0]; return P.map((p) => [h[0] + (p[0] - h[0]) * k, h[1] + (p[1] - h[1]) * k, p[2] * k]); }
+  window.MO = { frame, loopFrame, place, facing, scaleH, body, ball, J, JI, KITS, fps: M.fps };
 })();

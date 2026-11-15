@@ -1,0 +1,60 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1920px; height: 1080px; overflow: hidden; font-family: Inter, sans-serif; color: #fff;
+         background: radial-gradient(120% 90% at 50% 40%, #1f8e86 0%, #146a66 55%, #0a3a3d 100%); }
+  h1 { position: absolute; left: 60px; top: 34px; font: 700 54px Oswald; letter-spacing: .03em; }
+  h1 span { color: #ffd166; }
+  .note { position: absolute; right: 60px; top: 50px; font: 400 24px Inter; color: rgba(255,255,255,.8); text-align: right; }
+  .card { position: absolute; text-align: left; }
+  .card .n { font: 700 40px Oswald; } .card .n b { color: #ffd166; }
+  .card .r { font: 600 22px Inter; color: #ffd166; margin-top: 2px; }
+  .card .t { font: 400 21px Inter; line-height: 1.3; margin-top: 6px; color: rgba(255,255,255,.92); }
+  .v { position: absolute; font: 600 18px Inter; color: rgba(255,255,255,.7); text-transform: uppercase; letter-spacing: .08em; }
+</style>
+<script src="../data/mocap.js"></script><script src="../assets/story.js"></script><script src="../assets/mo.js"></script><script src="../assets/players.js"></script>
+</head><body>
+<svg id="s" width="1920" height="1080" viewBox="0 0 1920 1080" style="position:absolute;inset:0"></svg>
+<div id="h"></div>
+<script>
+const S = window.Story, M = window.MO, PL = window.PLAYERS;
+const sheet = new URLSearchParams(location.search).get("sheet") || "1";
+const svg = document.getElementById("s"), H = document.getElementById("h");
+const idle = M.frame("10_01", 8), fIdle = M.facing(idle);
+function fig(name, pose, view, cx, footY, px) {
+  // a camera per figure: px = pixels per yard; view 0 = facing the camera, 180 = back to the camera, 35 = three-quarter
+  const T = PL[name];
+  const cam = new S.Camera({ ex: 0, ey: -60, ez: 1.0, tx: 0, ty: 0, tz: 1.0, fov: px * 60, cx, cy: footY - px * 1.0 });
+  const P0 = pose || idle, fa = M.facing(P0);
+  let P = M.place(P0, P0[0], [0, 0], -Math.PI / 2 + view * Math.PI / 180, fa);
+  P = M.scaleH(P, T.height || 1);
+  return M.body(cam, P, T.kit, T).svg;
+}
+const out = [], html = [];
+if (sheet === "1") {
+  html.push('<h1>THE CAST · <span>MESSI, SUÁREZ, NEYMAR</span></h1><div class="note">How each player is drawn: build, hair, skin tone,<br>shirt number and movement. No detailed faces.</div>');
+  const acts = { Messi: M.frame("10_06", 78), Suárez: M.frame("10_06", 102), Neymar: M.frame("09_01", 6) };
+  ["Messi", "Suárez", "Neymar"].forEach((n, i) => {
+    const x0 = 120 + i * 600;
+    out.push(fig(n, null, 25, x0 + 70, 700, 230), fig(n, null, 180, x0 + 260, 700, 230), fig(n, acts[n], 75, x0 + 450, 700, 230));
+    html.push(`<div class="v" style="left:${x0 + 20}px;top:716px">front</div><div class="v" style="left:${x0 + 215}px;top:716px">back</div><div class="v" style="left:${x0 + 400}px;top:716px">in motion</div>`);
+    const T = PL[n];
+    html.push(`<div class="card" style="left:${x0 - 20}px;top:770px;width:540px"><div class="n">${n.toUpperCase()} <b>${T.num}</b></div><div class="r">${T.role}</div><div class="t">${T.look}<br>${T.moves}</div></div>`);
+  });
+} else {
+  html.push('<h1>THE CAST · <span>TEAM-MATES AND OPPONENTS</span></h1><div class="note">Opponents in plain kit colours, no badges; goalkeeper<br>colours are illustrative. Numbers: 2014/15 shirts.</div>');
+  const names = ["Rakitić", "Iniesta", "Xavi", "Dani Alves", "Pedro", "Ter Stegen", "Buffon", "David Luiz", "Boateng"];
+  names.forEach((n, i) => {
+    const col = i % 5, row = Math.floor(i / 5), x0 = 70 + col * 372, y0 = row ? 935 : 470;
+    out.push(fig(n, null, 25, x0 + 70, y0 - 40, 128), fig(n, null, 180, x0 + 185, y0 - 40, 128));
+    const T = PL[n];
+    html.push(`<div class="card" style="left:${x0 + 245}px;top:${y0 - 330}px;width:120px"></div>`);
+    html.push(`<div class="card" style="left:${x0 - 10}px;top:${y0 - 24}px;width:340px"><div class="n" style="font-size:30px">${n.toUpperCase()} <b>${T.num}</b></div><div class="r" style="font-size:18px">${T.role}</div><div class="t" style="font-size:17px">${T.look} ${T.moves}</div></div>`);
+  });
+}
+svg.innerHTML = out.join("");
+H.innerHTML = html.join("");
+document.fonts.ready.then(() => document.body.setAttribute("data-ready", "1"));
+</script></body></html>
