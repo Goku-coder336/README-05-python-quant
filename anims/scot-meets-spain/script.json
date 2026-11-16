@@ -1,0 +1,17 @@
+{
+  "title": "Lost in Translation: Glasgow Edition",
+  "voices": {
+    "morag": "uNrshbzdyxF1WMdteTyB",
+    "carmen": "UOIqAnmS11Reiei1Ytkc"
+  },
+  "lines": [
+    { "id": "l1", "who": "morag",  "text": "Och, hen! Pure dreich the day, eh?",          "sub": "(It's a grey, miserable day!)" },
+    { "id": "l2", "who": "carmen", "text": "¿Dreich? ¿Es un tipo de queso?",               "sub": "(Dreich? Is that a kind of cheese?)" },
+    { "id": "l3", "who": "morag",  "text": "Naw! It's baltic! Ah'm freezin'!",             "sub": "(No! It's freezing cold!)" },
+    { "id": "l4", "who": "carmen", "text": "¿Báltico? ¡No, cariño, estamos en Glasgow!",   "sub": "(The Baltic? No, darling, we're in Glasgow!)" },
+    { "id": "l5", "who": "morag",  "text": "Fancy a wee cup o' tea?",                       "sub": "(Would you like some tea?)" },
+    { "id": "l6", "who": "carmen", "text": "¿Mi TÍA? ¡Mi tía está en Sevilla!",            "sub": "(My AUNT?! My aunt lives in Seville!)" },
+    { "id": "l7", "who": "morag",  "text": "...Aye!",                                      "sub": "" },
+    { "id": "l8", "who": "carmen", "text": "¡Sí!",                                         "sub": "" }
+  ]
+}
