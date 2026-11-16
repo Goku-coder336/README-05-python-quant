@@ -39,7 +39,7 @@ ElevenLabs key is saved on the cloud environment as a network secret for `api.el
 ## Next steps the owner asked for / is deciding
 
 1. DONE: third drawing `demos/oiseau_tombe.py` ("et tombe à l'eau !").
-2. DONE: the three drawings are cut into v4's sung chorus (`CUTAWAYS=1`, frames in `assets/drawings/`): `renders/01-french-eau-v4-drawings-{music,nomusic}.mp4`. Waiting for the owner's verdict.
+2. DONE: the three drawings are cut into v4's sung chorus (`CUTAWAYS=1`, frames in `assets/drawings/`): `renders/01-french-eau-v4-drawings-{music,nomusic}.mp4`. Then v5: the same with the 1, 2, 3 count-in cut out (`cut_countin.py`), 36.7 s: `renders/01-french-eau-v5-{music,nomusic}.mp4`. Latest; waiting for the owner's verdict.
 3. Owner may still change the music, voices or script of reel 01.
 4. Football reels: rules were in `~/football-reels/CLAUDE.md` (temporary, now lost). The owner wants them in a separate GitHub repo they will create; the full brief is in the chat history (ask the owner to paste it again if needed).
 

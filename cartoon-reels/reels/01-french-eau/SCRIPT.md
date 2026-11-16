@@ -7,6 +7,7 @@ Status: **two music versions rendered; owner to pick.**
 | v2 | French café pop, accordion, 105 BPM (seed 11) | 39.0 s | `renders/01-french-eau-v2-music.mp4`, `renders/01-french-eau-v2-nomusic.mp4` |
 | v3 | catchy upbeat bubblegum pop, whistled hook, 118 BPM (seed 11) | 36.2 s | `renders/01-french-eau-v3-music.mp4`, `renders/01-french-eau-v3-nomusic.mp4` |
 
+| **v5 (latest)** | v4 + drawings with the "NOW IN FRENCH 1, 2, 3" count-in cut out: two bars of the song removed on the beat (25.4 s to 29.5 s), so the English sentence goes straight into the drop. Made by `python3 cut_countin.py` from the v4 + drawings render | 36.7 s | `renders/01-french-eau-v5-music.mp4`, `renders/01-french-eau-v5-nomusic.mp4` |
 | v4 + drawings | v4 with the three hand-drawn pictures cut in over the sung chorus (they draw themselves on: pencil, ink, colour, shade); the duet comes back for the splash. Build with `VARIANT=v4 CUTAWAYS=1 python3 build.py` | 40.7 s | `renders/01-french-eau-v4-drawings-music.mp4`, `renders/01-french-eau-v4-drawings-nomusic.mp4` |
 | v4 | the v3 song, but it only teases under a **conversation** (Odette asks, Barnaby answers) and builds into the drop | 40.7 s | `renders/01-french-eau-v4-music.mp4`, `renders/01-french-eau-v4-nomusic.mp4` |
 
