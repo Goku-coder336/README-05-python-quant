@@ -1,0 +1,28 @@
+{
+  "title": "Movie Logic: The Bomb Timer",
+  "voices": { "actor": "TX3LPaxmHKxFdv7VOQHJ", "director": "pqHfZKP75CvOlQylNhV4" },
+  "settings": {
+    "actor":    { "stability": 0.28, "similarity_boost": 0.8, "style": 0.6 },
+    "director": { "stability": 0.75, "similarity_boost": 0.8, "style": 0.1 }
+  },
+  "intro": 2.5,
+  "outro": 1.6,
+  "lines": [
+    { "id": "l1", "who": "actor",    "text": "Why does it ALWAYS stop at one second?" },
+    { "id": "l2", "who": "director", "text": "Drama.", "gap": 0.35 },
+    { "id": "l3", "who": "actor",    "text": "Why does a bomb even have a timer?" },
+    { "id": "l4", "who": "director", "text": "So you know how long you've got." },
+    { "id": "l5", "who": "actor",    "text": "The bomber WANTED me to know?" },
+    { "id": "l6", "who": "director", "text": "He's considerate.", "gap": 0.5 },
+    { "id": "l7", "who": "actor",    "text": "So he's evil... but considerate?" },
+    { "id": "l8", "who": "director", "text": "He's a complex character." },
+    { "id": "l9", "who": "director", "text": "...Okay. That's lunch.", "gap": 2.9 }
+  ],
+  "sfx": [
+    { "id": "beep",  "prompt": "single short electronic bomb timer beep", "duration": 0.5,
+      "at": [0.35, 1.05, 1.75, {"after": "l8", "offset": 0.35}, {"after": "l8", "offset": 0.75}, {"after": "l8", "offset": 1.0}, {"after": "l8", "offset": 1.2}], "gain": 0.5 },
+    { "id": "snip",  "prompt": "metal wire cutters snipping a wire, crisp single snip", "duration": 0.6, "at": [2.0], "gain": 0.9 },
+    { "id": "boom",  "prompt": "cartoon bomb explosion, big comedic boom with debris", "duration": 1.8, "at": [{"after": "l8", "offset": 1.4}], "gain": 0.8 },
+    { "id": "cough", "prompt": "man coughing smoke twice, comedic", "duration": 0.8, "at": [{"after": "l8", "offset": 2.0}], "gain": 0.7 }
+  ]
+}

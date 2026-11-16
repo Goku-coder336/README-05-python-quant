@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Movie Bomb Logic</title>
+  <style>
+    html, body { margin: 0; background: #111; }
+    #main { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+    #stage { position: absolute; inset: 0; width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <!-- 9:16, 1080x1920, 30 fps. data-duration matches timing.js (anims/tools/voice.py anims/bomb-timer). -->
+  <div id="main" data-composition-id="main" data-start="0" data-duration="26.52" data-width="1080" data-height="1920">
+    <canvas id="stage" width="1080" height="1920"></canvas>
+    <audio id="mix" class="clip" src="../assets/audio/bomb-timer/mix.wav" data-start="0" data-track-index="2" data-volume="1"></audio>
+  </div>
+
+  <script src="shared/meme-cast.js"></script>
+  <script src="bomb-timer/timing.js"></script>
+  <script>
+  (function () {
+    const M = window.MemeCast, T = window.SCENE_TIMING;
+    const { clamp, lerp, seg, easeOut } = M;
+    const ctx = document.getElementById("stage").getContext("2d");
+    const L = Object.fromEntries(T.lines.map((l) => [l.id, l]));
+    const fx = (id) => T.sfx.filter((s) => s.id === id).map((s) => s.t).sort((a, b) => a - b);
+    const BEEPS = fx("beep"), SNIP = fx("snip")[0], BOOM = fx("boom")[0];
+    const FLOOR = 1500, ACTOR_X = 360, DIR_X = 900, BOMB_X = 620;
+
+    const CAMS = {
+      bomb:       { cx: 600, cy: 1385, z: 2.5 },
+      actorMed:   { cx: 420, cy: 1180, z: 1.5 },
+      actorClose: { cx: 440, cy: 1010, z: 2.0 },
+      dirMed:     { cx: 850, cy: 1080, z: 1.5 },
+      dirClose:   { cx: 860, cy: 960,  z: 2.1 },
+      wide:       { cx: 640, cy: 1150, z: 1.0 },
+      wideDir:    { cx: 700, cy: 1130, z: 1.15 },
+    };
+    // hard cuts, a beat before each speaker starts
+    const SHOTS = [
+      [0, "bomb"], [L.l1.start - 0.35, "actorMed"], [L.l2.start - 0.1, "dirClose"], [L.l3.start - 0.1, "actorMed"],
+      [L.l4.start - 0.1, "dirMed"], [L.l5.start - 0.1, "actorClose"], [L.l6.start - 0.1, "dirClose"],
+      [L.l7.start - 0.1, "actorClose"], [L.l8.start - 0.1, "dirMed"], [L.l8.end + 0.2, "bomb"],
+      [BOOM, "wide"], [L.l9.start - 0.1, "wideDir"],
+    ];
+    function camera(t) {
+      let i = 0; while (i + 1 < SHOTS.length && t >= SHOTS[i + 1][0]) i++;
+      const [t0, name] = SHOTS[i], c = CAMS[name];
+      const push = 1 + 0.025 * (t - t0);
+      const shake = Math.max(0, 1 - (t - BOOM) / 0.6) * (t >= BOOM ? 1 : 0);
+      return { cx: c.cx, cy: c.cy, z: c.z * push, name,
+        shakeX: Math.sin(t * 90) * 26 * shake, shakeY: Math.cos(t * 77) * 20 * shake };
+    }
+
+    const speaking = (who, t) => T.lines.find((l) => l.who === who && t >= l.start && t <= l.end);
+    function mouth(who, t) {
+      const l = speaking(who, t); if (!l) return 0;
+      const v = l.env[Math.min(l.env.length - 1, Math.floor((t - l.start) * 30))] || 0;
+      return v < 0.12 ? 0.1 : v;
+    }
+    const inL = (id, t, pre = 0, post = 0.2) => t >= L[id].start - pre && t <= L[id].end + post;
+    const blink = (t, off) => { const p = (t + off) % 3.7; return p < 0.13 ? Math.sin((p / 0.13) * Math.PI) : 0; };
+
+    function timerDigits(t) {
+      if (t < BEEPS[0]) return "0:04";
+      if (t < BEEPS[1]) return "0:03";
+      if (t < BEEPS[2]) return "0:02";
+      if (t < BEEPS[BEEPS.length - 1]) return "0:01";
+      return "0:00";
+    }
+
+    function actor(t) {
+      const boomed = t >= BOOM;
+      const talking = speaking("actor", t);
+      let brows = "worried", smile = "frown", lookY = 0, lids = blink(t, 0.3);
+      if (t < L.l1.start - 0.35) { lookY = 0.7; }
+      if (inL("l1", t)) brows = "angry";
+      if (inL("l3", t)) brows = "angry";
+      if (inL("l5", t)) brows = "shock";
+      if (inL("l7", t)) brows = "skeptic";
+      if (!talking && t > L.l1.end) smile = "frown";
+      // the cutters: at the wire for the opening, waved at the director while he complains
+      const atWire = [58, -90], gest = [150 + Math.sin(t * 8) * 12, -440 + Math.cos(t * 7) * 18];
+      const g = talking ? 1 : 0;
+      const gestK = clamp(Math.max(...["l1", "l3", "l5", "l7"].map((id) => Math.min(seg(t, L[id].start - 0.1, L[id].start + 0.15), 1 - seg(t, L[id].end, L[id].end + 0.25)))));
+      let front = [lerp(atWire[0], gest[0], gestK), lerp(atWire[1], gest[1], gestK)];
+      if (t > L.l7.end + 0.3 && !boomed) front = [lerp(gest[0], atWire[0], seg(t, L.l7.end + 0.3, L.l8.end)), lerp(-440, atWire[1], seg(t, L.l7.end + 0.3, L.l8.end))];
+      let o = {
+        x: ACTOR_X, floor: FLOOR, facing: 1, crouch: 0.8, lean: 0.2 + gestK * 0.15,
+        front, back: [70, -210], mouth: mouth("actor", t), brows, smile, lookX: 1, lookY, lids,
+        headDy: -mouth("actor", t) * 8, headTilt: gestK * -0.06, hair: "tuft",
+      };
+      if (boomed) {
+        const dt = t - BOOM;
+        const cough = dt > 0.55 && dt < 1.4 ? Math.abs(Math.sin(dt * 14)) : 0;
+        o = { ...o, soot: 1, hair: "afro", brows: "flat", smile: "o", lids: 0.35 + 0.3 * blink(t, 0), lookX: 0, lookY: 0,
+          mouth: cough * 0.7, crouch: 0.8, lean: -0.1, front: [40, -160], back: [-40, -150],
+          headTilt: Math.sin(dt * 3) * 0.05, headDy: -cough * 10 };
+      }
+      return o;
+    }
+
+    function director(t) {
+      const talking = speaking("director", t);
+      const up = clamp(Math.max(...T.lines.filter((l) => l.who === "director").map((l) => Math.min(seg(t, l.start - 0.3, l.start - 0.05), 1 - seg(t, l.end + 0.1, l.end + 0.4)))));
+      let smile = "flat", brows = "deadpan";
+      if (inL("l8", t, 0, 1.0)) smile = "smirk";
+      if (t >= BOOM && t < L.l9.start) { brows = "flat"; smile = "o"; }
+      return {
+        x: DIR_X, floor: FLOOR, facing: -1, crouch: 0, lean: 0.05,
+        front: [lerp(40, 78, up), lerp(-360, -640, up)], back: [-50, -300], frontBend: lerp(1, 0.4, up),
+        mouth: mouth("director", t), brows, smile, lids: Math.max(0.5, blink(t, 1.7)), lookX: 1,
+        headDy: -mouth("director", t) * 6, hair: "cap", up,
+      };
+    }
+
+    function renderAt(t) {
+      t = clamp(t, 0, T.total);
+      const cam = camera(t);
+      ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, 1080, 1920);
+      M.applyCamera(ctx, cam);
+      M.drawSet(ctx, t);
+      M.shadow(ctx, ACTOR_X + 10, FLOOR - 6, 150);
+      M.shadow(ctx, DIR_X, FLOOR - 6, 140);
+      // bomb, then the scorch mark once it's gone
+      if (t < BOOM) {
+        M.shadow(ctx, BOMB_X, FLOOR - 4, 150);
+        const lit = !(t > L.l8.end && Math.floor(t * 8) % 2 === 1 && t < BEEPS[BEEPS.length - 1]);
+        M.drawBomb(ctx, BOMB_X, FLOOR - 4, { digits: timerDigits(t), cut: t >= SNIP, lit });
+      } else {
+        ctx.save(); ctx.fillStyle = "rgba(25,25,25,0.6)"; ctx.beginPath(); ctx.ellipse(BOMB_X, FLOOR - 4, 190, 30, 0, 0, 7); ctx.fill(); ctx.restore();
+      }
+      const d = director(t);
+      const dr = M.drawGuy(ctx, d);
+      M.drawMegaphone(ctx, dr.hand[0] - 14, dr.hand[1] - 8, d.up > 0.5 ? Math.atan2(-0.12, -1) : Math.atan2(0.9, -0.45));
+      const a = actor(t);
+      const ar = M.drawGuy(ctx, a);
+      if (t < BOOM) {
+        const ang = lerp(-0.4, -1.0, clamp((-a.front[1] - 90) / 350));
+        M.drawCutters(ctx, ar.hand[0], ar.hand[1], ang, 1 - seg(t, SNIP - 0.15, SNIP));
+        // sweat
+        for (let i = 0; i < 3; i++) {
+          const p = (t * 0.9 + i / 3) % 1;
+          ctx.save(); ctx.globalAlpha = 1 - p; ctx.fillStyle = M.PAL.sweat; ctx.strokeStyle = M.PAL.line; ctx.lineWidth = 3;
+          const sx = ar.head[0] - 40 + i * 30, sy = ar.head[1] - 60 + p * 90;
+          ctx.beginPath(); ctx.moveTo(sx, sy - 14); ctx.quadraticCurveTo(sx + 10, sy, sx, sy + 6); ctx.quadraticCurveTo(sx - 10, sy, sx, sy - 14); ctx.fill(); ctx.stroke();
+          ctx.restore();
+        }
+      }
+      M.drawExplosion(ctx, BOMB_X, FLOOR - 60, t - BOOM);
+      ctx.restore();
+
+      // white flash on the blast
+      const fl = 1 - seg(t, BOOM, BOOM + 0.18);
+      if (t >= BOOM && fl > 0) { ctx.fillStyle = `rgba(255,255,255,${fl})`; ctx.fillRect(0, 0, 1080, 1920); }
+
+      // hook line at the top for the first beats
+      const hook = Math.min(seg(t, 0.1, 0.35), 1 - seg(t, L.l1.start - 0.5, L.l1.start - 0.3));
+      M.drawCaption(ctx, "Every movie bomb ever:", hook, 330);
+      // one caption at a time, like the dialogue
+      const cur = T.lines.find((l) => t >= l.start - 0.05 && t <= l.end + 0.2);
+      if (cur) M.drawCaption(ctx, cur.text, 1, 1300);
+      if (window.__showSafe) { ctx.strokeStyle = "#0f0"; ctx.lineWidth = 4; ctx.setLineDash([16, 10]); ctx.strokeRect(60, 250, 900, 1250); ctx.setLineDash([]); }
+    }
+
+    window.renderAt = renderAt;
+    window.addEventListener("hf-seek", (e) => renderAt(e.detail.time));
+    const q = new URLSearchParams(location.search);
+    window.__showSafe = q.has("safe");
+    renderAt(q.has("t") ? parseFloat(q.get("t")) : 0);
+  })();
+  </script>
+</body>
+</html>
