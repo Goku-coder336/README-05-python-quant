@@ -11,7 +11,7 @@
 </head>
 <body>
   <!-- 9:16, 1080x1920, 30 fps. data-duration matches timing.js (anims/tools/voice.py anims/bomb-timer). -->
-  <div id="main" data-composition-id="main" data-start="0" data-duration="26.52" data-width="1080" data-height="1920">
+  <div id="main" data-composition-id="main" data-start="0" data-duration="26.89" data-width="1080" data-height="1920">
     <canvas id="stage" width="1080" height="1920"></canvas>
     <audio id="mix" class="clip" src="../assets/audio/bomb-timer/mix.wav" data-start="0" data-track-index="2" data-volume="1"></audio>
   </div>
@@ -48,8 +48,12 @@
       let i = 0; while (i + 1 < SHOTS.length && t >= SHOTS[i + 1][0]) i++;
       const [t0, name] = SHOTS[i], c = CAMS[name];
       const push = 1 + 0.025 * (t - t0);
+      // meme punch-in: quick zoom + jolt on every vine boom / record scratch
+      const hit = T.sfx.filter((x) => (x.id === "vineboom" || x.id === "scratch") && t >= x.t && t < x.t + 0.6)
+        .reduce((m, x) => Math.max(m, 1 - (t - x.t) / 0.6), 0);
+      const punch = 1 + 0.22 * hit * hit;
       const shake = Math.max(0, 1 - (t - BOOM) / 0.6) * (t >= BOOM ? 1 : 0);
-      return { cx: c.cx, cy: c.cy, z: c.z * push, name,
+      return { cx: c.cx, cy: c.cy, z: c.z * push * punch, name,
         shakeX: Math.sin(t * 90) * 26 * shake, shakeY: Math.cos(t * 77) * 20 * shake };
     }
 
@@ -160,7 +164,10 @@
       M.drawCaption(ctx, "Every movie bomb ever:", hook, 330);
       // one caption at a time, like the dialogue
       const cur = T.lines.find((l) => t >= l.start - 0.05 && t <= l.end + 0.2);
-      if (cur) M.drawCaption(ctx, cur.text, 1, 1300);
+      if (cur) { // caption pops in with a little bounce
+        const k = clamp((t - cur.start + 0.05) / 0.18), sc = 1 + 0.3 * (1 - k) * (1 - k) - 0.04 * Math.sin(k * Math.PI);
+        ctx.save(); ctx.translate(510, 1300); ctx.scale(sc, sc); ctx.translate(-510, -1300);
+        M.drawCaption(ctx, cur.text, Math.min(1, k * 1.5), 1300); ctx.restore(); }
       if (window.__showSafe) { ctx.strokeStyle = "#0f0"; ctx.lineWidth = 4; ctx.setLineDash([16, 10]); ctx.strokeRect(60, 250, 900, 1250); ctx.setLineDash([]); }
     }
 
