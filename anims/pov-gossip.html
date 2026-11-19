@@ -1,0 +1,85 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Amma Five Minutes</title>
+<style>html,body{margin:0;background:#111}#main{position:relative;width:1080px;height:1920px;overflow:hidden}#stage{position:absolute;inset:0;width:100%;height:100%}</style></head>
+<body>
+<!-- POV reel, 9:16, 15 s. Pose-to-pose pictures from Kling; motion, captions and timing drawn here. -->
+<div id="main" data-composition-id="main" data-start="0" data-duration="15" data-width="1080" data-height="1920">
+  <canvas id="stage" width="1080" height="1920"></canvas>
+  <audio id="mix" class="clip" src="../assets/pov-gossip/audio/mix.wav" data-start="0" data-track-index="2" data-volume="1"></audio>
+</div>
+<script>
+(function () {
+  const ctx = document.getElementById("stage").getContext("2d");
+  // [start, picture, clock badge, caption, zoom focus (x,y in 0..1)]
+  const BEATS = [
+    [0.0,  1, "",          "\"5 minute, ippo varaam!\"",          [0.35, 0.45]],
+    [2.2,  2, "5 mins",    "",                                     [0.75, 0.55]],
+    [4.4,  3, "2 hours",   "",                                     [0.45, 0.6]],
+    [6.4,  4, "6 hours",   "",                                     [0.45, 0.62]],
+    [8.4,  5, "3 days",    "",                                     [0.45, 0.6]],
+    [10.6, 6, "",          "Amma: \"Enthada, ithra late?\"",      [0.45, 0.6]],
+    [12.6, 7, "",          "Kuttam ennum nammakku thanne 🙂",     [0.55, 0.65]],
+  ];
+  const END = 15;
+  const imgs = BEATS.map((b) => { const im = new Image(); im.src = `../assets/pov-gossip/pics/p0${b[1]}.png`; return im; });
+  const ready = Promise.all(imgs.map((im) => (im.decode ? im.decode() : new Promise((r) => (im.onload = r))).catch(() => {})));
+  window.__hf = window.__hf || {}; window.__hf.buildReady = window.__hf.buildReady || {}; window.__hf.buildReady.pics = ready;
+  const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+  const ease = (k) => 1 - Math.pow(1 - k, 3);
+
+  function pill(text, x, y, size, bg, fg, scale = 1, rot = 0) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(scale, scale);
+    ctx.font = `900 ${size}px Inter, "Noto Color Emoji", Arial, sans-serif`;
+    const w = ctx.measureText(text).width + size * 1.1, h = size * 1.6;
+    ctx.fillStyle = "rgba(0,0,0,0.25)"; ctx.beginPath(); ctx.roundRect(-w / 2 + 6, -h / 2 + 8, w, h, h / 2); ctx.fill();
+    ctx.fillStyle = bg; ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, h / 2); ctx.fill();
+    ctx.lineWidth = 5; ctx.strokeStyle = "#1d1d1d"; ctx.stroke();
+    ctx.fillStyle = fg; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(text, 0, 2);
+    ctx.restore();
+  }
+  function clockBadge(text, x, y, t, k) {
+    ctx.save(); ctx.translate(x, y); ctx.scale(k, k);
+    ctx.fillStyle = "#fff"; ctx.strokeStyle = "#1d1d1d"; ctx.lineWidth = 7;
+    ctx.beginPath(); ctx.arc(-150, 0, 52, 0, 7); ctx.fill(); ctx.stroke();
+    ctx.lineCap = "round"; ctx.lineWidth = 7;
+    const a1 = t * 9, a2 = t * 0.9;   // hands spin fast: time flying
+    ctx.beginPath(); ctx.moveTo(-150, 0); ctx.lineTo(-150 + Math.sin(a1) * 38, -Math.cos(a1) * 38); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(-150, 0); ctx.lineTo(-150 + Math.sin(a2) * 24, -Math.cos(a2) * 24); ctx.stroke();
+    ctx.restore();
+    pill(text, x + 40 * k, y, 58, "#ffd84d", "#1d1d1d", k);
+  }
+
+  function renderAt(t) {
+    let i = 0; while (i + 1 < BEATS.length && t >= BEATS[i + 1][0]) i++;
+    const [t0, , badge, cap, foc] = BEATS[i], t1 = i + 1 < BEATS.length ? BEATS[i + 1][0] : END, lt = t - t0;
+    const im = imgs[i];
+    // punch-in on each new pose, then a slow drift toward the focus point
+    const punch = 1 + 0.12 * Math.pow(clamp(1 - lt / 0.35), 2);
+    const z = (1.04 + 0.06 * (lt / (t1 - t0))) * punch;
+    const shake = i === 6 ? Math.max(0, 1 - lt / 0.5) : 0;
+    ctx.save(); ctx.fillStyle = "#000"; ctx.fillRect(0, 0, 1080, 1920);
+    ctx.translate(540 + Math.sin(t * 80) * 22 * shake, 960 + Math.cos(t * 70) * 18 * shake);
+    ctx.scale(z, z);
+    const fx = (foc[0] - 0.5) * 1080 * (z - 1) / z, fy = (foc[1] - 0.5) * 1920 * (z - 1) / z;
+    ctx.translate(-540 - fx, -960 - fy);
+    if (im && im.naturalWidth) {
+      const s = Math.max(1080 / im.naturalWidth, 1920 / im.naturalHeight), w = im.naturalWidth * s, h = im.naturalHeight * s;
+      ctx.drawImage(im, (1080 - w) / 2, (1920 - h) / 2, w, h);
+    }
+    ctx.restore();
+    // white flash between poses
+    const fl = clamp(1 - lt / 0.12); if (i > 0 && fl > 0) { ctx.fillStyle = `rgba(255,255,255,${fl * 0.7})`; ctx.fillRect(0, 0, 1080, 1920); }
+    // POV title (whole video)
+    pill("POV: Amma says \"just 5 minutes\"", 510, 300, 46, "#ffffff", "#1d1d1d", 1, -0.02);
+    // clock badge pops in
+    if (badge) clockBadge(badge, 560, 470, t, 0.6 + 0.4 * ease(clamp(lt / 0.25)) + 0.08 * Math.sin(clamp(lt / 0.25) * Math.PI));
+    // caption pops in
+    if (cap) { const k = ease(clamp(lt / 0.22)); pill(cap, 510, 1380, 50, i === 6 ? "#ff6b6b" : "#ffffff", i === 6 ? "#fff" : "#1d1d1d", 0.7 + 0.3 * k, i === 6 ? 0.03 : 0); }
+    // soft fade-out at the end
+    const fo = clamp((t - (END - 0.5)) / 0.5); if (fo > 0) { ctx.fillStyle = `rgba(0,0,0,${fo})`; ctx.fillRect(0, 0, 1080, 1920); }
+  }
+  window.renderAt = renderAt;
+  window.addEventListener("hf-seek", (e) => { const tt = e.detail.time; e.detail.waitUntil(ready.then(() => renderAt(tt))); });
+  ready.then(() => renderAt(0));
+})();
+</script></body></html>
