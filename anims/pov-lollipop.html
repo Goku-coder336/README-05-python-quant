@@ -1,0 +1,86 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Amma Aeroplane Mode</title>
+<style>html,body{margin:0;background:#111}#main{position:relative;width:1080px;height:1920px;overflow:hidden}#stage{position:absolute;inset:0;width:100%;height:100%}</style></head>
+<body>
+<!-- POV reel, 9:16, 17.4 s. Bars 1-4 on "Killin' 'em" (104 bpm, beat 0.575 s), then "Aeroplane" from 9.2 s. -->
+<div id="main" data-composition-id="main" data-start="0" data-duration="17.4" data-width="1080" data-height="1920">
+  <canvas id="stage" width="1080" height="1920"></canvas>
+</div>
+<script>
+(function () {
+  const ctx = document.getElementById("stage").getContext("2d");
+  const BEAT = 0.5757, SWITCH = 9.2, END = 17.4;
+  // lollipop candy position in image pixels (1536x2720) + radius, per picture
+  const POP = { 1: [1262, 940, 24], 2: [1168, 868, 62], 4: [801, 680, 30] };
+  // [start, picture, flip, caption, focus, mode]
+  const BEATS = [
+    [0.0,  1, false, "",                           [0.5, 0.5], "calm"],
+    [2.3,  2, false, "Amma: \"Kutty, uppu eduthu kudu!\"", [0.5, 0.45], "strut"],
+    [4.6,  1, false, "Amma: \"Paathiram kazhuvu da!\"",    [0.3, 0.55], "calm"],
+    [5.75, 2, true,  "",                           [0.5, 0.45], "strut"],
+    [6.9,  3, false, "\"KUTTY...\"",               [0.45, 0.4], "stare"],
+    [SWITCH, 4, false, "✈️ Aeroplane mode: ON",   [0.5, 0.35], "fly"],
+  ];
+  const imgs = {}; [1, 2, 3, 4].forEach((n) => { const im = new Image(); im.src = `../assets/pov-lollipop/pics/p0${n}.png`; imgs[n] = im; });
+  const ready = Promise.all(Object.values(imgs).map((im) => (im.decode ? im.decode() : new Promise((r) => (im.onload = r))).catch(() => {})));
+  window.__hf = window.__hf || {}; window.__hf.buildReady = window.__hf.buildReady || {}; window.__hf.buildReady.pics = ready;
+  const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+  const ease = (k) => 1 - Math.pow(1 - k, 3);
+
+  function pill(text, x, y, size, bg, fg, scale = 1, rot = 0) {
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(scale, scale);
+    ctx.font = `900 ${size}px Inter, "Noto Color Emoji", Arial, sans-serif`;
+    const w = ctx.measureText(text).width + size * 1.1, h = size * 1.6;
+    ctx.fillStyle = "rgba(0,0,0,0.25)"; ctx.beginPath(); ctx.roundRect(-w / 2 + 6, -h / 2 + 8, w, h, h / 2); ctx.fill();
+    ctx.fillStyle = bg; ctx.beginPath(); ctx.roundRect(-w / 2, -h / 2, w, h, h / 2); ctx.fill();
+    ctx.lineWidth = 5; ctx.strokeStyle = "#1d1d1d"; ctx.stroke();
+    ctx.fillStyle = fg; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(text, 0, 2);
+    ctx.restore();
+  }
+  function candy(x, y, r, t) { // swirl lollipop
+    ctx.save(); ctx.translate(x, y); ctx.rotate(t * 2);
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fillStyle = "#ff4fa3"; ctx.fill();
+    ctx.lineWidth = r * 0.28; ctx.strokeStyle = "#fff59d"; ctx.beginPath();
+    for (let a = 0; a < 12; a += 0.2) { const rr = (a / 12) * r * 0.9; ctx.lineTo(Math.cos(a) * rr, Math.sin(a) * rr); }
+    ctx.stroke();
+    ctx.lineWidth = Math.max(3, r * 0.12); ctx.strokeStyle = "#1d1d1d"; ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.stroke();
+    ctx.restore();
+  }
+
+  function renderAt(t) {
+    let i = 0; while (i + 1 < BEATS.length && t >= BEATS[i + 1][0]) i++;
+    const [t0, pic, flip, cap, foc, mode] = BEATS[i], lt = t - t0;
+    const im = imgs[pic];
+    const beatPhase = (t % BEAT) / BEAT;
+    let z = 1.05, dx = 0, dy = 0, rot = 0;
+    const punch = 1 + 0.1 * Math.pow(clamp(1 - lt / 0.3), 2);
+    if (mode === "calm") { z = 1.05 + 0.02 * lt; dy = -Math.abs(Math.sin(beatPhase * Math.PI)) * 6; }
+    if (mode === "strut") { z = 1.12; dy = -Math.abs(Math.sin(beatPhase * Math.PI)) * 26; dx = (flip ? 1 : -1) * (lt * 60); rot = Math.sin(t * Math.PI / BEAT) * 0.015; }
+    if (mode === "stare") { z = 1.05 + 0.45 * ease(clamp(lt / 2.2)); dx = Math.sin(t * 60) * 4 * clamp((lt - 1.6) / 0.6); }
+    if (mode === "fly") { // swoop around like an aeroplane
+      z = 1.1 + 0.05 * Math.sin(lt * 1.3); rot = Math.sin(lt * 2.6) * 0.06; dy = Math.sin(lt * 1.8) * 30; dx = Math.sin(lt * 1.3) * 40;
+    }
+    z *= punch;
+    ctx.save(); ctx.fillStyle = "#000"; ctx.fillRect(0, 0, 1080, 1920);
+    ctx.translate(540 + dx, 960 + dy); ctx.rotate(rot); ctx.scale(flip ? -z : z, z);
+    const fx = (foc[0] - 0.5) * 1080 * (z - 1) / z, fy = (foc[1] - 0.5) * 1920 * (z - 1) / z;
+    ctx.translate(-540 - fx * (flip ? -1 : 1), -960 - fy);
+    if (im && im.naturalWidth) {
+      const s = Math.max(1080 / im.naturalWidth, 1920 / im.naturalHeight), w = im.naturalWidth * s, h = im.naturalHeight * s;
+      const ox = (1080 - w) / 2, oy = (1920 - h) / 2;
+      ctx.drawImage(im, ox, oy, w, h);
+      const p = POP[pic]; if (p) candy(ox + p[0] * s, oy + p[1] * s, p[2] * s, t);
+    }
+    ctx.restore();
+    // flash on every cut; big flash on the switch to Aeroplane
+    const fl = clamp(1 - lt / (mode === "fly" ? 0.3 : 0.1)); if (i > 0 && fl > 0) { ctx.fillStyle = `rgba(255,255,255,${fl * (mode === "fly" ? 1 : 0.6)})`; ctx.fillRect(0, 0, 1080, 1920); }
+    pill("POV: Amma asks me to help 🙂", 510, 300, 46, "#ffffff", "#1d1d1d", 1, -0.02);
+    if (cap) { const k = ease(clamp(lt / 0.2)); const big = mode === "fly";
+      pill(cap, 510, big ? 1380 : 1300, big ? 62 : 48, big ? "#3fa9f5" : mode === "stare" ? "#ff6b6b" : "#ffd84d", big || mode === "stare" ? "#fff" : "#1d1d1d", (0.6 + 0.4 * k) * (big ? 1 + 0.05 * Math.sin(t * 6) : 1), big ? Math.sin(t * 3) * 0.04 : 0); }
+    const fo = clamp((t - (END - 0.6)) / 0.6); if (fo > 0) { ctx.fillStyle = `rgba(0,0,0,${fo})`; ctx.fillRect(0, 0, 1080, 1920); }
+  }
+  window.renderAt = renderAt;
+  window.addEventListener("hf-seek", (e) => { const tt = e.detail.time; e.detail.waitUntil(ready.then(() => renderAt(tt))); });
+  ready.then(() => renderAt(0));
+})();
+</script></body></html>
