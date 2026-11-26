@@ -18,6 +18,16 @@
 | **Kalavo** | Invented, echoes *kala* (art) | Short, neutral |
 | Ruvelo | Invented | Only unrelated uses found (shoes, a pet product, a template); weakest of the six |
 
+## Deeper checks run on 27 November 2026
+| Name | Exact web search | UK Companies House | Verdict |
+| --- | --- | --- | --- |
+| Avasara | Avasara Academy, a well-known girls' school and nonprofit near Pune (avasara.in); Avasara Lab (AI project); a Thai villa | **AVASARA LTD exists** (active, incorporated 12 Feb 2025, London; business not shown). "Avasara Ltd" cannot be registered | Weak: UK name taken, India domain taken |
+| Utsella | No results at all | No exact match for "Utsella Ltd" | Clean so far |
+| Pandalio | No results at all | No exact match for "Pandalio Ltd" | Clean so far |
+| Ollavi | No events results (first screen) | No exact match for "Ollavi Ltd" | Clean so far |
+
+Domain lookups from the build environment were unreliable (they reported no record even for avasara.in, which is live), so domain availability is still **to run**.
+
 ## Checks still to run for the chosen name (not done; do not assume available)
 | check | where | result |
 | --- | --- | --- |
