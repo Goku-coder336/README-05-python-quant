@@ -2,7 +2,8 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { currentUser } from "@/lib/auth";
 import { Tray } from "@phosphor-icons/react/dist/ssr";
-import { categories, countries, region, vendorBookings, vendorByHandle, vendorItems } from "@/lib/data";
+import { categories, countries, region, vendorBlocks, vendorBookings, vendorByHandle, vendorItems } from "@/lib/data";
+import { Availability } from "@/components/Availability";
 import { money, niceDate } from "@/lib/format";
 import { decideBooking } from "@/app/actions";
 import { AddListingForm } from "@/components/AddListingForm";
@@ -23,7 +24,7 @@ export default async function Dashboard({ params, searchParams }: { params: Prom
   const welcome = (await searchParams).welcome === "1";
   const city = (await region(v.baseRegionId))!; const cur = (await countries()).find(c => c.code === city.countryCode)!.currency;
   const bookings = (await vendorBookings(v.id, user.id)) ?? []; const { services, equipment } = await vendorItems(v.id); const cats = await categories();
-  const portfolio = await photosFor("vendor", v.id); const revs = await vendorReviews(v.id, true);
+  const portfolio = await photosFor("vendor", v.id); const revs = await vendorReviews(v.id, true); const blocks = await vendorBlocks(v.id);
   const listingPhotos = new Map(await Promise.all([...services.map(s => ["service", s.id] as const), ...equipment.map(e => ["equipment", e.id] as const)].map(async ([k, id]) => [id, await photosFor(k, id)] as const)));
   const open = bookings.filter(b => b.status === "requested").length;
   return (
@@ -36,6 +37,7 @@ export default async function Dashboard({ params, searchParams }: { params: Prom
       <div className="mt-8 grid grid-cols-3 gap-3">
         {[["New requests", open], ["Listings", services.length + equipment.length], ["All bookings", bookings.length]].map(([k, n]) => <div key={k} className="card p-4"><p className="text-xs text-muted">{k}</p><p className="mt-1 font-display text-3xl">{n}</p></div>)}
       </div>
+      <Availability vendorId={v.id} handle={v.handle} blocks={blocks} bookings={bookings} />
       <section className="mt-10" aria-labelledby="rvs"><h2 id="rvs" className="font-display text-2xl">Reviews {revs.length > 0 && <span className="ml-1 align-middle text-base font-normal text-muted">{v.ratingAvg.toFixed(1)} average</span>}</h2>
         {revs.length === 0 ? <p className="mt-2 text-sm text-muted">Customers can review you after their event. A short thank-you reply helps future customers trust you.</p> :
         <ul className="mt-4 grid gap-3">{revs.map(r => (
