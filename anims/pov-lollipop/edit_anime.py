@@ -2,7 +2,7 @@
 import subprocess, sys
 R1, R2, CAPS, OUT = sys.argv[1:5]
 D = "assets/pov-lollipop/anime"; A = "assets/pov-lollipop/audio"
-HOOK = 3.92  # "gotta put 'em in the dirt" region in the Killin' 'em recording (4 beats = 2.3 s)
+HOOK = 0.1  # "gotta put 'em in the dirt" opens the BGM file
 # (kind, source, start, dur, extra)
 SHOTS = [
     ("pic", f"{D}/s1_cooking.png", 0.0, 2.6, "push"),
