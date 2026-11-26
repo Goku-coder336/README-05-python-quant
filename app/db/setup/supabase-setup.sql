@@ -1,12 +1,12 @@
 -- =====================================================================
--- Utsella: one-time database setup for Supabase
+-- Utsella: one-time database setup for Supabase (generated, do not edit by hand)
 -- How to use: Supabase dashboard > SQL Editor > New query > paste this
 -- whole file > Run. Run it ONCE on an empty project.
--- It creates every table and loads reference data (countries, cities,
--- traditions, vendor categories, 34 event types and their checklists).
--- It does NOT add sample vendors or bookings.
--- Everything runs in one transaction: if any part fails, nothing is kept.
--- Generated from app/db/migrations/001-007 and src/lib/seed.ts.
+-- Creates every table and loads reference data (countries, cities,
+-- traditions, vendor categories, event types and their checklists).
+-- Does NOT add sample vendors or bookings.
+-- Runs in one transaction: if any part fails, nothing is kept.
+-- Built from: 001_init.sql, 001a_base_data.sql, 002_planner.sql, 003_admin.sql, 004_media.sql, 005_notifications.sql, 006_all_events.sql, 007_reviews.sql, 008_availability.sql
 -- =====================================================================
 begin;
 
@@ -125,7 +125,7 @@ create table waitlist (
 
 create table if not exists schema_migrations (name text primary key, applied_at timestamptz not null default now());
 
--- Reference data: countries, regions, traditions, categories (no sample vendors or bookings).
+-- ---------- reference data (countries, cities, traditions, categories) ----------
 insert into countries values ('IN', 'India', 'INR', 'en-IN', 'GST', 1800, true) on conflict do nothing;
 insert into countries values ('AE', 'United Arab Emirates', 'AED', 'en-AE', 'VAT', 500, true) on conflict do nothing;
 insert into countries values ('GB', 'United Kingdom', 'GBP', 'en-GB', 'VAT', 2000, false) on conflict do nothing;
@@ -154,6 +154,28 @@ insert into categories (id, slug, name, kind, icon) values ('k-cater', 'catering
 insert into categories (id, slug, name, kind, icon) values ('k-sound', 'sound', 'Sound rental', 'equipment', 'SpeakerHifi') on conflict do nothing;
 insert into categories (id, slug, name, kind, icon) values ('k-light', 'lighting', 'Lighting rental', 'equipment', 'Lightbulb') on conflict do nothing;
 insert into categories (id, slug, name, kind, icon) values ('k-power', 'generators', 'Generators', 'equipment', 'Lightning') on conflict do nothing;
+
+-- ---------- 001a_base_data.sql ----------
+-- Reference data later migrations point at, so a fresh database migrates fully before seeding.
+-- Same rows as src/lib/seed.ts; existing rows are left alone.
+insert into traditions (id, slug, name) values
+  ('t-kh','kerala-hindu','Kerala Hindu'),
+  ('t-kc','kerala-christian','Kerala Christian'),
+  ('t-km','kerala-muslim','Kerala Muslim'),
+  ('t-ta','tamil','Tamil'),
+  ('t-any','any','Any or mixed')
+on conflict (id) do nothing;
+insert into categories (id, slug, name, kind, icon) values
+  ('k-plan','event-planners','Event planners','service','ClipboardText'),
+  ('k-mua','makeup','Makeup artists','service','PaintBrush'),
+  ('k-photo','photography','Photographers','service','Camera'),
+  ('k-video','videography','Videographers','service','VideoCamera'),
+  ('k-decor','decor','Decor','service','FlowerLotus'),
+  ('k-cater','catering','Catering','service','CookingPot'),
+  ('k-sound','sound','Sound rental','equipment','SpeakerHifi'),
+  ('k-light','lighting','Lighting rental','equipment','Lightbulb'),
+  ('k-power','generators','Generators','equipment','Lightning')
+on conflict (id) do nothing;
 
 -- ---------- 002_planner.sql ----------
 -- Event planner: occasion types, checklist templates by tradition and size, customers' events.
@@ -493,13 +515,25 @@ create trigger reviews_rating after insert or update or delete on reviews for ea
 -- Seed vendors had made-up rating numbers; from now on ratings only come from real reviews.
 update vendors set rating_avg = 0, rating_count = 0;
 
--- ---------- record applied migrations (so `npm run db:migrate` skips them later) ----------
-insert into schema_migrations (name) values ('001_init.sql'),('002_planner.sql'),('003_admin.sql'),('004_media.sql'),('005_notifications.sql'),('006_all_events.sql'),('007_reviews.sql') on conflict do nothing;
+-- ---------- 008_availability.sql ----------
+-- Days a vendor is not taking work (holidays, private events). New booking requests on these days are refused,
+-- for services and gear alike. Booking and blocking both lock the vendor row, so the two cannot race.
+create table vendor_blocks (
+  id bigserial primary key,
+  vendor_id text not null references vendors(id) on delete cascade,
+  period daterange not null check (not isempty(period)),
+  note text not null default '' check (length(note) <= 120),
+  created_at timestamptz not null default now()
+);
+create index on vendor_blocks using gist (vendor_id, period);
+
+-- ---------- record applied migrations, so `npm run db:migrate` skips them later ----------
+insert into schema_migrations (name) values ('001_init.sql'), ('001a_base_data.sql'), ('002_planner.sql'), ('003_admin.sql'), ('004_media.sql'), ('005_notifications.sql'), ('006_all_events.sql'), ('007_reviews.sql'), ('008_availability.sql') on conflict do nothing;
 
 -- ---------- security on Supabase ----------
 -- Utsella's server talks to the database directly. Supabase's public Data API must not
--- expose these tables, even if the Data API is switched on: turn on row level security
--- with no policies (blocks the public roles) and remove their table permissions.
+-- expose these tables, even if it is switched on: row level security with no policies
+-- blocks the public roles, and their table permissions are removed.
 do $$
 declare t record;
 begin
@@ -515,7 +549,7 @@ end $$;
 
 commit;
 
--- Check: you should see 25 tables, 34 event types, 257 checklist items and 7 cities.
+-- Check what was created:
 select (select count(*) from pg_tables where schemaname = 'public') as tables,
        (select count(*) from event_types) as event_types,
        (select count(*) from event_template_items) as checklist_items,
