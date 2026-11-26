@@ -1,0 +1,109 @@
+{
+  "_about": "Festora v3 'Kasavu and Peacock': kasavu cream base, peacock teal primary, nilavilakku brass, kumkum vermilion highlight. Fonts: Fraunces headings, Manrope body.",
+  "color": {
+    "bg": "#f7f1e3",
+    "paper": "#fffaf0",
+    "text": "#1c2321",
+    "text-muted": "#55605c",
+    "line": "#e4dac4",
+    "peacock": "#0d5c58",
+    "on-peacock": "#fffaf0",
+    "peacock-deep": "#08332f",
+    "brass": "#c8962e",
+    "on-brass": "#1c1404",
+    "kumkum": "#b8381f",
+    "on-kumkum": "#fffaf0",
+    "leaf": "#dfe9d6",
+    "mist": "#d8ebe8",
+    "sandal": "#f1e2c2",
+    "blush": "#f4ddd2",
+    "border-input": "#7d867f",
+    "focus": "#0d5c58"
+  },
+  "pairs": [
+    [
+      "text",
+      "bg"
+    ],
+    [
+      "text",
+      "paper"
+    ],
+    [
+      "text-muted",
+      "bg"
+    ],
+    [
+      "text-muted",
+      "paper"
+    ],
+    [
+      "on-peacock",
+      "peacock"
+    ],
+    [
+      "on-peacock",
+      "peacock-deep"
+    ],
+    [
+      "peacock",
+      "bg"
+    ],
+    [
+      "brass",
+      "peacock-deep",
+      "large"
+    ],
+    [
+      "on-brass",
+      "brass"
+    ],
+    [
+      "on-kumkum",
+      "kumkum"
+    ],
+    [
+      "kumkum",
+      "bg"
+    ],
+    [
+      "text",
+      "leaf"
+    ],
+    [
+      "text",
+      "mist"
+    ],
+    [
+      "text",
+      "sandal"
+    ],
+    [
+      "text",
+      "blush"
+    ],
+    [
+      "text-muted",
+      "mist"
+    ],
+    [
+      "border-input",
+      "bg",
+      "ui"
+    ],
+    [
+      "focus",
+      "bg",
+      "ui"
+    ]
+  ],
+  "font": {
+    "display": "Fraunces, Georgia, serif",
+    "sans": "Manrope, system-ui, sans-serif"
+  },
+  "motion": {
+    "fast": "300ms",
+    "base": "500ms",
+    "ease": "cubic-bezier(0.22,1,0.36,1)"
+  }
+}

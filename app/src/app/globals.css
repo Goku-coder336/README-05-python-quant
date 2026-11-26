@@ -1,0 +1,25 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+/* Generated from replica/design/tokens.json (Beige and Brown) */
+:root{
+  --bg:#f4ece1;--paper:#fbf7f1;--text:#2b1f17;--text-muted:#6b5a4c;--line:#e3d5c3;
+  --brown:#6f4a2f;--on-brown:#fbf7f1;--espresso:#3a2619;--caramel:#c08a4e;--on-caramel:#2b1f17;
+  --clay:#9a4a2a;--on-clay:#fbf7f1;--latte:#e8d8c3;--sand:#efe2cf;--blush:#ecd6c8;--sage:#e0e3d2;
+  --border-input:#8a7867;--success:#3f6b3a;--danger:#a3311f;
+}
+html{background:var(--bg);color:var(--text)}
+body{font-family:var(--font-sans),system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--brown);outline-offset:3px;border-radius:6px}
+h1,h2,h3{text-wrap:balance} p{text-wrap:pretty}
+@layer components{
+  .btn{@apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition duration-300 ease-out active:scale-[.98] disabled:opacity-50 disabled:cursor-not-allowed}
+  .btn-primary{@apply btn bg-brown text-brown-on hover:bg-espresso}
+  .btn-caramel{@apply btn bg-caramel text-caramel-on hover:brightness-105}
+  .btn-line{@apply btn border border-ink text-ink hover:bg-ink hover:text-paper}
+  .card{@apply rounded-3xl border border-line bg-paper}
+  .input{@apply h-12 w-full rounded-2xl border border-border-input bg-paper px-4 text-base text-ink placeholder:text-muted}
+  .label{@apply mb-1.5 block text-sm font-medium}
+  .eyebrow{@apply text-xs font-semibold uppercase tracking-[.14em] text-brown}
+  .chip{@apply inline-flex items-center gap-1 rounded-full border border-line bg-paper px-3 py-1.5 text-sm transition hover:border-brown}
+  .chip-on{@apply chip border-brown bg-latte}
+  .badge{@apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium}
+}

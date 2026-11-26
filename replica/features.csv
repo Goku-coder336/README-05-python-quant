@@ -1,0 +1,38 @@
+feature,area,priority,original,clone,notes
+Location picker (city/pincode modal),discovery,must,yes,partial,Trade: country + region + port picker
+Category grid on home,discovery,must,yes,yes,Trade: product categories by HS chapter
+Category listing page with result count,discovery,must,yes,yes,Trade: buyers list per HS code
+Filters: budget range,discovery,must,yes,no,Trade: annual import volume / order size
+Filters: vendor rating,discovery,should,yes,no,Trade: verification level + activity score
+Sort (price / rating),discovery,should,yes,no,Trade: last import date / volume / rating
+Filters locked until sign-in,discovery,must,yes,no,Trade: free browse; contacts and filters gated by plan
+Empty state on listing,discovery,must,yes,yes,Original shows 'Stay tuned' with 0 results
+Spotlight/featured vendors,discovery,should,yes,no,Trade: featured buyers + paid featured suppliers
+Promo banners,discovery,could,yes,no,Trade: trade fair and corridor campaigns
+Public profile page (@handle),profile,must,yes,yes,Trade: buyer company profile
+Package page: gallery + price + description,profile,must,yes,partial,Trade: buying requirement card (product/spec/qty/MOQ/Incoterms)
+What's included list,profile,must,yes,yes,Trade: certifications and documents required
+Availability check (location + date),profile,should,yes,yes,Trade: delivery window + destination port
+Cancellation and payment policy blocks,profile,should,yes,partial,Trade: payment terms (LC/TT/advance %)
+Reviews gated behind login,profile,should,yes,no,Trade: deal ratings visible to members
+WhatsApp chat link,contact,must,yes,no,Trade: WhatsApp + in-platform messaging
+Quick enquiry form,contact,must,yes,yes,Trade: send quote / RFQ response
+Cart + 50% advance online payment,contact,could,yes,no,Trade: replace with subscription paywall; no goods checkout
+Customer account / sign-in,auth,must,yes,yes,Email code sign-in; phone OTP needs an SMS provider
+Vendor onboarding by WhatsApp number,supply,must,yes,yes,Trade: buyer + supplier onboarding with company verification
+Vendor dashboard: packages/orders/invoices,supply,must,yes,partial,Owner-only; invoices not yet
+Register-as-vendor CTA,supply,must,yes,yes,Trade: list free as a buyer
+Invitation site add-on,extras,skip,yes,no,Not relevant; replace with export toolkit
+Hashtag generator add-on,extras,skip,yes,no,Not relevant
+Analytics redirect tracking on outbound links,extras,could,yes,no,Simple click tracking
+Android TWA app,platform,could,yes,no,PWA first
+Blog,content,should,yes,no,Trade: country/product demand guides for SEO
+Grievance redressal page,legal,must,yes,no,Required in India (IT Rules); add GDPR pages for EU buyers
+HS code search,trade-new,must,no,no,New for trade
+Customs import records on profile,trade-new,should,no,no,Licensed data only
+Buyer verification badges,trade-new,must,no,no,"Company reg, IEC/EORI/VAT, website"
+RFQ board (buyers post requirements),trade-new,must,no,no,
+Landed cost / duty calculator,trade-new,could,no,no,
+Sanctions screening,trade-new,should,no,no,
+Vendor network and their listings,content,skip,yes,no,Their users and data are theirs; build your own buyer base
+Vendor photos and descriptions,content,skip,yes,no,Owned content; never copy

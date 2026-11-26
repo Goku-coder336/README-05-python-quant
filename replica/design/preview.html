@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Festora Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text)}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+  h1,h2,h3{font-family:var(--font-display);font-weight:600;margin:0}
+  h1{font-size:40px;line-height:46px} h2{font-size:28px;line-height:34px} h3{font-size:20px;line-height:28px;font-family:var(--font-sans)}
+  .muted{color:var(--text-muted)} .sm{font-size:14px;line-height:20px} .xs{font-size:12px;line-height:16px;font-weight:500}
+  header{height:64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:5}
+  .logo{font-family:var(--font-display);font-size:24px;color:var(--accent)} .logo span{color:var(--highlight)}
+  .city{display:flex;gap:6px;align-items:center;border:1px solid var(--border);border-radius:var(--radius-pill);padding:8px 14px;background:var(--surface);font-size:14px}
+  .hero{padding:32px 0 24px;background:linear-gradient(180deg,var(--accent-soft),var(--bg))}
+  .starter{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-pop);padding:16px;margin-top:20px;display:grid;gap:12px}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  label{display:block;font-size:14px;font-weight:500;margin-bottom:6px}
+  input,select{width:100%;height:44px;border:1px solid var(--border-input);border-radius:var(--radius-md);padding:0 12px;font:inherit;background:var(--bg);color:var(--text)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 20px;border-radius:var(--radius-pill);font:600 14px/1 var(--font-sans);border:1px solid transparent;cursor:pointer;text-decoration:none}
+  .primary{background:var(--accent);color:var(--on-accent)} .primary:hover{background:var(--accent-hover)}
+  .secondary{background:transparent;border-color:var(--accent);color:var(--accent)}
+  .ghost{background:transparent;color:var(--accent)}
+  .highlight{background:var(--highlight);color:var(--on-highlight)}
+  .whatsapp{background:var(--whatsapp);color:var(--on-whatsapp)}
+  .danger{background:var(--danger);color:#fff}
+  .btn[disabled]{opacity:.5;cursor:not-allowed}
+  .chip{border:1px solid var(--border);background:var(--bg);border-radius:var(--radius-pill);padding:8px 14px;font-size:14px;cursor:pointer;color:var(--text)}
+  .chip[aria-pressed=true]{background:var(--accent-soft);color:var(--on-accent-soft);border-color:var(--accent)}
+  section{padding:28px 0;border-bottom:1px solid var(--border)}
+  .cards{display:grid;gap:16px;grid-template-columns:1fr;margin-top:16px}
+  @media(min-width:640px){.cards{grid-template-columns:1fr 1fr}} @media(min-width:1024px){.cards{grid-template-columns:repeat(3,1fr)}}
+  .card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card)}
+  .ph{height:150px;display:flex;align-items:flex-end;padding:10px;gap:6px}
+  .p1{background:linear-gradient(135deg,#c9a27a,#6b2a5c)} .p2{background:linear-gradient(135deg,#3b3a4a,#1f1a17)} .p3{background:linear-gradient(135deg,#f0b44c,#c25b3f)}
+  .card .body{padding:14px;display:grid;gap:6px}
+  .badge{display:inline-block;border-radius:var(--radius-pill);padding:3px 10px;font-size:12px;font-weight:500}
+  .b-ver{background:#e3f2e9;color:var(--success)} .b-int{background:var(--accent-soft);color:var(--on-accent-soft)} .b-off{background:var(--highlight);color:var(--on-highlight)} .b-gear{background:var(--surface);color:var(--text)}
+  .price{font-weight:600} .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+  @media(min-width:768px){.tiles{grid-template-columns:repeat(6,1fr)}}
+  .tile{background:var(--surface);border-radius:var(--radius-md);padding:14px 8px;text-align:center;font-size:13px;font-weight:500}
+  .tile svg{display:block;margin:0 auto 6px;color:var(--accent)}
+  .check{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);gap:8px}
+  .st{font-size:12px;font-weight:500;padding:3px 10px;border-radius:var(--radius-pill)}
+  .todo{background:var(--surface);color:var(--text-muted)} .short{background:var(--accent-soft);color:var(--on-accent-soft)} .booked{background:#e3f2e9;color:var(--success)}
+  .hub{background:var(--surface);border-radius:var(--radius-lg);padding:16px;margin-top:16px}
+  .bar{height:10px;border-radius:999px;background:var(--border);overflow:hidden;display:flex;margin:8px 0}
+  .bar i{display:block;height:100%}
+  .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:16px}
+  .sw{border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;font-size:12px}
+  .sw div{height:54px} .sw p{margin:0;padding:6px 8px}
+  .sticky{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--border);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow-pop)}
+</style>
+</head>
+<body>
+<header><div class="wrap" style="display:flex;justify-content:space-between;align-items:center;width:100%">
+  <div class="logo">Fest<span>o</span>ra</div>
+  <button class="city" aria-label="Change city">📍 Kochi, Kerala ▾</button>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <p class="xs muted" style="text-transform:uppercase;letter-spacing:.08em">Weddings · Intimate events · Gear rental</p>
+  <h1>Plan the whole celebration in one place</h1>
+  <p class="muted">Planners, makeup, photographers and the sound, lights and stage. Booked together, with your traditions in mind.</p>
+  <form class="starter" onsubmit="return false">
+    <div><label>What are you planning?</label>
+      <div class="row">
+        <button type="button" class="chip" aria-pressed="true">Wedding</button>
+        <button type="button" class="chip" aria-pressed="false">Engagement</button>
+        <button type="button" class="chip" aria-pressed="false">Baptism</button>
+        <button type="button" class="chip" aria-pressed="false">Birthday</button>
+        <button type="button" class="chip" aria-pressed="false">Corporate</button>
+        <button type="button" class="chip" aria-pressed="false">Proposal</button>
+      </div></div>
+    <div class="grid2">
+      <div><label for="t">Tradition</label><select id="t"><option>Kerala Christian</option><option>Kerala Hindu</option><option>Kerala Muslim</option><option>Tamil</option><option>Any / mixed</option></select></div>
+      <div><label for="g">Guests</label><input id="g" value="40" inputmode="numeric"></div>
+    </div>
+    <p class="sm" style="margin:0"><span class="badge b-int">Intimate</span> <span class="muted">Under 50 guests: we'll show small packages first.</span></p>
+    <button class="btn primary">Start my event plan</button>
+  </form>
+</div></div>
+
+<main class="wrap">
+<section>
+  <h2>Browse by category</h2>
+  <div class="tiles">
+    <div class="tile">🗂️<br>Event planners</div><div class="tile">💄<br>Makeup</div><div class="tile">📷<br>Photography</div>
+    <div class="tile">🎥<br>Videography</div><div class="tile">🔊<br>Sound rental</div><div class="tile">💡<br>Lighting</div>
+  </div>
+</section>
+
+<section>
+  <h2>For your wedding in Kochi</h2>
+  <div class="row" style="margin-top:12px">
+    <button class="chip" aria-pressed="true">Candid</button><button class="chip" aria-pressed="false">Cinematic</button>
+    <button class="chip" aria-pressed="false">Traditional</button><button class="chip" aria-pressed="true">Intimate</button>
+  </div>
+  <div class="cards">
+    <article class="card"><div class="ph p1"><span class="badge b-int">Intimate</span><span class="badge b-off">10% off</span></div>
+      <div class="body"><span class="xs muted">Photography · Kochi</span><h3>Candid wedding story, 4 hours</h3>
+      <span class="sm muted">Lumen Frames <span class="badge b-ver">✓ Verified</span></span>
+      <span class="price">from ₹35,000 <span class="sm muted">· ★ 4.9 (38)</span></span></div></article>
+    <article class="card"><div class="ph p2"><span class="badge b-gear">Gear · with operator</span></div>
+      <div class="body"><span class="xs muted">Sound rental · Kochi</span><h3>Compact PA kit for 50 guests</h3>
+      <span class="sm muted">Kayal Sound &amp; Light <span class="badge b-ver">✓ Verified</span></span>
+      <span class="price">₹4,500/day <span class="sm muted">· deposit ₹5,000 held</span></span></div></article>
+    <article class="card"><div class="ph p3"><span class="badge b-int">Kerala Christian</span></div>
+      <div class="body"><span class="xs muted">Makeup · Thrissur</span><h3>Bridal look with saree draping</h3>
+      <span class="sm muted">Mira Studio</span>
+      <span class="price">from ₹18,000 <span class="sm muted">· ★ 4.8 (61)</span></span></div></article>
+  </div>
+</section>
+
+<section>
+  <h2>Your event</h2>
+  <div class="hub">
+    <p class="xs muted" style="margin:0">KERALA CHRISTIAN WEDDING · KOCHI · 40 GUESTS · 62 DAYS TO GO</p>
+    <h3 style="font-family:var(--font-display);font-size:24px;margin-top:6px">Anu &amp; Joel</h3>
+    <div class="bar" role="img" aria-label="Budget: ₹2,10,000 of ₹4,00,000 committed"><i style="width:30%;background:var(--accent)"></i><i style="width:15%;background:var(--highlight)"></i><i style="width:8%;background:var(--success)"></i></div>
+    <p class="sm muted" style="margin:0">₹2,10,000 of ₹4,00,000 committed</p>
+    <div style="margin-top:8px">
+      <div class="check"><span>Church decor</span><span class="st booked">Booked</span></div>
+      <div class="check"><span>Bridal makeup</span><span class="st short">2 shortlisted</span></div>
+      <div class="check"><span>Photography + video</span><span class="st short">3 shortlisted</span></div>
+      <div class="check"><span>Sound kit + technician</span><span class="st todo">To do</span><a class="btn ghost" href="#">Find</a></div>
+      <div class="check"><span>Catering for 40</span><span class="st todo">To do</span><a class="btn ghost" href="#">Find</a></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Buttons</h2>
+  <div class="row" style="margin-top:12px">
+    <button class="btn primary">Book now</button><button class="btn secondary">Add to event</button>
+    <button class="btn ghost">See all</button><button class="btn highlight">View offer</button>
+    <a class="btn whatsapp" href="#">💬 Chat on WhatsApp</a><button class="btn danger">Report damage</button>
+    <button class="btn primary" disabled>Unavailable</button>
+  </div>
+</section>
+
+<section>
+  <h2>Colour roles</h2>
+  <div class="swatches">
+    <div class="sw"><div style="background:var(--accent)"></div><p>accent #6b2a5c</p></div>
+    <div class="sw"><div style="background:var(--highlight)"></div><p>highlight #f0b44c</p></div>
+    <div class="sw"><div style="background:var(--accent-soft)"></div><p>accent-soft #f3e6ef</p></div>
+    <div class="sw"><div style="background:var(--bg)"></div><p>bg #fffcf7</p></div>
+    <div class="sw"><div style="background:var(--surface)"></div><p>surface #f7f1e8</p></div>
+    <div class="sw"><div style="background:var(--text)"></div><p>text #1f1a17</p></div>
+    <div class="sw"><div style="background:var(--whatsapp)"></div><p>whatsapp #1f7a4a</p></div>
+    <div class="sw"><div style="background:var(--danger)"></div><p>danger #b3261e</p></div>
+  </div>
+</section>
+</main>
+<div class="sticky"><div><div class="xs muted">PA kit + technician · 14 Feb</div><strong>₹7,500</strong> <span class="sm muted">+ ₹5,000 deposit held</span></div><button class="btn primary">Request booking</button></div>
+</body>
+</html>
