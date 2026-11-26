@@ -1,9 +1,11 @@
 "use client";
 import { useActionState } from "react";
+import Link from "next/link";
 import { requestBooking, type FormState } from "@/app/actions";
 
-export function BookForm({ kind, itemId, cta, eventItemId, defaultDate }: { kind: "service" | "equipment"; itemId: string; cta: string; eventItemId?: string; defaultDate?: string | null }) {
+export function BookForm({ kind, itemId, cta, eventItemId, defaultDate, signedIn, next }: { kind: "service" | "equipment"; itemId: string; cta: string; eventItemId?: string; defaultDate?: string | null; signedIn: boolean; next: string }) {
   const [state, action, pending] = useActionState<FormState, FormData>(requestBooking, {});
+  if (!signedIn) return <div className="grid gap-3 text-center"><Link href={`/signin?next=${encodeURIComponent(next)}`} className="btn-primary w-full">Sign in to request a booking</Link><p className="text-xs text-muted">We email you when the vendor replies. No password needed.</p></div>;
   const v = state.fields ?? {};
   const min = new Date().toISOString().slice(0, 10);
   return (

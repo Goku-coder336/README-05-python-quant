@@ -191,3 +191,30 @@ export async function addEquipment(vendorId: string, userId: string, i: Omit<Equ
 export async function joinWaitlist(email: string, role: "customer" | "vendor", city: string) {
   await q(`insert into waitlist (email, role, city) values ($1,$2,$3) on conflict (email, role) do update set city = excluded.city`, [email, role, city]);
 }
+
+// ---------- customer bookings ----------
+export type CustomerBooking = Booking & { vendorName: string; vendorHandle: string; vendorPhone: string; eventTitle: string | null; eventId: string | null };
+export const customerBookings = (userId: string) => q<CustomerBooking>(`select ${BOOKING.split(",").map(c => "b." + c.trim()).join(", ")}, v.business_name as "vendorName", v.handle as "vendorHandle", v.phone as "vendorPhone",
+    e.title as "eventTitle", e.id as "eventId"
+  from bookings b join vendors v on v.id = b.vendor_id left join event_items i on i.id = b.event_item_id left join events e on e.id = i.event_id
+  where b.customer_id = $1 order by (b.status in ('requested','accepted')) desc, b.starts_on`, [userId]);
+
+/** Who may view a booking: its customer, the vendor's owner, or an admin. */
+export async function canViewBooking(bookingId: string, userId: string) {
+  return !!(await one(`select 1 from bookings b join vendors v on v.id = b.vendor_id, users u where b.id = $1 and u.id = $2
+    and (b.customer_id = u.id or v.owner_id = u.id or u.role = 'admin')`, [bookingId, userId]));
+}
+
+/** Customer cancels a request or a confirmed booking (before payment exists). Frees the held unit or day. */
+export async function cancelBooking(bookingId: string, userId: string) {
+  return tx(async cl => {
+    const r = await cl.query(`update bookings set status = 'cancelled', cancelled_at = now() where id = $1 and customer_id = $2 and status in ('requested','accepted') returning id`, [bookingId, userId]);
+    if (!r.rowCount) return false;
+    await cl.query(`delete from unit_holds where booking_id = $1`, [bookingId]);
+    await cl.query(`delete from vendor_day_holds where booking_id = $1`, [bookingId]);
+    await cl.query(`update event_items i set status = case when exists (select 1 from shortlist s where s.event_item_id = i.id) then 'shortlisted' else 'todo' end
+      from bookings b where b.id = $1 and i.id = b.event_item_id and i.status = 'booked'
+      and not exists (select 1 from bookings o where o.event_item_id = i.id and o.id <> b.id and o.status in ('requested','accepted'))`, [bookingId]);
+    return true;
+  });
+}

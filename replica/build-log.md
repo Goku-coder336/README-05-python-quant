@@ -26,3 +26,5 @@ Verified: full journey in a browser at 390px and 1440px (vendor joins, lists gea
 | Admin waitlist `/admin/waitlist` | 2026-11-27 | done | By city and role, latest sign-ups, CSV download with spreadsheet formula injection blocked. |
 | Admin checklists `/admin/templates` | 2026-11-27 | done | Edit, add and delete checklist items per tradition; budget share total shown. New plans use the changes. |
 | Photos (dashboard, cards, galleries, portfolio) | 2026-11-27 | done | Upload, delete, set cover; cover on cards; gallery on listing pages; portfolio on profiles. Test caught the photo section collapsing after upload; fixed. No alt text editing yet. |
+| Booking emails | 2026-11-27 | done | Five messages, outbox with retries and de-duplication. Customers now sign in before requesting, so replies can reach them. |
+| My bookings `/my/bookings` | 2026-11-27 | done | Upcoming and past, WhatsApp the vendor once confirmed, withdraw or cancel (frees the date and the plan item). Booking pages now visible only to the customer, the vendor and admins. |

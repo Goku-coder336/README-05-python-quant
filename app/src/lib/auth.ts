@@ -1,6 +1,7 @@
 import crypto from "node:crypto";
 import { cookies } from "next/headers";
 import { one, q } from "./db";
+import { sendEmail } from "./email";
 
 // Passwordless sign-in: a 6-digit code by email, then an http-only session cookie.
 // Codes and session tokens are stored only as HMAC hashes.
@@ -33,21 +34,8 @@ export async function requestCode(emailRaw: string): Promise<{ ok: true } | { ok
 }
 
 async function sendCode(email: string, code: string) {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
-    if (process.env.NODE_ENV === "production") throw new Error("RESEND_API_KEY is not set.");
-    console.log(`[dev] sign-in code for ${email}: ${code}`); // development only; never logged in production
-    return;
-  }
-  const r = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      from: process.env.EMAIL_FROM, to: email, subject: `${code} is your Festora sign-in code`,
-      text: `Your Festora sign-in code is ${code}.\n\nIt expires in ${CODE_MINUTES} minutes. If you did not ask for it, you can ignore this email.`,
-    }),
-  });
-  if (!r.ok) throw new Error(`Email failed with status ${r.status}`);
+  if (!process.env.RESEND_API_KEY && process.env.NODE_ENV !== "production") { console.log(`[dev] sign-in code for ${email}: ${code}`); return; }
+  await sendEmail(email, `${code} is your Festora sign-in code`, `Your Festora sign-in code is ${code}.\n\nIt expires in ${CODE_MINUTES} minutes. If you did not ask for it, you can ignore this email.`);
 }
 
 export async function verifyCode(emailRaw: string, code: string): Promise<{ ok: true } | { ok: false; error: string }> {

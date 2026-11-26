@@ -15,7 +15,8 @@ App code: `app/`. Database: Postgres (Supabase in production, local Postgres 16 
 | Input validation | zod on every server action and the waitlist route | done |
 | Phone OTP (SMS) | Needs an SMS provider account (MSG91 or Twilio for India, Twilio for UAE). The sign-in module is ready for a second channel. | not started |
 | Payments | Razorpay (India) and Stripe (UAE, UK) in test mode: advance on acceptance, deposit hold for rentals, webhooks. Needs your test keys. | not started |
-| Booking emails / WhatsApp alerts | Resend for email; WhatsApp Business Cloud API needs Meta business verification (allow 1 to 2 weeks, start early) | not started |
+| Booking emails | Vendor: new request, cancellation. Customer: request sent, accepted, declined. Saved to an outbox first, sent straight away, retried up to 5 times with growing waits (tested with a broken email key), never sent twice for the same event (tested with a double click). Retry job: `POST /api/jobs/notifications` with `CRON_SECRET`, run every 5 minutes by a scheduler. Admin overview shows sent, waiting and failed. | done |
+| WhatsApp alerts | WhatsApp Business Cloud API; needs Meta business verification (allow 1 to 2 weeks, start early). The outbox already has a whatsapp channel. | not started |
 | Photo uploads | Vendor portfolio (12) and per listing (10). Checked by file content not name, 8 MB limit, 6 per upload, rate limited. Every photo is re-encoded to WebP at most 1600 px and **all metadata including GPS location is removed**. Stored in Supabase Storage (public bucket on its own domain); local folder in development. Owner-only delete and cover. | done |
 
 ## What you need to create (Claude does not sign up or handle keys)
@@ -23,7 +24,8 @@ App code: `app/`. Database: Postgres (Supabase in production, local Postgres 16 
 2. **Resend account** with your domain verified. Put the key in `RESEND_API_KEY` and set `EMAIL_FROM`. Without it, production sign-in refuses to start rather than silently failing.
 3. **Supabase Storage:** create a public bucket called `media`, then set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (keep the service key secret).
 4. `SESSION_SECRET`: run `openssl rand -hex 32`.
-5. Later: Razorpay and Stripe test keys, an SMS provider, and a Meta business account for WhatsApp.
+5. `CRON_SECRET` and a scheduler (Vercel Cron or Supabase cron) calling the retry job every 5 minutes.
+6. Later: Razorpay and Stripe test keys, an SMS provider, and a Meta business account for WhatsApp.
 
 Every variable is listed in `app/.env.example`. `.env*` files are git-ignored (checked with `git check-ignore`).
 

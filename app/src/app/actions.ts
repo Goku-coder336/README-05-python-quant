@@ -5,6 +5,7 @@ import { z } from "zod";
 import * as data from "@/lib/data";
 import * as planner from "@/lib/planner";
 import * as media from "@/lib/media";
+import { notifyBooking } from "@/lib/notify";
 import { currentUser, deleteAccount, requestCode, signOut, verifyCode } from "@/lib/auth";
 import { limited } from "@/lib/ratelimit";
 
@@ -56,10 +57,12 @@ export async function requestBooking(_: FormState, f: FormData): Promise<FormSta
   const today = new Date().toISOString().slice(0, 10);
   if (p.data.startsOn < today) return { error: "That date has passed. Choose a future date.", fields };
   const user = await currentUser();
+  if (!user) return { error: "Sign in to send a booking request, so we can tell you when the vendor replies.", fields };
   // Only link the booking to a checklist item the signed-in customer owns.
-  const eventItemId = user && p.data.eventItemId ? (await planner.ownedItemForBooking(p.data.eventItemId, user.id))?.id ?? null : null;
-  const r = await data.createBooking({ eventItemId, itemKind: p.data.kind, itemId: p.data.itemId, startsOn: p.data.startsOn, endsOn: p.data.endsOn || p.data.startsOn, customerName: p.data.name, customerPhone: p.data.phone, note: p.data.note, customerId: user?.id ?? null });
+  const eventItemId = p.data.eventItemId ? (await planner.ownedItemForBooking(p.data.eventItemId, user.id))?.id ?? null : null;
+  const r = await data.createBooking({ eventItemId, itemKind: p.data.kind, itemId: p.data.itemId, startsOn: p.data.startsOn, endsOn: p.data.endsOn || p.data.startsOn, customerName: p.data.name, customerPhone: p.data.phone, note: p.data.note, customerId: user.id });
   if (!r.ok) return { error: r.error, fields };
+  await notifyBooking(r.booking.id, ["booking.requested.vendor", "booking.requested.customer"]);
   redirect(`/bookings/${r.booking.id}`);
 }
 
@@ -114,7 +117,8 @@ export async function addListing(_: FormState, f: FormData): Promise<FormState> 
 export async function decideBooking(f: FormData) {
   const user = await currentUser(); if (!user) redirect("/signin");
   const d = String(f.get("decision")); const handle = String(f.get("handle"));
-  if (d === "accepted" || d === "declined") await data.setBookingStatus(String(f.get("bookingId")), user.id, d);
+  const bookingId = String(f.get("bookingId"));
+  if ((d === "accepted" || d === "declined") && await data.setBookingStatus(bookingId, user.id, d)) await notifyBooking(bookingId, [d === "accepted" ? "booking.accepted" : "booking.declined"]);
   revalidatePath(`/vendor/${handle}`);
 }
 
@@ -212,4 +216,11 @@ export async function deletePhotoAction(f: FormData) {
 export async function coverPhotoAction(f: FormData) {
   const user = await currentUser(); if (!user) redirect("/signin");
   await media.makeCover(user.id, String(f.get("mediaId"))); revalidatePath(`/vendor/${String(f.get("handle"))}`);
+}
+
+export async function cancelBookingAction(f: FormData) {
+  const user = await currentUser(); if (!user) redirect("/signin?next=/my/bookings");
+  const id = String(f.get("bookingId"));
+  if (await data.cancelBooking(id, user.id)) await notifyBooking(id, ["booking.cancelled.vendor"]);
+  revalidatePath("/my/bookings"); revalidatePath(`/bookings/${id}`);
 }

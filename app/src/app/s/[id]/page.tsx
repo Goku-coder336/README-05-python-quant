@@ -36,7 +36,7 @@ export default async function ServicePage({ params, searchParams }: { params: Pr
         <p className="text-2xl font-semibold">{money(s.priceMinor, s.currency)} <span className="text-base font-normal text-muted">{unitLabel[s.priceUnit]}</span></p>
         <p className="mt-1 text-sm text-muted">{s.advancePct}% advance once confirmed</p>
         {ctx && <p className="mb-6 rounded-2xl bg-latte px-4 py-3 text-sm">Booking for <strong>{ctx.label}</strong> in <Link href={`/my/events/${ctx.eventId}`} className="font-medium underline">{ctx.eventTitle}</Link></p>}
-        <div className="mt-6"><BookForm kind="service" itemId={s.id} eventItemId={ctx?.itemId} defaultDate={ctx?.eventDate} cta="Request this date" /></div>
+        <div className="mt-6"><BookForm kind="service" itemId={s.id} eventItemId={ctx?.itemId} defaultDate={ctx?.eventDate} signedIn={!!user} next={`/s/${s.id}${forId ? `?for=${forId}` : ""}`} cta="Request this date" /></div>
         <div className="mt-4 border-t border-line pt-4"><SaveToEvent itemKind="service" itemId={s.id} events={events} signedIn={!!user} next={`/s/${s.id}`} /></div>
       </aside>
     </div>

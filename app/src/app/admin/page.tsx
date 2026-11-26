@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { overview, recentLog, waitlistByCity } from "@/lib/admin";
+import { outboxStats } from "@/lib/notify";
 export default async function AdminHome() {
-  const [o, cities, log] = await Promise.all([overview(), waitlistByCity(), recentLog()]);
+  const [o, cities, log, out] = await Promise.all([overview(), waitlistByCity(), recentLog(), outboxStats()]);
+  const failed = out.find(x => x.status === "failed")?.n ?? 0, pending = out.find(x => x.status === "pending")?.n ?? 0, sent = out.find(x => x.status === "sent")?.n ?? 0;
   const stats: [string, number, string?][] = [["Vendors waiting for review", o.pending, "/admin/vendors"], ["Vendors", o.vendors], ["Accounts", o.customers], ["Event plans", o.events], ["Bookings", o.bookings], ["Waitlist sign-ups", o.waitlist, "/admin/waitlist"]];
   return (
     <div className="grid gap-10">
       <h1 className="font-display text-4xl">Overview</h1>
+      <p className={`rounded-2xl px-4 py-3 text-sm ${failed ? "bg-blush text-danger" : "bg-sand text-muted"}`}>Notifications: {sent} sent, {pending} waiting{failed ? `, ${failed} failed after 5 tries. Check the email settings.` : "."}</p>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
         {stats.map(([k, n, href]) => {
           const body = <><p className="text-xs text-muted">{k}</p><p className="mt-1 font-display text-4xl">{n}</p></>;

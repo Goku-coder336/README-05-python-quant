@@ -34,7 +34,7 @@ export default async function EquipmentPage({ params, searchParams }: { params: 
         <p className="text-2xl font-semibold">{money(e.dayRateMinor, e.currency)} <span className="text-base font-normal text-muted">per day</span></p>
         <p className="mt-1 text-sm text-muted">{e.units} {e.units === 1 ? "unit" : "units"} available · deposit {money(e.depositMinor, e.currency)}</p>
         {ctx && <p className="mb-6 rounded-2xl bg-latte px-4 py-3 text-sm">Booking for <strong>{ctx.label}</strong> in <Link href={`/my/events/${ctx.eventId}`} className="font-medium underline">{ctx.eventTitle}</Link></p>}
-        <div className="mt-6"><BookForm kind="equipment" itemId={e.id} eventItemId={ctx?.itemId} defaultDate={ctx?.eventDate} cta="Check dates and request" /></div>
+        <div className="mt-6"><BookForm kind="equipment" itemId={e.id} eventItemId={ctx?.itemId} defaultDate={ctx?.eventDate} signedIn={!!user} next={`/e/${e.id}${forId ? `?for=${forId}` : ""}`} cta="Check dates and request" /></div>
         <div className="mt-4 border-t border-line pt-4"><SaveToEvent itemKind="equipment" itemId={e.id} events={events} signedIn={!!user} next={`/e/${e.id}`} /></div>
       </aside>
     </div>
