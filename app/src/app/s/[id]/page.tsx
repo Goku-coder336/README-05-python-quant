@@ -1,0 +1,34 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { CheckCircle, SealCheck } from "@phosphor-icons/react/dist/ssr";
+import { categories, region, service, traditions, vendorById } from "@/lib/data";
+import { money, unitLabel } from "@/lib/format";
+import { BookForm } from "@/components/BookForm";
+
+export default async function ServicePage({ params }: { params: Promise<{ id: string }> }) {
+  const s = service((await params).id); if (!s) notFound();
+  const v = vendorById(s.vendorId)!; const cat = categories().find(c => c.id === s.categoryId)!; const city = region(v.baseRegionId)!;
+  const trads = traditions().filter(t => s.traditionIds.includes(t.id));
+  return (
+    <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 md:px-8 lg:grid-cols-[1fr_400px] lg:py-16">
+      <div>
+        <p className="text-sm text-muted">{cat.name} · {city.name}</p>
+        <h1 className="mt-2 font-display text-4xl md:text-5xl">{s.title}</h1>
+        <p className="mt-3 text-sm">by <Link href={`/v/${v.handle}`} className="font-medium underline-offset-4 hover:underline">{v.businessName}</Link>{v.verification === "verified" && <span className="badge ml-2 bg-sage text-success"><SealCheck size={12} weight="fill" aria-hidden />Verified</span>}</p>
+        <div className="mt-8 h-64 rounded-3xl bg-latte md:h-80" role="img" aria-label="Portfolio photos appear here once the vendor uploads them" />
+        <p className="mt-8 text-lg leading-relaxed">{s.description}</p>
+        {s.included.length > 0 && <><h2 className="mt-10 font-display text-2xl">What is included</h2><ul className="mt-4 grid gap-2">{s.included.map(i => <li key={i} className="flex gap-2"><CheckCircle size={20} weight="fill" className="mt-0.5 shrink-0 text-brown" aria-hidden />{i}</li>)}</ul></>}
+        <div className="mt-10 flex flex-wrap gap-2">
+          {s.maxGuests && <span className="chip">Up to {s.maxGuests} guests</span>}
+          {s.styles.map(x => <span key={x} className="chip capitalize">{x}</span>)}
+          {trads.map(t => <span key={t.id} className="chip">{t.name}</span>)}
+        </div>
+      </div>
+      <aside className="card h-fit p-6 lg:sticky lg:top-24" aria-label="Request a booking">
+        <p className="text-2xl font-semibold">{money(s.priceMinor, s.currency)} <span className="text-base font-normal text-muted">{unitLabel[s.priceUnit]}</span></p>
+        <p className="mt-1 text-sm text-muted">{s.advancePct}% advance once confirmed</p>
+        <div className="mt-6"><BookForm kind="service" itemId={s.id} cta="Request this date" /></div>
+      </aside>
+    </div>
+  );
+}

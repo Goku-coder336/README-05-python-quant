@@ -1,27 +1,27 @@
 feature,area,priority,original,clone,notes
-Location picker (city/pincode modal),discovery,must,yes,no,Trade: country + region + port picker
-Category grid on home,discovery,must,yes,no,Trade: product categories by HS chapter
-Category listing page with result count,discovery,must,yes,no,Trade: buyers list per HS code
+Location picker (city/pincode modal),discovery,must,yes,partial,Trade: country + region + port picker
+Category grid on home,discovery,must,yes,yes,Trade: product categories by HS chapter
+Category listing page with result count,discovery,must,yes,yes,Trade: buyers list per HS code
 Filters: budget range,discovery,must,yes,no,Trade: annual import volume / order size
 Filters: vendor rating,discovery,should,yes,no,Trade: verification level + activity score
 Sort (price / rating),discovery,should,yes,no,Trade: last import date / volume / rating
 Filters locked until sign-in,discovery,must,yes,no,Trade: free browse; contacts and filters gated by plan
-Empty state on listing,discovery,must,yes,no,"Original shows 'Stay tuned' with 0 results"
+Empty state on listing,discovery,must,yes,yes,Original shows 'Stay tuned' with 0 results
 Spotlight/featured vendors,discovery,should,yes,no,Trade: featured buyers + paid featured suppliers
 Promo banners,discovery,could,yes,no,Trade: trade fair and corridor campaigns
-Public profile page (@handle),profile,must,yes,no,Trade: buyer company profile
-Package page: gallery + price + description,profile,must,yes,no,Trade: buying requirement card (product/spec/qty/MOQ/Incoterms)
-What's included list,profile,must,yes,no,Trade: certifications and documents required
-Availability check (location + date),profile,should,yes,no,Trade: delivery window + destination port
-Cancellation and payment policy blocks,profile,should,yes,no,Trade: payment terms (LC/TT/advance %)
+Public profile page (@handle),profile,must,yes,yes,Trade: buyer company profile
+Package page: gallery + price + description,profile,must,yes,partial,Trade: buying requirement card (product/spec/qty/MOQ/Incoterms)
+What's included list,profile,must,yes,yes,Trade: certifications and documents required
+Availability check (location + date),profile,should,yes,yes,Trade: delivery window + destination port
+Cancellation and payment policy blocks,profile,should,yes,partial,Trade: payment terms (LC/TT/advance %)
 Reviews gated behind login,profile,should,yes,no,Trade: deal ratings visible to members
 WhatsApp chat link,contact,must,yes,no,Trade: WhatsApp + in-platform messaging
-Quick enquiry form,contact,must,yes,no,Trade: send quote / RFQ response
+Quick enquiry form,contact,must,yes,yes,Trade: send quote / RFQ response
 Cart + 50% advance online payment,contact,could,yes,no,Trade: replace with subscription paywall; no goods checkout
 Customer account / sign-in,auth,must,yes,no,Phone OTP likely
-Vendor onboarding by WhatsApp number,supply,must,yes,no,Trade: buyer + supplier onboarding with company verification
-Vendor dashboard: packages/orders/invoices,supply,must,yes,no,Trade: requirements / enquiries / leads inbox
-Register-as-vendor CTA,supply,must,yes,no,Trade: list free as a buyer
+Vendor onboarding by WhatsApp number,supply,must,yes,yes,Trade: buyer + supplier onboarding with company verification
+Vendor dashboard: packages/orders/invoices,supply,must,yes,partial,Trade: requirements / enquiries / leads inbox
+Register-as-vendor CTA,supply,must,yes,yes,Trade: list free as a buyer
 Invitation site add-on,extras,skip,yes,no,Not relevant; replace with export toolkit
 Hashtag generator add-on,extras,skip,yes,no,Not relevant
 Analytics redirect tracking on outbound links,extras,could,yes,no,Simple click tracking
