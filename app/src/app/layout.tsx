@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Link href="/" className="font-display text-2xl tracking-tight">Fest<span className="text-caramel">o</span>ra</Link>
             <nav aria-label="Main" className="flex items-center gap-2 text-sm font-medium sm:gap-5">
               <Link href="/explore" className="hidden hover:underline sm:inline">Explore cities</Link>
-              {user ? <Link href="/account" className="hover:underline">Account</Link> : <Link href="/signin" className="hover:underline">Sign in</Link>}
+              {user ? <><Link href="/my/events" className="hover:underline">My events</Link><Link href="/account" className="hidden hover:underline sm:inline">Account</Link></> : <><Link href="/plan" className="hidden hover:underline sm:inline">Plan an event</Link><Link href="/signin" className="hover:underline">Sign in</Link></>}
               <Link href="/vendor/join" className="btn-primary !px-4 !py-2">For vendors</Link>
             </nav>
           </div>

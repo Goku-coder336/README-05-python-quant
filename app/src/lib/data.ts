@@ -91,7 +91,7 @@ async function tx<T>(fn: (c: PoolClient) => Promise<T>) {
   finally { c.release(); }
 }
 
-export async function createBooking(input: { itemKind: "service" | "equipment"; itemId: string; startsOn: string; endsOn: string; customerName: string; customerPhone: string; note: string; customerId: string | null }):
+export async function createBooking(input: { itemKind: "service" | "equipment"; itemId: string; startsOn: string; endsOn: string; customerName: string; customerPhone: string; note: string; customerId: string | null; eventItemId?: string | null }):
   Promise<{ ok: true; booking: Booking } | { ok: false; error: string }> {
   if (input.endsOn < input.startsOn) return { ok: false, error: "The end date is before the start date." };
   if (days(input.startsOn, input.endsOn) > 30) return { ok: false, error: "Rentals can be booked for up to 30 days at a time." };
@@ -105,9 +105,10 @@ export async function createBooking(input: { itemKind: "service" | "equipment"; 
     for (let unit = 0; unit < e.units; unit++) {
       try {
         const b = await tx(async cl => {
-          const [row] = (await cl.query(`insert into bookings (vendor_id,customer_id,item_kind,item_id,item_title,customer_name,customer_phone,note,starts_on,ends_on,unit_index,subtotal_minor,tax_minor,deposit_minor,currency)
-            values ($1,$2,'equipment',$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) returning ${BOOKING}`,
-            [e.vendorId, input.customerId, e.id, e.title, input.customerName, input.customerPhone, input.note, input.startsOn, input.endsOn, unit, sub, Math.round(sub * c.taxRateBp / 10000), e.depositMinor, e.currency])).rows;
+          const [row] = (await cl.query(`insert into bookings (vendor_id,customer_id,item_kind,item_id,item_title,customer_name,customer_phone,note,starts_on,ends_on,unit_index,subtotal_minor,tax_minor,deposit_minor,currency,event_item_id)
+            values ($1,$2,'equipment',$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) returning ${BOOKING}`,
+            [e.vendorId, input.customerId, e.id, e.title, input.customerName, input.customerPhone, input.note, input.startsOn, input.endsOn, unit, sub, Math.round(sub * c.taxRateBp / 10000), e.depositMinor, e.currency, input.eventItemId ?? null])).rows;
+          if (input.eventItemId) await cl.query(`update event_items set status = 'booked' where id = $1`, [input.eventItemId]);
           await cl.query(`insert into unit_holds values ($1,$2,$3,daterange($4::date,$5::date,'[]'))`, [row.id, e.id, unit, input.startsOn, input.endsOn]);
           return row as Booking;
         });
@@ -122,9 +123,10 @@ export async function createBooking(input: { itemKind: "service" | "equipment"; 
   const c = (await one<Country>(`select ${COUNTRY} from countries where currency = $1 limit 1`, [s.currency]))!;
   try {
     const b = await tx(async cl => {
-      const [row] = (await cl.query(`insert into bookings (vendor_id,customer_id,item_kind,item_id,item_title,customer_name,customer_phone,note,starts_on,ends_on,subtotal_minor,tax_minor,currency)
-        values ($1,$2,'service',$3,$4,$5,$6,$7,$8,$8,$9,$10,$11) returning ${BOOKING}`,
-        [s.vendorId, input.customerId, s.id, s.title, input.customerName, input.customerPhone, input.note, input.startsOn, s.priceMinor, Math.round(s.priceMinor * c.taxRateBp / 10000), s.currency])).rows;
+      const [row] = (await cl.query(`insert into bookings (vendor_id,customer_id,item_kind,item_id,item_title,customer_name,customer_phone,note,starts_on,ends_on,subtotal_minor,tax_minor,currency,event_item_id)
+        values ($1,$2,'service',$3,$4,$5,$6,$7,$8,$8,$9,$10,$11,$12) returning ${BOOKING}`,
+        [s.vendorId, input.customerId, s.id, s.title, input.customerName, input.customerPhone, input.note, input.startsOn, s.priceMinor, Math.round(s.priceMinor * c.taxRateBp / 10000), s.currency, input.eventItemId ?? null])).rows;
+      if (input.eventItemId) await cl.query(`update event_items set status = 'booked' where id = $1`, [input.eventItemId]);
       await cl.query(`insert into vendor_day_holds values ($1,$2,daterange($3::date,$3::date,'[]'))`, [row.id, s.vendorId, input.startsOn]);
       return row as Booking;
     });
@@ -144,6 +146,10 @@ export async function setBookingStatus(bookingId: string, userId: string, status
     if (status === "declined") {
       await cl.query(`delete from unit_holds where booking_id = $1`, [bookingId]);
       await cl.query(`delete from vendor_day_holds where booking_id = $1`, [bookingId]);
+      // Put the customer's checklist item back to shortlisted (or to do) unless another booking still covers it.
+      await cl.query(`update event_items i set status = case when exists (select 1 from shortlist s where s.event_item_id = i.id) then 'shortlisted' else 'todo' end
+        from bookings b where b.id = $1 and i.id = b.event_item_id and i.status = 'booked'
+        and not exists (select 1 from bookings o where o.event_item_id = i.id and o.id <> b.id and o.status in ('requested','accepted'))`, [bookingId]);
     }
     return true;
   });

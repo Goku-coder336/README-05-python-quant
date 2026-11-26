@@ -4,7 +4,7 @@ import { categories, category as getCategory, city as getCity, country as getCou
 import { CategoryIcon } from "./Icon";
 import { ListingCard } from "./ListingCard";
 
-type SP = { intimate?: string; tradition?: string };
+type SP = { intimate?: string; tradition?: string; for?: string };
 
 export async function CityListings({ countryCode, citySlug, categorySlug, sp }: { countryCode: string; citySlug: string; categorySlug?: string; sp: SP }) {
   const [ctry, city] = await Promise.all([getCountry(countryCode), getCity(countryCode, citySlug)]);
@@ -19,9 +19,10 @@ export async function CityListings({ countryCode, citySlug, categorySlug, sp }: 
   const here = cat ? `${base}/${cat.slug}` : base;
   const q = (next: Partial<SP>) => {
     const p = new URLSearchParams();
-    const merged = { intimate: sp.intimate, tradition: sp.tradition, ...next };
+    const merged = { intimate: sp.intimate, tradition: sp.tradition, for: sp.for, ...next };
     if (merged.intimate === "1") p.set("intimate", "1");
     if (merged.tradition) p.set("tradition", merged.tradition);
+    if (merged.for) p.set("for", merged.for);
     const s = p.toString(); return s ? `?${s}` : "";
   };
 
@@ -56,7 +57,7 @@ export async function CityListings({ countryCode, citySlug, categorySlug, sp }: 
         </div>
       ) : (
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(l => <div key={l.item.id} className="relative"><ListingCard l={l} /></div>)}
+          {items.map(l => <div key={l.item.id} className="relative"><ListingCard l={l} forItem={sp.for} /></div>)}
         </div>
       )}
     </div>

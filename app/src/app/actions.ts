@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import * as data from "@/lib/data";
+import * as planner from "@/lib/planner";
 import { currentUser, deleteAccount, requestCode, signOut, verifyCode } from "@/lib/auth";
 import { limited } from "@/lib/ratelimit";
 
@@ -43,6 +44,7 @@ const BookingInput = z.object({
   kind: z.enum(["service", "equipment"]), itemId: z.string().min(1).max(40),
   startsOn: date, endsOn: z.union([date, z.literal("")]).optional(),
   name: z.string().trim().min(2, "Enter your name.").max(80), phone, note: z.string().max(500).optional().default(""),
+  eventItemId: z.string().max(40).optional().default(""),
 });
 
 export async function requestBooking(_: FormState, f: FormData): Promise<FormState> {
@@ -53,7 +55,9 @@ export async function requestBooking(_: FormState, f: FormData): Promise<FormSta
   const today = new Date().toISOString().slice(0, 10);
   if (p.data.startsOn < today) return { error: "That date has passed. Choose a future date.", fields };
   const user = await currentUser();
-  const r = await data.createBooking({ itemKind: p.data.kind, itemId: p.data.itemId, startsOn: p.data.startsOn, endsOn: p.data.endsOn || p.data.startsOn, customerName: p.data.name, customerPhone: p.data.phone, note: p.data.note, customerId: user?.id ?? null });
+  // Only link the booking to a checklist item the signed-in customer owns.
+  const eventItemId = user && p.data.eventItemId ? (await planner.ownedItemForBooking(p.data.eventItemId, user.id))?.id ?? null : null;
+  const r = await data.createBooking({ eventItemId, itemKind: p.data.kind, itemId: p.data.itemId, startsOn: p.data.startsOn, endsOn: p.data.endsOn || p.data.startsOn, customerName: p.data.name, customerPhone: p.data.phone, note: p.data.note, customerId: user?.id ?? null });
   if (!r.ok) return { error: r.error, fields };
   redirect(`/bookings/${r.booking.id}`);
 }
@@ -111,4 +115,73 @@ export async function decideBooking(f: FormData) {
   const d = String(f.get("decision")); const handle = String(f.get("handle"));
   if (d === "accepted" || d === "declined") await data.setBookingStatus(String(f.get("bookingId")), user.id, d);
   revalidatePath(`/vendor/${handle}`);
+}
+
+// ---------- event planner ----------
+const EventInput = z.object({
+  eventTypeId: z.string().min(1, "Choose what you are planning."),
+  traditionId: z.string().optional().default(""),
+  cityId: z.string().min(1, "Choose the city."),
+  title: z.string().trim().min(2, "Give your event a name, for example Anu and Joel's wedding.").max(80),
+  guestCount: z.union([z.literal(""), z.coerce.number().int().min(1, "Guests must be at least 1.").max(20000)]).optional().default(""),
+  budget: z.union([z.literal(""), z.coerce.number().min(0).max(1_000_000_000)]).optional().default(""),
+  eventDate: z.union([z.literal(""), z.string().regex(/^\d{4}-\d{2}-\d{2}$/)]).optional().default(""),
+});
+
+export async function createEventAction(_: FormState, f: FormData): Promise<FormState> {
+  const fields = fieldsOf(f);
+  const user = await currentUser(); if (!user) redirect("/signin?next=/plan");
+  const p = EventInput.safeParse(fields);
+  if (!p.success) return { error: first(p.error), fields };
+  if (p.data.eventDate && p.data.eventDate < new Date().toISOString().slice(0, 10)) return { error: "That date has passed. Choose a future date or leave it empty.", fields };
+  const types = await planner.eventTypes(); if (!types.some(t => t.id === p.data.eventTypeId)) return { error: "Choose what you are planning.", fields };
+  const trads = await data.traditions(); const traditionId = trads.some(t => t.id === p.data.traditionId) ? p.data.traditionId : null;
+  if (!(await data.region(p.data.cityId))) return { error: "Choose the city.", fields };
+  const ev = await planner.createEvent(user.id, { eventTypeId: p.data.eventTypeId, traditionId, cityId: p.data.cityId, title: p.data.title,
+    guestCount: typeof p.data.guestCount === "number" ? p.data.guestCount : null, budgetMinor: typeof p.data.budget === "number" ? Math.round(p.data.budget * 100) : null,
+    eventDate: p.data.eventDate || null });
+  if (!ev) return { error: "Could not create the event. Try again.", fields };
+  redirect(`/my/events/${ev.id}`);
+}
+
+const Status = z.enum(["todo", "shortlisted", "booked", "skipped"]);
+export async function setItemStatusAction(f: FormData) {
+  const user = await currentUser(); if (!user) redirect("/signin");
+  const st = Status.safeParse(f.get("status")); if (!st.success || st.data === "booked") return;
+  await planner.setItemStatus(String(f.get("itemId")), user.id, st.data);
+  revalidatePath(`/my/events/${String(f.get("eventId"))}`);
+}
+
+export async function addItemAction(_: FormState, f: FormData): Promise<FormState> {
+  const user = await currentUser(); if (!user) redirect("/signin");
+  const label = String(f.get("label") ?? "").trim(); const categoryId = String(f.get("categoryId") ?? ""); const eventId = String(f.get("eventId"));
+  if (label.length < 2) return { error: "Name the item, for example Welcome drinks." };
+  if (!(await data.categories()).some(c => c.id === categoryId)) return { error: "Choose a category." };
+  await planner.addItem(eventId, user.id, { categoryId, label: label.slice(0, 80), subEvent: String(f.get("subEvent") || "Added by you").slice(0, 40) });
+  revalidatePath(`/my/events/${eventId}`); return { ok: true };
+}
+
+export async function removeItemAction(f: FormData) {
+  const user = await currentUser(); if (!user) redirect("/signin");
+  await planner.removeItem(String(f.get("itemId")), user.id); revalidatePath(`/my/events/${String(f.get("eventId"))}`);
+}
+
+const Kind = z.enum(["service", "equipment"]);
+export async function saveToEventAction(_: FormState, f: FormData): Promise<FormState> {
+  const user = await currentUser(); if (!user) return { error: "Sign in to save to an event." };
+  const k = Kind.safeParse(f.get("itemKind")); if (!k.success) return { error: "Something went wrong." };
+  const r = await planner.saveToEvent(String(f.get("eventId")), user.id, k.data, String(f.get("itemId")));
+  return r ? { ok: true, fields: { eventId: String(f.get("eventId")) } } : { error: "Could not save to that event." };
+}
+
+export async function unsaveAction(f: FormData) {
+  const user = await currentUser(); if (!user) redirect("/signin");
+  const k = Kind.safeParse(f.get("itemKind")); if (!k.success) return;
+  await planner.unsave(String(f.get("eventItemId")), user.id, k.data, String(f.get("itemId")));
+  revalidatePath(`/my/events/${String(f.get("eventId"))}`);
+}
+
+export async function deleteEventAction(f: FormData) {
+  const user = await currentUser(); if (!user) redirect("/signin");
+  await planner.deleteEvent(String(f.get("eventId")), user.id); redirect("/my/events");
 }

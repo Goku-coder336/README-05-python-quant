@@ -3,8 +3,8 @@ import { SealCheck, Users, Wrench } from "@phosphor-icons/react/dist/ssr";
 import type { Listing } from "@/lib/data";
 import { money, unitLabel } from "@/lib/format";
 
-export function ListingCard({ l }: { l: Listing }) {
-  const href = l.kind === "service" ? `/s/${l.item.id}` : `/e/${l.item.id}`;
+export function ListingCard({ l, forItem }: { l: Listing; forItem?: string }) {
+  const href = (l.kind === "service" ? `/s/${l.item.id}` : `/e/${l.item.id}`) + (forItem ? `?for=${encodeURIComponent(forItem)}` : "");
   const intimate = l.kind === "service" && l.item.maxGuests !== null && l.item.maxGuests <= 50;
   return (
     <article className="card group overflow-hidden transition duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(58,38,25,.12)]">

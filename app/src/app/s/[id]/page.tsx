@@ -4,9 +4,15 @@ import { CheckCircle, SealCheck } from "@phosphor-icons/react/dist/ssr";
 import { categories, region, service, traditions, vendorById } from "@/lib/data";
 import { money, unitLabel } from "@/lib/format";
 import { BookForm } from "@/components/BookForm";
+import { SaveToEvent } from "@/components/SaveToEvent";
+import { currentUser } from "@/lib/auth";
+import { itemContext, myEvents } from "@/lib/planner";
 
-export default async function ServicePage({ params }: { params: Promise<{ id: string }> }) {
+export default async function ServicePage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ for?: string }> }) {
   const s = await service((await params).id); if (!s) notFound();
+  const user = await currentUser(); const forId = (await searchParams).for;
+  const ctx = user && forId ? await itemContext(forId, user.id) : null;
+  const events = user ? (await myEvents(user.id)).map(x => ({ id: x.id, title: x.title })) : [];
   const v = (await vendorById(s.vendorId))!; const cat = (await categories()).find(c => c.id === s.categoryId)!; const city = (await region(v.baseRegionId))!;
   const trads = (await traditions()).filter(t => s.traditionIds.includes(t.id));
   return (
@@ -27,7 +33,9 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
       <aside className="card h-fit p-6 lg:sticky lg:top-24" aria-label="Request a booking">
         <p className="text-2xl font-semibold">{money(s.priceMinor, s.currency)} <span className="text-base font-normal text-muted">{unitLabel[s.priceUnit]}</span></p>
         <p className="mt-1 text-sm text-muted">{s.advancePct}% advance once confirmed</p>
-        <div className="mt-6"><BookForm kind="service" itemId={s.id} cta="Request this date" /></div>
+        {ctx && <p className="mb-6 rounded-2xl bg-latte px-4 py-3 text-sm">Booking for <strong>{ctx.label}</strong> in <Link href={`/my/events/${ctx.eventId}`} className="font-medium underline">{ctx.eventTitle}</Link></p>}
+        <div className="mt-6"><BookForm kind="service" itemId={s.id} eventItemId={ctx?.itemId} defaultDate={ctx?.eventDate} cta="Request this date" /></div>
+        <div className="mt-4 border-t border-line pt-4"><SaveToEvent itemKind="service" itemId={s.id} events={events} signedIn={!!user} next={`/s/${s.id}`} /></div>
       </aside>
     </div>
   );

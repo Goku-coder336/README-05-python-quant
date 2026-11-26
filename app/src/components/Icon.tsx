@@ -1,6 +1,6 @@
-import { Camera, ClipboardText, CookingPot, FlowerLotus, Lightbulb, Lightning, PaintBrush, SpeakerHifi, VideoCamera, Sparkle } from "@phosphor-icons/react/dist/ssr";
+import { Briefcase, Cake, Camera, Car, ClipboardText, CookingPot, Drop, FlowerLotus, Diamond, HandPalm, Heart, Lightbulb, Lightning, MicrophoneStage, MusicNotes, PaintBrush, SpeakerHifi, VideoCamera, Sparkle } from "@phosphor-icons/react/dist/ssr";
 
-const map = { Camera, ClipboardText, CookingPot, FlowerLotus, Lightbulb, Lightning, PaintBrush, SpeakerHifi, VideoCamera } as const;
+const map = { Briefcase, Cake, Camera, Car, ClipboardText, CookingPot, Drop, FlowerLotus, Diamond, HandPalm, Heart, Lightbulb, Lightning, MicrophoneStage, MusicNotes, PaintBrush, SpeakerHifi, Sparkle, VideoCamera } as const;
 
 export function CategoryIcon({ name, size = 22 }: { name: string; size?: number }) {
   const C = (map as Record<string, typeof Sparkle>)[name] ?? Sparkle;
