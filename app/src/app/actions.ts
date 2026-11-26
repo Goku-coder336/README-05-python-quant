@@ -249,3 +249,19 @@ export async function replyReviewAction(f: FormData) {
   await reviews.replyToReview(user.id, String(f.get("reviewId")), reply);
   revalidatePath(`/vendor/${String(f.get("handle"))}`);
 }
+
+// ---------- availability ----------
+export type BlockState = { error?: string; ok?: boolean };
+const BlockInput = z.object({ vendorId: z.string().min(1), handle: z.string().min(1), from: date, to: z.union([z.literal(""), date]), note: z.string().trim().max(120).default("") });
+export async function addBlockAction(_: BlockState, f: FormData): Promise<BlockState> {
+  const user = await currentUser(); if (!user) redirect("/signin");
+  const p = BlockInput.safeParse(fieldsOf(f)); if (!p.success) return { error: first(p.error) };
+  const { vendorId, handle, from, note } = p.data; const to = p.data.to || from;
+  if (from < new Date().toISOString().slice(0, 10)) return { error: "Choose today or a later date." };
+  const err = await data.addBlock(user.id, vendorId, from, to, note); if (err) return { error: err };
+  revalidatePath(`/vendor/${handle}`); return { ok: true };
+}
+export async function removeBlockAction(f: FormData) {
+  const user = await currentUser(); if (!user) redirect("/signin");
+  await data.removeBlock(user.id, Number(f.get("blockId"))); revalidatePath(`/vendor/${String(f.get("handle"))}`);
+}

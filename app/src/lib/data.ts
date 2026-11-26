@@ -1,6 +1,7 @@
 import type { PoolClient } from "pg";
 import { one, pool, q } from "./db";
 import type { Booking, Category, Country, Equipment, Region, Service, Tradition, Vendor } from "./types";
+import { niceDate } from "./format";
 
 // Postgres data layer. Same functions as the earlier JSON version, now async.
 // Authorisation: every vendor write takes the signed-in user id and checks ownership in SQL.
@@ -91,6 +92,37 @@ async function tx<T>(fn: (c: PoolClient) => Promise<T>) {
   finally { c.release(); }
 }
 
+class Blocked extends Error {}
+const UNAVAILABLE = "This vendor is not taking bookings on those dates. Try other dates.";
+/** Locks the vendor row (so a block cannot be added mid-booking) and reports whether any blocked day overlaps. */
+async function blocked(cl: PoolClient, vendorId: string, from: string, to: string) {
+  await cl.query(`select 1 from vendors where id = $1 for share`, [vendorId]);
+  return (await cl.query(`select 1 from vendor_blocks where vendor_id = $1 and period && daterange($2::date, $3::date, '[]') limit 1`, [vendorId, from, to])).rowCount! > 0;
+}
+
+export type Block = { id: number; startsOn: string; endsOn: string; note: string };
+/** Upcoming blocked periods for a vendor's own dashboard. */
+export const vendorBlocks = (vendorId: string) => q<Block>(`select id::int, to_char(lower(period),'YYYY-MM-DD') as "startsOn", to_char(upper(period) - 1,'YYYY-MM-DD') as "endsOn", note
+  from vendor_blocks where vendor_id = $1 and upper(period) > current_date order by lower(period)`, [vendorId]);
+
+/** Owner-only. Refuses days that already have an open or confirmed booking, so nobody is let down silently. */
+export async function addBlock(userId: string, vendorId: string, from: string, to: string, note: string): Promise<string | null> {
+  if (to < from) return "The end date is before the start date.";
+  if (days(from, to) > 366) return "Block up to a year at a time.";
+  return tx(async cl => {
+    const v = (await cl.query(`select 1 from vendors where id = $1 and owner_id = $2 for update`, [vendorId, userId])).rowCount;
+    if (!v) return "Not allowed.";
+    const clash = (await cl.query(`select starts_on::text as d from bookings where vendor_id = $1 and status in ('requested','accepted')
+      and daterange(starts_on, ends_on, '[]') && daterange($2::date, $3::date, '[]') order by starts_on limit 1`, [vendorId, from, to])).rows[0];
+    if (clash) return `You have a booking on ${niceDate(clash.d)}. Decline or cancel it first, or block different days.`;
+    await cl.query(`insert into vendor_blocks (vendor_id, period, note) values ($1, daterange($2::date, $3::date, '[]'), $4)`, [vendorId, from, to, note]);
+    return null;
+  });
+}
+export async function removeBlock(userId: string, blockId: number) {
+  await q(`delete from vendor_blocks b using vendors v where b.id = $1 and v.id = b.vendor_id and v.owner_id = $2`, [blockId, userId]);
+}
+
 export async function createBooking(input: { itemKind: "service" | "equipment"; itemId: string; startsOn: string; endsOn: string; customerName: string; customerPhone: string; note: string; customerId: string | null; eventItemId?: string | null }):
   Promise<{ ok: true; booking: Booking } | { ok: false; error: string }> {
   if (input.endsOn < input.startsOn) return { ok: false, error: "The end date is before the start date." };
@@ -105,6 +137,7 @@ export async function createBooking(input: { itemKind: "service" | "equipment"; 
     for (let unit = 0; unit < e.units; unit++) {
       try {
         const b = await tx(async cl => {
+          if (await blocked(cl, e.vendorId, input.startsOn, input.endsOn)) throw new Blocked();
           const [row] = (await cl.query(`insert into bookings (vendor_id,customer_id,item_kind,item_id,item_title,customer_name,customer_phone,note,starts_on,ends_on,unit_index,subtotal_minor,tax_minor,deposit_minor,currency,event_item_id)
             values ($1,$2,'equipment',$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) returning ${BOOKING}`,
             [e.vendorId, input.customerId, e.id, e.title, input.customerName, input.customerPhone, input.note, input.startsOn, input.endsOn, unit, sub, Math.round(sub * c.taxRateBp / 10000), e.depositMinor, e.currency, input.eventItemId ?? null])).rows;
@@ -113,7 +146,7 @@ export async function createBooking(input: { itemKind: "service" | "equipment"; 
           return row as Booking;
         });
         return { ok: true, booking: b };
-      } catch (err) { if (!isExclusion(err)) throw err; }
+      } catch (err) { if (err instanceof Blocked) return { ok: false, error: UNAVAILABLE }; if (!isExclusion(err)) throw err; }
     }
     return { ok: false, error: "All units are booked for those dates. Try other dates." };
   }
@@ -123,6 +156,7 @@ export async function createBooking(input: { itemKind: "service" | "equipment"; 
   const c = (await one<Country>(`select ${COUNTRY} from countries where currency = $1 limit 1`, [s.currency]))!;
   try {
     const b = await tx(async cl => {
+      if (await blocked(cl, s.vendorId, input.startsOn, input.startsOn)) throw new Blocked();
       const [row] = (await cl.query(`insert into bookings (vendor_id,customer_id,item_kind,item_id,item_title,customer_name,customer_phone,note,starts_on,ends_on,subtotal_minor,tax_minor,currency,event_item_id)
         values ($1,$2,'service',$3,$4,$5,$6,$7,$8,$8,$9,$10,$11,$12) returning ${BOOKING}`,
         [s.vendorId, input.customerId, s.id, s.title, input.customerName, input.customerPhone, input.note, input.startsOn, s.priceMinor, Math.round(s.priceMinor * c.taxRateBp / 10000), s.currency, input.eventItemId ?? null])).rows;
@@ -132,6 +166,7 @@ export async function createBooking(input: { itemKind: "service" | "equipment"; 
     });
     return { ok: true, booking: b };
   } catch (err) {
+    if (err instanceof Blocked) return { ok: false, error: UNAVAILABLE };
     if (isExclusion(err)) return { ok: false, error: "This vendor is already booked that day. Try another date." };
     throw err;
   }
