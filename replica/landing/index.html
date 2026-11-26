@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Festora | Plan your whole event in one place</title>
+<meta name="description" content="Book planners, makeup artists, photographers and rent sound, lights and stage gear in one place. Launching first in Kochi.">
+<meta property="og:title" content="Festora | Plan your whole event in one place">
+<meta property="og:description" content="The people and the gear for your wedding or intimate celebration, booked together.">
+<meta property="og:image" content="og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23131209'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23f0b44c'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendor/phosphor/regular/style.css">
+<link rel="stylesheet" href="vendor/phosphor/fill/style.css">
+<style>
+:root{
+  --bg:#131209;--surface:#1f1f1f;--surface-2:#272727;--border:#313131;--border-input:#8a8a8a;
+  --text:#f5f1ea;--muted:#a8a29a;--accent:#f0b44c;--accent-hover:#f5c46e;--on-accent:#1a1405;
+  --accent-soft:#2a2214;--on-accent-soft:#f5c46e;--plum:#c98bbb;--whatsapp:#25a366;--danger:#ff7a6e;--success:#5fd39a;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Manrope,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:8px}
+h1,h2,h3,p{margin:0;text-wrap:pretty}
+h1,h2,h3{text-wrap:balance}
+
+/* text styles */
+.heading-1{font-size:48px;line-height:1;font-weight:600;letter-spacing:-0.02em}
+@media(min-width:768px){.heading-1{font-size:60px;line-height:60px}}
+.heading-2{font-size:36px;line-height:40px;font-weight:600;letter-spacing:-0.02em}
+@media(min-width:768px){.heading-2{font-size:48px;line-height:1}}
+.heading-3{font-size:30px;line-height:36px;font-weight:600;letter-spacing:-0.01em}
+@media(min-width:768px){.heading-3{font-size:36px;line-height:40px}}
+.heading-5{font-size:24px;line-height:32px;font-weight:600}
+.heading-6{font-size:20px;line-height:28px;font-weight:600}
+.title-2{font-size:18px;line-height:28px;font-weight:500}
+.title-3{font-size:16px;line-height:24px;font-weight:500}
+.title-4{font-size:14px;line-height:20px;font-weight:500}
+.body-3{font-size:16px;line-height:24px;font-weight:400}
+.body-6{font-size:14px;line-height:20px;font-weight:400}
+.button-md{font-size:16px;line-height:24px;font-weight:600}
+.button-sm{font-size:14px;line-height:20px;font-weight:600}
+.caption-3{font-size:12px;line-height:16px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.caption-5{font-size:12px;line-height:16px;font-weight:400}
+.muted{color:var(--muted)}
+.accent{color:var(--accent)}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+@media(min-width:768px){.wrap{padding:0 24px}}
+.skip{position:absolute;left:16px;top:-64px;background:var(--accent);color:var(--on-accent);padding:8px 12px;border-radius:8px;z-index:100;transition:transform 300ms var(--ease)}
+.skip:focus{transform:translateY(80px)}
+
+/* nav */
+.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:50;display:flex;align-items:center;gap:24px;padding:8px 8px 8px 16px;border-radius:9999px;background:rgba(31,31,31,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border);width:max-content;max-width:calc(100% - 32px)}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;font-size:18px;line-height:28px}
+.logo i{color:var(--accent);font-size:20px}
+.navlinks{display:none;gap:24px;list-style:none;margin:0;padding:0}
+.navlinks a{text-decoration:none;color:var(--muted);transition:color 300ms var(--ease)}
+.navlinks a:hover,.navlinks a[aria-current]{color:var(--text)}
+@media(min-width:900px){.navlinks{display:flex}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:8px 12px;border-radius:9999px;border:1px solid transparent;cursor:pointer;text-decoration:none;font-family:inherit;transition:transform 500ms var(--ease),background-color 300ms var(--ease),opacity 300ms var(--ease)}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-hover);transform:translateY(-2px)}
+.btn-lg{padding:12px 24px}
+.btn-quiet{background:var(--surface-2);color:var(--text);border-color:var(--border)}
+.menu-btn{width:40px;height:40px;border-radius:9999px;background:var(--surface-2);border:1px solid var(--border);display:grid;place-items:center;cursor:pointer;padding:0}
+@media(min-width:900px){.menu-btn{display:none}}
+.menu-btn span{display:block;width:16px;height:2px;background:var(--text);border-radius:2px;transition:transform 500ms var(--ease),opacity 300ms var(--ease)}
+.menu-btn span+span{margin-top:4px}
+.menu-btn[aria-expanded=true] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.menu-btn[aria-expanded=true] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded=true] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{position:fixed;inset:0;z-index:40;background:rgba(19,18,9,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);padding:96px 24px 32px;opacity:0;pointer-events:none;transition:opacity 500ms var(--ease)}
+.mobile-menu.open{opacity:1;pointer-events:auto}
+.mobile-menu ul{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.mobile-menu li{opacity:0;transform:translateY(24px);transition:opacity 500ms var(--ease),transform 500ms var(--ease)}
+.mobile-menu.open li{opacity:1;transform:none}
+.mobile-menu a{text-decoration:none}
+
+/* hero */
+.hero{padding:128px 0 64px;position:relative;overflow:hidden}
+@media(min-width:1024px){.hero{padding:160px 0 96px}}
+.hero-grid{display:grid;gap:48px;align-items:center}
+@media(min-width:1024px){.hero-grid{grid-template-columns:1.1fr 1fr;gap:64px}}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:4px 12px;border-radius:9999px;background:var(--accent-soft);color:var(--on-accent-soft);margin-bottom:24px}
+.dot{width:8px;height:8px;border-radius:9999px;background:var(--accent);animation:pulse 2s var(--ease) infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.hero h1{max-width:680px;background:linear-gradient(90deg,#ffffff,#9b9b9b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{max-width:680px;margin-top:24px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:32px}
+.proof{display:flex;align-items:center;gap:12px;margin-top:32px}
+.avatars{display:flex}
+.avatars span{width:32px;height:32px;border-radius:9999px;border:2px solid var(--bg);display:grid;place-items:center;font-size:12px;font-weight:600;color:var(--on-accent);margin-left:-8px}
+.avatars span:first-child{margin-left:0}
+
+/* word rise for hero heading */
+.rise{opacity:0;transform:translateY(32px);animation:rise 900ms var(--ease) forwards}
+.rise .w{display:inline}
+@keyframes rise{to{opacity:1;transform:none}}
+.fade-in{opacity:0;transform:translateY(24px);animation:rise 800ms var(--ease) forwards}
+
+/* hero motion graphic: event plan assembling */
+.stage{position:relative;min-height:440px}
+.plan{position:relative;z-index:2;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:24px;box-shadow:0 32px 80px rgba(0,0,0,.5)}
+.plan-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.countdown{font-family:'Geist Mono',ui-monospace,monospace;font-size:12px;line-height:16px;padding:4px 8px;border-radius:8px;background:var(--surface-2);color:var(--accent)}
+.budget{height:8px;border-radius:9999px;background:var(--surface-2);overflow:hidden;margin:16px 0 4px;display:flex}
+.budget i{display:block;height:100%;transform:scaleX(0);transform-origin:left;transition:transform 800ms var(--ease)}
+.items{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:8px}
+.item{display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;background:var(--surface-2);opacity:0;transform:translateY(16px);transition:opacity 500ms var(--ease),transform 500ms var(--ease)}
+.item.in{opacity:1;transform:none}
+.item .ic{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font-size:18px;flex:none}
+.item .grow{flex:1;min-width:0}
+.status{padding:2px 8px;border-radius:9999px;background:var(--bg);color:var(--muted);white-space:nowrap;transition:background-color 300ms var(--ease),color 300ms var(--ease)}
+.status.booked{background:rgba(95,211,154,.14);color:var(--success)}
+.floaty{position:absolute;z-index:3;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:9999px;background:rgba(39,39,39,.9);border:1px solid var(--border);backdrop-filter:blur(8px);box-shadow:0 16px 40px rgba(0,0,0,.4);animation:bob 6s var(--ease) infinite}
+.floaty i{color:var(--accent)}
+.f1{top:-16px;right:8px;animation-delay:-1s}
+.f2{bottom:-16px;left:24px;animation-delay:-3s}
+.f3{bottom:-16px;right:24px;animation-delay:-4.5s}
+@media(max-width:480px){.f2{left:0}.f1{right:0}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.orbit{position:absolute;inset:-24px;z-index:1;border-radius:32px;border:1px dashed var(--border);animation:spin 40s linear infinite;opacity:.6}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* marquee */
+.marquee{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 0;overflow:hidden;position:relative}
+.track{display:flex;gap:16px;width:max-content;animation:slide 40s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+@keyframes slide{to{transform:translateX(-50%)}}
+.pill{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:9999px;background:var(--surface);border:1px solid var(--border);white-space:nowrap}
+.pill i{color:var(--accent)}
+
+/* sections */
+section{padding:80px 0}
+@media(min-width:1024px){section{padding:96px 0}}
+.sec-head{max-width:680px;margin-bottom:48px}
+.sec-head p{margin-top:16px}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity 800ms var(--ease),transform 800ms var(--ease)}
+.reveal.seen{opacity:1;transform:none}
+
+.benefits{display:grid;gap:16px}
+@media(min-width:768px){.benefits{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.benefits{grid-template-columns:repeat(4,1fr)}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:24px;transition:transform 500ms var(--ease),background-color 300ms var(--ease)}
+.card:hover{transform:translateY(-4px);background:var(--surface-2)}
+.card .ic{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font-size:24px;margin-bottom:24px}
+.card h3{margin-bottom:8px}
+
+/* traditions switcher */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.tab{padding:8px 16px;border-radius:9999px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:inherit;transition:background-color 300ms var(--ease),color 300ms var(--ease)}
+.tab[aria-selected=true]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.tab:hover{color:var(--text)}
+.tab[aria-selected=true]:hover{color:var(--on-accent)}
+.checklist{display:grid;gap:8px}
+@media(min-width:768px){.checklist{grid-template-columns:repeat(2,1fr)}}
+.ck{display:flex;align-items:center;gap:12px;padding:16px;border-radius:16px;background:var(--surface);border:1px solid var(--border);opacity:0;transform:translateY(16px);transition:opacity 500ms var(--ease),transform 500ms var(--ease)}
+.ck.in{opacity:1;transform:none}
+.ck i{color:var(--accent);font-size:20px}
+.ck .note{margin-left:auto;text-align:right}
+
+/* tagline reveal */
+.tagline{padding:96px 0}
+@media(min-width:1024px){.tagline{padding:160px 0}}
+.tagline p{max-width:680px}
+.tw{color:rgba(245,241,234,.3);transition:color 500ms var(--ease)}
+.tw.on{color:var(--text)}
+
+/* steps */
+.steps{display:grid;gap:16px;counter-reset:s}
+@media(min-width:1024px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{position:relative;padding:24px;border-radius:24px;background:var(--surface);border:1px solid var(--border)}
+.step .num{font-family:'Geist Mono',ui-monospace,monospace;color:var(--accent);margin-bottom:16px;display:block}
+.step .line{height:2px;background:var(--surface-2);border-radius:2px;margin-top:24px;overflow:hidden}
+.step .line i{display:block;height:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 1200ms var(--ease)}
+.reveal.seen .step .line i{transform:scaleX(1)}
+
+/* rent band */
+.rent{display:grid;gap:24px;align-items:center}
+@media(min-width:1024px){.rent{grid-template-columns:1fr 1fr;gap:64px}}
+.gear{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.gear .card{padding:16px}
+.gear .card .ic{margin-bottom:16px;width:40px;height:40px;font-size:20px;border-radius:12px}
+.price{font-family:'Geist Mono',ui-monospace,monospace}
+
+/* proof */
+.quotes{display:grid;gap:16px}
+@media(min-width:1024px){.quotes{grid-template-columns:repeat(3,1fr)}}
+blockquote{margin:0}
+.who{display:flex;align-items:center;gap:12px;margin-top:24px}
+.who .av{width:40px;height:40px;border-radius:9999px;display:grid;place-items:center;font-weight:600;color:var(--on-accent)}
+.tbd{color:var(--plum)}
+
+/* faq */
+.faq{display:grid;gap:8px;max-width:800px}
+details{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 24px}
+summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary i{transition:transform 500ms var(--ease);color:var(--accent)}
+details[open] summary i{transform:rotate(45deg)}
+details p{margin-top:12px}
+
+/* final cta */
+.final{background:var(--surface);border:1px solid var(--border);border-radius:32px;padding:48px 24px;text-align:center}
+@media(min-width:768px){.final{padding:80px 48px}}
+.final h2{max-width:680px;margin:0 auto}
+.final p{max-width:560px;margin:16px auto 0}
+form.wait{display:flex;flex-direction:column;gap:12px;max-width:480px;margin:32px auto 0;text-align:left}
+@media(min-width:640px){form.wait{flex-direction:row;align-items:flex-start}}
+.field{flex:1}
+.field input{width:100%;height:48px;border-radius:9999px;border:1px solid var(--border-input);background:var(--bg);color:var(--text);padding:0 16px;font:inherit;font-size:16px}
+.field input[aria-invalid=true]{border-color:var(--danger)}
+.err{color:var(--danger);margin-top:4px;padding-left:16px;min-height:16px}
+.ok{color:var(--success);margin-top:16px}
+form.wait .btn{height:48px}
+.risk{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:24px}
+.risk span{display:flex;align-items:center;gap:4px}
+.risk i{color:var(--success)}
+
+footer{padding:48px 0;border-top:1px solid var(--border);margin-top:80px}
+.foot{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center}
+.foot ul{list-style:none;display:flex;flex-wrap:wrap;gap:24px;margin:0;padding:0}
+.foot a{text-decoration:none;color:var(--muted)}
+.foot a:hover{color:var(--text)}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:opacity 300ms linear!important}
+  .rise,.fade-in,.reveal,.item,.ck{opacity:1!important;transform:none!important}
+  .budget i{transform:none!important}
+  .tw{color:var(--text)!important}
+}
+</style>
+</head>
+<body>
+<a class="skip button-sm" href="#main">Skip to content</a>
+
+<nav class="nav" aria-label="Main">
+  <a class="logo" href="#top" aria-label="Festora home"><i class="ph-fill ph-sparkle"></i>Festora</a>
+  <ul class="navlinks body-6">
+    <li><a href="#top" aria-current="page">Home</a></li>
+    <li><a href="#plan">Plan</a></li>
+    <li><a href="#rent">Rent gear</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a class="btn btn-primary button-sm" href="#join">Join waitlist</a>
+  <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mm"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mm" aria-hidden="true">
+  <ul class="heading-5">
+    <li><a href="#top">Home</a></li>
+    <li><a href="#plan">Plan your event</a></li>
+    <li><a href="#rent">Rent gear</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a class="accent" href="#join">Join the Kochi waitlist</a></li>
+  </ul>
+</div>
+
+<main id="main">
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow caption-3 fade-in"><span class="dot"></span>Launching in Kochi</span>
+      <h1 class="heading-1 rise" aria-label="Plan your whole celebration in one place">
+        <span class="w" style="animation-delay:0ms">Plan</span> <span class="w" style="animation-delay:60ms">your</span> <span class="w" style="animation-delay:120ms">whole</span> <span class="w" style="animation-delay:180ms">celebration</span><br>
+        <span class="w" style="animation-delay:240ms">in</span> <span class="w" style="animation-delay:300ms">one</span> <span class="w" style="animation-delay:360ms">place</span>
+      </h1>
+      <p class="sub title-2 muted fade-in" style="animation-delay:400ms">
+        Book the planner, makeup artist and photographer.<br>
+        Rent the sound, lights and stage. One plan, shaped around your traditions.
+      </p>
+      <div class="hero-cta fade-in" style="animation-delay:520ms">
+        <a class="btn btn-primary btn-lg button-md" href="#join">Join the Kochi waitlist <i class="ph ph-arrow-right"></i></a>
+        <span class="body-6 muted">Free to join. No payment needed.</span>
+      </div>
+      <div class="proof fade-in" style="animation-delay:640ms">
+        <div class="avatars" aria-hidden="true">
+          <span style="background:#f0b44c">A</span><span style="background:#c98bbb">R</span><span style="background:#5fd39a">S</span><span style="background:#f5c46e">M</span>
+        </div>
+        <p class="body-6 muted"><span class="tbd">{{number}}</span> Kerala vendors already signed up</p>
+      </div>
+    </div>
+
+    <div class="stage fade-in" style="animation-delay:300ms" aria-label="Example event plan filling itself in">
+      <div class="orbit" aria-hidden="true"></div>
+      <div class="floaty f1 caption-5" aria-hidden="true"><i class="ph-fill ph-seal-check"></i>Verified vendor</div>
+      <div class="floaty f2 caption-5" aria-hidden="true"><i class="ph-fill ph-shield-check"></i>Deposit held safely</div>
+      <div class="floaty f3 caption-5" aria-hidden="true"><i class="ph-fill ph-whatsapp-logo"></i>Quote received</div>
+      <div class="plan">
+        <div class="plan-head">
+          <div>
+            <p class="caption-3 muted">Kerala Christian wedding · Kochi</p>
+            <p class="heading-6" style="margin-top:4px">Anu and Joel, 40 guests</p>
+          </div>
+          <span class="countdown" id="cd">62 days</span>
+        </div>
+        <div class="budget" aria-hidden="true"><i id="b1" style="width:34%;background:var(--accent)"></i><i id="b2" style="width:18%;background:var(--plum)"></i><i id="b3" style="width:11%;background:var(--success)"></i></div>
+        <p class="caption-5 muted"><span id="spent">₹0</span> of ₹4,00,000 planned</p>
+        <ul class="items" id="items">
+          <li class="item"><span class="ic"><i class="ph ph-flower-lotus"></i></span><span class="grow"><span class="title-4">Church decor</span><br><span class="caption-5 muted">Lily &amp; Lamp Decor</span></span><span class="status caption-5">Booking</span></li>
+          <li class="item"><span class="ic"><i class="ph ph-paint-brush"></i></span><span class="grow"><span class="title-4">Bridal makeup</span><br><span class="caption-5 muted">Saree draping included</span></span><span class="status caption-5">Booking</span></li>
+          <li class="item"><span class="ic"><i class="ph ph-camera"></i></span><span class="grow"><span class="title-4">Candid photo and film</span><br><span class="caption-5 muted">4 hours, drone add on</span></span><span class="status caption-5">Booking</span></li>
+          <li class="item"><span class="ic"><i class="ph ph-speaker-hifi"></i></span><span class="grow"><span class="title-4">Sound kit with technician</span><br><span class="caption-5 muted">Rental, deposit held</span></span><span class="status caption-5">Booking</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="marquee" aria-label="What you can book">
+  <div class="track body-6">
+    <span class="pill"><i class="ph ph-clipboard-text"></i>Event planners</span><span class="pill"><i class="ph ph-paint-brush"></i>Makeup artists</span><span class="pill"><i class="ph ph-hand-palm"></i>Mehendi</span><span class="pill"><i class="ph ph-camera"></i>Photographers</span><span class="pill"><i class="ph ph-video-camera"></i>Videographers</span><span class="pill"><i class="ph ph-cooking-pot"></i>Caterers</span><span class="pill"><i class="ph ph-speaker-hifi"></i>Sound rental</span><span class="pill"><i class="ph ph-lightbulb"></i>Lighting</span><span class="pill"><i class="ph ph-lightning"></i>Generators</span><span class="pill"><i class="ph ph-tent"></i>Tents and stages</span><span class="pill"><i class="ph ph-microphone-stage"></i>Anchors and DJs</span><span class="pill"><i class="ph ph-cake"></i>Cakes</span>
+    <span class="pill" aria-hidden="true"><i class="ph ph-clipboard-text"></i>Event planners</span><span class="pill" aria-hidden="true"><i class="ph ph-paint-brush"></i>Makeup artists</span><span class="pill" aria-hidden="true"><i class="ph ph-hand-palm"></i>Mehendi</span><span class="pill" aria-hidden="true"><i class="ph ph-camera"></i>Photographers</span><span class="pill" aria-hidden="true"><i class="ph ph-video-camera"></i>Videographers</span><span class="pill" aria-hidden="true"><i class="ph ph-cooking-pot"></i>Caterers</span><span class="pill" aria-hidden="true"><i class="ph ph-speaker-hifi"></i>Sound rental</span><span class="pill" aria-hidden="true"><i class="ph ph-lightbulb"></i>Lighting</span><span class="pill" aria-hidden="true"><i class="ph ph-lightning"></i>Generators</span><span class="pill" aria-hidden="true"><i class="ph ph-tent"></i>Tents and stages</span><span class="pill" aria-hidden="true"><i class="ph ph-microphone-stage"></i>Anchors and DJs</span><span class="pill" aria-hidden="true"><i class="ph ph-cake"></i>Cakes</span>
+  </div>
+</div>
+
+<section id="benefits">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="caption-3 accent">Why Festora</p>
+      <h2 class="heading-2" style="margin-top:12px">Fewer calls.<br>No missing pieces.</h2>
+    </div>
+    <div class="benefits reveal">
+      <article class="card"><span class="ic"><i class="ph ph-list-checks"></i></span><h3 class="heading-6">A plan that knows your event</h3><p class="body-6 muted">Pick a Hindu, Christian, Muslim or mixed ceremony and get a checklist built for it, from haldi to reception.</p></article>
+      <article class="card"><span class="ic"><i class="ph ph-users-three"></i></span><h3 class="heading-6">People and gear together</h3><p class="body-6 muted">Book a sound kit with its technician, or lights with the crew who rig them, in a single booking.</p></article>
+      <article class="card"><span class="ic"><i class="ph ph-heart"></i></span><h3 class="heading-6">Made for intimate events too</h3><p class="body-6 muted">Under 50 guests? See small packages first: two hour shoots, compact sound, home decor.</p></article>
+      <article class="card"><span class="ic"><i class="ph ph-shield-check"></i></span><h3 class="heading-6">Safer payments</h3><p class="body-6 muted">Verified vendors, a clear advance, and rental deposits held until the gear comes back.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="plan" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="caption-3 accent">Your traditions, built in</p>
+      <h2 class="heading-2" style="margin-top:12px">Choose a ceremony.<br>Get the right checklist.</h2>
+      <p class="title-2 muted">Every list is a starting point. Add, remove or skip anything.</p>
+    </div>
+    <div class="reveal">
+      <div class="tabs" role="tablist" aria-label="Ceremony">
+        <button class="tab button-sm" role="tab" aria-selected="true" data-t="christian">Kerala Christian</button>
+        <button class="tab button-sm" role="tab" aria-selected="false" data-t="hindu">Kerala Hindu</button>
+        <button class="tab button-sm" role="tab" aria-selected="false" data-t="muslim">Kerala Muslim</button>
+        <button class="tab button-sm" role="tab" aria-selected="false" data-t="intimate">Intimate, any tradition</button>
+      </div>
+      <div class="checklist" id="checklist" role="tabpanel" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="tagline" aria-label="Our promise">
+  <div class="wrap">
+    <p class="heading-2 words" id="tag">You bring the people you love.<br>We bring everyone and everything else, booked and on time.</p>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="caption-3 accent">How it works</p>
+      <h2 class="heading-2" style="margin-top:12px">From idea to booked<br>in three steps</h2>
+    </div>
+    <div class="steps reveal">
+      <div class="step"><span class="num caption-3">01</span><h3 class="heading-6">Tell us the occasion</h3><p class="body-6 muted" style="margin-top:8px">Event type, tradition, city, date and guest count. Your plan appears instantly.</p><div class="line"><i></i></div></div>
+      <div class="step"><span class="num caption-3">02</span><h3 class="heading-6">Shortlist and compare</h3><p class="body-6 muted" style="margin-top:8px">Filter by style, price and free dates. Message vendors and collect quotes in one place.</p><div class="line"><i style="transition-delay:200ms"></i></div></div>
+      <div class="step"><span class="num caption-3">03</span><h3 class="heading-6">Book and relax</h3><p class="body-6 muted" style="margin-top:8px">Pay the advance online, track every booking and get reminders before the day.</p><div class="line"><i style="transition-delay:400ms"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="rent" style="padding-top:0">
+  <div class="wrap rent">
+    <div class="reveal">
+      <p class="caption-3 accent">Rent professional gear</p>
+      <h2 class="heading-2" style="margin-top:12px">The sound, lights<br>and power, sorted</h2>
+      <p class="title-2 muted" style="margin-top:16px">Live availability, a clear day rate and a refundable deposit. Add a technician with one tap.</p>
+    </div>
+    <div class="gear reveal">
+      <article class="card"><span class="ic"><i class="ph ph-speaker-hifi"></i></span><p class="title-4">Compact PA kit</p><p class="caption-5 muted price">{{day rate}}</p></article>
+      <article class="card"><span class="ic"><i class="ph ph-lightbulb-filament"></i></span><p class="title-4">Stage wash lights</p><p class="caption-5 muted price">{{day rate}}</p></article>
+      <article class="card"><span class="ic"><i class="ph ph-lightning"></i></span><p class="title-4">Silent generator</p><p class="caption-5 muted price">{{day rate}}</p></article>
+      <article class="card"><span class="ic"><i class="ph ph-monitor"></i></span><p class="title-4">LED wall</p><p class="caption-5 muted price">{{day rate}}</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="proof" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="caption-3 accent">From our early vendors</p>
+      <h2 class="heading-2" style="margin-top:12px">Built with Kerala<br>event professionals</h2>
+    </div>
+    <div class="quotes reveal">
+      <figure class="card" style="margin:0"><blockquote class="body-3 tbd">{{testimonial from a photographer}}</blockquote><figcaption class="who"><span class="av" style="background:#f0b44c">?</span><span><span class="title-4">{{name}}</span><br><span class="caption-5 muted">Photographer, {{city}}</span></span></figcaption></figure>
+      <figure class="card" style="margin:0"><blockquote class="body-3 tbd">{{testimonial from a sound rental owner}}</blockquote><figcaption class="who"><span class="av" style="background:#c98bbb">?</span><span><span class="title-4">{{name}}</span><br><span class="caption-5 muted">Sound and light rental, {{city}}</span></span></figcaption></figure>
+      <figure class="card" style="margin:0"><blockquote class="body-3 tbd">{{testimonial from a makeup artist}}</blockquote><figcaption class="who"><span class="av" style="background:#5fd39a">?</span><span><span class="title-4">{{name}}</span><br><span class="caption-5 muted">Bridal makeup, {{city}}</span></span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal"><p class="caption-3 accent">Questions</p><h2 class="heading-2" style="margin-top:12px">Before you join</h2></div>
+    <div class="faq reveal">
+      <details><summary class="title-3">When does Festora launch?<i class="ph ph-plus"></i></summary><p class="body-6 muted">We open in Kochi first. Waitlist members get access before everyone else and we will message you on launch day.</p></details>
+      <details><summary class="title-3">Does it cost anything to join?<i class="ph ph-plus"></i></summary><p class="body-6 muted">No. Joining the waitlist and planning your event is free. You only pay vendors when you book.</p></details>
+      <details><summary class="title-3">Which traditions do you cover?<i class="ph ph-plus"></i></summary><p class="body-6 muted">We start with Kerala Hindu, Christian and Muslim ceremonies plus mixed and intimate events. More are added with local vendors.</p></details>
+      <details><summary class="title-3">How do rental deposits work?<i class="ph ph-plus"></i></summary><p class="body-6 muted">The deposit is held when you book and released after the gear is returned and checked. Photos are taken at handover and return.</p></details>
+      <details><summary class="title-3">Are vendors checked?<i class="ph ph-plus"></i></summary><p class="body-6 muted">Every vendor shows a verified badge only after we check their ID, business details and past work.</p></details>
+      <details><summary class="title-3">Can I cancel a booking?<i class="ph ph-plus"></i></summary><p class="body-6 muted">Each vendor shows its cancellation terms before you pay, so you always know what happens if plans change.</p></details>
+      <details><summary class="title-3">I am a vendor. How do I join?<i class="ph ph-plus"></i></summary><p class="body-6 muted">Listing is free. Join the waitlist, choose "I am a vendor" when we message you, and we will help set up your profile.</p></details>
+      <details><summary class="title-3">Which cities come next?<i class="ph ph-plus"></i></summary><p class="body-6 muted">Trivandrum and Calicut after Kochi, then more of South India and the UAE.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="join" style="padding-top:0">
+  <div class="wrap">
+    <div class="final reveal">
+      <h2 class="heading-2">Plan your whole celebration<br>in one place</h2>
+      <p class="title-2 muted">Join the Kochi waitlist and be first to plan with Festora.</p>
+      <form class="wait" novalidate>
+        <div class="field">
+          <label for="email" class="title-4" style="position:absolute;left:-9999px">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" aria-describedby="email-err" required>
+          <p class="err caption-5" id="email-err" role="alert"></p>
+        </div>
+        <button class="btn btn-primary btn-lg button-md" type="submit">Join the Kochi waitlist</button>
+      </form>
+      <p class="ok body-6" id="ok" role="status"></p>
+      <div class="risk caption-5 muted"><span><i class="ph-fill ph-check-circle"></i>Free to join</span><span><i class="ph-fill ph-check-circle"></i>No payment details</span><span><i class="ph-fill ph-check-circle"></i>Leave any time</span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="logo" href="#top"><i class="ph-fill ph-sparkle"></i>Festora</a>
+    <ul class="body-6">
+      <li><a href="privacy.html">Privacy policy</a></li>
+      <li><a href="terms.html">Terms</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#join">For vendors</a></li>
+    </ul>
+    <p class="caption-5 muted">© 2026 Festora (working name)</p>
+  </div>
+</footer>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// mobile menu
+const mb = document.querySelector('.menu-btn'), mm = document.getElementById('mm');
+function setMenu(open){
+  mb.setAttribute('aria-expanded', open); mb.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  mm.classList.toggle('open', open); mm.setAttribute('aria-hidden', !open);
+  [...mm.querySelectorAll('li')].forEach((li,i)=>{ li.style.transitionDelay = open ? Math.min(i*60,400)+'ms' : '0ms'; });
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+mb.addEventListener('click', ()=>setMenu(mb.getAttribute('aria-expanded') !== 'true'));
+mm.addEventListener('click', e=>{ if(e.target.closest('a')) setMenu(false); });
+addEventListener('keydown', e=>{ if(e.key==='Escape') setMenu(false); });
+
+// scroll reveals, once
+const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('seen'); io.unobserve(e.target); } }), {threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// hero plan: items arrive, then get booked one by one, budget fills
+const items=[...document.querySelectorAll('#items .item')];
+const amounts=[136000,72000,44000];
+function runPlan(){
+  items.forEach(it=>{ it.classList.remove('in'); const s=it.querySelector('.status'); s.textContent='Booking'; s.classList.remove('booked'); });
+  ['b1','b2','b3'].forEach(id=>document.getElementById(id).style.transform='scaleX(0)');
+  document.getElementById('spent').textContent='₹0';
+  let t=600, spent=0;
+  items.forEach((it,i)=>{
+    setTimeout(()=>it.classList.add('in'), t + i*200);
+  });
+  t += items.length*200 + 600;
+  items.forEach((it,i)=>{
+    setTimeout(()=>{
+      const s=it.querySelector('.status'); s.textContent='Booked'; s.classList.add('booked');
+      if(i<3){ document.getElementById('b'+(i+1)).style.transform='scaleX(1)'; spent+=amounts[i];
+        document.getElementById('spent').textContent='₹'+spent.toLocaleString('en-IN'); }
+    }, t + i*900);
+  });
+  return t + items.length*900 + 4000;
+}
+if(reduce){ items.forEach(it=>{it.classList.add('in'); const s=it.querySelector('.status'); s.textContent='Booked'; s.classList.add('booked');}); ['b1','b2','b3'].forEach(id=>document.getElementById(id).style.transform='none'); document.getElementById('spent').textContent='₹2,52,000'; }
+else { (function loop(){ setTimeout(loop, runPlan()); })(); }
+
+// ceremony checklists
+const lists={
+  christian:[['ph-church','Church decor','Altar flowers, pew bows'],['ph-paint-brush','Bridal makeup','Saree and veil styling'],['ph-camera','Photo and film','Ceremony and reception'],['ph-cake','Wedding cake','Cutting at reception'],['ph-speaker-hifi','Sound and choir mics','Rental with technician'],['ph-car-profile','Wedding car','Decorated, with driver']],
+  hindu:[['ph-flower-lotus','Mandapam and decor','Nilavilakku, jasmine garlands'],['ph-paint-brush','Bridal makeup','Kasavu saree draping'],['ph-music-notes','Nadaswaram and chenda','Live ensemble'],['ph-cooking-pot','Sadya catering','Banana leaf service'],['ph-camera','Photo and film','Muhurtham to reception'],['ph-lightbulb','Lighting','Evening reception']],
+  muslim:[['ph-moon-stars','Nikah stage decor','Floral backdrop'],['ph-hand-palm','Mehendi artist','Bride and family'],['ph-paint-brush','Bridal makeup','Hijab friendly styling'],['ph-cooking-pot','Biryani catering','Large batch service'],['ph-microphone-stage','Oppana group','Traditional performance'],['ph-camera','Photo and film','Separate teams on request']],
+  intimate:[['ph-house','Home or small venue decor','Up to 50 guests'],['ph-camera','Two hour photo session','Candid style'],['ph-speaker-simple-high','Compact sound kit','Plug and play'],['ph-cooking-pot','Catering for 20 to 50','Plated or buffet'],['ph-cake','Small cake','Custom design'],['ph-clipboard-text','Day coordinator','One person runs it all']]
+};
+const cl=document.getElementById('checklist');
+function showList(k){
+  cl.innerHTML = lists[k].map(([ic,t,n])=>`<div class="ck"><i class="ph ${ic}" aria-hidden="true"></i><span class="title-3">${t}</span><span class="note caption-5 muted">${n}</span></div>`).join('');
+  [...cl.children].forEach((c,i)=> reduce ? c.classList.add('in') : setTimeout(()=>c.classList.add('in'), 60*i+30));
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected', x===b));
+  showList(b.dataset.t);
+}));
+showList('christian');
+
+// tagline: words light up one at a time as they cross the trigger line
+const tag=document.getElementById('tag');
+tag.innerHTML = tag.innerHTML.split(/(<br>)/).map(part=> part==='<br>' ? part : part.split(' ').map(w=>w?`<span class="tw">${w}</span>`:'').join(' ')).join('');
+const words=[...tag.querySelectorAll('.tw')];
+if(reduce){ words.forEach(w=>w.classList.add('on')); }
+else {
+  let ticking=false;
+  function update(){
+    const line = innerHeight*0.65;
+    words.forEach(w=>{ if(w.getBoundingClientRect().top < line) w.classList.add('on'); });
+    ticking=false;
+  }
+  addEventListener('scroll', ()=>{ if(!ticking){ ticking=true; requestAnimationFrame(update); } }, {passive:true});
+  update();
+}
+
+// waitlist form
+const f=document.querySelector('form.wait'), em=document.getElementById('email'), er=document.getElementById('email-err');
+f.addEventListener('submit', e=>{
+  e.preventDefault();
+  const v=em.value.trim();
+  if(!v){ er.textContent='Enter your email to join.'; em.setAttribute('aria-invalid','true'); em.focus(); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){ er.textContent='That email looks incomplete. Check it and try again.'; em.setAttribute('aria-invalid','true'); em.focus(); return; }
+  er.textContent=''; em.removeAttribute('aria-invalid');
+  document.getElementById('ok').textContent='You are on the list. We will email '+v+' when Kochi opens.';
+  f.reset();
+});
+</script>
+</body>
+</html>
