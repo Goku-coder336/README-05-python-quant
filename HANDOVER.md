@@ -10,6 +10,7 @@ An all-in-one marketplace for **any kind of event** (weddings, pujas, conference
 | --- | --- |
 | `app/` | The Next.js 15 app (TypeScript, Tailwind, Postgres). |
 | `app/db/migrations/001-007` | Database schema. `npm run db:migrate`, `npm run db:seed`, `npm run make-admin -- email`. |
+| `app/db/setup/supabase-setup.sql` | One-file Supabase setup (all tables, reference data, Data API lockdown). Paste into Supabase SQL Editor once. Regenerate with `npm run db:build-setup` after adding a migration. |
 | `app/.env.example` | Every setting the app needs (no values). |
 | `app/public/landing.html` | Landing page served at `/` (copy of `replica/landing/v4.html`). |
 | `replica/architecture.md` | Stack, data model, routes, risks. |
