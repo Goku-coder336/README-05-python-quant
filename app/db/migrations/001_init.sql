@@ -1,4 +1,4 @@
--- Festora: first migration. Postgres 15+ (Supabase, Neon or local).
+-- Utsella: first migration. Postgres 15+ (Supabase, Neon or local).
 -- Authorisation is enforced in src/lib/data.ts on every query (see replica/backend.md).
 create extension if not exists btree_gist;
 create extension if not exists pgcrypto;

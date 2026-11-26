@@ -21,7 +21,7 @@ async function ctx(bookingId: string) {
 const when = (c: Ctx) => c.startsOn === c.endsOn ? niceDate(c.startsOn) : `${niceDate(c.startsOn)} to ${niceDate(c.endsOn)}`;
 
 function compose(kind: Kind, c: Ctx): { to: string | null; subject: string; body: string } {
-  const sign = "\n\nFestora";
+  const sign = "\n\nUtsella";
   switch (kind) {
     case "booking.requested.vendor": return { to: c.vendorEmail, subject: `New request: ${c.itemTitle} on ${when(c)}`,
       body: `${c.customerName} would like to book ${c.itemTitle} for ${when(c)}.\n\nPrice: ${money(c.subtotalMinor, c.currency)}${c.depositMinor ? `, deposit ${money(c.depositMinor, c.currency)}` : ""}${c.note ? `\nTheir note: "${c.note}"` : ""}\n\nAccept or decline here: ${APP()}/vendor/${c.vendorHandle}\nCustomers hear back faster from vendors who reply within a few hours.${sign}` };

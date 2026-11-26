@@ -17,7 +17,7 @@ export default async function Catalogue() {
   return (
     <div className="grid gap-12">
       <div><h1 className="font-display text-4xl">Event types and categories</h1>
-        <p className="mt-2 max-w-2xl text-muted">Festora works for any kind of event. Add an occasion and it gets a starter checklist you can edit. Hiding something removes it from customers&apos; choices without deleting existing plans or listings.</p></div>
+        <p className="mt-2 max-w-2xl text-muted">Utsella works for any kind of event. Add an occasion and it gets a starter checklist you can edit. Hiding something removes it from customers&apos; choices without deleting existing plans or listings.</p></div>
 
       <section aria-labelledby="et"><h2 id="et" className="font-display text-2xl">Occasions ({types.length})</h2>
         <div className="card mt-4 p-5"><AdminForm action={createEventTypeAction} submit="Add occasion">

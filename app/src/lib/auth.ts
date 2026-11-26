@@ -5,7 +5,7 @@ import { sendEmail } from "./email";
 
 // Passwordless sign-in: a 6-digit code by email, then an http-only session cookie.
 // Codes and session tokens are stored only as HMAC hashes.
-const COOKIE = "festora_session";
+const COOKIE = "utsella_session";
 const SESSION_DAYS = 30;
 const CODE_MINUTES = 10;
 const MAX_CODES_PER_HOUR = 5;
@@ -35,7 +35,7 @@ export async function requestCode(emailRaw: string): Promise<{ ok: true } | { ok
 
 async function sendCode(email: string, code: string) {
   if (!process.env.RESEND_API_KEY && process.env.NODE_ENV !== "production") { console.log(`[dev] sign-in code for ${email}: ${code}`); return; }
-  await sendEmail(email, `${code} is your Festora sign-in code`, `Your Festora sign-in code is ${code}.\n\nIt expires in ${CODE_MINUTES} minutes. If you did not ask for it, you can ignore this email.`);
+  await sendEmail(email, `${code} is your Utsella sign-in code`, `Your Utsella sign-in code is ${code}.\n\nIt expires in ${CODE_MINUTES} minutes. If you did not ask for it, you can ignore this email.`);
 }
 
 export async function verifyCode(emailRaw: string, code: string): Promise<{ ok: true } | { ok: false; error: string }> {

@@ -1,4 +1,6 @@
-# Brand: renaming from "Festora"
+# Brand: Utsella (renamed from "Festora")
+
+**Chosen 27 November 2026: Utsella.** From *utsav* (celebration). Logo text: Uts**e**lla with the "e" in caramel. Trademark, India company register, domain and handle checks below are still to run by the owner before money is spent on the name.
 
 **Why:** Festora Events Ltd is an active UK events company (incorporated February 2026, Manchester), festora.com is taken, and other businesses trade as Festora. Same industry plus planned UK launch means a real risk of a dispute or forced rebrand later.
 

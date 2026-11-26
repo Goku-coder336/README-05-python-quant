@@ -2,7 +2,7 @@ import { Fill, LegalPage } from "@/components/Legal";
 export const metadata = { title: "Contact and grievances" };
 export default function Contact() {
   return (
-    <LegalPage title="Contact and grievances" intro="How to reach Festora, and how to raise a complaint.">
+    <LegalPage title="Contact and grievances" intro="How to reach Utsella, and how to raise a complaint.">
       <section><h2>General questions</h2>
         <ul><li>Email: <Fill>support email</Fill></li><li>WhatsApp: <Fill>support WhatsApp number</Fill></li><li>Hours: <Fill>support hours and time zone</Fill></li></ul></section>
       <section><h2>Business details</h2>
