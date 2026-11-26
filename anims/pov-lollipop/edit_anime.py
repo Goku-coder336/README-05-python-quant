@@ -6,11 +6,11 @@ HOOK = 3.92  # "gotta put 'em in the dirt" region in the Killin' 'em recording (
 # (kind, source, start, dur, extra)
 SHOTS = [
     ("pic", f"{D}/s1_cooking.png", 0.0, 2.6, "push"),
-    ("vid", f"{D}/clip_strut_hall.mp4", 2.6, 2.3, "s0.1"),
+    ("vid", f"{D}/clip_strut_hall.mp4", 2.6, 2.3, "follow1.8 s0.1"),
     ("pic", f"{D}/s3_sink.jpg", 4.9, 2.7, "push"),
-    ("vid", f"{D}/clip_strut_hall.mp4", 7.6, 2.3, "hflip s1.5"),
+    ("vid", f"{D}/clip_strut_hall.mp4", 7.6, 2.3, "follow1.8 hflip s1.5"),
     ("pic", f"{D}/s5_clothes.jpg", 9.9, 2.6, "push"),
-    ("vid", f"{D}/clip_strut_hall.mp4", 12.5, 2.3, "zoom s0.9"),
+    ("vid", f"{D}/clip_strut_hall.mp4", 12.5, 2.3, "follow2.3 s0.9"),
     ("pic", f"{D}/s7_stare.jpg", 14.8, 2.2, "stare"),
     ("black", None, 17.0, 0.45, ""),
     ("pic", f"{D}/s8_godmode.jpg", 17.45, 2.15, "god"),
@@ -33,7 +33,13 @@ for i, (k, src, st, d, ex) in enumerate(SHOTS):
     elif k == "vid":
         args += ["-i", src]
         parts = ex.split(); off = float([x for x in parts if x.startswith("s")][0][1:])
-        extra = ("hflip," if "hflip" in parts else "") + ("crop=iw/1.2:ih/1.2:iw*0.08:ih*0.15," if "zoom" in parts else "")
+        fz = [float(x[6:]) for x in parts if x.startswith("follow")]
+        extra = ""
+        if fz:  # zoomed camera that tracks Kutty (shirt centre x = 0.25 + 0.095*t, head around y 0.52)
+            z = fz[0]
+            extra = (f"crop=iw/{z}:ih/{z}:'max(0,min(iw-ow,(0.25+0.095*(t+{off}))*iw-ow/2))'"
+                     f":'max(0,min(ih-oh,0.52*ih-oh/2))',")
+        extra += "hflip," if "hflip" in parts else ""
         f.append(f"[{i}:v]trim={off}:{off+d},setpts=PTS-STARTPTS,{extra}scale=1080:1920,fps=30,setsar=1,format=yuv420p[s{i}]")
     else:  # aeroplane: forward, back, forward to fill the time
         args += ["-i", src]
