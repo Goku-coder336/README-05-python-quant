@@ -7,8 +7,8 @@ import { money, niceDate } from "@/lib/format";
 const label = { requested: "Waiting for the vendor", accepted: "Confirmed by the vendor", declined: "Declined by the vendor", cancelled: "Cancelled", completed: "Completed" } as const;
 
 export default async function BookingPage({ params }: { params: Promise<{ id: string }> }) {
-  const b = booking((await params).id); if (!b) notFound();
-  const v = vendorById(b.vendorId)!;
+  const b = await booking((await params).id); if (!b) notFound();
+  const v = (await vendorById(b.vendorId))!;
   return (
     <div className="mx-auto max-w-xl px-4 py-16">
       <CheckCircle size={48} weight="fill" className="text-success" aria-hidden />

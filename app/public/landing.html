@@ -528,7 +528,12 @@ f.addEventListener('submit',e=>{ e.preventDefault(); const v=em.value.trim();
   if(!v){er.textContent='Enter your email to join.';em.setAttribute('aria-invalid','true');em.focus();return;}
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){er.textContent='That email looks incomplete. Check it and try again.';em.setAttribute('aria-invalid','true');em.focus();return;}
   const cy=document.getElementById('city'), ce=document.getElementById('city-err'); if(!cy.value){ce.textContent='Choose your city.';cy.setAttribute('aria-invalid','true');cy.focus();return;} ce.textContent='';cy.removeAttribute('aria-invalid');
-  er.textContent='';em.removeAttribute('aria-invalid');document.getElementById('ok').textContent='You are on the list. We will email '+v+' when your city opens.';f.reset(); });
+  er.textContent='';em.removeAttribute('aria-invalid');
+  const btn=f.querySelector('button[type=submit]'); btn.disabled=true; const ok=document.getElementById('ok');
+  fetch('/api/waitlist',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:v,role:document.querySelector('.roles input:checked').value,city:cy.value})})
+    .then(async r=>{ const j=await r.json().catch(()=>({})); if(!r.ok) throw new Error(j.error||'Something went wrong. Try again.'); ok.style.color=''; ok.textContent='You are on the list. We will email '+v+' when '+cy.value+' opens.'; f.reset(); })
+    .catch(e=>{ ok.style.color='#ff9a90'; ok.textContent=e.message.includes('fetch')?'Could not reach the server. Check your connection and try again.':e.message; })
+    .finally(()=>{ btn.disabled=false; }); });
 </script>
 </body>
 </html>

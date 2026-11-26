@@ -6,14 +6,15 @@ import { ListingCard } from "./ListingCard";
 
 type SP = { intimate?: string; tradition?: string };
 
-export function CityListings({ countryCode, citySlug, categorySlug, sp }: { countryCode: string; citySlug: string; categorySlug?: string; sp: SP }) {
-  const ctry = getCountry(countryCode); const city = getCity(countryCode, citySlug);
+export async function CityListings({ countryCode, citySlug, categorySlug, sp }: { countryCode: string; citySlug: string; categorySlug?: string; sp: SP }) {
+  const [ctry, city] = await Promise.all([getCountry(countryCode), getCity(countryCode, citySlug)]);
   if (!ctry || !city) notFound();
-  const cat = categorySlug ? getCategory(categorySlug) : null;
+  const cat = categorySlug ? await getCategory(categorySlug) : null;
   if (categorySlug && !cat) notFound();
-  const trad = traditions().find(t => t.slug === sp.tradition);
+  const allTrads = await traditions(); const allCats = await categories();
+  const trad = allTrads.find(t => t.slug === sp.tradition);
   const intimate = sp.intimate === "1";
-  const items = listings({ cityId: city.id, categoryId: cat?.id, intimate, traditionId: trad?.id });
+  const items = await listings({ cityId: city.id, categoryId: cat?.id, intimate, traditionId: trad?.id });
   const base = `/${countryCode}/${citySlug}`;
   const here = cat ? `${base}/${cat.slug}` : base;
   const q = (next: Partial<SP>) => {
@@ -31,7 +32,7 @@ export function CityListings({ countryCode, citySlug, categorySlug, sp }: { coun
 
       <div className="mt-8 flex gap-2 overflow-x-auto pb-2" role="list" aria-label="Categories">
         <Link role="listitem" href={`${base}${q({})}`} className={!cat ? "chip-on" : "chip"} aria-current={!cat ? "page" : undefined}>All</Link>
-        {categories().map(c => (
+        {allCats.map(c => (
           <Link role="listitem" key={c.id} href={`${base}/${c.slug}${q({})}`} className={`${cat?.id === c.id ? "chip-on" : "chip"} shrink-0`} aria-current={cat?.id === c.id ? "page" : undefined}>
             <CategoryIcon name={c.icon} size={16} />{c.name}
           </Link>
@@ -41,7 +42,7 @@ export function CityListings({ countryCode, citySlug, categorySlug, sp }: { coun
       <div className="mt-4 flex flex-wrap items-center gap-2 text-sm">
         <span className="text-muted">Filter:</span>
         <Link href={`${here}${q({ intimate: intimate ? undefined : "1" })}`} className={intimate ? "chip-on" : "chip"} aria-pressed={intimate}>Intimate, up to 50 guests</Link>
-        {traditions().map(t => (
+        {allTrads.map(t => (
           <Link key={t.id} href={`${here}${q({ tradition: trad?.id === t.id ? undefined : t.slug })}`} className={trad?.id === t.id ? "chip-on" : "chip"} aria-pressed={trad?.id === t.id}>{t.name}</Link>
         ))}
       </div>

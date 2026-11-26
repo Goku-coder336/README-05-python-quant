@@ -7,8 +7,8 @@ export function AddListingForm({ handle, categories, currency }: { handle: strin
   const [state, action, pending] = useActionState<FormState, FormData>(addListing, {});
   const [catId, setCatId] = useState(""); const kind = categories.find(c => c.id === catId)?.kind;
   const ref = useRef<HTMLFormElement>(null);
-  useEffect(() => { if (state.fields && !state.error && Object.keys(state.fields).length === 0) { ref.current?.reset(); setCatId(""); } }, [state]);
-  const done = state.fields && !state.error && Object.keys(state.fields).length === 0;
+  useEffect(() => { if (state.ok) { ref.current?.reset(); setCatId(""); } }, [state]);
+  const done = state.ok;
   return (
     <form ref={ref} action={action} className="grid gap-4" noValidate>
       <input type="hidden" name="handle" value={handle} />

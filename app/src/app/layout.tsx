@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Fraunces, Manrope } from "next/font/google";
 import "./globals.css";
+import { currentUser } from "@/lib/auth";
 
 const display = Fraunces({ subsets: ["latin"], variable: "--font-display", weight: ["400", "600"] });
 const sans = Manrope({ subsets: ["latin"], variable: "--font-sans" });
@@ -11,7 +12,8 @@ export const metadata: Metadata = {
   description: "Book event services and rent professional gear in one place.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const user = await currentUser();
   return (
     <html lang="en" className={`${display.variable} ${sans.variable}`}>
       <body className="min-h-screen">
@@ -21,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="font-display text-2xl tracking-tight">Fest<span className="text-caramel">o</span>ra</Link>
             <nav aria-label="Main" className="flex items-center gap-2 text-sm font-medium sm:gap-5">
               <Link href="/explore" className="hidden hover:underline sm:inline">Explore cities</Link>
+              {user ? <Link href="/account" className="hover:underline">Account</Link> : <Link href="/signin" className="hover:underline">Sign in</Link>}
               <Link href="/vendor/join" className="btn-primary !px-4 !py-2">For vendors</Link>
             </nav>
           </div>

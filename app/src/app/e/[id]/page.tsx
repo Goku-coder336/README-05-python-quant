@@ -6,8 +6,8 @@ import { money } from "@/lib/format";
 import { BookForm } from "@/components/BookForm";
 
 export default async function EquipmentPage({ params }: { params: Promise<{ id: string }> }) {
-  const e = equipmentItem((await params).id); if (!e) notFound();
-  const v = vendorById(e.vendorId)!; const cat = categories().find(c => c.id === e.categoryId)!; const city = region(v.baseRegionId)!;
+  const e = await equipmentItem((await params).id); if (!e) notFound();
+  const v = (await vendorById(e.vendorId))!; const cat = (await categories()).find(c => c.id === e.categoryId)!; const city = (await region(v.baseRegionId))!;
   return (
     <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 md:px-8 lg:grid-cols-[1fr_400px] lg:py-16">
       <div>

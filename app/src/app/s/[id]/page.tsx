@@ -6,9 +6,9 @@ import { money, unitLabel } from "@/lib/format";
 import { BookForm } from "@/components/BookForm";
 
 export default async function ServicePage({ params }: { params: Promise<{ id: string }> }) {
-  const s = service((await params).id); if (!s) notFound();
-  const v = vendorById(s.vendorId)!; const cat = categories().find(c => c.id === s.categoryId)!; const city = region(v.baseRegionId)!;
-  const trads = traditions().filter(t => s.traditionIds.includes(t.id));
+  const s = await service((await params).id); if (!s) notFound();
+  const v = (await vendorById(s.vendorId))!; const cat = (await categories()).find(c => c.id === s.categoryId)!; const city = (await region(v.baseRegionId))!;
+  const trads = (await traditions()).filter(t => s.traditionIds.includes(t.id));
   return (
     <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 md:px-8 lg:grid-cols-[1fr_400px] lg:py-16">
       <div>

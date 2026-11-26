@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { currentUser } from "@/lib/auth";
 import { Tray } from "@phosphor-icons/react/dist/ssr";
 import { categories, countries, region, vendorBookings, vendorByHandle, vendorItems } from "@/lib/data";
 import { money, niceDate } from "@/lib/format";
@@ -10,15 +11,16 @@ export const metadata = { title: "Vendor dashboard" };
 const pill = { requested: "bg-caramel text-caramel-on", accepted: "bg-sage text-success", declined: "bg-blush text-danger", cancelled: "bg-latte text-muted", completed: "bg-latte text-ink" } as const;
 
 export default async function Dashboard({ params, searchParams }: { params: Promise<{ handle: string }>; searchParams: Promise<{ welcome?: string }> }) {
-  const v = vendorByHandle((await params).handle); if (!v) notFound();
+  const handle = (await params).handle;
+  const user = await currentUser(); if (!user) redirect(`/signin?next=/vendor/${handle}`);
+  const v = await vendorByHandle(handle); if (!v || v.ownerId !== user.id) notFound();
   const welcome = (await searchParams).welcome === "1";
-  const city = region(v.baseRegionId)!; const cur = countries().find(c => c.code === city.countryCode)!.currency;
-  const bookings = vendorBookings(v.id); const { services, equipment } = vendorItems(v.id);
+  const city = (await region(v.baseRegionId))!; const cur = (await countries()).find(c => c.code === city.countryCode)!.currency;
+  const bookings = (await vendorBookings(v.id, user.id)) ?? []; const { services, equipment } = await vendorItems(v.id); const cats = await categories();
   const open = bookings.filter(b => b.status === "requested").length;
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:px-8 md:py-14">
       {welcome && <p role="status" className="mb-8 rounded-2xl bg-sage px-5 py-4 text-success">Your profile is live at <Link href={`/v/${v.handle}`} className="font-semibold underline">/v/{v.handle}</Link>. Add your first listing below. We will verify your business before the badge appears.</p>}
-      <p className="rounded-2xl border border-dashed border-line px-4 py-2 text-xs text-muted">Preview: sign-in is added in the next build step, so this dashboard is open to anyone with the link.</p>
       <div className="mt-6 flex flex-wrap items-end justify-between gap-4">
         <div><p className="eyebrow">Dashboard</p><h1 className="mt-2 font-display text-4xl">{v.businessName}</h1><p className="mt-1 text-sm text-muted">{city.name} · {v.verification === "verified" ? "Verified" : "Verification pending"}</p></div>
         <Link href={`/v/${v.handle}`} className="btn-line">View public profile</Link>
@@ -45,7 +47,7 @@ export default async function Dashboard({ params, searchParams }: { params: Prom
           )}
         </section>
         <section aria-labelledby="add" className="card h-fit p-6"><h2 id="add" className="font-display text-2xl">Add a listing</h2><p className="mb-5 mt-1 text-sm text-muted">A service package, or gear you rent out.</p>
-          <AddListingForm handle={v.handle} categories={categories().map(c => ({ id: c.id, name: c.name, kind: c.kind }))} currency={cur} />
+          <AddListingForm handle={v.handle} categories={cats.map(c => ({ id: c.id, name: c.name, kind: c.kind }))} currency={cur} />
         </section>
       </div>
     </div>

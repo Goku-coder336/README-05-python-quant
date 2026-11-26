@@ -18,9 +18,9 @@ Reviews gated behind login,profile,should,yes,no,Trade: deal ratings visible to 
 WhatsApp chat link,contact,must,yes,no,Trade: WhatsApp + in-platform messaging
 Quick enquiry form,contact,must,yes,yes,Trade: send quote / RFQ response
 Cart + 50% advance online payment,contact,could,yes,no,Trade: replace with subscription paywall; no goods checkout
-Customer account / sign-in,auth,must,yes,no,Phone OTP likely
+Customer account / sign-in,auth,must,yes,yes,Email code sign-in; phone OTP needs an SMS provider
 Vendor onboarding by WhatsApp number,supply,must,yes,yes,Trade: buyer + supplier onboarding with company verification
-Vendor dashboard: packages/orders/invoices,supply,must,yes,partial,Trade: requirements / enquiries / leads inbox
+Vendor dashboard: packages/orders/invoices,supply,must,yes,partial,Owner-only; invoices not yet
 Register-as-vendor CTA,supply,must,yes,yes,Trade: list free as a buyer
 Invitation site add-on,extras,skip,yes,no,Not relevant; replace with export toolkit
 Hashtag generator add-on,extras,skip,yes,no,Not relevant

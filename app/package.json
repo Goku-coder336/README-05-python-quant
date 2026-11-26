@@ -6,16 +6,22 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:migrate": "node --env-file=.env.local scripts/migrate.mjs",
+    "db:seed": "node --env-file=.env.local scripts/seed.ts",
+    "db:reset": "npm run db:migrate && npm run db:seed"
   },
   "dependencies": {
     "@phosphor-icons/react": "2.1.7",
     "next": "^15.5.29",
+    "pg": "^8.16.0",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "22.15.21",
+    "@types/pg": "^8.15.2",
     "@types/react": "19.1.6",
     "@types/react-dom": "19.1.5",
     "autoprefixer": "10.4.21",

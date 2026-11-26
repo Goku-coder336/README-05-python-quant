@@ -13,7 +13,7 @@ App: `app/` (Next.js 15.5, Tailwind, Beige and Brown tokens). Data layer is a JS
 | Equipment `/e/[id]` | 2026-11-26 | done | Date range, per-unit availability, deposit shown; overlapping booking blocked. |
 | Booking sent `/bookings/[id]` | 2026-11-26 | done | Shows price, tax, deposit. No payment yet. |
 | Vendor join `/vendor/join` | 2026-11-26 | done | Validation and errors. No phone OTP yet. |
-| Vendor dashboard `/vendor/[handle]` | 2026-11-26 | partial | Accept or decline, add service or gear. **No sign-in yet: open to anyone with the link.** |
+| Vendor dashboard `/vendor/[handle]` | 2026-11-26 | partial | Owner-only (sign-in added). Accept or decline, add service or gear. No invoices yet. |
 | Customer event planner (checklist by tradition) | | not started | Milestone 2. |
 
 Harder than expected: nothing major. The "intimate" filter currently shows all rentals alongside small packages; gear needs its own guest-size field.
