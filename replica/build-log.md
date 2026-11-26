@@ -21,3 +21,7 @@ App: `app/` (Next.js 15.5, Tailwind, Beige and Brown tokens). Data layer is a JS
 
 Harder than expected: nothing major. The "intimate" filter currently shows all rentals alongside small packages; gear needs its own guest-size field.
 Verified: full journey in a browser at 390px and 1440px (vendor joins, lists gear, customer books, overlap blocked, vendor accepts), no console errors, no sideways scroll, skip link first in tab order, 404 page.
+| Admin `/admin` | 2026-11-27 | done | Overview, waitlist demand by city, recent admin actions. Admin-only (others get 404). Make an admin with `npm run make-admin -- email`. |
+| Admin vendors `/admin/vendors` | 2026-11-27 | done | Review list, verify or remove badge with a private note; every action logged. |
+| Admin waitlist `/admin/waitlist` | 2026-11-27 | done | By city and role, latest sign-ups, CSV download with spreadsheet formula injection blocked. |
+| Admin checklists `/admin/templates` | 2026-11-27 | done | Edit, add and delete checklist items per tradition; budget share total shown. New plans use the changes. |
