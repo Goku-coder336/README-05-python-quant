@@ -14,7 +14,7 @@ SHOTS = [
     ("pic", f"{D}/s7_stare.jpg", 14.8, 2.2, "stare"),
     ("black", None, 17.0, 0.45, ""),
     ("pic", f"{D}/s8_godmode.jpg", 17.45, 2.15, "god"),
-    ("aero", f"{D}/clip_aeroplane_angry.mp4", 19.6, 7.5, ""),
+    ("aero", f"{D}/clip_aeroplane_lolli.mp4", 19.6, 7.5, ""),
 ]
 TOTAL = 27.1
 args, f = [], []
