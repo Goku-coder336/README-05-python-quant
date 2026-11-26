@@ -9,6 +9,9 @@ import { AddListingForm } from "@/components/AddListingForm";
 import { PhotoManager } from "@/components/PhotoManager";
 import { MAX_PER_OWNER, photosFor } from "@/lib/media";
 import { unitLabel } from "@/lib/format";
+import { vendorReviews } from "@/lib/reviews";
+import { Stars } from "@/components/Stars";
+import { replyReviewAction } from "@/app/actions";
 
 export const metadata = { title: "Vendor dashboard" };
 const pill = { requested: "bg-caramel text-caramel-on", accepted: "bg-sage text-success", declined: "bg-blush text-danger", cancelled: "bg-latte text-muted", completed: "bg-latte text-ink" } as const;
@@ -20,7 +23,7 @@ export default async function Dashboard({ params, searchParams }: { params: Prom
   const welcome = (await searchParams).welcome === "1";
   const city = (await region(v.baseRegionId))!; const cur = (await countries()).find(c => c.code === city.countryCode)!.currency;
   const bookings = (await vendorBookings(v.id, user.id)) ?? []; const { services, equipment } = await vendorItems(v.id); const cats = await categories();
-  const portfolio = await photosFor("vendor", v.id);
+  const portfolio = await photosFor("vendor", v.id); const revs = await vendorReviews(v.id, true);
   const listingPhotos = new Map(await Promise.all([...services.map(s => ["service", s.id] as const), ...equipment.map(e => ["equipment", e.id] as const)].map(async ([k, id]) => [id, await photosFor(k, id)] as const)));
   const open = bookings.filter(b => b.status === "requested").length;
   return (
@@ -33,6 +36,18 @@ export default async function Dashboard({ params, searchParams }: { params: Prom
       <div className="mt-8 grid grid-cols-3 gap-3">
         {[["New requests", open], ["Listings", services.length + equipment.length], ["All bookings", bookings.length]].map(([k, n]) => <div key={k} className="card p-4"><p className="text-xs text-muted">{k}</p><p className="mt-1 font-display text-3xl">{n}</p></div>)}
       </div>
+      <section className="mt-10" aria-labelledby="rvs"><h2 id="rvs" className="font-display text-2xl">Reviews {revs.length > 0 && <span className="ml-1 align-middle text-base font-normal text-muted">{v.ratingAvg.toFixed(1)} average</span>}</h2>
+        {revs.length === 0 ? <p className="mt-2 text-sm text-muted">Customers can review you after their event. A short thank-you reply helps future customers trust you.</p> :
+        <ul className="mt-4 grid gap-3">{revs.map(r => (
+          <li key={r.id} className={`card p-5 ${r.hidden ? "opacity-60" : ""}`}>
+            <div className="flex flex-wrap items-center justify-between gap-2"><span className="flex items-center gap-2"><Stars value={r.rating} /><span className="font-medium">{r.authorName}</span><span className="text-sm text-muted">· {r.itemTitle}</span></span>{r.hidden && <span className="badge bg-blush text-danger">Hidden by Utsella</span>}</div>
+            {r.body && <p className="mt-2">{r.body}</p>}
+            <form action={replyReviewAction} className="mt-3 grid gap-2"><input type="hidden" name="reviewId" value={r.id} /><input type="hidden" name="handle" value={v.handle} />
+              <label className="text-sm font-medium" htmlFor={`rp-${r.id}`}>{r.vendorReply ? "Your public reply" : "Reply publicly"}</label>
+              <textarea id={`rp-${r.id}`} name="reply" maxLength={600} defaultValue={r.vendorReply ?? ""} className="input h-20 py-2 text-sm" placeholder="Thank you, it was lovely working with your family." />
+              <button className="btn-line w-fit !py-2">{r.vendorReply ? "Update reply" : "Post reply"}</button></form>
+          </li>))}</ul>}
+      </section>
       <section className="card mt-10 p-6" aria-labelledby="pf"><h2 id="pf" className="font-display text-2xl">Portfolio</h2><p className="mb-4 mt-1 text-sm text-muted">Your best work. Shown on your public profile.</p>
         <PhotoManager kind="vendor" ownerId={v.id} handle={v.handle} photos={portfolio} max={MAX_PER_OWNER.vendor} label="Portfolio" /></section>
       {services.length + equipment.length > 0 && <section className="mt-10" aria-labelledby="ls"><h2 id="ls" className="font-display text-2xl">Your listings</h2>

@@ -75,3 +75,12 @@ export async function createTemplateAction(_: CatState, f: FormData): Promise<Ca
   if ("error" in r) return { error: r.error };
   redirect(`/admin/templates/${r.id}?new=1`);
 }
+
+export async function hideReviewAction(f: FormData) {
+  const a = await admin.requireAdmin();
+  const hidden = f.get("hidden") === "1"; const id = String(f.get("reviewId")); const reason = String(f.get("reason") ?? "").slice(0, 60);
+  const { setHidden } = await import("@/lib/reviews");
+  await setHidden(id, hidden, reason);
+  await (await import("@/lib/db")).pool.query(`insert into admin_log (admin_id, action, target, detail) values ($1,$2,$3,$4)`, [a.id, hidden ? "review.hide" : "review.show", id, { reason }]);
+  revalidatePath("/admin/reviews");
+}

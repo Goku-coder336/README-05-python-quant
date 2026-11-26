@@ -5,7 +5,8 @@ import { z } from "zod";
 import * as data from "@/lib/data";
 import * as planner from "@/lib/planner";
 import * as media from "@/lib/media";
-import { notifyBooking } from "@/lib/notify";
+import { notifyBooking, notifyReview } from "@/lib/notify";
+import * as reviews from "@/lib/reviews";
 import { currentUser, deleteAccount, requestCode, signOut, verifyCode } from "@/lib/auth";
 import { limited } from "@/lib/ratelimit";
 
@@ -223,4 +224,28 @@ export async function cancelBookingAction(f: FormData) {
   const id = String(f.get("bookingId"));
   if (await data.cancelBooking(id, user.id)) await notifyBooking(id, ["booking.cancelled.vendor"]);
   revalidatePath("/my/bookings"); revalidatePath(`/bookings/${id}`);
+}
+
+// ---------- reviews ----------
+export type ReviewState = { error?: string; ok?: boolean };
+const ReviewInput = z.object({ bookingId: z.string().min(1), rating: z.coerce.number().int().min(1, "Choose a star rating.").max(5), body: z.string().trim().max(1000, "Keep it under 1,000 characters.").optional().default("") });
+
+export async function reviewAction(_: ReviewState, f: FormData): Promise<ReviewState> {
+  const user = await currentUser(); if (!user) return { error: "Sign in again to leave a review." };
+  if (await limited("review", 20, 3600_000)) return { error: "Too many attempts. Try again later." };
+  const p = ReviewInput.safeParse({ bookingId: f.get("bookingId"), rating: f.get("rating") ?? 0, body: f.get("body") ?? "" });
+  if (!p.success) return { error: p.error.issues[0]?.message };
+  const r = await reviews.createReview(user.id, p.data.bookingId, p.data.rating, p.data.body);
+  if (!r) return { error: "This booking cannot be reviewed. Reviews open after the event date, once per booking." };
+  await notifyReview(r.id);
+  // No revalidatePath: in Next.js it also refreshes the current page, which would unmount this form
+  // before its thank-you shows. Vendor pages render fresh on every request, so nothing goes stale.
+  return { ok: true };
+}
+
+export async function replyReviewAction(f: FormData) {
+  const user = await currentUser(); if (!user) redirect("/signin");
+  const reply = String(f.get("reply") ?? "").trim().slice(0, 600);
+  await reviews.replyToReview(user.id, String(f.get("reviewId")), reply);
+  revalidatePath(`/vendor/${String(f.get("handle"))}`);
 }

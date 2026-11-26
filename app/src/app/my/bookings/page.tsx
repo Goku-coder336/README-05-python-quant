@@ -5,6 +5,10 @@ import { currentUser } from "@/lib/auth";
 import { customerBookings } from "@/lib/data";
 import { money, niceDate } from "@/lib/format";
 import { cancelBookingAction } from "@/app/actions";
+import { myReviews, reviewable } from "@/lib/reviews";
+import { ReviewForm } from "@/components/ReviewForm";
+import { Stars } from "@/components/Stars";
+import { Star } from "@phosphor-icons/react/dist/ssr";
 export const metadata = { title: "My bookings" };
 const label = { requested: "Waiting for vendor", accepted: "Confirmed", declined: "Declined", cancelled: "Cancelled", completed: "Completed" } as const;
 const pill = { requested: "bg-caramel text-caramel-on", accepted: "bg-brown text-brown-on", declined: "bg-blush text-danger", cancelled: "bg-sand text-muted", completed: "bg-sage text-success" } as const;
@@ -12,7 +16,10 @@ const pill = { requested: "bg-caramel text-caramel-on", accepted: "bg-brown text
 export default async function MyBookings() {
   const u = await currentUser(); if (!u) redirect("/signin?next=/my/bookings");
   const list = await customerBookings(u.id);
-  const open = list.filter(b => b.status === "requested" || b.status === "accepted"); const past = list.filter(b => !open.includes(b));
+  const canReview = new Set((await reviewable(u.id)).map(r => r.bookingId)); const mine = new Map((await myReviews(u.id)).map(r => [r.bookingId, r]));
+  const starIcons = { on: <Star size={28} weight="fill" aria-hidden />, off: <Star size={28} aria-hidden /> };
+  const today = new Date().toISOString().slice(0, 10);
+  const open = list.filter(b => (b.status === "requested" || b.status === "accepted") && b.endsOn >= today); const past = list.filter(b => !open.includes(b));
   const Row = ({ b }: { b: (typeof list)[number] }) => (
     <li className="card p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -21,7 +28,9 @@ export default async function MyBookings() {
           <p className="mt-1 text-sm font-semibold">{money(b.subtotalMinor, b.currency)}{b.depositMinor > 0 && <span className="font-normal text-muted"> + {money(b.depositMinor, b.currency)} refundable deposit</span>}</p></div>
         <span className={`badge ${pill[b.status]}`}>{label[b.status]}</span>
       </div>
-      {(b.status === "requested" || b.status === "accepted") && (
+      {canReview.has(b.id) && <div className="mt-4"><ReviewForm bookingId={b.id} vendorName={b.vendorName} starIcons={starIcons} /></div>}
+      {mine.get(b.id) && <p className="mt-3 flex items-center gap-2 text-sm text-muted">You rated <Stars value={mine.get(b.id)!.rating} /></p>}
+      {(b.status === "requested" || b.status === "accepted") && b.endsOn >= today && (
         <div className="mt-4 flex flex-wrap gap-2">
           {b.status === "accepted" && <a className="btn-line !py-2" href={`https://wa.me/${b.vendorPhone.replace("+", "")}`}><WhatsappLogo size={16} aria-hidden />Message {b.vendorName}</a>}
           <form action={cancelBookingAction}><input type="hidden" name="bookingId" value={b.id} /><button className="btn !py-2 text-muted hover:bg-sand">{b.status === "requested" ? "Withdraw request" : "Cancel booking"}</button></form>

@@ -7,6 +7,8 @@ import { BookForm } from "@/components/BookForm";
 import { SaveToEvent } from "@/components/SaveToEvent";
 import { Gallery } from "@/components/Gallery";
 import { photosFor } from "@/lib/media";
+import { listingReviews } from "@/lib/reviews";
+import { ReviewList } from "@/components/ReviewList";
 import { currentUser } from "@/lib/auth";
 import { itemContext, myEvents } from "@/lib/planner";
 
@@ -29,6 +31,7 @@ export default async function EquipmentPage({ params, searchParams }: { params: 
           <p className="card flex gap-3 p-4 text-sm"><ShieldCheck size={22} className="shrink-0 text-brown" aria-hidden />Deposit of {money(e.depositMinor, e.currency)} is held, then released after the gear is returned and checked.</p>
           {e.needsOperator && <p className="card flex gap-3 p-4 text-sm"><Wrench size={22} className="shrink-0 text-brown" aria-hidden />Comes with a technician who sets up and runs it.</p>}
         </div>
+        <section className="mt-12" aria-labelledby="lr"><h2 id="lr" className="font-display text-2xl">Reviews of this rental</h2><ReviewList reviews={await listingReviews(e.id)} vendorName={v.businessName} empty="No reviews for this one yet." /></section>
       </div>
       <aside className="card h-fit p-6 lg:sticky lg:top-24" aria-label="Request a rental">
         <p className="text-2xl font-semibold">{money(e.dayRateMinor, e.currency)} <span className="text-base font-normal text-muted">per day</span></p>

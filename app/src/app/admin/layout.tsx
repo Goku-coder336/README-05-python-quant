@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireAdmin } from "@/lib/admin";
 export const metadata = { title: { default: "Admin", template: "%s | Utsella admin" }, robots: { index: false } };
-const nav = [["/admin", "Overview"], ["/admin/vendors", "Vendors"], ["/admin/waitlist", "Waitlist"], ["/admin/catalogue", "Event types and categories"], ["/admin/templates", "Checklists"]];
+const nav = [["/admin", "Overview"], ["/admin/vendors", "Vendors"], ["/admin/waitlist", "Waitlist"], ["/admin/catalogue", "Event types and categories"], ["/admin/templates", "Checklists"], ["/admin/reviews", "Reviews"]];
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const a = await requireAdmin();
   return (

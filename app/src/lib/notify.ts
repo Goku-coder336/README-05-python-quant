@@ -71,4 +71,14 @@ export async function processOutbox(limit = 20) {
   return { sent, failed };
 }
 
+/** Tells the vendor a new review arrived. Uses the outbox like booking messages. */
+export async function notifyReview(reviewId: string) {
+  const r = await one<{ to: string | null; handle: string; rating: number; item: string; author: string; booking: string }>(`select u.email as to, v.handle, rv.rating, b.item_title as item, rv.author_name as author, b.id as booking
+    from reviews rv join vendors v on v.id = rv.vendor_id join bookings b on b.id = rv.booking_id left join users u on u.id = v.owner_id where rv.id = $1`, [reviewId]);
+  if (!r?.to) return;
+  await pool.query(`insert into notifications (to_address, subject, body, kind, booking_id) values ($1,$2,$3,'review.new',$4) on conflict do nothing`,
+    [r.to, `New ${r.rating}-star review from ${r.author}`, `${r.author} reviewed ${r.item} (${r.rating} of 5 stars).\n\nRead it and reply publicly from your dashboard: ${APP()}/vendor/${r.handle}\n\nUtsella`, r.booking]);
+  void processOutbox().catch(() => {});
+}
+
 export const outboxStats = () => q<{ status: string; n: number }>(`select status, count(*)::int as n from notifications group by status`);

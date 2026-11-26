@@ -7,6 +7,8 @@ import { BookForm } from "@/components/BookForm";
 import { SaveToEvent } from "@/components/SaveToEvent";
 import { Gallery } from "@/components/Gallery";
 import { photosFor } from "@/lib/media";
+import { listingReviews } from "@/lib/reviews";
+import { ReviewList } from "@/components/ReviewList";
 import { currentUser } from "@/lib/auth";
 import { itemContext, myEvents } from "@/lib/planner";
 
@@ -31,6 +33,7 @@ export default async function ServicePage({ params, searchParams }: { params: Pr
           {s.styles.map(x => <span key={x} className="chip capitalize">{x}</span>)}
           {trads.map(t => <span key={t.id} className="chip">{t.name}</span>)}
         </div>
+        <section className="mt-12" aria-labelledby="lr"><h2 id="lr" className="font-display text-2xl">Reviews of this package</h2><ReviewList reviews={await listingReviews(s.id)} vendorName={v.businessName} empty="No reviews for this one yet." /></section>
       </div>
       <aside className="card h-fit p-6 lg:sticky lg:top-24" aria-label="Request a booking">
         <p className="text-2xl font-semibold">{money(s.priceMinor, s.currency)} <span className="text-base font-normal text-muted">{unitLabel[s.priceUnit]}</span></p>
