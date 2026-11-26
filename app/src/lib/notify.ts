@@ -81,4 +81,19 @@ export async function notifyReview(reviewId: string) {
   void processOutbox().catch(() => {});
 }
 
+/** Asks customers to review once their event is over: accepted or completed bookings that ended 1 to 30 days ago
+ * with no review yet. The unique outbox index means each booking gets at most one reminder, however often this runs. */
+export async function queueReviewReminders() {
+  const r = await pool.query(`insert into notifications (to_address, subject, body, kind, booking_id)
+    select cu.email, 'How was ' || v.business_name || '?',
+      'We hope ' || b.item_title || ' went well.' || E'\n\n' || 'A short review helps other families choose, and helps ' || v.business_name || ' get more bookings. Only customers with a real booking can review, so yours counts.'
+        || E'\n\n' || 'Leave a review: ' || $1 || '/my/bookings' || E'\n\nUtsella',
+      'review.reminder', b.id
+    from bookings b join vendors v on v.id = b.vendor_id join users cu on cu.id = b.customer_id
+    where b.status in ('accepted','completed') and b.ends_on < current_date and b.ends_on >= current_date - 30
+      and not exists (select 1 from reviews rv where rv.booking_id = b.id)
+    on conflict do nothing`, [APP()]);
+  return r.rowCount ?? 0;
+}
+
 export const outboxStats = () => q<{ status: string; n: number }>(`select status, count(*)::int as n from notifications group by status`);

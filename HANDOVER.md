@@ -24,7 +24,7 @@ An all-in-one marketplace for **any kind of event** (weddings, pujas, conference
 Landing page (customer and vendor paths, multi-city waitlist saved to the database) · cities and categories by country with local currency and tax · vendor profiles, service and gear pages with photo galleries · booking requests with database-enforced double-booking protection · email-code sign-in, sign out everywhere, account deletion · event planner for 34 occasions with tradition checklists, shortlist, budget, bookings ticking items off · My bookings with cancel and WhatsApp once confirmed · booking emails through an outbox with retries · photo uploads (re-encoded, GPS removed) · verified-booking reviews with vendor replies and moderation · admin: overview, vendor verification, waitlist by city with CSV, checklist editor, event types, categories and traditions, reviews · draft legal pages (terms, privacy, refunds, contact) with placeholders.
 
 ## Not built yet
-Online payments (Razorpay Route in India, Stripe Connect abroad) · review reminder email · vendor availability calendars · WhatsApp alerts (needs Meta approval) · phone OTP (needs SMS provider) · deployment (Supabase, Vercel, Resend, cron for the email retry job) · Next.js 16 upgrade for a build-tool security advisory.
+Online payments (Razorpay Route in India, Stripe Connect abroad) · vendor availability calendars · WhatsApp alerts (needs Meta approval) · phone OTP (needs SMS provider) · deployment (Supabase, Vercel, Resend, cron for the email retry job) · Next.js 16 upgrade for a build-tool security advisory.
 
 ## Waiting on the owner
 1. Utsella name checks: UK and India trademarks (classes 35, 41, 42), WIPO, MCA, domains, social handles; ideally a trademark attorney.
