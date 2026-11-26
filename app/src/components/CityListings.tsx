@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { categories, category as getCategory, city as getCity, country as getCountry, listings, traditions } from "@/lib/data";
 import { CategoryIcon } from "./Icon";
 import { ListingCard } from "./ListingCard";
+import { coversFor } from "@/lib/media";
 
 type SP = { intimate?: string; tradition?: string; for?: string };
 
@@ -15,6 +16,7 @@ export async function CityListings({ countryCode, citySlug, categorySlug, sp }: 
   const trad = allTrads.find(t => t.slug === sp.tradition);
   const intimate = sp.intimate === "1";
   const items = await listings({ cityId: city.id, categoryId: cat?.id, intimate, traditionId: trad?.id });
+  const covers = await coversFor(items.map(l => ({ kind: l.kind, id: l.item.id })));
   const base = `/${countryCode}/${citySlug}`;
   const here = cat ? `${base}/${cat.slug}` : base;
   const q = (next: Partial<SP>) => {
@@ -57,7 +59,7 @@ export async function CityListings({ countryCode, citySlug, categorySlug, sp }: 
         </div>
       ) : (
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(l => <div key={l.item.id} className="relative"><ListingCard l={l} forItem={sp.for} /></div>)}
+          {items.map(l => <div key={l.item.id} className="relative"><ListingCard l={l} forItem={sp.for} cover={covers.get(l.item.id)} /></div>)}
         </div>
       )}
     </div>

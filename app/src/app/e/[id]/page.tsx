@@ -5,6 +5,8 @@ import { categories, equipmentItem, region, vendorById } from "@/lib/data";
 import { money } from "@/lib/format";
 import { BookForm } from "@/components/BookForm";
 import { SaveToEvent } from "@/components/SaveToEvent";
+import { Gallery } from "@/components/Gallery";
+import { photosFor } from "@/lib/media";
 import { currentUser } from "@/lib/auth";
 import { itemContext, myEvents } from "@/lib/planner";
 
@@ -20,7 +22,7 @@ export default async function EquipmentPage({ params, searchParams }: { params: 
         <p className="text-sm text-muted">{cat.name} · {city.name}</p>
         <h1 className="mt-2 font-display text-4xl md:text-5xl">{e.title}</h1>
         <p className="mt-3 text-sm">from <Link href={`/v/${v.handle}`} className="font-medium hover:underline">{v.businessName}</Link></p>
-        <div className="mt-8 h-64 rounded-3xl bg-espresso md:h-80" role="img" aria-label="Equipment photos appear here once the owner uploads them" />
+        <div className="mt-8"><Gallery photos={await photosFor("equipment", e.id)} title={e.title} dark /></div>
         <p className="mt-8 text-lg leading-relaxed">{e.description}</p>
         {Object.keys(e.specs).length > 0 && <dl className="mt-8 grid grid-cols-2 gap-3">{Object.entries(e.specs).map(([k, val]) => <div key={k} className="card p-4"><dt className="text-xs text-muted">{k}</dt><dd className="font-medium">{val}</dd></div>)}</dl>}
         <div className="mt-8 grid gap-3 sm:grid-cols-2">

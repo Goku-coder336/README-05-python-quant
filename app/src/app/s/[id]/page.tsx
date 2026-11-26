@@ -5,6 +5,8 @@ import { categories, region, service, traditions, vendorById } from "@/lib/data"
 import { money, unitLabel } from "@/lib/format";
 import { BookForm } from "@/components/BookForm";
 import { SaveToEvent } from "@/components/SaveToEvent";
+import { Gallery } from "@/components/Gallery";
+import { photosFor } from "@/lib/media";
 import { currentUser } from "@/lib/auth";
 import { itemContext, myEvents } from "@/lib/planner";
 
@@ -21,7 +23,7 @@ export default async function ServicePage({ params, searchParams }: { params: Pr
         <p className="text-sm text-muted">{cat.name} · {city.name}</p>
         <h1 className="mt-2 font-display text-4xl md:text-5xl">{s.title}</h1>
         <p className="mt-3 text-sm">by <Link href={`/v/${v.handle}`} className="font-medium underline-offset-4 hover:underline">{v.businessName}</Link>{v.verification === "verified" && <span className="badge ml-2 bg-sage text-success"><SealCheck size={12} weight="fill" aria-hidden />Verified</span>}</p>
-        <div className="mt-8 h-64 rounded-3xl bg-latte md:h-80" role="img" aria-label="Portfolio photos appear here once the vendor uploads them" />
+        <div className="mt-8"><Gallery photos={await photosFor("service", s.id)} title={s.title} /></div>
         <p className="mt-8 text-lg leading-relaxed">{s.description}</p>
         {s.included.length > 0 && <><h2 className="mt-10 font-display text-2xl">What is included</h2><ul className="mt-4 grid gap-2">{s.included.map(i => <li key={i} className="flex gap-2"><CheckCircle size={20} weight="fill" className="mt-0.5 shrink-0 text-brown" aria-hidden />{i}</li>)}</ul></>}
         <div className="mt-10 flex flex-wrap gap-2">

@@ -16,13 +16,14 @@ App code: `app/`. Database: Postgres (Supabase in production, local Postgres 16 
 | Phone OTP (SMS) | Needs an SMS provider account (MSG91 or Twilio for India, Twilio for UAE). The sign-in module is ready for a second channel. | not started |
 | Payments | Razorpay (India) and Stripe (UAE, UK) in test mode: advance on acceptance, deposit hold for rentals, webhooks. Needs your test keys. | not started |
 | Booking emails / WhatsApp alerts | Resend for email; WhatsApp Business Cloud API needs Meta business verification (allow 1 to 2 weeks, start early) | not started |
-| Photo uploads | Supabase Storage bucket, size and type limits | not started |
+| Photo uploads | Vendor portfolio (12) and per listing (10). Checked by file content not name, 8 MB limit, 6 per upload, rate limited. Every photo is re-encoded to WebP at most 1600 px and **all metadata including GPS location is removed**. Stored in Supabase Storage (public bucket on its own domain); local folder in development. Owner-only delete and cover. | done |
 
 ## What you need to create (Claude does not sign up or handle keys)
 1. **Supabase project** (free tier is fine to start). Copy the Postgres connection string into `app/.env.local` as `DATABASE_URL`, set `DATABASE_SSL=true`, then run `npm run db:migrate` and `npm run db:seed`. Check daily backups are on in the dashboard.
 2. **Resend account** with your domain verified. Put the key in `RESEND_API_KEY` and set `EMAIL_FROM`. Without it, production sign-in refuses to start rather than silently failing.
-3. `SESSION_SECRET`: run `openssl rand -hex 32`.
-4. Later: Razorpay and Stripe test keys, an SMS provider, and a Meta business account for WhatsApp.
+3. **Supabase Storage:** create a public bucket called `media`, then set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (keep the service key secret).
+4. `SESSION_SECRET`: run `openssl rand -hex 32`.
+5. Later: Razorpay and Stripe test keys, an SMS provider, and a Meta business account for WhatsApp.
 
 Every variable is listed in `app/.env.example`. `.env*` files are git-ignored (checked with `git check-ignore`).
 
@@ -32,7 +33,7 @@ Every variable is listed in `app/.env.example`. `.env*` files are git-ignored (c
 - [x] authorisation checked on every vendor read and write, tested with a second user
 - [x] rate limits on code requests, code checks, bookings and waitlist (per-IP limiter is per server instance; move to a shared store before running several instances)
 - [ ] webhooks verify signatures (no webhooks yet; required with payments)
-- [ ] uploads: size and type limits, separate bucket (no uploads yet)
+- [x] uploads: content-sniffed type, size and count limits, re-encoded with metadata stripped, served from a separate bucket domain; local route rejects path tricks (tested)
 - [x] no personal data in URLs or logs (dev-only code logging is disabled in production)
 - [~] dependencies audited: fixed `sharp` and moved to `zod` 4. **Open:** a PostCSS advisory inside Next.js 15's build tooling; the fix is Next.js 16, a major upgrade to schedule. It affects CSS processing at build time, not visitor requests.
 - [ ] privacy policy lists processors (Supabase, Resend, Razorpay, Stripe, Meta, host)

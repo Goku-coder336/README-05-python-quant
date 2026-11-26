@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import * as data from "@/lib/data";
 import * as planner from "@/lib/planner";
+import * as media from "@/lib/media";
 import { currentUser, deleteAccount, requestCode, signOut, verifyCode } from "@/lib/auth";
 import { limited } from "@/lib/ratelimit";
 
@@ -184,4 +185,31 @@ export async function unsaveAction(f: FormData) {
 export async function deleteEventAction(f: FormData) {
   const user = await currentUser(); if (!user) redirect("/signin");
   await planner.deleteEvent(String(f.get("eventId")), user.id); redirect("/my/events");
+}
+
+// ---------- photos ----------
+export type PhotoState = { error?: string; ok?: string };
+const Owner = z.enum(["vendor", "service", "equipment"]);
+
+export async function uploadPhotosAction(_: PhotoState, f: FormData): Promise<PhotoState> {
+  const user = await currentUser(); if (!user) return { error: "Your session ended. Sign in again." };
+  if (await limited("upload", 60, 3600_000)) return { error: "Too many uploads. Try again later." };
+  const kind = Owner.safeParse(f.get("kind")); if (!kind.success) return { error: "Something went wrong." };
+  const files = f.getAll("photos").filter((x): x is File => x instanceof File && x.size > 0);
+  if (!files.length) return { error: "Choose at least one photo." };
+  if (files.length > 6) return { error: "Upload up to 6 photos at a time." };
+  const r = await media.uploadPhotos(user.id, kind.data, String(f.get("ownerId")), files);
+  revalidatePath(`/vendor/${String(f.get("handle"))}`);
+  if (!r.added) return { error: r.errors.join(" ") || "No photos were added." };
+  return { ok: `${r.added} photo${r.added === 1 ? "" : "s"} added.${r.errors.length ? " " + r.errors.join(" ") : ""}` };
+}
+
+export async function deletePhotoAction(f: FormData) {
+  const user = await currentUser(); if (!user) redirect("/signin");
+  await media.deletePhoto(user.id, String(f.get("mediaId"))); revalidatePath(`/vendor/${String(f.get("handle"))}`);
+}
+
+export async function coverPhotoAction(f: FormData) {
+  const user = await currentUser(); if (!user) redirect("/signin");
+  await media.makeCover(user.id, String(f.get("mediaId"))); revalidatePath(`/vendor/${String(f.get("handle"))}`);
 }

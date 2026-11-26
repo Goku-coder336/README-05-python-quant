@@ -6,6 +6,9 @@ import { categories, countries, region, vendorBookings, vendorByHandle, vendorIt
 import { money, niceDate } from "@/lib/format";
 import { decideBooking } from "@/app/actions";
 import { AddListingForm } from "@/components/AddListingForm";
+import { PhotoManager } from "@/components/PhotoManager";
+import { MAX_PER_OWNER, photosFor } from "@/lib/media";
+import { unitLabel } from "@/lib/format";
 
 export const metadata = { title: "Vendor dashboard" };
 const pill = { requested: "bg-caramel text-caramel-on", accepted: "bg-sage text-success", declined: "bg-blush text-danger", cancelled: "bg-latte text-muted", completed: "bg-latte text-ink" } as const;
@@ -17,6 +20,8 @@ export default async function Dashboard({ params, searchParams }: { params: Prom
   const welcome = (await searchParams).welcome === "1";
   const city = (await region(v.baseRegionId))!; const cur = (await countries()).find(c => c.code === city.countryCode)!.currency;
   const bookings = (await vendorBookings(v.id, user.id)) ?? []; const { services, equipment } = await vendorItems(v.id); const cats = await categories();
+  const portfolio = await photosFor("vendor", v.id);
+  const listingPhotos = new Map(await Promise.all([...services.map(s => ["service", s.id] as const), ...equipment.map(e => ["equipment", e.id] as const)].map(async ([k, id]) => [id, await photosFor(k, id)] as const)));
   const open = bookings.filter(b => b.status === "requested").length;
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:px-8 md:py-14">
@@ -28,6 +33,14 @@ export default async function Dashboard({ params, searchParams }: { params: Prom
       <div className="mt-8 grid grid-cols-3 gap-3">
         {[["New requests", open], ["Listings", services.length + equipment.length], ["All bookings", bookings.length]].map(([k, n]) => <div key={k} className="card p-4"><p className="text-xs text-muted">{k}</p><p className="mt-1 font-display text-3xl">{n}</p></div>)}
       </div>
+      <section className="card mt-10 p-6" aria-labelledby="pf"><h2 id="pf" className="font-display text-2xl">Portfolio</h2><p className="mb-4 mt-1 text-sm text-muted">Your best work. Shown on your public profile.</p>
+        <PhotoManager kind="vendor" ownerId={v.id} handle={v.handle} photos={portfolio} max={MAX_PER_OWNER.vendor} label="Portfolio" /></section>
+      {services.length + equipment.length > 0 && <section className="mt-10" aria-labelledby="ls"><h2 id="ls" className="font-display text-2xl">Your listings</h2>
+        <ul className="mt-4 grid gap-3">{[...services.map(s => ({ kind: "service" as const, id: s.id, title: s.title, price: `${money(s.priceMinor, s.currency)} ${unitLabel[s.priceUnit]}` })), ...equipment.map(e => ({ kind: "equipment" as const, id: e.id, title: e.title, price: `${money(e.dayRateMinor, e.currency)} per day · ${e.units} unit${e.units === 1 ? "" : "s"}` }))].map(l => {
+          const ph = listingPhotos.get(l.id) ?? [];
+          return <li key={l.id} className="card p-5"><div className="flex flex-wrap items-center justify-between gap-2"><span><span className="font-medium">{l.title}</span> <span className="text-sm text-muted">· {l.price}</span></span><span className="text-sm text-muted">{ph.length} photo{ph.length === 1 ? "" : "s"}</span></div>
+            <div className="mt-4"><PhotoManager kind={l.kind} ownerId={l.id} handle={v.handle} photos={ph} max={MAX_PER_OWNER[l.kind]} label={l.title} /></div></li>;
+        })}</ul></section>}
       <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_420px]">
         <section aria-labelledby="req"><h2 id="req" className="font-display text-2xl">Booking requests</h2>
           {bookings.length === 0 ? (

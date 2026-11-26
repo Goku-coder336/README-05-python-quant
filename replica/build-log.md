@@ -25,3 +25,4 @@ Verified: full journey in a browser at 390px and 1440px (vendor joins, lists gea
 | Admin vendors `/admin/vendors` | 2026-11-27 | done | Review list, verify or remove badge with a private note; every action logged. |
 | Admin waitlist `/admin/waitlist` | 2026-11-27 | done | By city and role, latest sign-ups, CSV download with spreadsheet formula injection blocked. |
 | Admin checklists `/admin/templates` | 2026-11-27 | done | Edit, add and delete checklist items per tradition; budget share total shown. New plans use the changes. |
+| Photos (dashboard, cards, galleries, portfolio) | 2026-11-27 | done | Upload, delete, set cover; cover on cards; gallery on listing pages; portfolio on profiles. Test caught the photo section collapsing after upload; fixed. No alt text editing yet. |
