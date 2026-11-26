@@ -29,8 +29,8 @@ export const cities = (countryCode?: string) =>
 export const city = (countryCode: string, slug: string) =>
   one<Region>(`select ${REGION} from regions where kind='city' and country_code = upper($1) and slug = $2`, [countryCode, slug]);
 export const region = (id: string) => one<Region>(`select ${REGION} from regions where id = $1`, [id]);
-export const traditions = () => q<Tradition>(`select id, slug, name from traditions order by name`);
-export const categories = () => q<Category>(`select id, slug, name, kind, icon from categories order by kind desc, name`);
+export const traditions = () => q<Tradition>(`select id, slug, name from traditions where active order by name`);
+export const categories = () => q<Category>(`select id, slug, name, kind, icon from categories where active order by kind desc, name`);
 export const category = (slug: string) => one<Category>(`select id, slug, name, kind, icon from categories where slug = $1`, [slug]);
 
 // ---------- discovery ----------

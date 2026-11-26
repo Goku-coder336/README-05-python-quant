@@ -4,7 +4,7 @@ import { template, templateItems } from "@/lib/admin";
 import { categories } from "@/lib/data";
 import { TemplateItemForm } from "@/components/TemplateItemForm";
 import { deleteItemAction } from "../../actions";
-export default async function EditTemplate({ params }: { params: Promise<{ id: string }> }) {
+export default async function EditTemplate({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ new?: string }> }) {
   const id = (await params).id; const t = await template(id); if (!t) notFound();
   const [items, cats] = await Promise.all([templateItems(id), categories()]);
   const subEvents = [...new Set(items.map(i => i.subEvent))]; const total = items.reduce((s, i) => s + i.budgetShare, 0);
@@ -12,6 +12,7 @@ export default async function EditTemplate({ params }: { params: Promise<{ id: s
   return (
     <div>
       <Link href="/admin/templates" className="text-sm text-muted hover:underline">← All checklists</Link>
+      {(await searchParams).new === "1" && <p role="status" className="mt-4 rounded-2xl bg-sage px-4 py-3 text-sm text-success">Created. Adjust the items below; customers get this checklist for new plans straight away.</p>}
       <h1 className="mt-2 font-display text-4xl">{t.tradition ?? "Any tradition"} {t.eventType.toLowerCase()}{t.sizeTier === "intimate" ? ", intimate" : ""}</h1>
       <p className={`mt-2 text-sm ${total === 100 ? "text-muted" : "text-danger"}`}>Budget shares add up to {total}%{total !== 100 && ". Aim for 100% so suggested amounts match the customer's budget."}</p>
       <datalist id={`se-${id}`}>{subEvents.map(s => <option key={s} value={s} />)}</datalist>

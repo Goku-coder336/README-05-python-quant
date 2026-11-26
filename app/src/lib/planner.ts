@@ -3,7 +3,7 @@ import { one, pool, q } from "./db";
 // Event planner data. Every function that reads or changes an event takes the
 // signed-in user's id and only touches events that user owns.
 
-export type EventType = { id: string; slug: string; name: string; icon: string };
+export type EventType = { id: string; slug: string; name: string; icon: string; grp: string };
 export type EventRow = {
   id: string; title: string; eventTypeId: string; eventType: string; traditionId: string | null; tradition: string | null;
   cityId: string; city: string; citySlug: string; countryCode: string; guestCount: number | null; sizeTier: "intimate" | "standard";
@@ -17,7 +17,8 @@ export type EventItem = {
 export type ShortlistEntry = { eventItemId: string; itemKind: "service" | "equipment"; itemId: string; title: string; vendor: string; priceMinor: number; currency: string };
 export type EventBooking = { id: string; eventItemId: string | null; itemTitle: string; status: string; subtotalMinor: number; currency: string; startsOn: string };
 
-export const eventTypes = () => q<EventType>(`select id, slug, name, icon from event_types order by sort`);
+const GROUP_ORDER = `array_position(array['Weddings and family','Religious and cultural','Parties and celebrations','Business and professional','Community and public','Something else'], grp)`;
+export const eventTypes = () => q<EventType>(`select id, slug, name, icon, grp from event_types where active order by ${GROUP_ORDER} nulls last, sort, name`);
 
 const EVENT = `e.id, e.title, e.event_type_id as "eventTypeId", et.name as "eventType", e.tradition_id as "traditionId", t.name as tradition,
   e.city_id as "cityId", r.name as city, r.slug as "citySlug", lower(r.country_code) as "countryCode", e.guest_count as "guestCount",

@@ -1,27 +1,32 @@
 "use client";
 import { useActionState, useState } from "react";
 import { createEventAction, type FormState } from "@/app/actions";
-import { CategoryIcon } from "./Icon";
 
 type Opt = { id: string; name: string };
-export function PlanForm({ types, traditions, cities }: { types: (Opt & { icon: string })[]; traditions: Opt[]; cities: (Opt & { group: string })[] }) {
+export function PlanForm({ types, traditions, cities }: { types: (Opt & { icon: React.ReactNode; grp: string })[]; traditions: Opt[]; cities: (Opt & { group: string })[] }) {
   const [state, action, pending] = useActionState<FormState, FormData>(createEventAction, {});
   const v = state.fields ?? {};
   const [type, setType] = useState(v.eventTypeId ?? types[0]?.id);
+  const groups2 = [...new Set(types.map(t => t.grp))];
+  const [grp, setGrp] = useState(types.find(t => t.id === type)?.grp ?? groups2[0]);
   const [guests, setGuests] = useState(v.guestCount ?? "");
   const intimate = guests !== "" && Number(guests) > 0 && Number(guests) <= 50;
   const groups = [...new Set(cities.map(c => c.group))];
   return (
     <form action={action} className="grid gap-6" noValidate>
       <fieldset><legend className="label">What are you planning?</legend>
-        <div className="mt-1 grid grid-cols-2 gap-2 sm:grid-cols-3">
-          {types.map(t => (
-            <label key={t.id} className={`flex cursor-pointer items-center gap-2 rounded-2xl border px-4 py-3 transition ${type === t.id ? "border-brown bg-latte" : "border-line bg-paper hover:border-brown"}`}>
+        <div className="mt-1 flex flex-wrap gap-2" role="tablist" aria-label="Kind of event">
+          {groups2.map(g => <button key={g} type="button" role="tab" aria-selected={grp === g} onClick={() => setGrp(g)} className={grp === g ? "chip-on" : "chip"}>{g}</button>)}
+        </div>
+        <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3" role="radiogroup">
+          {types.filter(t => t.grp === grp).map(t => (
+            <label key={t.id} className={`flex min-h-12 cursor-pointer items-center gap-2 rounded-2xl border px-4 py-3 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-brown ${type === t.id ? "border-brown bg-latte" : "border-line bg-paper hover:border-brown"}`}>
               <input type="radio" name="eventTypeId" value={t.id} checked={type === t.id} onChange={() => setType(t.id)} className="sr-only" />
-              <CategoryIcon name={t.icon} size={20} /><span className="font-medium">{t.name}</span>
+              <span className="shrink-0 text-brown">{t.icon}</span><span className="text-sm font-medium leading-snug">{t.name}</span>
             </label>
           ))}
         </div>
+        <p className="mt-2 text-xs text-muted">Selected: <strong>{types.find(t => t.id === type)?.name}</strong></p>
       </fieldset>
       <div className="grid gap-4 sm:grid-cols-2">
         <div><label className="label" htmlFor="traditionId">Tradition <span className="font-normal text-muted">(shapes your checklist)</span></label>

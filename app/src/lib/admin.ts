@@ -1,3 +1,4 @@
+import crypto from "node:crypto";
 import { redirect, notFound } from "next/navigation";
 import { currentUser, type User } from "./auth";
 import { one, pool, q } from "./db";
@@ -66,3 +67,57 @@ export async function deleteTemplateItem(adminId: string, templateId: string, it
 }
 export const recentLog = () => q<{ action: string; target: string; email: string | null; createdAt: string }>(`select l.action, l.target, u.email, l.created_at as "createdAt"
   from admin_log l left join users u on u.id = l.admin_id order by l.created_at desc limit 15`);
+
+// ---------- catalogue: event types, categories, traditions, new checklists ----------
+const slugify = (s: string) => s.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "").slice(0, 40);
+export type AdminEventType = { id: string; name: string; grp: string; icon: string; active: boolean; templates: number; plans: number };
+export const adminEventTypes = () => q<AdminEventType>(`select et.id, et.name, et.grp, et.icon, et.active,
+  (select count(*)::int from event_templates t where t.event_type_id = et.id) as templates, (select count(*)::int from events e where e.event_type_id = et.id) as plans
+  from event_types et order by et.grp, et.sort, et.name`);
+export const adminCategories = () => q<{ id: string; name: string; kind: string; icon: string; active: boolean; listings: number }>(`select k.id, k.name, k.kind, k.icon, k.active,
+  (select count(*)::int from services s where s.category_id = k.id) + (select count(*)::int from equipment e where e.category_id = k.id) as listings from categories k order by k.kind desc, k.name`);
+export const adminTraditions = () => q<{ id: string; name: string; active: boolean }>(`select id, name, active from traditions order by name`);
+
+export async function createEventType(adminId: string, i: { name: string; grp: string; icon: string }) {
+  const slug = slugify(i.name); if (!slug) return { error: "Enter a name." };
+  const r = await one<{ id: string }>(`insert into event_types (id, slug, name, icon, grp, sort) values ($1,$2,$3,$4,$5, coalesce((select max(sort)+1 from event_types), 1))
+    on conflict do nothing returning id`, [`et-${slug}`, slug, i.name, i.icon, i.grp]);
+  if (!r) return { error: "An event type with that name already exists." };
+  // Every new type starts with a simple checklist so customers never see an empty plan.
+  const tpl = `tp-${slug}`;
+  await pool.query(`insert into event_templates values ($1,$2,null,'standard') on conflict do nothing`, [tpl, r.id]);
+  await pool.query(`insert into event_template_items (template_id, category_id, sub_event, label, budget_share, sort) values
+    ($1,'k-venue','Main event','Venue',30,1), ($1,'k-cater','Main event','Food and drinks',35,2), ($1,'k-decor','Main event','Decor',15,3), ($1,'k-sound','Main event','Sound',10,4), ($1,'k-photo','Main event','Photography',10,5)`, [tpl]);
+  await log(adminId, "event_type.create", r.id, i);
+  return { id: r.id, templateId: tpl };
+}
+
+export async function createCategory(adminId: string, i: { name: string; kind: "service" | "equipment"; icon: string }) {
+  const slug = slugify(i.name); if (!slug) return { error: "Enter a name." };
+  const r = await one<{ id: string }>(`insert into categories (id, slug, name, kind, icon) values ($1,$2,$3,$4,$5) on conflict do nothing returning id`, [`k-${slug}`, slug, i.name, i.kind, i.icon]);
+  if (!r) return { error: "A category with that name already exists." };
+  await log(adminId, "category.create", r.id, i); return { id: r.id };
+}
+
+export async function createTradition(adminId: string, name: string) {
+  const slug = slugify(name); if (!slug) return { error: "Enter a name." };
+  const r = await one<{ id: string }>(`insert into traditions (id, slug, name) values ($1,$2,$3) on conflict do nothing returning id`, [`t-${slug}`, slug, name]);
+  if (!r) return { error: "That tradition already exists." };
+  await log(adminId, "tradition.create", r.id, { name }); return { id: r.id };
+}
+
+const TABLES = { event_type: "event_types", category: "categories", tradition: "traditions" } as const;
+export async function setActive(adminId: string, what: keyof typeof TABLES, id: string, active: boolean) {
+  await pool.query(`update ${TABLES[what]} set active = $2 where id = $1`, [id, active]);
+  await log(adminId, `${what}.${active ? "show" : "hide"}`, id);
+}
+
+/** New checklist for an occasion + tradition + size, optionally copied from an existing checklist. */
+export async function createTemplate(adminId: string, i: { eventTypeId: string; traditionId: string | null; sizeTier: "intimate" | "standard"; copyFrom: string | null }) {
+  const id = `tp-${crypto.randomUUID().slice(0, 8)}`;
+  const r = await pool.query(`insert into event_templates values ($1,$2,$3,$4) on conflict do nothing`, [id, i.eventTypeId, i.traditionId, i.sizeTier]);
+  if (!r.rowCount) return { error: "A checklist for that occasion, tradition and size already exists. Edit that one instead." };
+  if (i.copyFrom) await pool.query(`insert into event_template_items (template_id, category_id, sub_event, label, note, budget_share, sort)
+    select $1, category_id, sub_event, label, note, budget_share, sort from event_template_items where template_id = $2`, [id, i.copyFrom]);
+  await log(adminId, "template.create", id, i); return { id };
+}
