@@ -32,7 +32,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <footer className="mt-24 border-t border-line">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-10 text-sm text-muted md:px-8">
             <span className="font-display text-xl text-ink">Fest<span className="text-caramel">o</span>ra</span>
-            <span>Preview build. Sample vendors and prices.</span>
+            <nav aria-label="Legal" className="flex flex-wrap gap-4"><Link href="/legal/terms" className="hover:underline">Terms</Link><Link href="/legal/privacy" className="hover:underline">Privacy</Link><Link href="/legal/refunds" className="hover:underline">Refunds</Link><Link href="/contact" className="hover:underline">Contact</Link></nav>
           </div>
         </footer>
       </body>

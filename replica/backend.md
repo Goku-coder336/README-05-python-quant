@@ -38,4 +38,4 @@ Every variable is listed in `app/.env.example`. `.env*` files are git-ignored (c
 - [x] uploads: content-sniffed type, size and count limits, re-encoded with metadata stripped, served from a separate bucket domain; local route rejects path tricks (tested)
 - [x] no personal data in URLs or logs (dev-only code logging is disabled in production)
 - [~] dependencies audited: fixed `sharp` and moved to `zod` 4. **Open:** a PostCSS advisory inside Next.js 15's build tooling; the fix is Next.js 16, a major upgrade to schedule. It affects CSS processing at build time, not visitor requests.
-- [ ] privacy policy lists processors (Supabase, Resend, Razorpay, Stripe, Meta, host)
+- [~] privacy policy lists processors (Supabase, Resend, Razorpay, Stripe, Meta, host): drafted at /legal/privacy; hosting provider name and retention period still to fill; needs legal review
